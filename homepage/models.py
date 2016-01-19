@@ -37,7 +37,7 @@ class Listing(models.Model):
     category = models.CharField(max_length=255, blank=True, null=True)
     price_per_hour = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)
     listing_type = models.CharField(max_length=255, blank=True, null=True)
-    description = models.CharField(max_length=255, blank=True, null=True)
+    description = models.CharField(max_length=500, blank=True, null=True)
     sq_footage = models.IntegerField(blank=True, null=True)
     num_guests = models.IntegerField(blank=True, null=True)
     parking_desc = models.CharField(max_length=255, blank=True, null=True)
@@ -60,14 +60,14 @@ class Photo(models.Model):
 class Review(models.Model):
     '''A user gives a listing a review'''
     rating = models.IntegerField(blank=True, null=True)
-    description = models.CharField(max_length=255, blank=True, null=True)
+    description = models.CharField(max_length=500, blank=True, null=True)
     listing = models.ForeignKey('Listing')
     user = models.ForeignKey(User)
     
 class Feature(models.Model):
     '''A feature that a listing has'''
     name = models.CharField(max_length=255, blank=True, null=True)
-    description = models.CharField(max_length=255, blank=True, null=True)
+    description = models.CharField(max_length=500, blank=True, null=True)
     
     def __str__(self):
         return self.name
@@ -79,18 +79,20 @@ class Listing_Feature(models.Model):
         
 class Add_On(models.Model):
     item_name = models.CharField(max_length=255, blank=True, null=True)
-    description = models.CharField(max_length=255, blank=True, null=True)
-    quantity_available = models.CharField(max_length=255, blank=True, null=True)
+    description = models.CharField(max_length=500, blank=True, null=True)
+    quantity_available = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)
     price_per = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)
     listing = models.ForeignKey('Listing')
     
 class Listing_Date(models.Model):
+    '''The dates that the venue is avaible or not . . . false = blocked out, true = available'''
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
     status = models.NullBooleanField(default=False, blank=True, null=True)
     listing = models.ForeignKey('Listing')
     
 class Rental_Request(models.Model):
+    '''When a user makes a request to rent a venue'''
     notes = models.CharField(max_length=255, blank=True, null=True)
     approved = models.NullBooleanField(default=False, blank=True, null=True)
     user = models.ForeignKey(User)
@@ -107,6 +109,7 @@ class Transaction(models.Model):
     rental_request = models.ForeignKey('Rental_Request')
     
 class Message(models.Model):
+    '''A message between two users in the system'''
     time_stamp = models.DateTimeField(blank=True, null=True)
     subject = models.CharField(max_length=255, blank=True, null=True)
     body = models.CharField(max_length=255, blank=True, null=True)
