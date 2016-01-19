@@ -15,25 +15,6 @@ import datetime
 
 ######### Add some test data to the system ############################
 
-# Address
-a = hmod.Address()
-a.address_type = "User address"
-a.street = "125 N. 500 S."
-a.street2 = "Apt. 2A"
-a.city = "Provo"
-a.state = "UT"
-a.zipcode = "84606"
-a.save()
-
-a2 = hmod.Address()
-a2.address_type = "Venue address"
-a2.street = "400 S. State Street"
-a2.street2 = ""
-a2.city = "Orem"
-a2.state = "UT"
-a2.zipcode = "84048"
-a2.save()
-
 # User
 u = hmod.User()
 u.first_name = "Lauren"
@@ -41,7 +22,6 @@ u.last_name = "Livingston"
 u.username = "laurenll"
 u.email = "laurenl@fiber.net"
 u.phone = "8016168231"
-u.address = a
 u.is_active = True
 u.save()
 
@@ -51,7 +31,6 @@ u2.last_name = "Burbidge"
 u2.username = "shellyb"
 u2.email = "shelly.burbidge@gmail.com"
 u2.phone = "8016678890"
-u2.address = a2
 u2.is_active = True
 u2.save()
 
@@ -65,8 +44,12 @@ l.description = "This is a nice, quiet backyard in the countryside. We love havi
 l.sq_footage = 2000
 l.num_guests = 200
 l.parking_desc = "There is parking for about 100, and more parking on the street. Might require a short walk if guests have to park a little bit further down the road."
+l.street = "1030 E State Street"
+l.street2 = "Apt. 2A"
+l.city = "Lindon"
+l.state = "UT"
+l.zipcode = "84042"
 l.user = u
-l.address = a2
 l.save()
 
 l2 = hmod.Listing()
@@ -79,7 +62,6 @@ l2.sq_footage = 4000
 l2.num_guests = 400
 l2.parking_desc = "There is parking for about 100, and more parking on the street. Might require a short walk if guests have to park a little bit further down the road."
 l2.user = u2
-l2.address = a
 l2.save()
 
 # Photo
