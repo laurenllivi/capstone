@@ -2,5 +2,14 @@
 capstone/.DS_Store
 homepage/.DS_Store
 capstone/__init__.pyc
-capstone/settings/pyc
+capstone/settings.pyc
+capstone/urls.pyc
+capstone/wsgi.pyc
+homepage/__init__.pyc
+homepage/admin.pyc
+homepage/migrations/0001_initial.pyc
+homepage/migrations/__init__.pyc
+homepage/models.pyc
+homepage/urls.pyc
+homepage/views.pyc
 
