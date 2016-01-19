@@ -1,18 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser 
 from django.conf import settings
-
-class Address(models.Model):
-    '''Address object'''   
-    address_type = models.CharField(max_length=255, blank=True, null=True)
-    street = models.CharField(max_length=255, blank=True, null=True)
-    street2 = models.CharField(max_length=255, blank=True, null=True)
-    city = models.CharField(max_length=255, blank=True, null=True)
-    state = models.CharField(max_length=255, blank=True, null=True)
-    zipcode = models.CharField(max_length=255, blank=True, null=True)
-    
-    def __str__(self):
-        return self.street
         
 class User(AbstractUser):
     '''Extension of Django's user class'''
@@ -26,7 +14,6 @@ class User(AbstractUser):
     # email
     # password included??
     phone = models.CharField(max_length=15, blank=True, null=True)
-    address = models.ForeignKey('Address')
     
     def __str__(self):
         return self.first_name + " " + self.last_name
@@ -41,8 +28,12 @@ class Listing(models.Model):
     sq_footage = models.IntegerField(blank=True, null=True)
     num_guests = models.IntegerField(blank=True, null=True)
     parking_desc = models.CharField(max_length=255, blank=True, null=True)
+    street = models.CharField(max_length=255, blank=True, null=True)
+    street2 = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=255, blank=True, null=True)
+    state = models.CharField(max_length=255, blank=True, null=True)
+    zipcode = models.CharField(max_length=255, blank=True, null=True)
     user = models.ForeignKey('User')
-    address = models.ForeignKey('Address')
     
     def __str__(self):
         return self.title
