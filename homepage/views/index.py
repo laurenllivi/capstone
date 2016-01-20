@@ -1,10 +1,18 @@
-from django.shortcuts import render
 from django.http import HttpResponse
-
-# def index(request):
-#     return HttpResponse("Hello, world! This is the homepage (homepage app).")
+from django.template import loader
+from django.shortcuts import render
 
 def index(request):
-    return HttpResponse("Hello, world! This is a test.")
+    output = "This is a test."
+    
+    template = loader.get_template('homepage/index.html')
+    
+    # the equivalent of template_vars in DMP
+    context = {
+        'output' : output,
+    }
+    # return HttpResponse(template.render(context, request))
+    # below is the shortcut to use instead of the line above
+    return render(request, 'homepage/index.html', context)
 
 
