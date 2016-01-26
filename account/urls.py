@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from homepage import views
+from account import views
 
 urlpatterns = [
-
+    url(r'^login/$', views.login, name='login'),
 ]
