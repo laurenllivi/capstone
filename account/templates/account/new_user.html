@@ -1,9 +1,16 @@
-{% extends 'capstone/base.html' %}
+{% extends 'capstone/base_alt.html' %}
 
-{% block content %}
+<section id="main" class="wrapper">
+    <div class="container">
 
-<div class="main_center_content">
-{{ form }}
-</div><!-- new_user_form -->
+        {% block content %}
+        <form method="POST">
+            {{ form }}
+            <br>
+            <input type="submit" value="Submit">
+        </form>
 
-{% endblock %}
+        {% endblock %}
+
+    </div><!-- container -->
+</section>
