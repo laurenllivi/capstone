@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django import forms
 from homepage import models as hmod
@@ -24,11 +24,13 @@ def new_user(request):
             newUser.phone = form.cleaned_data['phone']
             newUser.save()
             
+            return HttpResponseRedirect('/account/profile')
+            
     # the equivalent of template_vars in DMP
     context = {
         'form' : form,
     }
-    return render(request, 'account/profile.html', context)
+    return render(request, 'account/new_user.html', context)
     
 class New_User_Form(forms.Form):
     first_name = forms.CharField(widget=forms.TextInput())
