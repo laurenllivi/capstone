@@ -1,3 +1,10 @@
+/***************** Header *****************/
+.header-clear {
+    background-color: rgba(0,0,0,0) !important;
+    position:absolute;
+}
+
+
 /***************** Footer *****************/
 
 #footer
@@ -34,9 +41,4 @@ footer ul.icons li
     width:80%;
     margin-left:auto;
     margin-right:auto;
-}
-
-#signup-form-container input
-{
-
 }
