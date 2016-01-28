@@ -76,6 +76,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'capstone.wsgi.application'
 
+# for sending emails
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'laurenllivingston@gmail.com'
+EMAIL_HOST_PASSWORD = ''
+
 DB_PASS = open('/var/capstone/pass.txt', 'r').read().strip()
 
 # Database
