@@ -111,6 +111,17 @@ Main Components
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+.cd-accordion-menu input[type="checkbox"] + label
+{
+  padding-left: 0.4em !important;
+}
+.cd-accordion-menu input[type="checkbox"]:checked + label:before,
+.cd-accordion-menu input[type="radio"]:checked + label:before,
+.cd-accordion-menu input[type="checkbox"] + label:before,
+.cd-accordion-menu input[type="radio"] + label:before
+{
+  display: none !important;
+}
 .cd-accordion-menu input[type=checkbox]:checked + label::after {
   /* show open folder icon if item is checked */
   background-position: -32px 0;
