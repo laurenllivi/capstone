@@ -4,11 +4,21 @@
     <div class="container">
 
         {% block content %}
-        <form method="POST">
-            {{ form }}
-            <br>
-            <input type="submit" value="Submit">
-        </form>
+
+        <section id="main" class="wrapper">
+            <div class="container">
+                <h2 id="signup-heading">Sign Up</h2>
+
+                <div id="signup-form-container">
+                    <form method="POST">
+                            {{ form }}
+                        <br>
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+
+            </div>
+        </section>
 
         {% endblock %}
 
