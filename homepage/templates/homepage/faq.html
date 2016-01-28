@@ -1,4 +1,4 @@
-{% extends 'capstone/base_alt.html' %}
+{% extends 'capstone/base.html' %}
 {% load staticfiles %}
 
 {% block stylesheets %}
@@ -6,40 +6,46 @@
 {% endblock %}
 
 {% block content %}
+    <section id="main" class="wrapper">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
 
-    <h2>Frequently Asked Questions</h2>
+            <ul class="cd-accordion-menu">
+                <li class="has-children">
+                    <input type="checkbox" name ="group-1" id="group-1">
+                    <label for="group-1">How does COMPANYNAME work?</label>
+                    <ul>
+                        <li>And Here is the answer</li>
+                    </ul>
+                </li>
+                <li class="has-children">
+                    <input type="checkbox" name ="group-2" id="group-2">
+                    <label for="group-2">What kind of space can I list as a venue?</label>
+                    <ul>
+                        <li>And Here is the answer</li>
+                    </ul>
+                </li>
+                <li class="has-children">
+                    <input type="checkbox" name ="group-3" id="group-3">
+                    <label for="group-3">How do I contact a venue owner?</label>
+                    <ul>
+                        <li>And Here is the answer</li>
+                    </ul>
+                </li>
+                <li class="has-children">
+                    <input type="checkbox" name ="group-4" id="group-4">
+                    <label for="group-4">How do I pay securely for a venue rental?</label>
+                    <ul>
+                        <li>And Here is the answer</li>
+                    </ul>
+                </li>
 
-    <ul class="cd-accordion-menu">
-        <li class="has-children">
-            <input type="checkbox" name ="group-1" id="group-1">
-            <label for="group-1">How does COMPANYNAME work?</label>
-            <ul>
-                <li>And Here is the answer</li>
-            </ul>
-        </li>
-        <li class="has-children">
-            <input type="checkbox" name ="group-2" id="group-2">
-            <label for="group-2">What kind of space can I list as a venue?</label>
-            <ul>
-                <li>And Here is the answer</li>
-            </ul>
-        </li>
-        <li class="has-children">
-            <input type="checkbox" name ="group-3" id="group-3">
-            <label for="group-3">How do I contact a venue owner?</label>
-            <ul>
-                <li>And Here is the answer</li>
-            </ul>
-        </li>
-        <li class="has-children">
-            <input type="checkbox" name ="group-4" id="group-4">
-            <label for="group-4">How do I pay securely for a venue rental?</label>
-            <ul>
-                <li>And Here is the answer</li>
-            </ul>
-        </li>
+            </ul> <!-- cd-accordion-menu -->
+        </div>
+    </section>
 
-    </ul> <!-- cd-accordion-menu -->
+{% endblock %}
 
-
+{% block footer %}
+    {% include "partials/_footer.html" %}
 {% endblock %}

@@ -1,4 +1,14 @@
-{% extends 'capstone/base_alt.html' %}
+{% extends 'capstone/base.html' %}
 {% load staticfiles %}
 
-<h2>This is the about us page.</h2>
+{% block content %}
+<section id="main" class="wrapper">
+    <div class="container">
+        <h2>This is the about us page.</h2>
+    </div>
+</section>
+{% endblock %}
+
+{% block footer %}
+    {% include "partials/_footer.html" %}
+{% endblock %}
