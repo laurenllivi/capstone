@@ -1,4 +1,46 @@
 {% extends 'capstone/base_alt.html' %}
 {% load staticfiles %}
 
-<h2>This is the FAQ page</h2>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'multi-level-accordion-menu/css/style.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+    <h2>Frequently Asked Questions</h2>
+
+    <ul class="alt">
+        <li>How does COMPANYNAME work?</li>
+        <li>What kind of space can I list as a venue?</li>
+        <li>What kind of space can I list as a venue?</li>
+        <li>How do I contact a venue owner?</li>
+        <li>How do I pay securely for a venue rental?</li>
+    </ul>
+
+    <ul class="cd-accordion-menu">
+        <li class="has-children">
+            <input type="checkbox" name ="group-1" id="group-1" checked>
+            <label for="group-1">Group 1</label>
+
+            <ul>
+                <li class="has-children">
+                    <input type="checkbox" name ="sub-group-1" id="sub-group-1">
+                    <label for="sub-group-1">Sub Group 1</label>
+
+                    <ul>
+                        <li><a href="#0">Image</a></li>
+                        <li><a href="#0">Image</a></li>
+                        <li><a href="#0">Image</a></li>
+                    </ul>
+                </li>
+                <li><a href="#0">Image</a></li>
+                <li><a href="#0">Image</a></li>
+            </ul>
+        </li>
+
+        <li><a href="#0">Image</a></li>
+        <li><a href="#0">Image</a></li>
+    </ul> <!-- cd-accordion-menu -->
+
+
+{% endblock %}
