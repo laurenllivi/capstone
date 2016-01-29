@@ -4,6 +4,10 @@
     position:absolute;
 }
 
+.main-content-heading
+{
+    margin-left: 10%;
+}
 
 /***************** Footer *****************/
 
@@ -30,11 +34,6 @@ footer ul.icons li
 }
 
 /***************** Sign up page *****************/
-
-#signup-heading
-{
-    margin-left:10%;
-}
 
 #signup-form-container
 {

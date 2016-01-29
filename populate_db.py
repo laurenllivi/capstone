@@ -20,6 +20,7 @@ u = hmod.User()
 u.first_name = "Lauren"
 u.last_name = "Livingston"
 u.username = "laurenll"
+u.set_password('1234')
 u.email = "laurenl@fiber.net"
 u.phone = "8016168231"
 u.is_active = True
@@ -29,6 +30,7 @@ u2 = hmod.User()
 u2.first_name = "Shelly"
 u2.last_name = "Burbidge"
 u2.username = "shellyb"
+u2.set_password('1234')
 u2.email = "shelly.burbidge@gmail.com"
 u2.phone = "8016678890"
 u2.is_active = True
