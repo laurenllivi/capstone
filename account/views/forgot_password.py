@@ -35,7 +35,7 @@ def forgot_password(request):
             from_email = settings.EMAIL_HOST_USER
             to_list = [ email ]
 
-            send_mail(subject, message, from_email, to_list, fail_silently=True)
+            send_mail(subject, message, from_email, to_list, fail_silently=False)
             
             #return HttpResponseRedirect('/account/reset_confirmation')
             return HttpResponseRedirect("/account/reset_confirmation/?type=%s" %('sent'))

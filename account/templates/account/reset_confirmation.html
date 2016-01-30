@@ -2,7 +2,19 @@
 
 {% block content %}
 
-  <h3>Thank you!</h3> 
-  <h4>Please check your email for a reset link.</h4>
+    {% if request.GET.type == "sent" %}
+
+        I STILL NEED TO FIX THIS MESSAGE
+        <h3>Thank you!</h3> 
+        <h4>Please check your email for a reset link.</h4>
+    
+    {% else %}
+    
+        I STILL NEED TO FIX THIS MESSAGE
+        <h3>Thank you!</h3>
+        <h4>Your password has been reset.</h4>
+        <h5>You can login again <a href='/account/login'>here</a>.</h5> 
+        
+    {% endif %}  
 
 {% endblock %}

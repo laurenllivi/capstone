@@ -8,5 +8,7 @@ urlpatterns = [
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^forgot_password/$', views.forgot_password, name='forgot_password'),
     url(r'^reset_confirmation/$', TemplateView.as_view(template_name='account/reset_confirmation.html')),
+    url(r'^reset_password/$', views.reset_password, name='reset_password'),
+    
     
 ]
