@@ -3,14 +3,14 @@
     <nav id="nav">
         <ul>
             <li><a href="">Find a Venue</a></li>
-            <li><a href="">Post a Venue</a></li>
+             <li><a href="/venue/post_venue">Post a Venue</a></li>
             
             {% if user.is_authenticated %}
             
             <li><a href="/account/logout">Logout</a></li>
             
             {% else %}
-            
+
             <li><a href="/account/new_user">Sign Up</a></li>
             <li><a href="/account/login">Login</a></li>
             
