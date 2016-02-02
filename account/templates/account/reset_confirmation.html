@@ -8,20 +8,18 @@
     <section id="main" class="wrapper">
         <div class="container">
 
-            {% if request.GET.type == sent %}
-
-                NEED TO FIX THIS MESSAGE!!
-                <h2 class="main-content-heading">Thank you!</h2> 
+            {% if sent_or_reset == "sent" %}
+            
+                <h2 class="main-content-heading">Password Reset</h2> 
                 <div class="main-content-container">
                     <h4>Please check your email for a reset link.</h4>
                 </div>
     
             {% else %}
     
-                <h2 class="main-content-heading">Thank you!</h2>
+                <h2 class="main-content-heading">Reset Confirmation</h2>
                 <div class="main-content-container">
-                    <h4>Your password has been reset.</h4>
-                    <h5>You can login again <a href='/account/login'>here</a>.</h5> 
+                    <h4>Your password has been reset. You can login again <a href='/account/login'>here</a>.</h4> 
                 </div>
         
             {% endif %}  
