@@ -22,7 +22,7 @@ def manage_venue(request, listing_id):
 
     if request.method == 'POST':
         form = NewVenueForm(request.POST)
-        print "method was post"
+        print ("method was post")
 
         if form.is_valid():
             listing.title = form.cleaned_data['title']
@@ -34,11 +34,11 @@ def manage_venue(request, listing_id):
             listing.state = form.cleaned_data['state']
             listing.zipcode = form.cleaned_data['zipcode']
             listing.save()
-            print "Form was valid"
+            print ("Form was valid")
 
             return HttpResponseRedirect('/venue/manage_venue/%s' % listing_id)
 
-        print "Form was NOT valid"
+        print ("Form was NOT valid")
 
     # the equivalent of template_vars in DMP
     context = {
