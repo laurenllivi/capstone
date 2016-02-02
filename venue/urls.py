@@ -2,5 +2,5 @@ from django.conf.urls import url
 from venue import views
 
 urlpatterns = [
-    url(r'^post_venue/$', views.post_venue, name='post_venue'),
+    url(r'^manage_venue/(?P<listing_id>[0-9]+)/$', views.manage_venue, name='manage_venue'),
 ]
