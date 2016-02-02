@@ -2,9 +2,18 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django import forms
 from homepage import models as hmod
+from django.contrib.auth.decorators import login_required
 
+# make sure the user is logged in before accessing this view
+# redirects the user to the previous url after login
+
+@login_required
 def manage_venue(request, listing_id):
     '''create new listing'''
+    
+    #authenticate the user
+    #if not request.user.is_authenticated():
+       #return HttpResponseRedirect('/account/login/')
 
     # create the new venue form
     listing = hmod.Listing.objects.get(id=listing_id)

@@ -26,6 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# added to work with the @login_required decorator
+LOGIN_URL = "/account/login"
+
 
 # Application definition
 
