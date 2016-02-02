@@ -1,19 +1,35 @@
 {% extends 'capstone/base.html' %}
 
+<section id="main" class="wrapper">
+    <div class="container">
+
 {% block content %}
 
-    {% if request.GET.type == sent %}
+    <section id="main" class="wrapper">
+        <div class="container">
 
-        NEED TO FIX THIS MESSAGE!!
-        <h3>Thank you!</h3> 
-        <h4>Please check your email for a reset link.</h4>
+            {% if request.GET.type == sent %}
+
+                NEED TO FIX THIS MESSAGE!!
+                <h2 class="main-content-heading">Thank you!</h2> 
+                <div class="main-content-container">
+                    <h4>Please check your email for a reset link.</h4>
+                </div>
     
-    {% else %}
+            {% else %}
     
-        <h3>Thank you!</h3>
-        <h4>Your password has been reset.</h4>
-        <h5>You can login again <a href='/account/login'>here</a>.</h5> 
+                <h2 class="main-content-heading">Thank you!</h2>
+                <div class="main-content-container">
+                    <h4>Your password has been reset.</h4>
+                    <h5>You can login again <a href='/account/login'>here</a>.</h5> 
+                </div>
         
-    {% endif %}  
+            {% endif %}  
+    
+        </div>
+    </section>
 
 {% endblock %}
+
+    </div><!-- container -->
+</section>

@@ -40,9 +40,17 @@
     position:absolute;
 }
 
+/**************** Main Content *************/
 .main-content-heading
 {
     margin-left: 10%;
+}
+
+.main-content-container
+{
+    width:80%;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 /***************** Footer *****************/
@@ -99,9 +107,4 @@ footer ul.icons li
 
 /***************** Sign up page *****************/
 
-#signup-form-container
-{
-    width:80%;
-    margin-left:auto;
-    margin-right:auto;
-}
+
