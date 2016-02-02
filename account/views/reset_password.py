@@ -29,7 +29,7 @@ def reset_password(request):
                  
                 # need to set the key values to null for the next time??
             
-            return HttpResponseRedirect("/account/reset_confirmation")                   
+            return HttpResponseRedirect("/account/reset_confirmation/?type=%s" %('reset'))                   
                 
     context = {
         'form': form, 
