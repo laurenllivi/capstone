@@ -1,7 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser 
 from django.conf import settings
-        
+
+class User_Photo(models.Model):
+    '''profile pics for users'''
+    alt_title = models.CharField(max_length=255, blank=True, null=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
+    
+    def __str__(self):
+        return self.name   
+
 class User(AbstractUser):
     '''Extension of Django's user class'''
     # inherited from AbstractUser:
@@ -14,6 +22,7 @@ class User(AbstractUser):
     # email
     # password included??
     phone = models.CharField(max_length=15, blank=True, null=True)
+    profile_pic = models.ForeignKey('User_Photo', blank=True, null=True)
     
     def __str__(self):
         return self.first_name + " " + self.last_name
@@ -38,12 +47,11 @@ class Listing(models.Model):
     def __str__(self):
         return self.title
     
-class Photo(models.Model):
-    '''Photos for either the listing or a user'''
+class Listing_Photo(models.Model):
+    '''Photos for listings '''
     alt_title = models.CharField(max_length=255, blank=True, null=True)
     name = models.CharField(max_length=255, blank=True, null=True)
-    listing = models.ForeignKey('Listing', blank=True, null=True)
-    user = models.ForeignKey(User, blank=True, null=True)
+    listing = models.ForeignKey('Listing')
     
     def __str__(self):
         return self.name

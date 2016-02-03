@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 
 # make sure the user is logged in before accessing this view
 # redirects the user to the previous url after login
-
 @login_required
 def manage_venue(request, listing_id):
     '''create new listing'''

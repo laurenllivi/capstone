@@ -34,6 +34,41 @@
     vertical-align:middle;
 }
 
+.mini-profile-pic-wrapper
+{
+    position: relative;
+    float: right;
+    right: 50%;
+    border-radius:50px;
+}
+
+.mini-profile-pic-wrapper img
+{
+    vertical-align:middle;
+    bottom:23px;
+}
+
+.mini-profile-pic-container{
+    display:inline-block;
+    width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	vertical-align: middle;
+    vertical-align: -webkit-baseline-middle;
+	overflow: hidden;
+	z-index:0;
+	transform: translateY(0);
+}
+
+.mini-profile-pic{
+    height:40px;
+    min-width:40px;
+    position: relative;
+    right: -50%;
+}
+
 /***************** Header *****************/
 .header-clear {
     background-color: rgba(0,0,0,0) !important;

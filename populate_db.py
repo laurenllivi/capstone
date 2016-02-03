@@ -15,6 +15,17 @@ import datetime
 
 ######### Add some test data to the system ############################
 
+# Profile pics
+ph = hmod.User_Photo()
+ph.alt_title = "profile-lauren"
+ph.name = "/static/images/lauren.jpg"
+ph.save()
+
+ph2 = hmod.User_Photo()
+ph2.alt_title = "profile-shelly"
+ph2.name = "/static/images/shelly.jpg"
+ph2.save()
+
 # User
 u = hmod.User()
 u.first_name = "Lauren"
@@ -24,6 +35,7 @@ u.set_password('1234')
 u.email = "laurenl@fiber.net"
 u.phone = "8016168231"
 u.is_active = True
+u.profile_pic = ph
 u.save()
 
 u2 = hmod.User()
@@ -34,6 +46,7 @@ u2.set_password('1234')
 u2.email = "shelly.burbidge@gmail.com"
 u2.phone = "8016678890"
 u2.is_active = True
+u2.profile_pic = ph2
 u2.save()
 
 # Listing
@@ -66,12 +79,11 @@ l2.parking_desc = "There is parking for about 100, and more parking on the stree
 l2.user = u2
 l2.save()
 
-# Photo
-p = hmod.Photo()
+# Listing Photo
+p = hmod.Listing_Photo()
 p.alt_title = "backyard photo"
 p.name = "img"
 p.listing = l2
-p.user = u
 p.save()
 
 # Review

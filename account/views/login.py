@@ -14,11 +14,19 @@ def login(request):
         
         if form.is_valid():
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            
+            #get the 'next' variable if there is one
+            next_page = request.GET.get('next')
            
             # user is not none if the username exists in the database
             if user is not None:            
                 auth_login(request, user)
-                return HttpResponse('<script> window.location.href="/account/profile";</script>')
+                
+                # if the user arrived at this page anywhere other than clicking "login," they will be redirected to the previous page upon successful login
+                if next_page is not None:
+                    return HttpResponseRedirect(next_page)
+                else:
+                    return HttpResponse('<script> window.location.href="/account/profile";</script>')
             
             else:
                 # the authentication system was unable to verify the username and password
