@@ -1,0 +1,9 @@
+{% extends 'capstone/base_template.html' %}
+
+<!-- Add the extra nav bar showing account options for authenticated users -->
+{% if user.is_authenticated %}
+    {% block account_menu %}
+    	{% include "partials/_account_menu.html" %}
+    {% endblock %}
+{% endif %}
+
