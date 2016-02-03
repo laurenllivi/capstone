@@ -3,62 +3,90 @@
 
 {% block stylesheets %}
     <script src="{% static 'js/tabcontent.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/manage_venue.js' %}" type="text/javascript"></script>
+
     <link href="{% static 'css/tabcontent.css' %}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block content %}
-    Post Venue Page
-    <form method="POST">
-        {{ form.errors }}
-        {{ form.non_field_errors }}
-        <div style="width: 700px; margin: 0 auto; padding: 120px 0 40px;">
-            <ul class="tabs" data-persist="true">
-                <li><a href="#view1">General</a></li>
-                <li><a href="#view2">Features</a></li>
-                <li><a href="#view3">Location</a></li>
-                <li><a href="#view4">Photos</a></li>
-                <li><a href="#view5">Pricing</a></li>
-            </ul>
-                <div class="tabcontents">
-                    <div id="view1">
+<section id="main" class="wrapper">
+    <div class="container">
+        <form method="POST">
+            {{ form.errors }}
+            {{ form.non_field_errors }}
+            <div>
+                <ul class="tabs" data-persist="true">
+                    <li><a id="view1-link" href="#view1">General</a></li>
+                    <li><a id="view2-link" href="#view2">Features</a></li>
+                    <li><a id="view3-link" href="#view3">Location</a></li>
+                    <li><a id="view4-link" href="#view4">Photos</a></li>
+                    <li><a id="view5-link" href="#view5">Pricing</a></li>
+                </ul>
+                    <div class="tabcontents">
+                        <div class="tab" id="view1">
+                            <div {% if form.title.errors %}class="field_error"{% endif %}>
+                                Venue Title
+                                {{ form.title }}
+                            </div>
+                            <div {% if form.category.errors %}class="field_error"{% endif %}>
+                                Veune Type
+                                {{ form.category }}
+                            </div>
 
-                            Venue Title
-                            {{ form.title }}
-                            Veune Type
-                            {{ form.category }}
+                        </div>
+                        <div class="tab" id="view2">
+                            <div {% if form.description.errors %}class="field_error"{% endif %}>
+                                Description
+                                {{ form.description }}
+                            </div>
+
+                            Features
+                            <br/>
+                            {{ form.features }}
+                        </div>
+                        <div class="tab" id="view3">
+
+                            <h3>Address of Venue</h3>
+                            <div {% if form.street.errors %}class="field_error"{% endif %}>
+                                Street
+                                {{ form.street }}
+                            </div>
+                            <div {% if form.street2.errors %}class="field_error"{% endif %}>
+                                Street 2
+                                {{ form.street2 }}
+                            </div>
+                            <div {% if form.city.errors %}class="field_error"{% endif %}>
+                                City
+                                {{ form.city }}
+                            </div>
+                            <div {% if form.state.errors %}class="field_error"{% endif %}>
+                                State
+                                {{ form.state }}
+                            </div>
+                            <div {% if form.zipcode.errors %}class="field_error"{% endif %}>
+                                 Zip
+                                {{ form.zipcode }}
+                            </div>
+
+                            Guests will not have access to your address until you have shared it with them.
+
+                        </div>
+
+                        <div class="tab" id="view4">
+
+                        </div>
+                        <div class="tab" id="view5">
+
+                        </div>
 
                     </div>
-                    <div id="view2">
-                        Description
-                        {{ form.description }}
-                        Features
-                        <br/>
-                        {{ form.features }}
-                    </div>
-                    <div id="view3">
-                        <h3>Address of Venue</h3>
-                        Street
-                        {{ form.street }}
-                        Street 2
-                        {{ form.street2 }}
-                        City
-                        {{ form.city }}
-                        State
-                        {{ form.state }}
-                        Zip
-                        {{ form.zipcode }}
-                        Guests will not have access to your address until you have shared it with them.
-                    </div>
+                <br>
+                <input type="submit" value="Save">
+            </div>
+         </form>
+    </div>
+</section>
 
-                    <div id="view4">
-
-                    </div>
-
-                </div>
-            <br>
-            <input type="submit" value="Save">
-        </div>
-     </form>
 
 {% endblock %}
 

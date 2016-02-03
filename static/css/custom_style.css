@@ -230,4 +230,9 @@ footer ul.icons li
     width: 1.65em;
 }
 
+/***************** Forms *****************/
 
+.field_error input, .field_error textarea
+{
+    border: 2px solid red;
+}
