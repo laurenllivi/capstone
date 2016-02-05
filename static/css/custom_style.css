@@ -1,14 +1,12 @@
 /*********************** Homepage *******************/
 #search-overlay{
-    position: relative;
-    z-index: 5;
+    position: absolute;
     width: 100%;
-    opacity: .6;
-    background-color: #272727;
+    background-color: rgba(0, 0, 0, 0.5);
     line-height: 75px;
     color: white;
     text-align: center;
-    bottom: -50px;
+    top: 500px;
     
 }
 
@@ -253,8 +251,8 @@ footer ul.icons li
 {
 	position: relative;
 	width: 60%;
-	height: 100%;
-	overflow: scroll;
+    min-height: 100%;
+    overflow: scroll;*/
 }
 
 .leftdiv:after
@@ -266,11 +264,15 @@ footer ul.icons li
 
 .right-side-content
 {
-	position: absolute;
-	left: 60%;
-	width: 40%;
-	height:100%;
-	border-left: 1px solid #ececec;
+    position: absolute;
+    left: 60%;
+    width: 40%;
+    height: 100%;
+    top: 4.75em;
+    border-left: 2px solid #ececec;
+    -webkit-box-shadow: -3px 3px 9px 1px rgba(159,159,159,1);
+    -moz-box-shadow: -3px 3px 9px 1px rgba(159,159,159,1);
+    box-shadow: -3px 3px 9px 1px rgba(159,159,159,1);
 }
 
 #map

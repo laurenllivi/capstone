@@ -96,13 +96,16 @@
             
         </div><!-- left-side-content -->
         
-		<div class="right-side-content">
-			<div id="map"></div>
-		</div>
+    	<div class="right-side-content">
+    		<div id="map"></div>
+    	</div>
         
     </div><!-- container -->
 </section>
 
 {% endblock %}
 
-<!-- need to put the footer back on this page -->
+
+{% block footer %}
+    {% include "partials/_footer.html" %}
+{% endblock %}
