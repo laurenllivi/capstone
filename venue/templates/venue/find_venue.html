@@ -1,0 +1,108 @@
+{% extends 'capstone/base_template.html' %}
+{% load staticfiles %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'noUiSlider.8.1.0/nouislider.css' %}">
+
+	<script language="javascript" type="text/javascript" src="{% static 'noUiSlider.8.1.0/nouislider.js' %}"></script>
+	<!-- Google Maps -->
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	<script type="text/javascript">
+		function initialize() {
+	        var mapCanvas = document.getElementById('map');
+	        var mapOptions = {
+	          center: new google.maps.LatLng(40.5403, -111.6450),
+	          zoom: 9,
+	          mapTypeId: google.maps.MapTypeId.ROADMAP
+	        }
+	        var map = new google.maps.Map(mapCanvas, mapOptions)
+	      }
+	      google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+
+ 
+{% endblock %}
+
+{% block content %}
+
+<section id="main" class="wrapper">
+    <div class="container">
+
+        <div class="left-side-content">
+            <h2>Find a Venue</h2>
+            
+                {{ form }}
+                
+            <hr class="hr-style" />
+            
+			<div class="slider-div">
+				Price Per Hour
+				<div class="slider-container">
+					<div id="nonlinear" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
+					</div>
+					<br/>
+
+					<div class="slider left-slider">
+						<span class="example-val" id="lower-value">0</span>
+					</div>
+					
+					<div class="slider right-slider">
+						<span class="example-val" id="upper-value">5000</span>
+					</div>
+					
+					<script>
+						var nonLinearSlider = document.getElementById('nonlinear');
+
+						noUiSlider.create(nonLinearSlider, {
+							connect: true,
+							behaviour: 'tap',
+							start: [ 0, 5000 ],
+							range: {
+								// Starting at 50, step the value by 10,
+								// until 2500 is reached. From there, step by 100.
+								'min': [ 0 ],
+								'10%': [ 50, 10 ],
+								'50%': [ 2500, 100 ],
+								'max': [ 5000 ]
+							}
+						});
+					</script>			
+					<script>
+						// Write the CSS 'left' value to a span.
+						function leftValue ( handle ) {
+							return handle.parentElement.style.left;
+						}
+
+						var lowerValue = document.getElementById('lower-value'),
+							lowerOffset = document.getElementById('lower-offset'),
+							upperValue = document.getElementById('upper-value'),
+							upperOffset = document.getElementById('upper-offset'),
+							handles = nonLinearSlider.getElementsByClassName('noUi-handle');
+
+						// Display the slider value and how far the handle moved
+						// from the left edge of the slider.
+						nonLinearSlider.noUiSlider.on('update', function ( values, handle ) {
+							if ( !handle ) {
+								lowerValue.innerHTML = values[handle];
+							} else {
+								upperValue.innerHTML = values[handle];
+							}
+						});
+					</script>		
+
+				</div>
+			</div><!-- slider-div -->    
+            
+        </div><!-- left-side-content -->
+        
+		<div class="right-side-content">
+			<div id="map"></div>
+		</div>
+        
+    </div><!-- container -->
+</section>
+
+{% endblock %}
+
+<!-- need to put the footer back on this page -->

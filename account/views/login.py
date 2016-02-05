@@ -45,5 +45,5 @@ class Login_Form(forms.Form):
     def clean(self):  
         if len(self.errors) ==0:
             user = authenticate(username=self.cleaned_data['username'], password=self.cleaned_data['password'])
-        if user == None:
+        if user == None:            
             raise forms.ValidationError("Bad username or password")

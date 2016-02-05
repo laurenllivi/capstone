@@ -1,3 +1,17 @@
+/*********************** Homepage *******************/
+#search-overlay{
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    opacity: .6;
+    background-color: #272727;
+    line-height: 75px;
+    color: white;
+    text-align: center;
+    bottom: -50px;
+    
+}
+
 .profile-pic-container
 {
     display:inline-block;
@@ -40,18 +54,19 @@
     float: right;
     right: 50%;
     border-radius:50px;
+
 }
 
 .mini-profile-pic-wrapper img
 {
     vertical-align:middle;
-    bottom:23px;
+    bottom:25px;
 }
 
 .mini-profile-pic-container{
     display:inline-block;
-    width: 40px;
-	height: 40px;
+    width: 35px;
+	height: 35px;
 	border-radius: 50%;
 	-webkit-border-radius: 50%;
 	-moz-border-radius: 50%;
@@ -60,11 +75,13 @@
 	overflow: hidden;
 	z-index:0;
 	transform: translateY(0);
+    border: 1px white solid;
+    margin-bottom: 10px;
 }
 
 .mini-profile-pic{
-    height:40px;
-    min-width:40px;
+    height:35px;
+    min-width:35px;
     position: relative;
     right: -50%;
 }
@@ -82,6 +99,7 @@
     height: 50px;
     line-height: 50px;
     width: 100%;
+    box-shadow: 3px 3px 3px #9F9F9F;
 
 }
 
@@ -105,7 +123,7 @@
             #account_menu nav > ul > li {
         		border-radius: 4px;
         		display: inline-block;
-        		margin-left: 3em;
+        		margin-left: 2em;
         		padding-left: 0;
             }
             
@@ -230,9 +248,84 @@ footer ul.icons li
     width: 1.65em;
 }
 
+/***************** Find Venue Page ********/
+.left-side-content
+{
+	position: relative;
+	width: 60%;
+	height: 100%;
+	overflow: scroll;
+}
+
+.leftdiv:after
+{
+	content: "";
+	display: block;
+	height: 50px;
+}
+
+.right-side-content
+{
+	position: absolute;
+	left: 60%;
+	width: 40%;
+	height:100%;
+	border-left: 1px solid #ececec;
+}
+
+#map
+{
+	height:100%;
+	width:100%;
+}
+
+/**************** Slider ********************/
+
+.slider-container
+{
+	margin-top:10px;
+}
+
+.noUi-target
+{
+	width: 77%;
+    position: absolute;
+    left: 10%;
+}
+
+.noUi-handle
+{
+	border-radius: 17px;
+}
+
+.slider
+{
+	display: inline-block;
+	position: absolute;
+}
+
+.left-slider
+{
+	left: 10%;
+}
+
+.right-slider
+{
+	right: 10%;
+}
+
+
 /***************** Forms *****************/
 
 .field_error input, .field_error textarea
 {
     border: 2px solid red;
+}
+
+hr.hr-style
+{
+	border: 0;
+    height: 1px;
+    width:95%;
+    background: #ececec;
 }
