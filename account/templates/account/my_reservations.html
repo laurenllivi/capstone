@@ -1,0 +1,28 @@
+{% extends 'capstone/auth_base.html' %}
+
+<section id="main" class="wrapper">
+    <div class="container">
+
+{% block content %}
+
+    <section id="main" class="wrapper">
+        <div class="container">
+            
+            {% block left_menu %}
+                {% include "partials/_profile_venues_left_menu.html" %}
+            {% endblock %}
+            
+            <div class="profile-right-side-content">
+                <div class="panel-header">My Reservations</div>
+                    <div class="panel-profile-content">
+                        
+                    </div><!-- panel-profile-content-->
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}
+
+    </div><!-- container -->
+</section>

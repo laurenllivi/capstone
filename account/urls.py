@@ -14,6 +14,8 @@ urlpatterns = [
     url(r'^reset_confirmation/$', views.reset_confirmation, name='reset_confirmation'),
     #url(r'^reset_confirmation/$', TemplateView.as_view(template_name='account/reset_confirmation.html')),
     url(r'^reset_password/$', views.reset_password, name='reset_password'),
-    
+    url(r'^change_password/$', views.change_password, name='change_password'),
+    url(r'^my_venues/$', views.my_venues, name='my_venues'),
+    url(r'^my_reservations/$', views.my_reservations, name='my_reservations'),
     
 ]

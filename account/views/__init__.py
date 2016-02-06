@@ -7,4 +7,7 @@ from .verification import *
 from .forgot_password import *
 from .reset_password import *
 from .reset_confirmation import *
+from .change_password import *
 from .logout import *
+from .my_venues import *
+from .my_reservations import *

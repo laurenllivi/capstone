@@ -1,0 +1,39 @@
+{% extends 'capstone/auth_base.html' %}
+
+<section id="main" class="wrapper">
+    <div class="container">
+
+{% block content %}
+
+    <section id="main" class="wrapper">
+        <div class="container">
+            
+            {% block left_menu %}
+                {% include "partials/_profile_venues_left_menu.html" %}
+            {% endblock %}
+            
+            <div class="profile-right-side-content">
+                <div class="panel-header">My Venues</div>
+                    <div class="panel-profile-content">
+                    
+                        {% for venue in my_venues %}
+                            <div class="my_venue_wrapper">
+                                <img class="main_venue_photo pull-left" src=""/>
+                                <a href="" class="button small pull-right">Edit</a> 
+                                {{ venue.title }}<br>
+                                <a href="">Edit venue and availability</a>
+                                  
+                            </div><!-- my_venue_wrapper -->
+                            <hr class="hr-style">
+                        {% endfor %}
+                        
+                    </div><!-- panel-profile-content-->
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}
+
+    </div><!-- container -->
+</section>

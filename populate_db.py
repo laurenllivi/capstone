@@ -79,6 +79,40 @@ l2.parking_desc = "There is parking for about 100, and more parking on the stree
 l2.user = u2
 l2.save()
 
+l3 = hmod.Listing()
+l3.title = "Large home pool"
+l3.category = "Pool"
+l3.price_per_hour = 50
+l3.listing_type = "Pool"
+l3.description = "This is a nice, quiet backyard in the countryside. We love having parties and are excited to offer our backyard for the use of your event."
+l3.sq_footage = 2000
+l3.num_guests = 200
+l3.parking_desc = "There is parking for about 100, and more parking on the street. Might require a short walk if guests have to park a little bit further down the road."
+l3.street = "1030 E State Street"
+l3.street2 = "Apt. 2A"
+l3.city = "Lindon"
+l3.state = "UT"
+l3.zipcode = "84042"
+l3.user = u
+l3.save()
+
+l4 = hmod.Listing()
+l4.title = "Large home pool"
+l4.category = "Pool"
+l4.price_per_hour = 50
+l4.listing_type = "Pool"
+l4.description = "This is a nice, quiet backyard in the countryside. We love having parties and are excited to offer our backyard for the use of your event."
+l4.sq_footage = 2000
+l4.num_guests = 200
+l4.parking_desc = "There is parking for about 100, and more parking on the street. Might require a short walk if guests have to park a little bit further down the road."
+l4.street = "1030 E State Street"
+l4.street2 = "Apt. 2A"
+l4.city = "Lindon"
+l4.state = "UT"
+l4.zipcode = "84042"
+l4.user = u2
+l4.save()
+
 # Listing Photo
 p = hmod.Listing_Photo()
 p.alt_title = "backyard photo"

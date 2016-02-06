@@ -403,7 +403,7 @@ hr.hr-style
 	border: 0;
     height: 1px;
     width:95%;
-    background: #ececec;
+    background: #C6C6C6;
 }
 
 /**************** Profile *******************/
@@ -450,3 +450,20 @@ hr.hr-style
     padding: 10px;
     color: gray;
 }
+
+/**************** My Venues *********************/
+.my_venue_wrapper{
+    padding: 10px;
+    
+}
+
+.main_venue_photo{
+    background-color: grey;
+    position: relative;
+    width: 150px;
+    height: 100px;
+    margin-right: 25px;
+    margin-bottom: 15px;
+    margin-top: -10px;
+}
+
