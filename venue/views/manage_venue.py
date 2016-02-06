@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django import forms
 from homepage import models as hmod
 from django.contrib.auth.decorators import login_required
+import os.path
+from lib.fields import fileUploadInput
 
 # make sure the user is logged in before accessing this view
 # redirects the user to the previous url after login
@@ -28,10 +30,13 @@ def manage_venue(request, listing_id):
         'zipcode': listing.zipcode,
     })
 
+    success = False
+
     if request.method == 'POST':
         form = NewVenueForm(request.POST)
 
         if form.is_valid():
+            success = True
             listing.title = form.cleaned_data['title']
             listing.category = form.cleaned_data['category']
             listing.description = form.cleaned_data['description']
@@ -46,6 +51,7 @@ def manage_venue(request, listing_id):
 
     # the equivalent of template_vars in DMP
     context = {
+        'success' : success,
         'form': form,
     }
     return render(request, 'venue/manage_venue.html', context)
@@ -89,3 +95,19 @@ class NewVenueForm(forms.Form):
     city = forms.CharField(widget=forms.TextInput())
     state = forms.ChoiceField(widget=forms.Select(), choices=STATE_CHOICES)
     zipcode = forms.CharField(widget=forms.TextInput)
+
+    photo_name = forms.CharField(label='File Name')
+    upload_fullname = forms.CharField(widget=forms.HiddenInput,required=False)
+    upload_file = forms.FileField(label='',required=False, widget=fileUploadInput)
+
+def upload(request):
+    fileitem = request.FILES['upload']
+    print(fileitem)
+
+    # take fileitem and save to disk somewhere
+    fullname = os.path.join('/tmp', fileitem.name)
+    f = open(fullname, 'w')
+    f.write('this is test data')
+    f.close()
+
+    return HttpResponse(fullname)
