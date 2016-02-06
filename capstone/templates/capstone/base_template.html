@@ -18,6 +18,7 @@
     <script src="{% static 'js/skel.min.js' %}"></script>
     <script src="{% static 'js/skel-layers.min.js' %}"></script>
     <script src="{% static 'js/init.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
 
     <noscript>
         <link rel="stylesheet" href="{% static 'css/skel.css' %}" />
@@ -28,6 +29,7 @@
     {% endblock %}
 
     <link rel="stylesheet" href="{% static 'css/custom_style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" />
 
     <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 </head>
@@ -41,7 +43,6 @@
 <!-- User Profile Menu -->
 {% block account_menu %}
 {% endblock %}
-
 
 {% block content %}
     Body content goes here

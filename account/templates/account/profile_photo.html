@@ -13,12 +13,17 @@
             {% endblock %}
             
             <div class="profile-right-side-content">
-                <div class="panel-header">Edit Profile</div>
+                <div class="panel-header">Profile Photo</div>
                     <div class="panel-profile-content">
-                        <form method="POST">
-                            {{ form }}
-                            <br><input type="submit" value="Save">
-                        </form>
+                        
+                        <div class="bio-pic">
+                            <div class="profile-pic-container">
+                                <div class="profile-pic-wrapper">
+                                    <img class="profile-pic" src="{{ user.profile_pic.name }}" />
+                                </div>
+                            </div>
+                        </div>
+                                    
                     </div><!-- panel-profile-content-->
             </div>
 

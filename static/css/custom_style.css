@@ -247,6 +247,7 @@ footer ul.icons li
 }
 
 /***************** Find Venue Page ********/
+
 .left-side-content
 {
 	position: relative;
@@ -269,16 +270,89 @@ footer ul.icons li
     width: 40%;
     height: 100%;
     top: 4.75em;
-    border-left: 2px solid #ececec;
-    -webkit-box-shadow: -3px 3px 9px 1px rgba(159,159,159,1);
-    -moz-box-shadow: -3px 3px 9px 1px rgba(159,159,159,1);
-    box-shadow: -3px 3px 9px 1px rgba(159,159,159,1);
+    -webkit-box-shadow: -2px 2px 9px 1px rgba(159,159,159,1);
+    -moz-box-shadow: -2px 2px 9px 1px rgba(159,159,159,1);
+    box-shadow: -2px 2px 9px 1px rgba(159,159,159,1);
 }
 
 #map
 {
 	height:100%;
+ 
+}
+
+#within_miles{
+    display: inline;
+}
+
+.results-wrapper
+{
 	width:100%;
+	margin-left: -30px;
+}
+
+.results-container
+{
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.venue-result
+{
+	background-color: grey;
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	width: 42%;
+	min-height: 20px;
+	margin-left: 2%;
+	margin-right: 2%;
+	margin-top:20px;
+	border-radius: 2px;
+}
+
+.venue-pic-container
+{
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.venue-pic
+{
+	width: 100%;
+	height: auto;
+}
+
+.price-label
+{
+	background-color: rgba(0,0,0,.5);
+	width:100px;
+	height:40px;
+	position: absolute;
+	bottom:0;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	color: white;
+	text-align: center;
+	vertical-align: middle;
+	padding-top:10px;
+	font-size: 24px;
+}
+
+.favorite-container
+{
+	position: absolute;
+	color:white;
+    top:3px;
+    right:3px;
+}
+
+.favorite-icon
+{
+	font-size: 32px !important;
 }
 
 /**************** Slider ********************/
@@ -330,4 +404,49 @@ hr.hr-style
     height: 1px;
     width:95%;
     background: #ececec;
+}
+
+/**************** Profile *******************/
+.profile-left-side-menu{
+    position: absolute;
+    width: 25%;
+    min-height: 100%;
+}
+
+.profile-left-side-menu ul > li{
+    list-style: none;
+    line-height: 2.5em;
+}
+
+.profile-left-side-menu ul > li a{
+	-moz-transition: color 0.2s ease-in-out;
+	-webkit-transition: color 0.2s ease-in-out;
+	-o-transition: color 0.2s ease-in-out;
+	-ms-transition: color 0.2s ease-in-out;
+	transition: color 0.2s ease-in-out;
+	color: #3BA666;
+	display: inline-block;
+	text-decoration: none;
+}
+
+.profile-left-side-menu ul > li a:hover{
+    color: #D8D8D8;
+}
+
+.profile-right-side-content{
+    position:relative;
+    min-height: 100%;
+    left: 25%;
+    width: 75%;
+    border: 1px solid #C6C6C6;
+}
+
+.panel-profile-content{
+    padding: 20px 40px 20px 40px;
+}
+
+.panel-header{
+    background-color: #E4E4E4;
+    padding: 10px;
+    color: gray;
 }

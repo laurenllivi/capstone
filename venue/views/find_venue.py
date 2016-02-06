@@ -38,6 +38,7 @@ VENUE_TYPE_CHOICES = (
 class Find_Venue(forms.Form):
     within_miles = forms.ChoiceField(widget=forms.Select(), label = "Within", choices=WITHIN_MILES_CHOICES)
     location = forms.CharField(widget=forms.TextInput())
-    event_date = forms.CharField(widget=forms.TextInput())
+    event_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'datepicker'}))
     venue_type = forms.ChoiceField(widget=forms.Select(), choices=VENUE_TYPE_CHOICES)
+    price_per_hour = forms.DecimalField(widget=forms.TextInput())
     
