@@ -467,3 +467,15 @@ hr.hr-style
     margin-top: -10px;
 }
 
+.ven-img-thumbnail
+{
+    display:inline-block;
+    height:200px;
+    width:300px;
+    overflow:hidden;
+}
+
+.ven-img-thumbnail img
+{
+    width:100%;
+}

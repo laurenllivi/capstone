@@ -49,8 +49,9 @@ class Listing(models.Model):
     
 class Listing_Photo(models.Model):
     '''Photos for listings '''
-    alt_title = models.CharField(max_length=255, blank=True, null=True)
-    name = models.CharField(max_length=255, blank=True, null=True)
+    image_name = models.CharField(max_length=50, blank=True, null=True)
+    image_title = models.CharField(max_length=20, blank=True, null=True)
+    image_file = models.ImageField(default='venue-images/None/no-img.jpg')
     listing = models.ForeignKey('Listing')
     
     def __str__(self):
@@ -121,14 +122,8 @@ class Recovery_String(models.Model):
     expiration = models.DateTimeField(blank=True, null=True)
     user = models.ForeignKey(User)
 
-
-
-
-    
-    
-
-    
-   
-        
-    
-        
+class Image(models.Model):
+    image_name = models.CharField(max_length=50, blank=True, null=True)
+    image_title = models.CharField(max_length=20, blank=True, null=True)
+    image_file = models.ImageField(default='venue-images/None/no-img.jpg')
+    listing = models.ForeignKey('Listing')

@@ -6,7 +6,7 @@ def about(request):
     
     # the equivalent of template_vars in DMP
     context = {
-        'output' : output,
+        'output': output,
     }
     return render(request, 'homepage/about.html', context)
 

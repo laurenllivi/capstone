@@ -2,22 +2,20 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django import forms
 from homepage import models as hmod
+from lib import forms as custom_forms
+from capstone.settings import MEDIA_ROOT
 from django.contrib.auth.decorators import login_required
 import os.path
-from lib.fields import fileUploadInput
 
 # make sure the user is logged in before accessing this view
 # redirects the user to the previous url after login
 @login_required
 def manage_venue(request, listing_id):
     '''create new listing'''
-    
-    #authenticate the user
-    #if not request.user.is_authenticated():
-       #return HttpResponseRedirect('/account/login/')
 
     # create the new venue form
     listing = hmod.Listing.objects.get(id=listing_id)
+    newImage = hmod.Listing_Photo()
 
     form = NewVenueForm(initial={
         'title': request.session.get('venueform_title') or listing.title,
@@ -33,7 +31,7 @@ def manage_venue(request, listing_id):
     success = False
 
     if request.method == 'POST':
-        form = NewVenueForm(request.POST)
+        form = NewVenueForm(request.POST, request.FILES)
 
         if form.is_valid():
             success = True
@@ -47,12 +45,22 @@ def manage_venue(request, listing_id):
             listing.zipcode = form.cleaned_data['zipcode']
             listing.save()
 
+            custom_forms.handle_uploaded_venue_file(request.FILES['image'],listing_id)
+            newImage.image_title = form.cleaned_data['image_title']
+            newImage.image_name = form.cleaned_data['image'].name
+
+            newImage.listing = listing
+            newImage.save()
+
             return HttpResponseRedirect('/venue/manage_venue/%s' % listing_id)
+
+    images = hmod.Listing_Photo.objects.all()
 
     # the equivalent of template_vars in DMP
     context = {
-        'success' : success,
+        'success': success,
         'form': form,
+        'images': images,
     }
     return render(request, 'venue/manage_venue.html', context)
 
@@ -96,18 +104,5 @@ class NewVenueForm(forms.Form):
     state = forms.ChoiceField(widget=forms.Select(), choices=STATE_CHOICES)
     zipcode = forms.CharField(widget=forms.TextInput)
 
-    photo_name = forms.CharField(label='File Name')
-    upload_fullname = forms.CharField(widget=forms.HiddenInput,required=False)
-    upload_file = forms.FileField(label='',required=False, widget=fileUploadInput)
-
-def upload(request):
-    fileitem = request.FILES['upload']
-    print(fileitem)
-
-    # take fileitem and save to disk somewhere
-    fullname = os.path.join('/tmp', fileitem.name)
-    f = open(fullname, 'w')
-    f.write('this is test data')
-    f.close()
-
-    return HttpResponse(fullname)
+    image_title = forms.CharField(widget=forms.TextInput())
+    image = forms.ImageField(label='select a file', required=False)

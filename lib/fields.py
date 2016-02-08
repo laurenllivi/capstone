@@ -1,6 +1,6 @@
 from django.conf import settings
 import django.utils.translation
-import base64, re, decimal, rjsmin, datetime
+import base64, re, decimal, datetime
 import django.forms
 import django.forms.widgets
 from django.forms.util import flatatt

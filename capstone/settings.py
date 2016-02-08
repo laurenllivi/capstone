@@ -155,3 +155,6 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 AUTH_USER_MODEL = 'homepage.User'
+
+MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
+# MEDIA_URL = '/media/'

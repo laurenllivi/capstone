@@ -11,7 +11,9 @@
 {% block content %}
 <section id="main" class="wrapper">
     <div class="container">
-        <form method="POST">
+
+
+        <form method="POST" enctype="multipart/form-data">
             {{ form.errors }}
             {{ form.non_field_errors }}
             <div>
@@ -73,9 +75,20 @@
                         </div>
 
                         <div class="tab" id="view4">
-                            {{ form.photo_name }}
-                            {{ form.upload_fullname }}
-                            {{ form.upload_file }}
+                            {{ form.image_title }}
+                            {{ form.image }}
+
+                            {% if images %}
+                                <ul>
+                                {% for image in images %}
+                                    <div class="ven-img-thumbnail">
+                                        <img src='{% static "images/venue-images/1/" %}{{image.image_name}}' alt="" />
+                                    </div>
+                                {% endfor %}
+                                </ul>
+                            {% else %}
+                                    <p>No Images.</p>
+                            {% endif %}
                         </div>
 
                         <div class="tab" id="view5">
