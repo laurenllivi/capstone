@@ -26,7 +26,15 @@ class User(AbstractUser):
     
     def __str__(self):
         return self.first_name + " " + self.last_name
-        
+
+class Feature(models.Model):
+    '''A feature that a listing has'''
+    name = models.CharField(max_length=255, blank=True, null=True)
+    description = models.CharField(max_length=500, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
 class Listing(models.Model):
     '''A venue listing posted by a user'''
     title = models.CharField(max_length=255, blank=True, null=True)
@@ -43,6 +51,7 @@ class Listing(models.Model):
     city = models.CharField(max_length=255, blank=True, null=True)
     state = models.CharField(max_length=255, blank=True, null=True)
     zipcode = models.CharField(max_length=255, blank=True, null=True)
+    features = models.ManyToManyField(Feature)
     user = models.ForeignKey('User')
     
     def __str__(self):
@@ -64,14 +73,7 @@ class Review(models.Model):
     description = models.CharField(max_length=500, blank=True, null=True)
     listing = models.ForeignKey('Listing')
     user = models.ForeignKey(User)
-    
-class Feature(models.Model):
-    '''A feature that a listing has'''
-    name = models.CharField(max_length=255, blank=True, null=True)
-    description = models.CharField(max_length=500, blank=True, null=True)
-    
-    def __str__(self):
-        return self.name
+
         
 class Listing_Feature(models.Model):
     '''Association class between listing and feature'''

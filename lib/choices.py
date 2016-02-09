@@ -1,6 +1,6 @@
 from homepage import models as hmod
 
-FEATURE_CHOICES = [(feature.name, feature.name) for feature in hmod.Feature.objects.all()]
+# FEATURE_CHOICES = [(feature.name, feature.name) for feature in hmod.Feature.objects.all()]
 
 STATE_CHOICES = (
     ('AL', "Alabama"),

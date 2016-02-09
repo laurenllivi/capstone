@@ -12,5 +12,8 @@ $(document).ready(function(){
             link.click();
         }
      },10)
-
 });
+
+function myFunction() {
+   alert("askjdflkasjdf")
+}

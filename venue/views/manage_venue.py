@@ -31,6 +31,7 @@ def manage_venue(request, listing_id=0):
         # create the new venue form
         listing = hmod.Listing.objects.get(id=listing_id)
         newImage = hmod.Listing_Photo()
+        listing_features = hmod.Listing_Feature.objects.get(feature_id=listing_id)
 
         form = NewVenueForm(initial={
             'title': request.session.get('venueform_title') or listing.title,
@@ -62,6 +63,13 @@ def manage_venue(request, listing_id=0):
             listing.num_guests = form.cleaned_data['num_guests']
             listing.description = form.cleaned_data['description']
             listing.parking_desc = form.cleaned_data['parking_desc']
+            feature_list = form.cleaned_data['features'].all()
+            print form.cleaned_data['features'].all()
+            print 'printed features'
+            for feature in feature_list:
+                print(feature)
+                print '<<<<<<<< adding feature >>>>>>>>>>>>>>>>>>>>>>>>'
+                listing.features.add(feature)
             listing.street = form.cleaned_data['street']
             listing.street2 = form.cleaned_data['street2']
             listing.city = form.cleaned_data['city']
@@ -105,7 +113,7 @@ VENUE_TYPE_CHOICES = (
     ('sports', 'Sports')
 )
 
-VENUE_FEATURE_CHOICES = choices.FEATURE_CHOICES
+# VENUE_FEATURE_CHOICES = choices.FEATURE_CHOICES
 
 class NewVenueForm(forms.Form):
     title = forms.CharField(widget=forms.TextInput())
@@ -114,7 +122,7 @@ class NewVenueForm(forms.Form):
     num_guests = forms.DecimalField(max_digits=6, decimal_places=0)
     description = forms.CharField(widget=forms.Textarea)
     parking_desc = forms.CharField(widget=forms.Textarea)
-    features = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple(), choices=VENUE_FEATURE_CHOICES, required=False)
+    features = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple(), queryset=hmod.Feature.objects.all(), required=False)
     street = forms.CharField(widget=forms.TextInput)
     street2 = forms.CharField(widget=forms.TextInput)
     city = forms.CharField(widget=forms.TextInput())
