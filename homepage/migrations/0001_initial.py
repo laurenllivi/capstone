@@ -92,6 +92,7 @@ class Migration(migrations.Migration):
                 ('city', models.CharField(max_length=255, null=True, blank=True)),
                 ('state', models.CharField(max_length=255, null=True, blank=True)),
                 ('zipcode', models.CharField(max_length=255, null=True, blank=True)),
+                ('features', models.ManyToManyField(to='homepage.Feature')),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={

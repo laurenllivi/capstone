@@ -15,5 +15,5 @@ $(document).ready(function(){
 });
 
 function myFunction() {
-   alert("askjdflkasjdf")
+   alert("Hey there!")
 }

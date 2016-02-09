@@ -63,12 +63,9 @@ def manage_venue(request, listing_id=0):
             listing.num_guests = form.cleaned_data['num_guests']
             listing.description = form.cleaned_data['description']
             listing.parking_desc = form.cleaned_data['parking_desc']
+            'this part is not working'
             feature_list = form.cleaned_data['features'].all()
-            print form.cleaned_data['features'].all()
-            print 'printed features'
             for feature in feature_list:
-                print(feature)
-                print '<<<<<<<< adding feature >>>>>>>>>>>>>>>>>>>>>>>>'
                 listing.features.add(feature)
             listing.street = form.cleaned_data['street']
             listing.street2 = form.cleaned_data['street2']
