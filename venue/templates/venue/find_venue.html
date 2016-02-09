@@ -36,133 +36,16 @@
 <section id="main" class="wrapper">
     <div class="container">
 
-        <div class="left-side-content">
-            <h2>Find a Venue</h2>
-            
-            <form method="POST"> 
-               {{ form }}
-                <br><input type="submit" value="Search">
-            </form>
-                
-            <hr class="hr-style" />
-            
-            
-       
-            
-            
-            No idea how to capture this as a django form field
-			<div class="slider-div">
-				Price Per Hour
-				<div class="slider-container">
-					<div id="nonlinear" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
-					</div>
-					<br/>
+	<div class="find-container">
+		<div class="leftdiv">
+			<h2>Find A Venue</h2>
+		</div>
+		<div class="rightdiv">
+			<div id="map"></div>
+		</div>
+	</div>
 
-					<div class="slider left-slider">
-						<span class="example-val" id="lower-value">0</span>
-					</div>
-					
-					<div class="slider right-slider">
-						<span class="example-val" id="upper-value">5000</span>
-					</div>
-					
-					<script>
-						var nonLinearSlider = document.getElementById('nonlinear');
 
-						noUiSlider.create(nonLinearSlider, {
-							connect: true,
-							behaviour: 'tap',
-							start: [ 0, 5000 ],
-							range: {
-								// Starting at 50, step the value by 10,
-								// until 2500 is reached. From there, step by 100.
-								'min': [ 0 ],
-								'10%': [ 50, 10 ],
-								'50%': [ 2500, 100 ],
-								'max': [ 5000 ]
-							}
-						});
-					</script>			
-					<script>
-						// Write the CSS 'left' value to a span.
-						function leftValue ( handle ) {
-							return handle.parentElement.style.left;
-						}
-
-						var lowerValue = document.getElementById('lower-value'),
-							lowerOffset = document.getElementById('lower-offset'),
-							upperValue = document.getElementById('upper-value'),
-							upperOffset = document.getElementById('upper-offset'),
-							handles = nonLinearSlider.getElementsByClassName('noUi-handle');
-
-						// Display the slider value and how far the handle moved
-						// from the left edge of the slider.
-						nonLinearSlider.noUiSlider.on('update', function ( values, handle ) {
-							if ( !handle ) {
-								lowerValue.innerHTML = values[handle];
-							} else {
-								upperValue.innerHTML = values[handle];
-							}
-						});
-					</script>		
-
-				</div>
-			</div><!-- slider-div -->   
-            
-            <hr class="hr-style" /> 
-            
-            This is just your test data. Not actually pulling from the database yet.
-            
-            
-            <!-- the results of the search -->
-			<div class="results-wrapper">
-				<div class="results-container">
-                    
-					<div class="venue-result">
-						<a href="view-venue.html">
-						<img class="venue-pic" src="{% static 'images/backyard1.jpg' %}" />
-						<div class="price-label">$25</div>
-						    <div class="favorite-container">
-							    <i class="fa fa-heart-o fa-2x"></i>
-						    </div>
-						</a>
-					</div>
-                    
-					<div class="venue-result">
-                        <a href="">
-						<img class="venue-pic" src="{% static 'images/backyard2.jpg' %}" />
-						<div class="price-label">$60</div>
-						    <div class="favorite-container">
-							    <i class="fa fa-heart-o fa-2x"></i>
-                            </div
-                        </a>
-					</div>
-                    
-					<div class="venue-result">
-						<img class="venue-pic" src="{% static 'images/backyard3.jpg' %}" />
-						<div class="price-label">$60</div>
-						    <div class="favorite-container">
-							    <i class="fa fa-heart-o fa-2x"></i>
-						    </div>
-					</div>
-                    
-					<div class="venue-result">
-						<img class="venue-pic" src="{% static 'images/backyard4.jpg' %}" />
-						<div class="price-label">$60</div>
-						    <div class="favorite-container">
-							    <i class="fa fa-heart-o fa-2x"></i>
-						    </div>
-					</div>
-                    
-                </div><!-- results-container -->
-            </div><!-- results-wrapper -->
-            
-        </div><!-- left-side-content -->
-        
-    	<div class="right-side-content">
-    		<div id="map"></div>
-    	</div>
-        
     </div><!-- container -->
 </section>
 

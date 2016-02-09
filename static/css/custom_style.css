@@ -239,12 +239,19 @@ footer ul.icons li
 
 /***************** Find Venue Page ********/
 
-.left-side-content
+.find-container
 {
-	position: relative;
+    position:relative;
+    min-height:400px;
+}
+
+.leftdiv
+{
+	position: absolute;
+	padding-left: 10px;
 	width: 60%;
-    min-height: 100%;
-    overflow: scroll;*/
+	height: 100%;
+	overflow: scroll;
 }
 
 .leftdiv:after
@@ -254,13 +261,50 @@ footer ul.icons li
 	height: 50px;
 }
 
+.rightdiv
+{
+	position: absolute;
+	left: 60%;
+	width: 40%;
+	height:100%;
+	border-left: 1px solid #ececec;
+}
+
+#map
+{
+	height:100%;
+	width:100%;
+}
+
+/*.find-content-container
+{
+    height:100%;
+    position:relative;
+}
+
+.left-side-content
+{
+	position: absolute;
+	padding-left: 10px;
+	width: 55%;
+	height: 100%;
+	overflow: scroll;
+}
+
+.left-side-content:after
+{
+	content: "";
+	display: block;
+	height: 50px;
+}
+
 .right-side-content
 {
     position: absolute;
-    left: 60%;
-    width: 40%;
-    height: 100%;
-    top: 4.75em;
+	left: 60%;
+	width: 40%;
+	height:100%;
+	border-left: 1px solid #ececec;
     -webkit-box-shadow: -2px 2px 9px 1px rgba(159,159,159,1);
     -moz-box-shadow: -2px 2px 9px 1px rgba(159,159,159,1);
     box-shadow: -2px 2px 9px 1px rgba(159,159,159,1);
@@ -344,7 +388,7 @@ footer ul.icons li
 .favorite-icon
 {
 	font-size: 32px !important;
-}
+}*/
 
 /**************** Slider ********************/
 
