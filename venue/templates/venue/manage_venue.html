@@ -34,12 +34,12 @@
                                 {{ form.category }}
                                 {{ form.category.errors }}
                             </div>
-                            <div {% if form.sq_footage.errors %}class="field_error"{% endif %}>
+                            <div class="input-number" {% if form.sq_footage.errors %}class="field_error"{% endif %}>
                                 Square Footage of Space Available to Guests
                                 {{ form.sq_footage }}
                                 {{ form.sq_footage.errors }}
                             </div>
-                            <div {% if form.num_guests.errors %}class="field_error"{% endif %}>
+                            <div class="input-number" {% if form.num_guests.errors %}class="field_error"{% endif %}>
                                 Number of Guests that Can be Accommodated
                                 {{ form.num_guests }}
                                 {{ form.num_guests.errors }}
@@ -61,7 +61,14 @@
 
                             Features
                             <br/>
-                            {{ form.features }}
+                            {% for key, value in form.features.field.choices %}
+                                <input type="checkbox" id="{{value}}" name="{{value}}">
+                                <label for="{{value}}">
+                                    {{ value }}
+                                </label>
+                            {% endfor %}
+
+                            <!--{{ form.features }}-->
                         </div>
                         <div class="tab" id="view3">
 
@@ -81,12 +88,12 @@
                                 {{ form.city }}
                                 {{ form.city.errors }}
                             </div>
-                            <div {% if form.state.errors %}class="field_error"{% endif %}>
+                            <div class="6u 12u$(small) {% if form.state.errors %}field_error{% endif %}">
                                 State
                                 {{ form.state }}
                                 {{ form.state.errors }}
                             </div>
-                            <div {% if form.zipcode.errors %}class="field_error"{% endif %}>
+                            <div class="6u 12u$(small) {% if form.zipcode.errors %}field_error{% endif %}">
                                  Zip
                                 {{ form.zipcode }}
                                 {{ form.zipcode.errors }}

@@ -222,6 +222,21 @@ footer ul.icons li
 /***************** Sign up page *****************/
 
 /***************** Post Venue page *****************/
+.input-number
+{
+    margin: 1em 0;
+}
+
+.tab textarea
+{
+    height:200px;
+}
+
+#id_features li
+{
+    list-style-type: none;
+}
+
 #id_features label
 {
     text-decoration: none;

@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django import forms
 from homepage import models as hmod
 from lib import forms as custom_forms
+from lib import choices
 from capstone.settings import MEDIA_ROOT
 from django.contrib.auth.decorators import login_required
 import os.path
@@ -104,24 +105,7 @@ VENUE_TYPE_CHOICES = (
     ('sports', 'Sports')
 )
 
-VENUE_FEATURE_CHOICES = (
-    ('garden', 'Garden'),
-    ('gazebo', 'Gazebo'),
-    ('jacuzzi', 'Jacuzzi'),
-    ('lawn', 'Lawn'),
-    ('playset', 'Playset'),
-    ('pool', 'Pool'),
-    ('water', 'Water Feature')
-)
-
-STATE_CHOICES = (
-    ('AL', "Alabama"),
-    ('CO', "Colorado"),
-    ('ID', "Idaho"),
-    ('TX', "Texas"),
-    ('UT', "Utah"),
-)
-
+VENUE_FEATURE_CHOICES = choices.FEATURE_CHOICES
 
 class NewVenueForm(forms.Form):
     title = forms.CharField(widget=forms.TextInput())
@@ -134,7 +118,7 @@ class NewVenueForm(forms.Form):
     street = forms.CharField(widget=forms.TextInput)
     street2 = forms.CharField(widget=forms.TextInput)
     city = forms.CharField(widget=forms.TextInput())
-    state = forms.ChoiceField(widget=forms.Select(), choices=STATE_CHOICES)
+    state = forms.ChoiceField(widget=forms.Select(), choices=choices.STATE_CHOICES)
     zipcode = forms.CharField(widget=forms.TextInput)
 
     image_title = forms.CharField(widget=forms.TextInput(), required=False)

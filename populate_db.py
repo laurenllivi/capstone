@@ -144,9 +144,19 @@ f.description = "Outdoor waterfall"
 f.save()
 
 f2 = hmod.Feature()
-f.name = "Pool"
-f.description = "Outdoor pool"
-f.save()
+f2.name = "Pool"
+f2.description = "Outdoor pool"
+f2.save()
+
+f3 = hmod.Feature()
+f3.name = "Garden"
+f3.description = "Pretty Garden"
+f3.save()
+
+f4 = hmod.Feature()
+f4.name = "Gazebo"
+f4.description = "Like you're practically in the Sound of Music"
+f4.save()
 
 # Listing_Feature (association class)
 lf = hmod.Listing_Feature()
