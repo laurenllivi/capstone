@@ -10,36 +10,51 @@ import os.path
 # make sure the user is logged in before accessing this view
 # redirects the user to the previous url after login
 @login_required
-def manage_venue(request, listing_id):
+def manage_venue(request, listing_id=0):
     '''create new listing'''
+    
+    user = request.user
+    
+    # see if this is a new or existing venue
+    new = request.GET.get('status')
+    
+    # if this is an existing venue . . .
+    if new is not None:
+        listing = hmod.Listing()
+        newImage = hmod.Listing_Photo()
+        
+        form = NewVenueForm()
+        
+    # it's an existing venue . . .    
+    else:
+        # create the new venue form
+        listing = hmod.Listing.objects.get(id=listing_id)
+        newImage = hmod.Listing_Photo()
 
-    # create the new venue form
-    listing = hmod.Listing.objects.get(id=listing_id)
-    newImage = hmod.Listing_Photo()
-
-    form = NewVenueForm(initial={
-        'title': request.session.get('venueform_title') or listing.title,
-        'category': listing.category,
-        'sq_footage': listing.sq_footage,
-        'num_guests': listing.num_guests,
-        'description': listing.description,
-        'parking_desc': listing.parking_desc,
-        'street': listing.street,
-        'street2': listing.street2,
-        'city': listing.city,
-        'state': listing.state,
-        'zipcode': listing.zipcode,
-        'price_per_hour': listing.price_per_hour,
-        'price_per_hour_weekend': listing.price_per_hour_weekend
-    })
+        form = NewVenueForm(initial={
+            'title': request.session.get('venueform_title') or listing.title,
+            'category': listing.category,
+            'sq_footage': listing.sq_footage,
+            'num_guests': listing.num_guests,
+            'description': listing.description,
+            'parking_desc': listing.parking_desc,
+            'street': listing.street,
+            'street2': listing.street2,
+            'city': listing.city,
+            'state': listing.state,
+            'zipcode': listing.zipcode,
+            'price_per_hour': listing.price_per_hour,
+            'price_per_hour_weekend': listing.price_per_hour_weekend
+        })
 
     success = False
 
     if request.method == 'POST':
         form = NewVenueForm(request.POST, request.FILES)
 
-        if form.is_valid():
+        if form.is_valid():        
             success = True
+            listing.user = user
             listing.title = form.cleaned_data['title']
             listing.category = form.cleaned_data['category']
             listing.sq_footage = form.cleaned_data['sq_footage']
@@ -54,6 +69,9 @@ def manage_venue(request, listing_id):
             listing.price_per_hour = form.cleaned_data['price_per_hour']
             listing.price_per_hour_weekend = form.cleaned_data['price_per_hour_weekend']
             listing.save()
+            
+            # reset the url param to be the id of the venue
+            listing_id = listing.id
 
             has_image = request.FILES.get('image', False)
             if has_image:

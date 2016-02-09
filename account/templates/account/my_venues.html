@@ -19,9 +19,9 @@
                         {% for venue in my_venues %}
                             <div class="my_venue_wrapper">
                                 <img class="main_venue_photo pull-left" src=""/>
-                                <a href="" class="button small pull-right">Edit</a> 
+                                <a href="/venue/manage_venue/{{ venue.id }}" class="button small pull-right">Edit</a> 
                                 {{ venue.title }}<br>
-                                <a href="">Edit venue and availability</a>
+                                <a href="/venue/manage_venue/{{ venue.id }}">Edit venue and availability</a>
                                   
                             </div><!-- my_venue_wrapper -->
                             <hr class="hr-style">
