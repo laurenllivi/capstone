@@ -51,7 +51,6 @@ class Listing(models.Model):
     city = models.CharField(max_length=255, blank=True, null=True)
     state = models.CharField(max_length=255, blank=True, null=True)
     zipcode = models.CharField(max_length=255, blank=True, null=True)
-    features = models.ManyToManyField(Feature)
     user = models.ForeignKey('User')
     
     def __str__(self):
@@ -73,7 +72,6 @@ class Review(models.Model):
     description = models.CharField(max_length=500, blank=True, null=True)
     listing = models.ForeignKey('Listing')
     user = models.ForeignKey(User)
-
         
 class Listing_Feature(models.Model):
     '''Association class between listing and feature'''

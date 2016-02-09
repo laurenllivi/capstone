@@ -62,12 +62,12 @@
                             Features
                             <br/>
                             {% for key, value in form.features.field.choices %}
-                                <input type="checkbox" id="{{value}}" name="{{value}}">
-                                <label for="{{value}}">
+                                <input type="checkbox" id="id_feature_{{ key }}" value="{{key}}" name="features">
+                                <label for="id_feature_{{ key }}">
                                     {{ value }}
                                 </label>
-                            {% endfor %}
-
+                            {% endfor %}  
+                            
                             <!--{{ form.features }}-->
                         </div>
                         <div class="tab" id="view3">

@@ -31,7 +31,10 @@ def manage_venue(request, listing_id=0):
         # create the new venue form
         listing = hmod.Listing.objects.get(id=listing_id)
         newImage = hmod.Listing_Photo()
-        listing_features = hmod.Listing_Feature.objects.get(feature_id=listing_id)
+        try:
+            listing_features = hmod.Listing_Feature.objects.filter(feature_id=listing_id)
+        except hmod.Listing_Feature.DoesNotExist:
+            listing_features = None
 
         form = NewVenueForm(initial={
             'title': request.session.get('venueform_title') or listing.title,
@@ -40,6 +43,8 @@ def manage_venue(request, listing_id=0):
             'num_guests': listing.num_guests,
             'description': listing.description,
             'parking_desc': listing.parking_desc,
+            #can't figure out how to prepopulate with saved values
+            'features': listing_features,
             'street': listing.street,
             'street2': listing.street2,
             'city': listing.city,
@@ -63,10 +68,12 @@ def manage_venue(request, listing_id=0):
             listing.num_guests = form.cleaned_data['num_guests']
             listing.description = form.cleaned_data['description']
             listing.parking_desc = form.cleaned_data['parking_desc']
-            'this part is not working'
             feature_list = form.cleaned_data['features'].all()
             for feature in feature_list:
-                listing.features.add(feature)
+                listing_feature = hmod.Listing_Feature()
+                listing_feature.listing = listing
+                listing_feature.feature = feature
+                listing_feature.save()
             listing.street = form.cleaned_data['street']
             listing.street2 = form.cleaned_data['street2']
             listing.city = form.cleaned_data['city']
