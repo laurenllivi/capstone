@@ -53,7 +53,6 @@ u2.save()
 l = hmod.Listing()
 l.title = "Nice, quiet country backyard"
 l.category = "Backyard"
-l.price_per_hour = 50
 l.listing_type = "Backyard"
 l.description = "This is a nice, quiet backyard in the countryside. We love having parties and are excited to offer our backyard for the use of your event."
 l.sq_footage = 2000
@@ -64,18 +63,21 @@ l.street2 = "Apt. 2A"
 l.city = "Lindon"
 l.state = "UT"
 l.zipcode = "84042"
+l.price_per_hour = 100
+l.price_per_hour_weekend = 150
 l.user = u
 l.save()
 
 l2 = hmod.Listing()
 l2.title = "Beautiful, green backyard with fountains and pool"
 l2.category = "Backyard"
-l2.price_per_hour = 150
 l2.listing_type = "Backyard"
 l2.description = "This is a nice, quiet backyard in the countryside. Pool and fountains offer nice scenery. Beautiful lawn."
 l2.sq_footage = 4000
 l2.num_guests = 400
 l2.parking_desc = "There is parking for about 100, and more parking on the street. Might require a short walk if guests have to park a little bit further down the road."
+l2.price_per_hour = 100
+l2.price_per_hour_weekend = 150
 l2.user = u2
 l2.save()
 

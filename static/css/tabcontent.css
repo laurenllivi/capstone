@@ -1,7 +1,7 @@
 ﻿/* Tab Content - menucool.com */
 ul.tabs
 {
-    padding: 7px 0;
+    padding:0;
     margin:0;
     font-size: 0;
     list-style-type: none;
@@ -19,15 +19,17 @@ ul.tabs li
         
 ul.tabs li a
 {
-    font: normal 12px Verdana;
+    font: normal 16px Verdana;
     text-decoration: none;
     position: relative;
     padding: 7px 22px;
-    color: #000;
+    color: #FFF;
     outline:none;
-    background: #F6F6F9;
+    background: #4dac71;
     border:1px solid #CCC;
     border-right:0;
+    border-top-right-radius:4px;
+    border-top-left-radius:4px;
 }
 
 /*Note: IE8 and earlier doesn't support li:last-child. You have to add another class to the last tab (LI) and specify its border-right as below.*/
@@ -39,7 +41,7 @@ ul.tabs li:last-child a
         
 ul.tabs li a:hover
 {
-    color: #000;
+    color: #4dac71;
     background: white;
 }
         
@@ -49,7 +51,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover
     font-weight:normal;
     background: #FFF;
     border-bottom: 1px solid #FFF;
-    color: #000;
+    color: #4dac71;
 }
         
         
@@ -60,5 +62,6 @@ ul.tabs li.selected a:hover
 
 div.tabcontents
 {
-    border-top: 1px solid #CCC; padding: 30px 10px;
+    border: 1px solid #C6C6C6;
+    padding: 30px 10px;
 }

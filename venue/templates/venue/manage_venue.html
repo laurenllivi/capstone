@@ -14,8 +14,6 @@
 
 
         <form method="POST" enctype="multipart/form-data">
-            {{ form.errors }}
-            {{ form.non_field_errors }}
             <div>
                 <ul class="tabs" data-persist="true">
                     <li><a id="view1-link" href="#view1">General</a></li>
@@ -29,10 +27,22 @@
                             <div {% if form.title.errors %}class="field_error"{% endif %}>
                                 Venue Title
                                 {{ form.title }}
+                                {{ form.title.errors }}
                             </div>
                             <div {% if form.category.errors %}class="field_error"{% endif %}>
                                 Venue Type
                                 {{ form.category }}
+                                {{ form.category.errors }}
+                            </div>
+                            <div {% if form.sq_footage.errors %}class="field_error"{% endif %}>
+                                Square Footage of Space Available to Guests
+                                {{ form.sq_footage }}
+                                {{ form.sq_footage.errors }}
+                            </div>
+                            <div {% if form.num_guests.errors %}class="field_error"{% endif %}>
+                                Number of Guests that Can be Accommodated
+                                {{ form.num_guests }}
+                                {{ form.num_guests.errors }}
                             </div>
 
                         </div>
@@ -40,6 +50,13 @@
                             <div {% if form.description.errors %}class="field_error"{% endif %}>
                                 Description
                                 {{ form.description }}
+                                {{ form.description.errors }}
+                            </div>
+
+                            <div {% if form.parking_desc.errors %}class="field_error"{% endif %}>
+                                Description of Parking Facilities and/or Availability
+                                {{ form.parking_desc }}
+                                {{ form.parking_desc.errors }}
                             </div>
 
                             Features
@@ -52,22 +69,27 @@
                             <div {% if form.street.errors %}class="field_error"{% endif %}>
                                 Street
                                 {{ form.street }}
+                                {{ form.street.errors }}
                             </div>
                             <div {% if form.street2.errors %}class="field_error"{% endif %}>
                                 Street 2
                                 {{ form.street2 }}
+                                {{ form.street2.errors }}
                             </div>
                             <div {% if form.city.errors %}class="field_error"{% endif %}>
                                 City
                                 {{ form.city }}
+                                {{ form.city.errors }}
                             </div>
                             <div {% if form.state.errors %}class="field_error"{% endif %}>
                                 State
                                 {{ form.state }}
+                                {{ form.state.errors }}
                             </div>
                             <div {% if form.zipcode.errors %}class="field_error"{% endif %}>
                                  Zip
                                 {{ form.zipcode }}
+                                {{ form.zipcode.errors }}
                             </div>
 
                             Guests will not have access to your address until you have shared it with them.
@@ -75,7 +97,11 @@
                         </div>
 
                         <div class="tab" id="view4">
-                            {{ form.image_title }}
+                            <div {% if form.image_title.errors %}class="field_error"{% endif %}>
+                                 Image Title
+                                {{ form.image_title }}
+                            </div>
+
                             {{ form.image }}
 
                             {% if images %}
@@ -92,7 +118,18 @@
                         </div>
 
                         <div class="tab" id="view5">
-
+                            <div {% if form.price_per_hour.errors %}class="field_error"{% endif %}>
+                                Weekday Price Per Hour (M-Th)
+                                <br/>
+                                ${{ form.price_per_hour }}
+                                {{ form.price_per_hour.errors }}
+                            </div>
+                             <div {% if form.price_per_hour_weekend.errors %}class="field_error"{% endif %}>
+                                Weekend Price Per Hour (F-Su)
+                                <br/>
+                                ${{ form.price_per_hour_weekend }}
+                                {{ form.price_per_hour_weekend.errors }}
+                            </div>
                         </div>
 
                     </div>

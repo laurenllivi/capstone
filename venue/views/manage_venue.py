@@ -20,12 +20,17 @@ def manage_venue(request, listing_id):
     form = NewVenueForm(initial={
         'title': request.session.get('venueform_title') or listing.title,
         'category': listing.category,
+        'sq_footage': listing.sq_footage,
+        'num_guests': listing.num_guests,
         'description': listing.description,
+        'parking_desc': listing.parking_desc,
         'street': listing.street,
         'street2': listing.street2,
         'city': listing.city,
         'state': listing.state,
         'zipcode': listing.zipcode,
+        'price_per_hour': listing.price_per_hour,
+        'price_per_hour_weekend': listing.price_per_hour_weekend
     })
 
     success = False
@@ -37,20 +42,27 @@ def manage_venue(request, listing_id):
             success = True
             listing.title = form.cleaned_data['title']
             listing.category = form.cleaned_data['category']
+            listing.sq_footage = form.cleaned_data['sq_footage']
+            listing.num_guests = form.cleaned_data['num_guests']
             listing.description = form.cleaned_data['description']
+            listing.parking_desc = form.cleaned_data['parking_desc']
             listing.street = form.cleaned_data['street']
             listing.street2 = form.cleaned_data['street2']
             listing.city = form.cleaned_data['city']
             listing.state = form.cleaned_data['state']
             listing.zipcode = form.cleaned_data['zipcode']
+            listing.price_per_hour = form.cleaned_data['price_per_hour']
+            listing.price_per_hour_weekend = form.cleaned_data['price_per_hour_weekend']
             listing.save()
 
-            custom_forms.handle_uploaded_venue_file(request.FILES['image'],listing_id)
-            newImage.image_title = form.cleaned_data['image_title']
-            newImage.image_name = form.cleaned_data['image'].name
+            has_image = request.FILES.get('image', False)
+            if has_image:
+                custom_forms.handle_uploaded_venue_file(request.FILES['image'],listing_id)
+                newImage.image_title = form.cleaned_data['image_title']
+                newImage.image_name = form.cleaned_data['image'].name
 
-            newImage.listing = listing
-            newImage.save()
+                newImage.listing = listing
+                newImage.save()
 
             return HttpResponseRedirect('/venue/manage_venue/%s' % listing_id)
 
@@ -96,7 +108,10 @@ STATE_CHOICES = (
 class NewVenueForm(forms.Form):
     title = forms.CharField(widget=forms.TextInput())
     category = forms.ChoiceField(widget=forms.Select(), choices=VENUE_TYPE_CHOICES)
+    sq_footage = forms.DecimalField(max_digits=8, decimal_places=2)
+    num_guests = forms.DecimalField(max_digits=6, decimal_places=0)
     description = forms.CharField(widget=forms.Textarea)
+    parking_desc = forms.CharField(widget=forms.Textarea)
     features = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple(), choices=VENUE_FEATURE_CHOICES, required=False)
     street = forms.CharField(widget=forms.TextInput)
     street2 = forms.CharField(widget=forms.TextInput)
@@ -104,5 +119,12 @@ class NewVenueForm(forms.Form):
     state = forms.ChoiceField(widget=forms.Select(), choices=STATE_CHOICES)
     zipcode = forms.CharField(widget=forms.TextInput)
 
+    image_title = forms.CharField(widget=forms.TextInput(), required=False)
+    image = forms.ImageField(label='select a file', required=False)
+
+    price_per_hour = forms.DecimalField(max_digits=6, decimal_places=0)
+    price_per_hour_weekend = forms.DecimalField(max_digits=6, decimal_places=0)
+
+class ImageForm(forms.Form):
     image_title = forms.CharField(widget=forms.TextInput())
     image = forms.ImageField(label='select a file', required=False)

@@ -31,7 +31,8 @@ class Listing(models.Model):
     '''A venue listing posted by a user'''
     title = models.CharField(max_length=255, blank=True, null=True)
     category = models.CharField(max_length=255, blank=True, null=True)
-    price_per_hour = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)
+    price_per_hour = models.DecimalField(decimal_places=0, max_digits=8, blank=True, null=True)
+    price_per_hour_weekend = models.DecimalField(decimal_places=0, max_digits=8, blank=True, null=True)
     listing_type = models.CharField(max_length=255, blank=True, null=True)
     description = models.CharField(max_length=500, blank=True, null=True)
     sq_footage = models.IntegerField(blank=True, null=True)
