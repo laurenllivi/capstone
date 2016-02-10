@@ -58,6 +58,12 @@
 
 /* MAP */
 
+.find-container .left-div
+{
+	width:100%;
+	padding-right:1em;
+}
+
 .find-container .right-div
 {
 	display:none;
