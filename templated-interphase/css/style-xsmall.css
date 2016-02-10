@@ -55,3 +55,10 @@
 	input[type="button"] {
 		padding: 0;
 	}
+
+/* MAP */
+
+.find-container .right-div
+{
+	display:none;
+}

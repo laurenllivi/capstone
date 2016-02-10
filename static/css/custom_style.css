@@ -12,6 +12,13 @@ input[type="number"]
     margin-bottom:1em;
 }
 
+.half-width
+{
+    display:inline-block;
+    width:49%;
+    vertical-align:top;
+}
+
 /*********************** Homepage *******************/
 #search-overlay{
     position: absolute;
@@ -72,6 +79,7 @@ input[type="number"]
 .mini-profile-pic-wrapper img
 {
     vertical-align:middle;
+    vertical-align: -webkit-baseline-middle;
     bottom:25px;
 }
 
@@ -242,14 +250,17 @@ footer ul.icons li
 .find-container
 {
     position:relative;
-    min-height:400px;
+    min-height:600px;
+    padding:0 4%;
+    margin-top:-1em;
 }
+
 
 .leftdiv
 {
 	position: absolute;
 	padding-left: 10px;
-	width: 60%;
+	width: 45%;
 	height: 100%;
 	overflow: scroll;
 }
@@ -264,8 +275,8 @@ footer ul.icons li
 .rightdiv
 {
 	position: absolute;
-	left: 60%;
-	width: 40%;
+	right:4%;
+	width: 45%;
 	height:100%;
 	border-left: 1px solid #ececec;
 }
@@ -274,56 +285,12 @@ footer ul.icons li
 {
 	height:100%;
 	width:100%;
-}
-
-/*.find-content-container
-{
-    height:100%;
-    position:relative;
-}
-
-.left-side-content
-{
-	position: absolute;
-	padding-left: 10px;
-	width: 55%;
-	height: 100%;
-	overflow: scroll;
-}
-
-.left-side-content:after
-{
-	content: "";
-	display: block;
-	height: 50px;
-}
-
-.right-side-content
-{
-    position: absolute;
-	left: 60%;
-	width: 40%;
-	height:100%;
-	border-left: 1px solid #ececec;
-    -webkit-box-shadow: -2px 2px 9px 1px rgba(159,159,159,1);
-    -moz-box-shadow: -2px 2px 9px 1px rgba(159,159,159,1);
-    box-shadow: -2px 2px 9px 1px rgba(159,159,159,1);
-}
-
-#map
-{
-	height:100%;
- 
-}
-
-#within_miles{
-    display: inline;
 }
 
 .results-wrapper
 {
 	width:100%;
-	margin-left: -30px;
+	margin-left: -10px;
 }
 
 .results-container
@@ -344,8 +311,8 @@ footer ul.icons li
 	min-height: 20px;
 	margin-left: 2%;
 	margin-right: 2%;
-	margin-top:20px;
-	border-radius: 2px;
+	margin-top:1em;
+	border-radius: 4px;
 }
 
 .venue-pic-container
@@ -359,6 +326,7 @@ footer ul.icons li
 {
 	width: 100%;
 	height: auto;
+	vertical-align:middle;
 }
 
 .price-label
@@ -388,7 +356,14 @@ footer ul.icons li
 .favorite-icon
 {
 	font-size: 32px !important;
-}*/
+}
+
+.event-icon
+{
+	font-size: 30px !important;
+	vertical-align: middle;
+	color: lightgrey;
+}
 
 /**************** Slider ********************/
 

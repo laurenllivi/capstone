@@ -8,25 +8,7 @@
 	<script language="javascript" type="text/javascript" src="{% static 'noUiSlider.8.1.0/nouislider.js' %}"></script>
 	<!-- Google Maps -->
 	<script src="https://maps.googleapis.com/maps/api/js"></script>
-	<script type="text/javascript">
-        //google map
-		function initialize() {
-	        var mapCanvas = document.getElementById('map');
-	        var mapOptions = {
-	          center: new google.maps.LatLng(40.5403, -111.6450),
-	          zoom: 9,
-	          mapTypeId: google.maps.MapTypeId.ROADMAP
-	        }
-	        var map = new google.maps.Map(mapCanvas, mapOptions)
-	      }
-	      google.maps.event.addDomListener(window, 'load', initialize);
-          
-        //datepicker
-          $(document).ready(function() {
-              $('.datepicker').datepicker();
-          });
-          
-	</script>
+	<script src="{% static 'js/find_venue.js' %}" type="text/javascript"></script>
 
  
 {% endblock %}
@@ -34,11 +16,97 @@
 {% block content %}
 
 <section id="main" class="wrapper">
-    <div class="container">
 
 	<div class="find-container">
 		<div class="leftdiv">
 			<h2>Find A Venue</h2>
+			<form method="POST">
+               <div class="half-width">
+				   Within:
+				   {{ form.within_miles }}
+				   Event Date:
+				   {{ form.event_date }}
+				   Price Per Hour:
+				   {{ form.price_per_hour }}
+			   </div>
+				<div class="half-width">
+					Location
+					{{ form.location }}
+					Venue Type
+					{{ form.venue_type }}
+			   </div>
+				<input type="submit" value="Search">
+            </form>
+
+            <hr class="hr-style" />
+
+            No idea how to capture this as a django form field
+			<div class="slider-div">
+				Price Per Hour
+				<div class="slider-container">
+					<div id="nonlinear" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
+					</div>
+					<br/>
+
+					<div class="slider left-slider">
+						<span class="example-val" id="lower-value">0</span>
+					</div>
+
+					<div class="slider right-slider">
+						<span class="example-val" id="upper-value">5000</span>
+					</div>
+
+
+				</div>
+			</div><!-- slider-div -->
+
+            <hr class="hr-style" />
+
+            This is just your test data. Not actually pulling from the database yet.
+
+
+            <!-- the results of the search -->
+			<div class="results-wrapper">
+				<div class="results-container">
+
+					<div class="venue-result">
+						<a href="view-venue.html">
+						<img class="venue-pic" src="{% static 'images/backyard1.jpg' %}">
+						<div class="price-label">$25</div>
+						<div class="favorite-container">
+							<i class="fa fa-heart-o fa-2x"></i>
+						</div>
+						</a>
+					</div>
+
+					<div class="venue-result">
+                        <a href="">
+						<img class="venue-pic" src="{% static 'images/backyard2.jpg' %}" />
+						<div class="price-label">$60</div>
+						    <div class="favorite-container">
+							    <i class="fa fa-heart-o fa-2x"></i>
+                            </div>
+                        </a>
+					</div>
+
+					<div class="venue-result">
+						<img class="venue-pic" src="{% static 'images/backyard3.jpg' %}" />
+						<div class="price-label">$60</div>
+						    <div class="favorite-container">
+							    <i class="fa fa-heart-o fa-2x"></i>
+						    </div>
+					</div>
+
+					<div class="venue-result">
+						<img class="venue-pic" src="{% static 'images/backyard4.jpg' %}" />
+						<div class="price-label">$60</div>
+						    <div class="favorite-container">
+							    <i class="fa fa-heart-o fa-2x"></i>
+						    </div>
+					</div>
+
+                </div><!-- results-container -->
+            </div><!-- results-wrapper -->
 		</div>
 		<div class="rightdiv">
 			<div id="map"></div>
@@ -46,12 +114,6 @@
 	</div>
 
 
-    </div><!-- container -->
 </section>
 
-{% endblock %}
-
-
-{% block footer %}
-    {% include "partials/_footer.html" %}
 {% endblock %}
