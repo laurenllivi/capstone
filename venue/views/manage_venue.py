@@ -19,16 +19,17 @@ def manage_venue(request, listing_id=0):
     # see if this is a new or existing venue
     new = request.GET.get('status')
     
-    # if this is an existing venue . . .
+    # if this is a new venue . . .
     if new is not None:
-        listing = hmod.Listing()
-        newImage = hmod.Listing_Photo()
+        # don't create the venue until we save?
+        # listing = hmod.Listing()
+        # newImage = hmod.Listing_Photo()
         
         form = NewVenueForm()
         
     # it's an existing venue . . .    
     else:
-        # create the new venue form
+        # create the venue form and prepopulate it with saved values
         listing = hmod.Listing.objects.get(id=listing_id)
         newImage = hmod.Listing_Photo()
         try:
@@ -59,7 +60,11 @@ def manage_venue(request, listing_id=0):
     if request.method == 'POST':
         form = NewVenueForm(request.POST, request.FILES)
 
-        if form.is_valid():        
+        if form.is_valid():  
+            if new is not None:
+                listing = hmod.Listing()
+                newImage = hmod.Listing_Photo()
+                  
             success = True
             listing.user = user
             listing.title = form.cleaned_data['title']
@@ -122,8 +127,8 @@ VENUE_TYPE_CHOICES = (
 class NewVenueForm(forms.Form):
     title = forms.CharField(widget=forms.TextInput())
     category = forms.ChoiceField(widget=forms.Select(), choices=VENUE_TYPE_CHOICES)
-    sq_footage = forms.DecimalField(max_digits=8, decimal_places=2)
-    num_guests = forms.DecimalField(max_digits=6, decimal_places=0)
+    sq_footage = forms.DecimalField(max_digits=8, decimal_places=2, min_value=0)
+    num_guests = forms.DecimalField(max_digits=6, decimal_places=0, min_value=0)
     description = forms.CharField(widget=forms.Textarea)
     parking_desc = forms.CharField(widget=forms.Textarea)
     features = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple(), queryset=hmod.Feature.objects.all(), required=False)
@@ -134,10 +139,10 @@ class NewVenueForm(forms.Form):
     zipcode = forms.CharField(widget=forms.TextInput)
 
     image_title = forms.CharField(widget=forms.TextInput(), required=False)
-    image = forms.ImageField(label='select a file', required=False)
+    image = forms.ImageField(label='Select a file', required=False)
 
-    price_per_hour = forms.DecimalField(max_digits=6, decimal_places=0)
-    price_per_hour_weekend = forms.DecimalField(max_digits=6, decimal_places=0)
+    price_per_hour = forms.DecimalField(max_digits=6, decimal_places=0, min_value=0)
+    price_per_hour_weekend = forms.DecimalField(max_digits=6, decimal_places=0, min_value=0)
 
 class ImageForm(forms.Form):
     image_title = forms.CharField(widget=forms.TextInput())

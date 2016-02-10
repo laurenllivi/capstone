@@ -17,13 +17,15 @@ import datetime
 
 # Profile pics
 ph = hmod.User_Photo()
-ph.alt_title = "profile-lauren"
-ph.name = "/static/images/lauren.jpg"
+ph.image_title = "profile-lauren"
+ph.image_name = "profile-lauren"
+ph.image_file = "/static/images/profile-images/lauren.jpg"
 ph.save()
 
 ph2 = hmod.User_Photo()
-ph2.alt_title = "profile-shelly"
-ph2.name = "/static/images/shelly.jpg"
+ph2.image_title = "profile-shelly"
+ph2.image_name = "profile-shelly"
+ph2.image_file = "/static/images/profile-images/shelly.jpg"
 ph2.save()
 
 # User

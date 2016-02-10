@@ -442,6 +442,12 @@ hr.hr-style
     color: gray;
 }
 
+#new-photo-upload{
+    position: absolute;
+    display: inline-block;
+
+}
+
 /**************** My Venues *********************/
 .my_venue_wrapper{
     padding: 10px;

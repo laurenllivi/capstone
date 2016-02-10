@@ -25,22 +25,22 @@
                     <div class="tabcontents">
                         <div class="tab" id="view1">
                             <div {% if form.title.errors %}class="field_error"{% endif %}>
-                                Venue Title
+                                <strong>Venue Title</strong>
                                 {{ form.title }}
                                 {{ form.title.errors }}
                             </div>
                             <div {% if form.category.errors %}class="field_error"{% endif %}>
-                                Venue Type
+                                <strong>Venue Type</strong>
                                 {{ form.category }}
                                 {{ form.category.errors }}
                             </div>
                             <div class="input-number" {% if form.sq_footage.errors %}class="field_error"{% endif %}>
-                                Square Footage of Space Available to Guests
+                                <strong>Square Footage of Space Available to Guests</strong>
                                 {{ form.sq_footage }}
                                 {{ form.sq_footage.errors }}
                             </div>
                             <div class="input-number" {% if form.num_guests.errors %}class="field_error"{% endif %}>
-                                Number of Guests that Can be Accommodated
+                                <strong>Number of Guests that Can be Accommodated</strong>
                                 {{ form.num_guests }}
                                 {{ form.num_guests.errors }}
                             </div>
@@ -48,18 +48,18 @@
                         </div>
                         <div class="tab" id="view2">
                             <div {% if form.description.errors %}class="field_error"{% endif %}>
-                                Description
+                                <strong>Description</strong>
                                 {{ form.description }}
                                 {{ form.description.errors }}
                             </div>
 
                             <div {% if form.parking_desc.errors %}class="field_error"{% endif %}>
-                                Description of Parking Facilities and/or Availability
+                                <strong>Description of Parking Facilities and/or Availability</strong>
                                 {{ form.parking_desc }}
                                 {{ form.parking_desc.errors }}
                             </div>
 
-                            Features
+                            <strong>Features</strong>
                             <br/>
                             {% for key, value in form.features.field.choices %}
                                 <input type="checkbox" id="id_feature_{{ key }}" value="{{key}}" name="features">
@@ -73,39 +73,38 @@
                         <div class="tab" id="view3">
 
                             <h3>Address of Venue</h3>
+                            Guests will not have access to your address until you have shared it with them.<br><br>
+        
                             <div {% if form.street.errors %}class="field_error"{% endif %}>
-                                Street
+                                <strong>Street</strong>
                                 {{ form.street }}
                                 {{ form.street.errors }}
                             </div>
                             <div {% if form.street2.errors %}class="field_error"{% endif %}>
-                                Street 2
+                                <strong>Street 2</strong>
                                 {{ form.street2 }}
                                 {{ form.street2.errors }}
                             </div>
                             <div {% if form.city.errors %}class="field_error"{% endif %}>
-                                City
+                                <strong>City</strong>
                                 {{ form.city }}
                                 {{ form.city.errors }}
                             </div>
                             <div class="6u 12u$(small) {% if form.state.errors %}field_error{% endif %}">
-                                State
+                                <strong>State</strong>
                                 {{ form.state }}
                                 {{ form.state.errors }}
                             </div>
                             <div class="6u 12u$(small) {% if form.zipcode.errors %}field_error{% endif %}">
-                                 Zip
+                                 <strong>Zip</strong>
                                 {{ form.zipcode }}
                                 {{ form.zipcode.errors }}
                             </div>
-
-                            Guests will not have access to your address until you have shared it with them.
-
                         </div>
 
                         <div class="tab" id="view4">
                             <div {% if form.image_title.errors %}class="field_error"{% endif %}>
-                                 Image Title
+                                 <strong>Image Title</strong>
                                 {{ form.image_title }}
                             </div>
 
@@ -120,19 +119,19 @@
                                 {% endfor %}
                                 </ul>
                             {% else %}
-                                    <p>No Images.</p>
+                                    <p>No Images</p>
                             {% endif %}
                         </div>
 
                         <div class="tab" id="view5">
                             <div {% if form.price_per_hour.errors %}class="field_error"{% endif %}>
-                                Weekday Price Per Hour (M-Th)
+                                <strong>Weekday Price Per Hour (M-Th)</strong>
                                 <br/>
                                 ${{ form.price_per_hour }}
                                 {{ form.price_per_hour.errors }}
                             </div>
                              <div {% if form.price_per_hour_weekend.errors %}class="field_error"{% endif %}>
-                                Weekend Price Per Hour (F-Su)
+                                <strong>Weekend Price Per Hour (F-Su)</strong>
                                 <br/>
                                 ${{ form.price_per_hour_weekend }}
                                 {{ form.price_per_hour_weekend.errors }}

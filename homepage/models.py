@@ -4,8 +4,9 @@ from django.conf import settings
 
 class User_Photo(models.Model):
     '''profile pics for users'''
-    alt_title = models.CharField(max_length=255, blank=True, null=True)
-    name = models.CharField(max_length=255, blank=True, null=True)
+    image_name = models.CharField(max_length=50, blank=True, null=True)
+    image_title = models.CharField(max_length=50, blank=True, null=True)
+    image_file = models.ImageField(default='profile-images/no-img.jpg')
     
     def __str__(self):
         return self.name   

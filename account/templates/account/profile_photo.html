@@ -19,9 +19,20 @@
                         <div class="bio-pic">
                             <div class="profile-pic-container">
                                 <div class="profile-pic-wrapper">
-                                    <img class="profile-pic" src="{{ user.profile_pic.name }}" />
+                                    <img class="profile-pic" src="{{ user.profile_pic.image_file }}" />
                                 </div>
                             </div>
+                        </div>
+                        
+                        <div id="new-photo-upload">
+                            Though a photo is not required, it is highly recommended. When potential renters are able to put a face to a name, they will likely feel more comfortable renting from you.<br><br>
+                           
+                           <form method="POST" enctype="multipart/form-data">
+                                <!-- the photo upload field -->
+                                {{ photo_upload_form }}<br><br>
+                                <input type="submit" class="button small pull-left" value="Submit">
+                            </form>
+                            
                         </div>
                                     
                     </div><!-- panel-profile-content-->
@@ -34,3 +45,7 @@
 
     </div><!-- container -->
 </section>
+
+{% block footer %}
+    {% include "partials/_footer.html" %}
+{% endblock %}
