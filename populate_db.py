@@ -119,10 +119,27 @@ l4.save()
 
 # Listing Photo
 p = hmod.Listing_Photo()
-p.alt_title = "backyard photo"
-p.name = "img"
-p.listing = l2
+p.listing = l
+p.image_name = "home-theatre.jpg"
+p.image_title = "Home Theatre"
+p.image_file = '/static/images/venue-images/1/home-theatre.jpg'
 p.save()
+
+# Listing Photo
+p2 = hmod.Listing_Photo()
+p2.listing = l2
+p2.image_name = "IMG_0051.JPG"
+p2.image_title = "Books"
+p2.image_file = '/static/images/venue-images/2/IMG_0051.JPG'
+p2.save()
+
+# Listing Photo
+p3 = hmod.Listing_Photo()
+p3.listing = l2
+p3.image_name = "IMG_0178.JPG"
+p3.image_title = "Grass"
+p3.image_file = '/static/images/venue-images/2/IMG_0178.JPG'
+p3.save()
 
 # Review
 r = hmod.Review()

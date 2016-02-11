@@ -39,6 +39,6 @@ def profile_photo(request):
     return render(request, 'account/profile_photo.html', context)
     
 class New_Profile_Photo_Form(forms.Form):
-    image = forms.ImageField(label=False,required=False)
+    image = forms.ImageField(label="Change your profile photo",required=False)
     
 

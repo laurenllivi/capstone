@@ -21,11 +21,8 @@ def manage_venue(request, listing_id=0):
     
     # if this is a new venue . . .
     if new is not None:
-        # don't create the venue until we save?
-        # listing = hmod.Listing()
-        # newImage = hmod.Listing_Photo()
-        
         form = NewVenueForm()
+        listing = None
         
     # it's an existing venue . . .    
     else:
@@ -52,7 +49,9 @@ def manage_venue(request, listing_id=0):
             'state': listing.state,
             'zipcode': listing.zipcode,
             'price_per_hour': listing.price_per_hour,
-            'price_per_hour_weekend': listing.price_per_hour_weekend
+            'price_per_hour_weekend': listing.price_per_hour_weekend,
+            #'image_title': newImage.image_title,
+            #'image': newImage.image_file
         })
 
     success = False
@@ -73,12 +72,14 @@ def manage_venue(request, listing_id=0):
             listing.num_guests = form.cleaned_data['num_guests']
             listing.description = form.cleaned_data['description']
             listing.parking_desc = form.cleaned_data['parking_desc']
+            
             feature_list = form.cleaned_data['features'].all()
             for feature in feature_list:
                 listing_feature = hmod.Listing_Feature()
                 listing_feature.listing = listing
                 listing_feature.feature = feature
                 listing_feature.save()
+                
             listing.street = form.cleaned_data['street']
             listing.street2 = form.cleaned_data['street2']
             listing.city = form.cleaned_data['city']
@@ -96,19 +97,22 @@ def manage_venue(request, listing_id=0):
                 custom_forms.handle_uploaded_venue_file(request.FILES['image'],listing_id)
                 newImage.image_title = form.cleaned_data['image_title']
                 newImage.image_name = form.cleaned_data['image'].name
+                newImage.image_file = "/static/images/venue-images/" + str(listing_id) + "/" + form.cleaned_data['image'].name
 
                 newImage.listing = listing
                 newImage.save()
 
             return HttpResponseRedirect('/venue/manage_venue/%s' % listing_id)
 
-    images = hmod.Listing_Photo.objects.all()
+    # get the images for this listing
+    images = hmod.Listing_Photo.objects.filter(listing=listing)
 
     # the equivalent of template_vars in DMP
     context = {
         'success': success,
         'form': form,
         'images': images,
+        'listing': listing,
     }
     return render(request, 'venue/manage_venue.html', context)
 
@@ -137,13 +141,8 @@ class NewVenueForm(forms.Form):
     city = forms.CharField(widget=forms.TextInput())
     state = forms.ChoiceField(widget=forms.Select(), choices=choices.STATE_CHOICES)
     zipcode = forms.CharField(widget=forms.TextInput)
-
-    image_title = forms.CharField(widget=forms.TextInput(), required=False)
-    image = forms.ImageField(label='Select a file', required=False)
-
     price_per_hour = forms.DecimalField(max_digits=6, decimal_places=0, min_value=0)
     price_per_hour_weekend = forms.DecimalField(max_digits=6, decimal_places=0, min_value=0)
 
-class ImageForm(forms.Form):
-    image_title = forms.CharField(widget=forms.TextInput())
-    image = forms.ImageField(label='select a file', required=False)
+    image_title = forms.CharField(widget=forms.TextInput(), required=False)
+    image = forms.ImageField(label='Select a file', required=False)

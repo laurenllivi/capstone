@@ -80,7 +80,7 @@ input[type="number"]
 {
     vertical-align:middle;
     vertical-align: -webkit-baseline-middle;
-    bottom:25px;
+    bottom:23px;
 }
 
 .mini-profile-pic-container{
@@ -97,6 +97,7 @@ input[type="number"]
 	transform: translateY(0);
     border: 1px white solid;
     margin-bottom: 10px;
+    background-color: #ffffff;
 }
 
 .mini-profile-pic{
@@ -431,7 +432,7 @@ hr.hr-style
 /**************** Profile *******************/
 .profile-left-side-menu{
     position: absolute;
-    width: 25%;
+    min-width: 25%;
     min-height: 100%;
 }
 
@@ -474,9 +475,18 @@ hr.hr-style
 }
 
 #new-photo-upload{
-    position: absolute;
+    position: relative;
     display: inline-block;
+    margin-right: 75px;
+    margin-top: 10px;
 
+}
+
+#new-photo-blurb{
+    position: relative;
+    display: inline-block;
+    max-width: 400px;
+    top: 25px;
 }
 
 /**************** My Venues *********************/
@@ -506,4 +516,11 @@ hr.hr-style
 .ven-img-thumbnail img
 {
     width:100%;
+}
+.tiny-camera-icon{
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    position:relative;
+    z-index: 5;
 }

@@ -65,7 +65,7 @@ class Listing_Photo(models.Model):
     listing = models.ForeignKey('Listing')
     
     def __str__(self):
-        return self.name
+        return self.image_name
     
 class Review(models.Model):
     '''A user gives a listing a review'''
