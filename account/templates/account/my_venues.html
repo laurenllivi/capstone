@@ -5,6 +5,10 @@
 
 {% block content %}
 
+<head>
+    <script src="/static/js/my_venues.js"></script>
+</head>
+
     <section id="main" class="wrapper">
         <div class="container">
             
@@ -18,12 +22,16 @@
                     
                         {% for venue in my_venues %}
                             <div class="my_venue_wrapper">
-                                {% if venue_pics_dict|get_item:venue.id == None %}
-                                    <!-- <img class="tiny-camera-icon" src="/static/images/camera-icon.png"/> -->
-                                    <img class="main_venue_photo pull-left" src="" />
-                                {% else %}  
-                                    <img class="main_venue_photo pull-left" src="/static/images/venue-images/{{ venue.id }}/{{ venue_pics_dict|get_item:venue.id }}"/>
-                                {% endif %}
+                                <a href="/venue/manage_venue/{{ venue.id }}">
+                                    <div class="venue-pic-wrapper">
+                                        {% if venue_pics_dict|get_item:venue.id == None %}
+                                            <img class="tiny-camera-icon" src="/static/images/camera-icon.png"/></a>
+                                            <img class="main_venue_photo pull-left" src="" />
+                                        {% else %}  
+                                            <img class="main_venue_photo pull-left" src="/static/images/venue-images/{{ venue.id }}/{{ venue_pics_dict|get_item:venue.id }}"/>
+                                        {% endif %}
+                                    </div><!-- venue-pic-wrapper -->
+                                    </a>
                                 <a href="/venue/manage_venue/{{ venue.id }}" class="button small pull-right" style="margin-left: 10px">Edit</a> 
                                 {{ venue.title }}<br>
                                 <a href="/venue/manage_venue/{{ venue.id }}">Edit venue and availability</a>
