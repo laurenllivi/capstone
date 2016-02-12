@@ -2,6 +2,26 @@ from homepage import models as hmod
 
 # FEATURE_CHOICES = [(feature.name, feature.name) for feature in hmod.Feature.objects.all()]
 
+VENUE_TYPE_CHOICES = (
+    ('backyard', 'Backyard'),
+    ('barn', 'Barn'),
+    ('porch', 'Deck/Porch/Patio'),
+    ('theater', 'Home Theater'),
+    ('pool', 'Pool'),
+    ('rooftop', 'Rooftop'),
+    ('sports', 'Sports')
+)
+
+WITHIN_MILES_CHOICES = (
+    ('5', '5 miles'),
+    ('10', '10 miles'),
+    ('15', '15 miles'),
+    ('20', '20 miles'),
+    ('30', '30 miles'),
+    ('50', '50 miles'),
+    ('100', '100 miles +'),  
+)
+
 STATE_CHOICES = (
     ('AL', "Alabama"),
     ('AK', "Alaska"),

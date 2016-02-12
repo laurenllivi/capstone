@@ -116,21 +116,11 @@ def manage_venue(request, listing_id=0):
     }
     return render(request, 'venue/manage_venue.html', context)
 
-VENUE_TYPE_CHOICES = (
-    ('backyard', 'Backyard'),
-    ('barn', 'Barn'),
-    ('porch', 'Deck/Porch/Patio'),
-    ('theater', 'Home Theater'),
-    ('pool', 'Pool'),
-    ('rooftop', 'Rooftop'),
-    ('sports', 'Sports')
-)
-
 # VENUE_FEATURE_CHOICES = choices.FEATURE_CHOICES
 
 class NewVenueForm(forms.Form):
     title = forms.CharField(widget=forms.TextInput())
-    category = forms.ChoiceField(widget=forms.Select(), choices=VENUE_TYPE_CHOICES)
+    category = forms.ChoiceField(widget=forms.Select(), choices=choices.VENUE_TYPE_CHOICES)
     sq_footage = forms.DecimalField(max_digits=8, decimal_places=2, min_value=0)
     num_guests = forms.DecimalField(max_digits=6, decimal_places=0, min_value=0)
     description = forms.CharField(widget=forms.Textarea)

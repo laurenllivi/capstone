@@ -25,8 +25,16 @@
 	</section>
     
     <div id="search-overlay">
-        A place to put the search fields . . . need to figure out how to position so it doesn't look weird when you resize the screen . . .
-    </div>
+        <div id="index-search-form">
+            <form method="POST">
+                City
+                {{ form.city }}
+                Category
+                {{ form.category }}
+                <input type="submit" value="Search" class="button small">
+            </form>
+        </div><!-- index-search-form --> 
+    </div><!-- search-overlay -->
 
 <!-- One -->
 	<section id="one" class="wrapper style1 align-center">
