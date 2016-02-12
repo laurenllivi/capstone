@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.shortcuts import render
 from lib import choices
@@ -8,7 +8,14 @@ def index(request):
     
     form = Homepage_Search_Form()
     
-        
+    if request.method == 'POST':
+        form = Homepage_Search_Form(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data['city'])
+            print(form.cleaned_data['category']) 
+            # now what to do with these . . .    
+            return HttpResponseRedirect('/venue/find_venue/')
+            
     # the equivalent of template_vars in DMP
     context = {
         'form': form,
@@ -19,7 +26,7 @@ def index(request):
     
 class Homepage_Search_Form(forms.Form):
     city = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'index-search-field',
+        'class': 'index-search-field ui-autocomplete-input ui-corner-all location-search-autocomplete',
         'placeholder': 'Where is your event?',
     }))
     category = forms.ChoiceField(choices=choices.VENUE_TYPE_CHOICES, widget=forms.Select(attrs={
