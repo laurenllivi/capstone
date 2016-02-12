@@ -242,7 +242,7 @@ footer ul.icons li
 
 /***************** Sign up page *****************/
 
-/***************** Post Venue page *****************/
+/***************** Post/Manage Venue page *****************/
 .input-number
 {
     margin: 1em 0;
@@ -269,6 +269,21 @@ footer ul.icons li
 .ven-img-thumbnail img
 {
     width:100%;
+
+.next-tab-button
+{
+    position:absolute;
+    border:none;
+    background-color:rgba(255,255,255,0);
+    color: #3ba666;
+    right: 15%;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.next-tab-button i
+{
+    font-weight:100;
 }
 
 /***************** Find Venue Page ********/

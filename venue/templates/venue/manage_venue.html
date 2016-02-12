@@ -11,20 +11,19 @@
 {% block content %}
 <section id="main" class="wrapper">
     <div class="container">
-        
-        <!-- commenting this out for when we show Bonnie tomorrow -->
-        <!-- <button onclick="myFunction()">Click me</button> -->
+
         <form method="POST" enctype="multipart/form-data">
             <div>
                 <ul class="tabs" data-persist="true">
-                    <li><a id="view1-link" href="#view1">General</a></li>
-                    <li><a id="view2-link" href="#view2">Features</a></li>
-                    <li><a id="view3-link" href="#view3">Location</a></li>
-                    <li><a id="view4-link" href="#view4">Photos</a></li>
-                    <li><a id="view5-link" href="#view5">Pricing</a></li>
+                    <li><a id="view1-link" class="tab-link" href="#view1">General</a></li>
+                    <li><a id="view2-link" class="tab-link" href="#view2">Features</a></li>
+                    <li><a id="view3-link" class="tab-link" href="#view3">Location</a></li>
+                    <li><a id="view4-link" class="tab-link" href="#view4">Photos</a></li>
+                    <li><a id="view5-link" class="tab-link" href="#view5">Pricing</a></li>
                 </ul>
                     <div class="tabcontents">
                         <div class="tab" id="view1">
+                            <button class="next-tab-button" onclick="nextTab()">Next <i class="fa fa-arrow-right"></i></button>
                             <div {% if form.title.errors %}class="field_error"{% endif %}>
                                 <strong>Venue Title</strong>
                                 {{ form.title }}
@@ -35,12 +34,12 @@
                                 {{ form.category }}
                                 {{ form.category.errors }}
                             </div>
-                            <div class="input-number" {% if form.sq_footage.errors %}class="field_error"{% endif %}>
+                            <div class="input-number {% if form.sq_footage.errors %}field_error{% endif %}">
                                 <strong>Square Footage of Space Available to Guests</strong>
                                 {{ form.sq_footage }}
                                 {{ form.sq_footage.errors }}
                             </div>
-                            <div class="input-number" {% if form.num_guests.errors %}class="field_error"{% endif %}>
+                            <div class="input-number {% if form.num_guests.errors %}field_error{% endif %}">
                                 <strong>Number of Guests that Can be Accommodated</strong>
                                 {{ form.num_guests }}
                                 {{ form.num_guests.errors }}
@@ -48,6 +47,7 @@
 
                         </div>
                         <div class="tab" id="view2">
+                            <button class="next-tab-button" onclick="nextTab()">Next <i class="fa fa-arrow-right"></i></button>
                             <div {% if form.description.errors %}class="field_error"{% endif %}>
                                 <strong>Description</strong>
                                 {{ form.description }}
@@ -72,7 +72,7 @@
                             <!--{{ form.features }}-->
                         </div>
                         <div class="tab" id="view3">
-
+                            <button class="next-tab-button" onclick="nextTab()">Next <i class="fa fa-arrow-right"></i></button>
                             <h3>Address of Venue</h3>
                             Guests will not have access to your address until you have shared it with them.<br><br>
         
@@ -104,6 +104,7 @@
                         </div>
 
                         <div class="tab" id="view4">
+                            <button class="next-tab-button" onclick="nextTab()">Next <i class="fa fa-arrow-right"></i></button>
                             <div {% if form.image_title.errors %}class="field_error"{% endif %}>
                                  <strong>Image Title</strong>
                                 {{ form.image_title }}

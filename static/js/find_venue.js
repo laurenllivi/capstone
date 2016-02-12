@@ -17,6 +17,8 @@ $(document).ready(function(){
               $('.datepicker').datepicker();
           });
 
+
+        ///price slider
         var nonLinearSlider = document.getElementById('nonlinear');
 
         noUiSlider.create(nonLinearSlider, {
@@ -48,9 +50,9 @@ $(document).ready(function(){
         // from the left edge of the slider.
         nonLinearSlider.noUiSlider.on('update', function ( values, handle ) {
             if ( !handle ) {
-                lowerValue.innerHTML = values[handle];
+                lowerValue.innerHTML = parseInt(values[handle]);
             } else {
-                upperValue.innerHTML = values[handle];
+                upperValue.innerHTML = parseInt(values[handle]);
             }
         });
     },5);
