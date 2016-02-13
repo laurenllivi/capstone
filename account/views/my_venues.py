@@ -25,8 +25,6 @@ def my_venues(request):
             venue_pic = hmod.Listing_Photo.objects.filter(listing=venue).first()
             # and add it to the dictionary
             venue_pics_dict[venue.id] = venue_pic 
-            print(">>>>>>>>>>>>>>>>>>>>>>>")
-            print(venue_pics_dict)
         
         except hmod.Listing_Photo.DoesNotExist:
             pass

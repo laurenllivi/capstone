@@ -3,7 +3,8 @@
 
 {% block stylesheets %}
     <script src="{% static 'js/tabcontent.js' %}" type="text/javascript"></script>
-    <script src="{% static 'js/manage_venue.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/manage_venue.js' %}" type="text/javascript"></script>  
+    <script src="{% static 'js/google-autocomplete.js' %}"></script>     
 
     <link href="{% static 'css/tabcontent.css' %}" rel="stylesheet" type="text/css" />
 {% endblock %}
@@ -75,6 +76,13 @@
                             <button class="next-tab-button" onclick="nextTab()">Next <i class="fa fa-arrow-right"></i></button>
                             <h3>Address of Venue</h3>
                             Guests will not have access to your address until you have shared it with them.<br><br>
+                            
+                            <div id="locationField">
+                                This isn't fully working yet . . . will fix :)
+                                {{ form.search_address }}
+                            </div>
+                            
+                            <hr class="hr-style">
         
                             <div {% if form.street.errors %}class="field_error"{% endif %}>
                                 <strong>Street</strong>
@@ -147,7 +155,6 @@
          </form>
     </div>
 </section>
-
 
 {% endblock %}
 

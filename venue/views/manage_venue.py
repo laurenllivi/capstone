@@ -126,11 +126,26 @@ class NewVenueForm(forms.Form):
     description = forms.CharField(widget=forms.Textarea)
     parking_desc = forms.CharField(widget=forms.Textarea)
     features = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple(), queryset=hmod.Feature.objects.all(), required=False)
-    street = forms.CharField(widget=forms.TextInput)
-    street2 = forms.CharField(widget=forms.TextInput)
-    city = forms.CharField(widget=forms.TextInput())
-    state = forms.ChoiceField(widget=forms.Select(), choices=choices.STATE_CHOICES)
-    zipcode = forms.CharField(widget=forms.TextInput)
+    search_address = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Search for your address . . .',
+        'id': 'autocomplete',
+        'onFocus': 'geolocate()',
+    }))
+    street = forms.CharField(widget=forms.TextInput(attrs={
+        'id': 'street_name'
+    }))
+    street2 = forms.CharField(widget=forms.TextInput(attrs={
+        'id': 'route'
+    }))
+    city = forms.CharField(widget=forms.TextInput(attrs={
+        'id': 'city'
+    }))
+    state = forms.ChoiceField(choices=choices.STATE_CHOICES, widget=forms.Select(attrs={
+        'id': 'state'
+    }))
+    zipcode = forms.CharField(widget=forms.TextInput(attrs={
+        'id': 'zipcode'
+    }))
     price_per_hour = forms.DecimalField(max_digits=6, decimal_places=0, min_value=0)
     price_per_hour_weekend = forms.DecimalField(max_digits=6, decimal_places=0, min_value=0)
 
