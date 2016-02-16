@@ -335,7 +335,7 @@ footer ul.icons li
 	border-left: 1px solid #ececec;
 }
 
-#map
+#map, #gmap-circles
 {
 	height:100%;
 	width:100%;

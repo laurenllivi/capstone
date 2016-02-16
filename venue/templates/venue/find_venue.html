@@ -10,7 +10,7 @@
 	<!-- Google Maps - it's in the base template now -->
 
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<script src="{% static 'js/maplace.js' %}" type="text/javascript"></script>
+	<script src="{% static 'js/maplace.min.js' %}" type="text/javascript"></script>
 	<script src="{% static 'js/find_venue.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/geosearch.js' %}" type="text/javascript"></script>
     
@@ -19,7 +19,6 @@
 {% block content %}
 
 <section id="main" class="wrapper">
-
 	<div class="find-container">
 		<div class="leftdiv">
 			<h3>Find A Venue</h3>
@@ -112,7 +111,7 @@
             </div><!-- results-wrapper -->
 		</div>
 		<div class="rightdiv">
-				<div id="gmap"></div>
+			<div id="gmap-circles"></div>
 		</div>
 	</div>
 

@@ -1,23 +1,31 @@
 $(document).ready(function(){
     setTimeout(function(){
        //google map
-		function initialize() {
-	        var mapCanvas = document.getElementById('map');
-	        var mapOptions = {
-	          center: new google.maps.LatLng(40.5403, -111.6450),
-	          zoom: 9,
-	          mapTypeId: google.maps.MapTypeId.ROADMAP
-	        }
-	        var map = new google.maps.Map(mapCanvas, mapOptions)
-	      }
-	      google.maps.event.addDomListener(window, 'load', initialize);
+//		function initialize() {
+//	        var mapCanvas = document.getElementById('map');
+//	        var mapOptions = {
+//	          center: new google.maps.LatLng(40.5403, -111.6450),
+//	          zoom: 9,
+//	          mapTypeId: google.maps.MapTypeId.ROADMAP
+//	        }
+//	        var map = new google.maps.Map(mapCanvas, mapOptions)
+//	      }
+//	      google.maps.event.addDomListener(window, 'load', initialize);
 
-        $(function() {
-            var maplace = new Maplace();
-            maplace.Load();
-        });
-
-
+        new Maplace({
+            generate_controls: false,
+            locations: Circles,
+            map_div: '#gmap-circles',
+            start: 4,
+            view_all_text: 'Points of interest',
+            type: 'circle',
+            shared: {
+                zoom: 16,
+                html: '%index',
+                show_infowindow : false,
+            },
+            show_markers: false,
+        }).Load();
 
         //datepicker
           $(document).ready(function() {
@@ -63,5 +71,35 @@ $(document).ready(function(){
         });
     },5);
 
-})
+    var Circles = [
+        {
+            lat: 40.5403,
+            lon: -111.6450,
+            circle_options: {
+                radius: 100
+            },
+            stroke_options: {
+                strokeColor: '#00aa00',
+                fillColor: '#00aa00'
+            },
+            title: 'circle 1',
+            visible: false
+        },
+        {
+            lat: 40.5403,
+            lon: -111.6440,
+            circle_options: {
+                radius: 100
+            },
+            stroke_options: {
+                strokeColor: '#00aa00',
+                fillColor: '#00aa00'
+            },
+            title: 'circle 2',
+            visible: false
+        },
+    ];
+
+
+})//document ready
 
