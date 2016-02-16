@@ -1,28 +1,25 @@
 $(document).ready(function(){
     setTimeout(function(){
        //google map
-//		function initialize() {
-//	        var mapCanvas = document.getElementById('map');
-//	        var mapOptions = {
-//	          center: new google.maps.LatLng(40.5403, -111.6450),
-//	          zoom: 9,
-//	          mapTypeId: google.maps.MapTypeId.ROADMAP
-//	        }
-//	        var map = new google.maps.Map(mapCanvas, mapOptions)
-//	      }
-//	      google.maps.event.addDomListener(window, 'load', initialize);
-
         new Maplace({
             generate_controls: false,
             locations: Circles,
             map_div: '#gmap-circles',
-            start: 4,
+            start: 0,
             view_all_text: 'Points of interest',
             type: 'circle',
             shared: {
-                zoom: 16,
+                zoom: 14,
                 html: '%index',
                 show_infowindow : false,
+                circle_options: {
+                    radius: 200
+                },
+                stroke_options: {
+                    strokeColor: '#00aa00',
+                    fillColor: '#00aa00'
+                },
+                visible: false //marker
             },
             show_markers: false,
         }).Load();
@@ -73,30 +70,14 @@ $(document).ready(function(){
 
     var Circles = [
         {
-            lat: 40.5403,
-            lon: -111.6450,
-            circle_options: {
-                radius: 100
-            },
-            stroke_options: {
-                strokeColor: '#00aa00',
-                fillColor: '#00aa00'
-            },
-            title: 'circle 1',
-            visible: false
+            html: 'circle 1',
+            lat: 40.2444,
+            lon: -111.6608,
         },
         {
-            lat: 40.5403,
-            lon: -111.6440,
-            circle_options: {
-                radius: 100
-            },
-            stroke_options: {
-                strokeColor: '#00aa00',
-                fillColor: '#00aa00'
-            },
-            title: 'circle 2',
-            visible: false
+            html: 'circle 2',
+            lat: 40.2433,
+            lon: -111.6600,
         },
     ];
 
