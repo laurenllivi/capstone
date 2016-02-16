@@ -13,11 +13,11 @@
 
     var placeSearch, autocomplete;
     var componentForm = {
-      street_name: 'short_name',
-      route: 'long_name',
-      city: 'long_name',
-      state: 'short_name',
-      zipcode: 'short_name'
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        postal_code: 'short_name'
     };
 
     function initAutocomplete() {
@@ -47,8 +47,8 @@
       for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
         if (componentForm[addressType]) {
-            var val = place.address_components[i][componentForm[addressType]];
-          document.getElementById(addressType).value = val;
+           var val = place.address_components[i][componentForm[addressType]];
+           document.getElementById(addressType).value = val;
         }
       }
     }

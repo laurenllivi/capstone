@@ -11,7 +11,7 @@ import os.path
 # make sure the user is logged in before accessing this view
 # redirects the user to the previous url after login
 @login_required
-def manage_venue(request, listing_id=0):
+def manage_venue(request, listing_id):
     '''create new listing'''
     
     user = request.user
@@ -102,7 +102,7 @@ def manage_venue(request, listing_id=0):
                 newImage.listing = listing
                 newImage.save()
 
-            return HttpResponseRedirect('/venue/manage_venue/%s' % listing_id)
+            return HttpResponseRedirect('/venue/manage_venue/%s/' % listing_id)
 
     # get the images for this listing
     images = hmod.Listing_Photo.objects.filter(listing=listing)
@@ -126,28 +126,29 @@ class NewVenueForm(forms.Form):
     description = forms.CharField(widget=forms.Textarea)
     parking_desc = forms.CharField(widget=forms.Textarea)
     features = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple(), queryset=hmod.Feature.objects.all(), required=False)
-    search_address = forms.CharField(widget=forms.TextInput(attrs={
+    search_address = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'placeholder': 'Search for your address . . .',
         'id': 'autocomplete',
         'onFocus': 'geolocate()',
     }))
     street = forms.CharField(widget=forms.TextInput(attrs={
-        'id': 'street_name'
+        'id': 'street_number'
     }))
-    street2 = forms.CharField(widget=forms.TextInput(attrs={
+    street2 = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'id': 'route'
     }))
     city = forms.CharField(widget=forms.TextInput(attrs={
-        'id': 'city'
+        'id': 'locality'
     }))
     state = forms.ChoiceField(choices=choices.STATE_CHOICES, widget=forms.Select(attrs={
-        'id': 'state'
+        'id': 'administrative_area_level_1'
     }))
     zipcode = forms.CharField(widget=forms.TextInput(attrs={
-        'id': 'zipcode'
+        'id': 'postal_code'
     }))
     price_per_hour = forms.DecimalField(max_digits=6, decimal_places=0, min_value=0)
     price_per_hour_weekend = forms.DecimalField(max_digits=6, decimal_places=0, min_value=0)
 
     image_title = forms.CharField(widget=forms.TextInput(), required=False)
     image = forms.ImageField(label='Select a file', required=False)
+    
