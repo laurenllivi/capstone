@@ -12,11 +12,17 @@ $(document).ready(function(){
 	      }
 	      google.maps.event.addDomListener(window, 'load', initialize);
 
+        $(function() {
+            var maplace = new Maplace();
+            maplace.Load();
+        });
+
+
+
         //datepicker
           $(document).ready(function() {
               $('.datepicker').datepicker();
           });
-
 
         ///price slider
         var nonLinearSlider = document.getElementById('nonlinear');
