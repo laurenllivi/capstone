@@ -62,10 +62,8 @@ def manage_venue(request, listing_id):
 
     if request.method == 'POST':
         form = NewVenueForm(request.POST, request.FILES)
-        print "method was post >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
         if form.is_valid():
-            print "form was valid >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
             if new is not None:
                 listing = hmod.Listing()
                 newImage = hmod.Listing_Photo()
