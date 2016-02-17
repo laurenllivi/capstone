@@ -1,0 +1,33 @@
+{% extends 'capstone/auth_base.html' %}
+{% load staticfiles %}
+
+{% block stylesheets %}
+
+ <script src="{% static 'js/jquery-ui.multidatespicker.js' %}"></script>   
+    
+{% endblock %}
+
+{% block content %}
+
+<section id="main" class="wrapper">
+    <div class="container">
+	
+        <div id="custom-jquery-calendar">
+            <div id="main-calendar"></div>
+        </div><!-- custom-jquery-calendar -->
+    
+        <br>
+      {{ form }}
+    
+    </div>
+    
+</section>
+
+<script>
+    //instantiate the calendar
+    $('#main-calendar').multiDatesPicker({
+        altField: '#id_dates_available'
+    });
+</script>
+
+{% endblock %}

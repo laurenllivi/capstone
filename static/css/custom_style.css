@@ -560,7 +560,73 @@ hr.hr-style
             width: 150px;
             height: 100px;   
         }
+        
+/************************ Calendar ***************************/
+/*override the multidatespicker css*/
 
+#custom-jquery-calendar .ui-datepicker-title{
+    font-size: 24px;
+    color: #4dac71;
+    width: 515px 
+}
+
+#custom-jquery-calendar .ui-datepicker-header{
+    text-align: center;  
+    width: 100%
+}
+
+#custom-jquery-calendar .ui-datepicker-calendar th{
+    border: none;
+}
+
+
+#custom-jquery-calendar .ui-state-default{
+    height: 75px;
+    min-width: 75px;
+    border: none;
+    background: #e5e5e5;
+}
+
+#custom-jquery-calendar .ui-datepicker{
+    width: 600px;
+    height: 100%;
+}
+
+#custom-jquery-calendar .ui-state-highlight{
+    background: none;
+    border: none;
+    color: #ffffff; 
+}
+
+#custom-jquery-calendar .ui-state-highlight a{
+    background-color: #4dac71 ;
+    border: none;
+    color: #ffffff; 
+}
+
+#custom-jquery-calendar .ui-state-active{
+    color: black;
+}
+
+#custom-jquery-calendar .ui-state-hover{
+    background-color: #d9d9d9;
+}
+
+#custom-jquery-calendar tr{
+    border: none;
+}
+
+#custom-jquery-calendar .ui-datepicker td a{
+    padding-right: 10px;
+}
+
+#custom-jquery-calendar .ui-datepicker-today{
+    background-color: #999999;
+}
+
+#custom-jquery-calendar .ui-icon {
+    background-image: url('/static/images/ui-icons_444444_256x240.png');
+}
 
 
 
