@@ -378,8 +378,9 @@ footer ul.icons li
 
 .venue-pic
 {
-	width: 100%;
+	max-width: 100%;
 	height: auto;
+	width: auto\9; /* ie8 */
 	vertical-align:middle;
 }
 
@@ -457,7 +458,7 @@ footer ul.icons li
 
 /***************** Forms *****************/
 
-.field_error input, .field_error textarea
+.field_error input, .field_error textarea, .filed_error input[type=number]
 {
     border: 2px solid red;
 }

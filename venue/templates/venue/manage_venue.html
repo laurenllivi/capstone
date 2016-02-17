@@ -133,13 +133,13 @@
                         </div>
 
                         <div class="tab" id="view5">
-                            <div class="input-number"{% if form.price_per_hour.errors %}class="field_error"{% endif %}>
+                            <div class="input-number {% if form.price_per_hour.errors %}field_error{% endif %}">
                                 <strong>Weekday Price Per Hour (M-Th)</strong>
                                 <br/>
                                 ${{ form.price_per_hour }}
                                 {{ form.price_per_hour.errors }}
                             </div>
-                             <div class="input-number" {% if form.price_per_hour_weekend.errors %}class="field_error"{% endif %}>
+                             <div class="input-number {% if form.price_per_hour_weekend.errors %}field_error{% endif %}">
                                 <strong>Weekend Price Per Hour (F-Su)</strong>
                                 <br/>
                                 ${{ form.price_per_hour_weekend }}

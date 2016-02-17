@@ -1,4 +1,4 @@
-from django.db import models
+from django.contrib.gis.db import models
 from django.contrib.auth.models import AbstractUser 
 from django.conf import settings
 
@@ -56,6 +56,7 @@ class Listing(models.Model):
     zipcode = models.CharField(max_length=255, blank=True, null=True)
     post_date = models.DateTimeField(auto_now_add=True, auto_now=False)
     modified_date = models.DateTimeField(auto_now=True, auto_now_add=False)
+    geolocation = models.PointField(blank=True, null=True)
     user = models.ForeignKey('User')
     
     def __str__(self):

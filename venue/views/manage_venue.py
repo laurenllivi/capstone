@@ -7,6 +7,8 @@ from lib import choices
 from capstone.settings import MEDIA_ROOT
 from django.contrib.auth.decorators import login_required
 import os.path
+from django.contrib.gis.geos import Point
+import geocoder
 
 # make sure the user is logged in before accessing this view
 # redirects the user to the previous url after login
@@ -34,6 +36,8 @@ def manage_venue(request, listing_id):
         except hmod.Listing_Feature.DoesNotExist:
             listing_features = None
 
+        # location = geocoder.google([listing.geolocation.x, listing.geolocation.y], method='reverse')
+
         form = NewVenueForm(initial={
             'title': request.session.get('venueform_title') or listing.title,
             'category': listing.category,
@@ -58,8 +62,10 @@ def manage_venue(request, listing_id):
 
     if request.method == 'POST':
         form = NewVenueForm(request.POST, request.FILES)
+        print "method was post >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
-        if form.is_valid():  
+        if form.is_valid():
+            print "form was valid >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
             if new is not None:
                 listing = hmod.Listing()
                 newImage = hmod.Listing_Photo()
@@ -87,6 +93,15 @@ def manage_venue(request, listing_id):
             listing.zipcode = form.cleaned_data['zipcode']
             listing.price_per_hour = form.cleaned_data['price_per_hour']
             listing.price_per_hour_weekend = form.cleaned_data['price_per_hour_weekend']
+
+            g = geocoder.google(
+                form.cleaned_data['street'] + " " +
+                form.cleaned_data['street2'] + ", " +
+                form.cleaned_data['city'] + ", " +
+                form.cleaned_data['state']
+            )
+
+            listing.geolocation = Point(float(g.lat), float(g.lng))
             listing.save()
             
             # reset the url param to be the id of the venue

@@ -6,13 +6,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'noUiSlider.8.1.0/nouislider.css' %}">
 
 	<script language="javascript" type="text/javascript" src="{% static 'noUiSlider.8.1.0/nouislider.js' %}"></script>
-
-	<!-- Google Maps - it's in the base template now -->
-
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="{% static 'js/maplace.min.js' %}" type="text/javascript"></script>
 	<script src="{% static 'js/find_venue.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/geosearch.js' %}" type="text/javascript"></script>
+	<script type="text/javascript">
+		location_data_from_django = {{ location_data|safe }};
+		setLocations(location_data_from_django);
+	</script>
     
 {% endblock %}
 
@@ -64,48 +65,27 @@
 
             <hr class="hr-style" />
 
-            This is just your test data. Not actually pulling from the database yet.
-
 
             <!-- the results of the search -->
 			<div class="results-wrapper">
 				<div class="results-container">
 
-					<div class="venue-result">
-						<a href="view-venue.html">
-						<img class="venue-pic" src="{% static 'images/backyard1.jpg' %}">
-						<div class="price-label">$25</div>
-						<div class="favorite-container">
-							<i class="fa fa-heart-o fa-2x"></i>
+					{% for venue in venues %}
+						<div class="venue-result">
+							<a href="view-venue.html">
+								{% if venue_pics_dict|get_item:venue.id == None %}
+									<img class="tiny-camera-icon venue-pic" src="/static/images/camera-icon.png"/></a>
+									<img class="venue-pic" src="" />
+								{% else %}
+									<img class="venue-pic" src="/static/images/venue-images/{{ venue.id }}/{{ venue_pics_dict|get_item:venue.id }}"/>
+								{% endif %}
+								<div class="price-label">${{ venue.price_per_hour }}</div>
+								<div class="favorite-container">
+									<i class="fa fa-heart-o fa-2x"></i>
+								</div>
+							</a>
 						</div>
-						</a>
-					</div>
-
-					<div class="venue-result">
-                        <a href="">
-						<img class="venue-pic" src="{% static 'images/backyard2.jpg' %}" />
-						<div class="price-label">$60</div>
-						    <div class="favorite-container">
-							    <i class="fa fa-heart-o fa-2x"></i>
-                            </div>
-                        </a>
-					</div>
-
-					<div class="venue-result">
-						<img class="venue-pic" src="{% static 'images/backyard3.jpg' %}" />
-						<div class="price-label">$60</div>
-						    <div class="favorite-container">
-							    <i class="fa fa-heart-o fa-2x"></i>
-						    </div>
-					</div>
-
-					<div class="venue-result">
-						<img class="venue-pic" src="{% static 'images/backyard4.jpg' %}" />
-						<div class="price-label">$60</div>
-						    <div class="favorite-container">
-							    <i class="fa fa-heart-o fa-2x"></i>
-						    </div>
-					</div>
+					{% endfor %}
 
                 </div><!-- results-container -->
             </div><!-- results-wrapper -->
@@ -114,7 +94,6 @@
 			<div id="gmap-circles"></div>
 		</div>
 	</div>
-
 
 
 </section>

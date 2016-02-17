@@ -1,28 +1,9 @@
+var location_markers = {};
+
 $(document).ready(function(){
     setTimeout(function(){
-       //google map
-        new Maplace({
-            generate_controls: false,
-            locations: Circles,
-            map_div: '#gmap-circles',
-            start: 0,
-            view_all_text: 'Points of interest',
-            type: 'circle',
-            shared: {
-                zoom: 14,
-                html: '%index',
-                show_infowindow : false,
-                circle_options: {
-                    radius: 200
-                },
-                stroke_options: {
-                    strokeColor: '#00aa00',
-                    fillColor: '#00aa00'
-                },
-                visible: false //marker
-            },
-            show_markers: false,
-        }).Load();
+
+        mapSetup();
 
         //datepicker
           $(document).ready(function() {
@@ -68,19 +49,71 @@ $(document).ready(function(){
         });
     },5);
 
-    var Circles = [
-        {
-            html: 'circle 1',
-            lat: 40.2444,
-            lon: -111.6608,
-        },
-        {
-            html: 'circle 2',
-            lat: 40.2433,
-            lon: -111.6600,
-        },
-    ];
-
 
 })//document ready
 
+function mapSetup()
+{
+
+    Circles = [];
+
+    //add locations from db to list
+    for (var i in location_markers)
+    {
+        circle =
+        {
+            lat: location_markers[i].lat,
+            lon: location_markers[i].lon
+        }
+        Circles.push(circle);
+    }
+
+//geocoding
+  var geocoder = new google.maps.Geocoder();
+  var address = 'Provo, UT';
+  geocoder.geocode({'address': address}, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+        var newCircle =
+        {
+            html: address,
+            lat: results[0].geometry.location.lat(),
+            lon: results[0].geometry.location.lng()
+        }
+        Circles.push(newCircle);
+        makeMap(Circles);
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+   });
+}
+
+function makeMap(Circles)
+{
+    //google map
+    new Maplace({
+        generate_controls: false,
+        locations: Circles,
+        map_div: '#gmap-circles',
+        start: 0,
+        type: 'circle',
+        shared: {
+            zoom: 14,
+            html: '%index',
+            show_infowindow : false,
+            circle_options: {
+                radius: 200
+            },
+            stroke_options: {
+                strokeColor: '#00aa00',
+                fillColor: '#00aa00'
+            },
+            visible: false //marker
+        },
+        show_markers: false,
+    }).Load();
+}
+
+function setLocations(location_data)
+{
+    location_markers = location_data;
+}
