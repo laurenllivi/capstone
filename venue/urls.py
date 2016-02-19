@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^manage_venue/$', views.manage_venue, name='manage_venue'),
     url(r'^find_venue/$', views.find_venue, name='find_venue'),
     url(r'^calendar/(?P<listing_id>[0-9]+)/$', views.calendar, name='calendar'),
+    url(r'^test/$', views.test, name='test'),
 ]

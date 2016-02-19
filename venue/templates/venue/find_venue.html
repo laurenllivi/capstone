@@ -6,14 +6,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'noUiSlider.8.1.0/nouislider.css' %}">
 
 	<script language="javascript" type="text/javascript" src="{% static 'noUiSlider.8.1.0/nouislider.js' %}"></script>
-	<script src="{% static 'js/maplace.min.js' %}" type="text/javascript"></script>
 	<script src="{% static 'js/find_venue.js' %}" type="text/javascript"></script>
+	<script src="{% static 'js/maplace.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/geosearch.js' %}" type="text/javascript"></script>
 	<script type="text/javascript">
-		search_location = {{ search_location|safe }};
-		location_data_from_django = {{ location_data|safe }};
-		setLocations(search_location, location_data_from_django);
+		setLocations({{ search_location|safe }}, {{ location_data|safe }}, {{ price_per_hour_range|safe }});
 	</script>
+
     
 {% endblock %}
 
@@ -53,11 +52,11 @@
 					<br/>
 
 					<div class="slider left-slider">
-						<span class="example-val" id="lower-value">0</span>
+						<span class="example-val" id="lower-value">{{form.price_per_hour_lower.value}}</span>
 					</div>
 
 					<div class="slider right-slider">
-						<span class="example-val" id="upper-value">5000</span>
+						<span class="example-val" id="upper-value">{{form.price_per_hour_upper.value}}</span>
 					</div>
 
 
@@ -100,3 +99,4 @@
 </section>
 
 {% endblock %}
+

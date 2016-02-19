@@ -1,0 +1,21 @@
+<form id="htmlForm" action="/venue/test/" method="post">
+    {% csrf_token %}
+    Message: <input type="text" name="message" value="Hello HTML" />
+    {{ form.as_p }}
+    <input type="submit" value="submit ajax">
+</form>
+
+<script>
+    $(document).ready(function() {
+    // bind form using ajaxForm
+    $('#htmlForm').ajaxForm({
+        // target identifies the element(s) to update with the server response
+        target: '#form-container'
+
+        // success identifies the function to invoke when the server response
+        // has been received; here we apply a fade-in effect to the new content
+        //success: function() {
+          //  $('#htmlExampleTarget').fadeIn('slow');
+        //}
+    });
+</script>

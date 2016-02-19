@@ -1,5 +1,6 @@
-var search_location = ''
+var search_location = '';
 var location_markers = {};
+var price_per_hour_range = [];
 
 $(document).ready(function(){
 
@@ -16,12 +17,12 @@ $(document).ready(function(){
     noUiSlider.create(nonLinearSlider, {
         connect: true,
         behaviour: 'tap',
-        start: [ 0, 5000 ],
+        start: [price_per_hour_range[0], price_per_hour_range[1]],
         range: {
             // Starting at 50, step the value by 10,
             // until 2500 is reached. From there, step by 100.
             'min': [ 0 ],
-            '10%': [ 50, 10 ],
+            '10%': [ 100, 10 ],
             '50%': [ 2500, 100 ],
             'max': [ 5000 ]
         }
@@ -73,7 +74,7 @@ function mapSetup()
     if (status === google.maps.GeocoderStatus.OK) {
         makeMap(Circles, results[0].geometry.location.lat(), results[0].geometry.location.lng());
     } else {
-      alert('Geocode was not successful for the following reason: ' + status);
+      //Geocode unsuccessful
     }
    });
 }
@@ -108,8 +109,9 @@ function makeMap(Circles, centerLat, centerLon)
     }).Load();
 }
 
-function setLocations(search_location, location_data)
+function setLocations(location, location_data, price_range)
 {
-    search_location = search_location;
+    search_location = location;
     location_markers = location_data;
+    price_per_hour_range = price_range;
 }

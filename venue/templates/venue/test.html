@@ -1,0 +1,15 @@
+{% extends 'capstone/base_template.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<section id="main" class="wrapper">
+    <div class="container">
+        <h1>Test Page</h1>
+        <div class="message"></div>
+        <div id="form-container">
+            {{ formhtml|safe }}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
