@@ -22,7 +22,7 @@ def test_form(request):
 
     if request.method == 'POST':
         form = TestForm(request.POST)
-        print form
+        print(form)
 
         message = 'something wrong!'
         if form.is_valid():

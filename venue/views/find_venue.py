@@ -26,7 +26,7 @@ def find_venue(request):
             venue_type = form.cleaned_data['venue_type'].capitalize()
             price_per_hour_range = [form.cleaned_data['price_per_hour_lower'],
                                     form.cleaned_data['price_per_hour_upper']]
-            print form.cleaned_data['price_per_hour_upper']
+            print(form.cleaned_data['price_per_hour_upper'])
 
     g = geocoder.google(search_location)
     search_geo = Point(float(g.lat), float(g.lng))

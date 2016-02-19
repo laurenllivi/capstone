@@ -12,6 +12,8 @@ django.setup()
 from django.conf import settings
 from homepage import models as hmod
 import datetime
+from django.contrib.gis.geos import Point
+import geocoder
 
 ######### Add some test data to the system ############################
 
@@ -67,6 +69,13 @@ l.state = "UT"
 l.zipcode = "84042"
 l.price_per_hour = 100
 l.price_per_hour_weekend = 150
+g = geocoder.google(
+    l.street + " " + 
+    l.street2 + " " + 
+    l.city + " " + 
+    l.state
+)
+l.geolocation = Point(float(g.lat), float(g.lng))
 l.user = u
 l.save()
 
@@ -78,8 +87,20 @@ l2.description = "This is a nice, quiet backyard in the countryside. Pool and fo
 l2.sq_footage = 4000
 l2.num_guests = 400
 l2.parking_desc = "There is parking for about 100, and more parking on the street. Might require a short walk if guests have to park a little bit further down the road."
+l2.street = "5000 State Street"
+l2.street2 = "Apt. 2A"
+l2.city = "Provo"
+l2.state = "UT"
+l2.zipcode = "84606"
 l2.price_per_hour = 100
 l2.price_per_hour_weekend = 150
+g2 = geocoder.google(
+    l2.street + " " + 
+    l2.street2 + " " + 
+    l2.city + " " + 
+    l2.state
+)
+l2.geolocation = Point(float(g2.lat), float(g2.lng))
 l2.user = u2
 l2.save()
 
@@ -92,11 +113,18 @@ l3.description = "This is a nice, quiet backyard in the countryside. We love hav
 l3.sq_footage = 2000
 l3.num_guests = 200
 l3.parking_desc = "There is parking for about 100, and more parking on the street. Might require a short walk if guests have to park a little bit further down the road."
-l3.street = "1030 E State Street"
-l3.street2 = "Apt. 2A"
-l3.city = "Lindon"
-l3.state = "UT"
-l3.zipcode = "84042"
+l3.street = "5000 Forbes Avenue"
+l3.street2 = ""
+l3.city = "Pittsburgh"
+l3.state = "PA"
+l3.zipcode = "15232"
+g3 = geocoder.google(
+    l3.street + " " + 
+    l3.street2 + " " + 
+    l3.city + " " + 
+    l3.state
+)
+l3.geolocation = Point(float(g3.lat), float(g3.lng))
 l3.user = u
 l3.save()
 
@@ -111,9 +139,16 @@ l4.num_guests = 200
 l4.parking_desc = "There is parking for about 100, and more parking on the street. Might require a short walk if guests have to park a little bit further down the road."
 l4.street = "1030 E State Street"
 l4.street2 = "Apt. 2A"
-l4.city = "Lindon"
+l4.city = "Provo"
 l4.state = "UT"
-l4.zipcode = "84042"
+l4.zipcode = "84606"
+g4 = geocoder.google(
+    l4.street + " " + 
+    l4.street2 + " " + 
+    l4.city + " " + 
+    l4.state
+)
+l4.geolocation = Point(float(g4.lat), float(g4.lng))
 l4.user = u2
 l4.save()
 
