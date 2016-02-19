@@ -196,9 +196,9 @@ ao.save()
 
 # Listing_Date
 ld = hmod.Listing_Date()
-ld.start_date = datetime.datetime.today()
-ld.end_date = datetime.datetime.today()
-ld.status = True
+#ld.start_date = datetime.datetime.today()
+#ld.end_date = datetime.datetime.today()
+#ld.status = True
 ld.listing = l2
 ld.save()
 

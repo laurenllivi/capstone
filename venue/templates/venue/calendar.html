@@ -17,7 +17,10 @@
         </div><!-- custom-jquery-calendar -->
     
         <br>
-      {{ form }}
+        <form method="POST">
+            {{ form }}
+            <input type="submit" value="Save">
+        </form>
     
     </div>
     
@@ -26,7 +29,7 @@
 <script>
     //instantiate the calendar
     $('#main-calendar').multiDatesPicker({
-        altField: '#id_dates_available'
+        altField: '#id_dates_available',
     });
 </script>
 

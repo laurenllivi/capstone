@@ -21,7 +21,9 @@ class User(AbstractUser):
     # last_name
     # username
     # email
-    # password included??
+    # password included
+    # date_joined
+    # last_login
     phone = models.CharField(max_length=15, blank=True, null=True)
     profile_pic = models.ForeignKey('User_Photo', blank=True, null=True)
     
@@ -52,6 +54,8 @@ class Listing(models.Model):
     city = models.CharField(max_length=255, blank=True, null=True)
     state = models.CharField(max_length=255, blank=True, null=True)
     zipcode = models.CharField(max_length=255, blank=True, null=True)
+    post_date = models.DateTimeField(auto_now_add=True, auto_now=False)
+    modified_date = models.DateTimeField(auto_now=True, auto_now_add=False)
     user = models.ForeignKey('User')
     
     def __str__(self):
@@ -72,6 +76,7 @@ class Review(models.Model):
     rating = models.IntegerField(blank=True, null=True)
     description = models.CharField(max_length=500, blank=True, null=True)
     listing = models.ForeignKey('Listing')
+    review_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User)
         
 class Listing_Feature(models.Model):
@@ -87,21 +92,23 @@ class Add_On(models.Model):
     listing = models.ForeignKey('Listing')
     
 class Listing_Date(models.Model):
-    '''The dates that the venue is avaible or not . . . false = blocked out, true = available'''
-    start_date = models.DateTimeField(blank=True, null=True)
-    end_date = models.DateTimeField(blank=True, null=True)
-    status = models.NullBooleanField(default=False, blank=True, null=True)
+    '''The dates that the venue is avaible or not . . . false = blocked out, true = available???'''
+    # start_date = models.DateTimeField(blank=True, null=True)
+    # end_date = models.DateTimeField(blank=True, null=True)
+    # status = models.NullBooleanField(default=False, blank=True, null=True)
+    date = models.DateField(blank=True, null=True)
     listing = models.ForeignKey('Listing')
     
 class Rental_Request(models.Model):
     '''When a user makes a request to rent a venue'''
     notes = models.CharField(max_length=255, blank=True, null=True)
     approved = models.NullBooleanField(default=False, blank=True, null=True)
+    request_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User)
     listing_date = models.ForeignKey('Listing_Date')
     
 class Transaction(models.Model):
-    date = models.DateTimeField(blank=True, null=True)
+    date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)
     paid = models.NullBooleanField(default=False, blank=True, null=True)
     notes = models.CharField(max_length=255, blank=True, null=True)
