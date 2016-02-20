@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'homepage',
     'account',
     'venue',
+    'message',
+    'django_messages',
 ]
 
 MIDDLEWARE_CLASSES = [

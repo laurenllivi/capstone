@@ -1,0 +1,41 @@
+{% extends 'capstone/auth_base.html' %}
+{% load i18n %}
+{% load url from future %}
+
+<section id="main" class="wrapper">
+    <div class="container">
+             
+        {% block content %}
+        
+        <section id="main" class="wrapper">
+            
+                    {% block left_menu %}
+                        {% include "partials/_message_left_menu.html" %}
+                    {% endblock %}
+                    
+                <div id="inbox-panel">
+                    
+                </div>
+                
+                <div id="messages-main-content">
+                    <div class="panel-header">Inbox</div>
+                        
+
+                   
+                        
+                        
+                        
+                    </div>
+                </div><!-- messages-main-content -->
+                
+        
+        </section>
+          
+{% endblock %}
+
+    </div><!-- container -->
+</section>
+
+{% block footer %}
+    {% include "partials/_footer.html" %}
+{% endblock %}

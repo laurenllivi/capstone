@@ -1,0 +1,9 @@
+{% load i18n %}
+<div id="message-left-side-menu">
+    <ul>
+        <li><a href="{% url 'messages_inbox' %} ">{% trans "Inbox" %}</a></li>
+        <li><a href="{% url 'messages_outbox' %} ">{% trans "Sent Messages" %}</a></li>
+        <li><a href="{% url 'messages_compose' %} ">{% trans "New Message" %}</a></li>
+        <li><a href="{% url 'messages_trash' %} ">{% trans "Trash" %}</a></li>
+    </ul>
+</div><!-- profile-left-side-menu -->

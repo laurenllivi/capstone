@@ -46,7 +46,7 @@ def calendar(request, listing_id):
                 d.listing = listing
                 d.save()
             
-            return HttpResponseRedirect('/venue/calendar')
+            return HttpResponseRedirect('/venue/calendar/%s' %listing.id)
 
     context = {
         'form': form,
@@ -58,7 +58,6 @@ class Calendar_Form(forms.Form):
         # 'disabled': 'disabled',
         'rows': '3',
         }))
-    weekends = forms.BooleanField(required=False)
     
     def clean(self):
         if len(self.errors) == 0:

@@ -629,5 +629,51 @@ hr.hr-style
     background-image: url('/static/images/ui-icons_444444_256x240.png');
 }
 
+/***************** Messages App ************************/
+#message-left-side-menu{
+    position: absolute;
+    min-width: 15%;
+    min-height: 100%;
+    border-right: 1px solid #C6C6C6;
+  
+}
+
+#message-left-side-menu ul > li{
+    list-style: none;
+    line-height: 2.5em;
+}
+
+#message-left-side-menu ul > li a{
+	-moz-transition: color 0.2s ease-in-out;
+	-webkit-transition: color 0.2s ease-in-out;
+	-o-transition: color 0.2s ease-in-out;
+	-ms-transition: color 0.2s ease-in-out;
+	transition: color 0.2s ease-in-out;
+	color: #3BA666;
+	display: inline-block;
+	text-decoration: none;
+}
+
+#message-left-side-menu ul > li a:hover{
+    color: #D8D8D8;
+}
+
+#inbox-panel{
+    position: absolute;
+    min-width: 25%;
+    left: 15%;
+    min-height: 100%;
+    margin-top: -14px;
+    border-right: 1px solid #C6C6C6;
+}
+
+.messages-main-content{
+    position: relative;
+    left: 25%;
+    min-width: 60%;
+    right: 15%;
+    min-height: 100%;
+}
+
 
 
