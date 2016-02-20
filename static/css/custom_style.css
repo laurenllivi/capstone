@@ -630,12 +630,12 @@ hr.hr-style
 }
 
 /***************** Messages App ************************/
-#message-left-side-menu{
+/*#message-left-side-menu{
     position: absolute;
     min-width: 15%;
     min-height: 100%;
     border-right: 1px solid #C6C6C6;
-  
+
 }
 
 #message-left-side-menu ul > li{
@@ -644,14 +644,14 @@ hr.hr-style
 }
 
 #message-left-side-menu ul > li a{
-	-moz-transition: color 0.2s ease-in-out;
-	-webkit-transition: color 0.2s ease-in-out;
-	-o-transition: color 0.2s ease-in-out;
-	-ms-transition: color 0.2s ease-in-out;
-	transition: color 0.2s ease-in-out;
-	color: #3BA666;
-	display: inline-block;
-	text-decoration: none;
+    -moz-transition: color 0.2s ease-in-out;
+    -webkit-transition: color 0.2s ease-in-out;
+    -o-transition: color 0.2s ease-in-out;
+    -ms-transition: color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out;
+    color: #3BA666;
+    display: inline-block;
+    text-decoration: none;
 }
 
 #message-left-side-menu ul > li a:hover{
@@ -665,14 +665,63 @@ hr.hr-style
     min-height: 100%;
     margin-top: -14px;
     border-right: 1px solid #C6C6C6;
-}
+}*/
 
-.messages-main-content{
+/*.messages-main-content{
     position: relative;
-    left: 25%;
-    min-width: 60%;
+    left: 30%;
+    min-width: 70%;
     right: 15%;
     min-height: 100%;
+}*/
+
+.messages-rightdiv
+{
+	position: absolute;
+    float: right;
+	top:7em;
+	right:0;
+	width: 70%;
+    padding-right: 2em;
+    padding-top: 1em;
+    padding-left: 2em;
+	height:-moz-calc(100% - 3.75em);
+	height:-webkit-calc(100% - 3.75em);
+    height: calc(100% - 3.75em);
+	border-left: 1px solid #C6C6C6;
+    height: 100%;
+}
+
+.messages-left-menu-container
+{
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+.messages-leftdiv
+{
+	position: relative;
+    top: 3.5em;
+    left: 0;
+    bottom: 0;
+    padding-left:2em;
+    padding-right: 2em;
+    padding-top: 1em;
+    width: 30%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    background: #f7f7f7;
+    min-height: 100%;
+}
+
+.messages-leftdiv:after
+{
+	content: "";
+	display: block;
+	height: 50px;
 }
 
 
