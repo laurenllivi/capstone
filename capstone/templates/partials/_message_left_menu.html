@@ -1,14 +1,16 @@
 {% load i18n %}
 
 <div class="messages-left-menu-container">
-	<div class="messages-leftdiv">
-    
+	<div class="messages-leftdiv">   
         <select id="message-select" onChange="window.location.href=this.value">
           <option id="inbox" value="/django_messages/inbox">Inbox</option>
           <option id="compose" value="/django_messages/compose">Compose</option>
           <option id="outbox" value="/django_messages/outbox">Sent Messages</option>
           <option id="trash" value="/django_messages/trash">Trash</option>
-        </select>
-      
+        </select>  
+        <br>
+        <!-- include the search bar -->
+        <input id="search-message" type="text" placeholder="Search for a message . . ."></input>
+        <hr class="hr-border">    
     </div>
 </div><!-- messages-left-menu-container -->

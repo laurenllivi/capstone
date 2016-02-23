@@ -1,0 +1,14 @@
+<!-- This partial template must be used on a template that you have passed the message_list variable to-->
+<!-- inbox, view message, etc. -->
+<div class="message-list-preview">
+    {% for message in message_list %}
+    <a href="javascript:void(0);" style="text-decoration: none; color: inherit" onclick='viewMessage({{ message.id }});'>
+            <div class="message-preview" id="{{ message.id }}">
+                <span class="message_sender"><strong>{{ message.sender }}</strong></span><br>
+                <span class="message_sent_at" style="font-size: 14px">{{ message.sent_at }}</span><br>
+                <span class="message_subject" style="color: #4dac71">{{ message.subject }}</span><br>
+                <span class="message_body" style="font-size: 14px;">{{ message.body }}</span>
+            </div><!-- inbox-preview -->
+     </a> 
+    {% endfor %}
+</div>

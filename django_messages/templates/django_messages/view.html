@@ -1,47 +1,40 @@
-{% extends "capstone/auth_base.html" %}
 {% load i18n %}
 {% load url from future %}
 
-{% block content %}
+<!-- <a href="/django_messages/inbox" style="text-decoration: none;"><i class="fa fa-angle-left"></i> Inbox</a><br> -->
+<div class="view-message-banner">
+    {% ifequal message.recipient.pk user.pk %}
+    <a href="{% url 'messages_reply' message.id %}"><i class="fa fa-reply"></i> {% trans "Reply" %}</a>
+    {% endifequal %}
+    <a class="delete-object" href="{% url 'messages_delete' message.id %}"><i class="fa fa-trash-o"></i> {% trans "Delete" %}</a>
+</div><!-- view_message-banner -->
+<hr class="hr-border">
 
-    <section id="main" class="wrapper">
-        <div class="container">
+<dl class="message-headers">
+    <dt>{% trans "Subject" %}:</dt>
+    <dd style="color: #4dac71">{{ message.subject }}</dd>
+    <dt>{% trans "Sender" %}:</dt>
+    <dd>{{ message.sender }}</dd>
+    <dt>{% trans "Date" %}:</dt>
+    <dd>{{ message.sent_at|date:_("DATETIME_FORMAT")}}</dd>
+    <dt>{% trans "Recipient" %}:</dt>
+    <dd>{{ message.recipient }}</dd>
+</dl>
+<br /><br /><br /><br />
+<hr class="hr-border">
+{{ message.body|linebreaksbr }}
+
+{% comment %}Example reply_form integration
+{% if reply_form %}
+<h1>{% trans "Compose reply"%}</h1>
+<form action="{% url 'messages_reply' message.id %}" method="post">
+{% csrf_token %}
+<table>
+{{ reply_form.as_table }}
+</table>
+<input type="submit" value="{% trans "Send" %} &raquo;"/>
+</form>
+{% endif %}
+{% endcomment %}
+</div>
             
-            <h1>{% trans "View Message" %}</h1>
-            <dl class="message-headers">
-                <dt>{% trans "Subject" %}</dt>
-                <dd><strong>{{ message.subject }}</strong></dd>
-                <dt>{% trans "Sender" %}</dt>
-                <dd>{{ message.sender }}</dd>
-                <dt>{% trans "Date" %} </dt>
-                <dd>{{ message.sent_at|date:_("DATETIME_FORMAT")}}</dd>
-                <dt>{% trans "Recipient" %}</dt>
-                <dd>{{ message.recipient }}</dd>
-            </dl>
-            {{ message.body|linebreaksbr }}<br /><br />
-
-            {% ifequal message.recipient.pk user.pk %}
-            <a href="{% url 'messages_reply' message.id %}">{% trans "Reply" %}</a>
-            {% endifequal %}
-            <a href="{% url 'messages_delete' message.id %}">{% trans "Delete" %}</a>
-
-            {% comment %}Example reply_form integration
-            {% if reply_form %}
-            <h1>{% trans "Compose reply"%}</h1>
-            <form action="{% url 'messages_reply' message.id %}" method="post">
-            {% csrf_token %}
-            <table>
-            {{ reply_form.as_table }}
-            </table>
-            <input type="submit" value="{% trans "Send" %} &raquo;"/>
-            </form>
-            {% endif %}
-            {% endcomment %}
-            
-        </div>
-    </section>
-{% endblock %}
-
-{% block footer %}
-    {% include "partials/_footer.html" %}
-{% endblock %}
