@@ -164,4 +164,3 @@ class NewVenueForm(forms.Form):
 
     image_title = forms.CharField(widget=forms.TextInput(), required=False)
     image = forms.ImageField(label='Select a file', required=False)
-    

@@ -4,6 +4,12 @@ var price_per_hour_range = [];
 
 $(document).ready(function(){
 
+//    pageSetup();
+
+})//document ready
+
+function pageSetup()
+{
     mapSetup();
 
     //datepicker
@@ -12,44 +18,8 @@ $(document).ready(function(){
       });
 
     ///price slider
-    var nonLinearSlider = document.getElementById('nonlinear');
-
-    noUiSlider.create(nonLinearSlider, {
-        connect: true,
-        behaviour: 'tap',
-        start: [price_per_hour_range[0], price_per_hour_range[1]],
-        range: {
-            // Starting at 50, step the value by 10,
-            // until 2500 is reached. From there, step by 100.
-            'min': [ 0 ],
-            '10%': [ 100, 10 ],
-            '50%': [ 2500, 100 ],
-            'max': [ 5000 ]
-        }
-    });
-
-    // Write the CSS 'left' value to a span.
-    function leftValue ( handle ) {
-        return handle.parentElement.style.left;
-    }
-
-    var lowerValue = document.getElementById('lower-value'),
-        lowerOffset = document.getElementById('lower-offset'),
-        upperValue = document.getElementById('upper-value'),
-        upperOffset = document.getElementById('upper-offset'),
-        handles = nonLinearSlider.getElementsByClassName('noUi-handle');
-
-    // Display the slider value and how far the handle moved
-    // from the left edge of the slider.
-    nonLinearSlider.noUiSlider.on('update', function ( values, handle ) {
-        if ( !handle ) {
-            lowerValue.innerHTML = parseInt(values[handle]);
-        } else {
-            upperValue.innerHTML = parseInt(values[handle]);
-        }
-    });
-
-})//document ready
+//    setSliders()
+}
 
 function mapSetup()
 {
@@ -108,6 +78,48 @@ function makeMap(Circles, centerLat, centerLon)
         show_markers: false,
     }).Load();
 }
+
+function setSliders()
+{
+    ///price slider
+    var nonLinearSlider = document.getElementById('nonlinear');
+
+    noUiSlider.create(nonLinearSlider, {
+        connect: true,
+        behaviour: 'tap',
+        start: [price_per_hour_range[0], price_per_hour_range[1]],
+        range: {
+            // Starting at 50, step the value by 10,
+            // until 2500 is reached. From there, step by 100.
+            'min': [ 0 ],
+            '10%': [ 100, 10 ],
+            '50%': [ 2500, 100 ],
+            'max': [ 5000 ]
+        }
+    });
+
+    // Write the CSS 'left' value to a span.
+    function leftValue ( handle ) {
+        return handle.parentElement.style.left;
+    }
+
+    var lowerValue = document.getElementById('lower-value'),
+        lowerOffset = document.getElementById('lower-offset'),
+        upperValue = document.getElementById('upper-value'),
+        upperOffset = document.getElementById('upper-offset'),
+        handles = nonLinearSlider.getElementsByClassName('noUi-handle');
+
+    // Display the slider value and how far the handle moved
+    // from the left edge of the slider.
+    nonLinearSlider.noUiSlider.on('update', function ( values, handle ) {
+        if ( !handle ) {
+            lowerValue.innerHTML = parseInt(values[handle]);
+        } else {
+            upperValue.innerHTML = parseInt(values[handle]);
+        }
+    });
+}
+
 
 function setLocations(location, location_data, price_range)
 {

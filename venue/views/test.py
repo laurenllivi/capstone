@@ -4,17 +4,16 @@ import json
 from django.shortcuts import *
 from django.template import RequestContext
 
+
 def test(request):
 
     response = test_form(request)
 
-
     context = {
         'formhtml': response.content,
     }
+
     return render_to_response('venue/test.html', context, RequestContext(request))
-
-
 
 
 def test_form(request):
@@ -22,12 +21,8 @@ def test_form(request):
 
     if request.method == 'POST':
         form = TestForm(request.POST)
-        print(form)
-
-        message = 'something wrong!'
         if form.is_valid():
-            print(request.POST['text'])
-            message = request.POST['text']
+            print form
 
     context = {
         'form': form,
@@ -36,5 +31,4 @@ def test_form(request):
 
 
 class TestForm(forms.Form):
-    text = forms.CharField(required=False, widget=forms.TextInput())
-
+    text = forms.CharField(required=False, widget=forms.TextInput(attrs={'id': 'post-text'}))

@@ -5,13 +5,8 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'noUiSlider.8.1.0/nouislider.css' %}">
 
-	<script language="javascript" type="text/javascript" src="{% static 'noUiSlider.8.1.0/nouislider.js' %}"></script>
 	<script src="{% static 'js/find_venue.js' %}" type="text/javascript"></script>
-	<script src="{% static 'js/maplace.min.js' %}" type="text/javascript"></script>
-    <script src="{% static 'js/geosearch.js' %}" type="text/javascript"></script>
-	<script type="text/javascript">
-		setLocations({{ search_location|safe }}, {{ location_data|safe }}, {{ price_per_hour_range|safe }});
-	</script>
+	<script src="{% static 'js/jquery.form.js' %}"></script>
 
     
 {% endblock %}
@@ -19,85 +14,12 @@
 {% block content %}
 
 <section id="main" class="wrapper">
-	<div class="find-container">
-		<div class="leftdiv">
-			<h3>Find A Venue</h3>
-			{{form.errors}}
-			<form method="POST">
-               <div class="half-width">
-				   Within:
-				   {{ form.within_miles }}
-				   Event Date:
-				   {{ form.event_date }}
-				   Price Per Hour:
-				   {{ form.price_per_hour }}
-			   </div>
-				<div class="half-width">
-					Location
-					{{ form.location }}
-					Venue Type
-					{{ form.venue_type }}
-			   </div>
-               <br><br>
-				<input type="submit" value="Search">
-            </form>
-
-            <hr class="hr-style" />
-
-            No idea how to capture this as a django form field
-			<div class="slider-div">
-				Price Per Hour
-				<div class="slider-container">
-					<div id="nonlinear" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
-					</div>
-					<br/>
-
-					<div class="slider left-slider">
-						<span class="example-val" id="lower-value">{{form.price_per_hour_lower.value}}</span>
-					</div>
-
-					<div class="slider right-slider">
-						<span class="example-val" id="upper-value">{{form.price_per_hour_upper.value}}</span>
-					</div>
-
-
-				</div>
-			</div><!-- slider-div -->
-
-            <hr class="hr-style" />
-
-
-            <!-- the results of the search -->
-			<div class="results-wrapper">
-				<div class="results-container">
-
-					{% for venue in venues %}
-						<div class="venue-result">
-							<a href="view-venue.html">
-								{% if venue_pics_dict|get_item:venue.id == None %}
-									<img class="tiny-camera-icon venue-pic" src="/static/images/camera-icon.png"/></a>
-									<img class="venue-pic" src="" />
-								{% else %}
-									<img class="venue-pic" src="/static/images/venue-images/{{ venue.id }}/{{ venue_pics_dict|get_item:venue.id }}"/>
-								{% endif %}
-								<div class="price-label">${{ venue.price_per_hour }}</div>
-								<div class="favorite-container">
-									<i class="fa fa-heart-o fa-2x"></i>
-								</div>
-							</a>
-						</div>
-					{% endfor %}
-
-                </div><!-- results-container -->
-            </div><!-- results-wrapper -->
-		</div>
-		<div class="rightdiv">
-			<div id="gmap-circles"></div>
-		</div>
+	<div id="find-container">
+		{{ formhtml|safe }}
 	</div>
-
-
 </section>
+
+<div class="modal"><!-- Place at bottom of page --></div>
 
 {% endblock %}
 
