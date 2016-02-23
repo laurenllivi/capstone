@@ -72,7 +72,8 @@ def find_venue_form(request):
         try:
             venue_locations_dict[venue.id] = {
                 "lat": venue.geolocation.x,
-                "lon": venue.geolocation.y
+                "lon": venue.geolocation.y,
+                "title": venue.title
             }
 
         except:

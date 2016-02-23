@@ -32,7 +32,8 @@ function mapSetup()
         circle =
         {
             lat: location_markers[i].lat,
-            lon: location_markers[i].lon
+            lon: location_markers[i].lon,
+            html: location_markers[i].title
         }
         Circles.push(circle);
     }
@@ -64,8 +65,7 @@ function makeMap(Circles, centerLat, centerLon)
         type: 'circle',
         shared: {
             zoom: 13,
-            html: '%index',
-            show_infowindow : false,
+//            show_infowindow : false,
             circle_options: {
                 radius: 200
             },
@@ -73,7 +73,6 @@ function makeMap(Circles, centerLat, centerLon)
                 strokeColor: '#00aa00',
                 fillColor: '#00aa00'
             },
-            visible: false //marker
         },
         show_markers: false,
     }).Load();
