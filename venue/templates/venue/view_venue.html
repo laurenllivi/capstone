@@ -1,0 +1,29 @@
+{% extends 'capstone/base_template.html' %}
+{% load staticfiles %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block content %}
+<section id="main" class="wrapper">
+    <div class="container">
+        View Venue Page
+        <div>{{listing.title}}</div>
+        <div>{{host.first_name}}</div>
+        <div>{{listing.city}}, {{listing.state}}</div>
+        <div>{{listing.category}}</div>
+        <div>Weekday Price ${{listing.price_per_hour}}</div>
+        <div>Weekend Price ${{listing.price_per_hour_weekend}}</div>
+        <div>{{listing.description}}</div>
+        <div>{{listing.sq_footage}}</div>
+        <div>{{listing.num_guests}}</div>
+        <div>Parking: {{listing.parking_desc}}</div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block footer %}
+    {% include "partials/_footer.html" %}
+{% endblock %}

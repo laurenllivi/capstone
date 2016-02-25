@@ -53,7 +53,7 @@ def find_venue_form(request):
 
     pnt = GEOSGeometry(search_geo)
     venues = hmod.Listing.objects\
-        .filter(geolocation__distance_lte=(pnt, D(mi=50)))\
+        .filter(geolocation__distance_lte=(pnt, D(mi=25)))\
         .filter(category__iexact=venue_type)\
         .filter(price_per_hour__gte=price_per_hour_range[0])\
         .filter(price_per_hour__lte=price_per_hour_range[1])\
