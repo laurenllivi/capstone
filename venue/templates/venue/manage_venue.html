@@ -115,11 +115,13 @@
                             <button class="next-tab-button" onclick="nextTab()">Next <i class="fa fa-arrow-right"></i></button>
                             <div {% if form.image_title.errors %}class="field_error"{% endif %}>
                                  <strong>Image Title</strong>
-                                {{ form.image_title }}
+                                {{ imageForm.image_title }}
                             </div>
 
-                            {{ form.image }}
-
+                            {{ imageForm.image }}
+                            
+                            <br><br>
+                            
                             {% if images %}
                                 <ul>
                                 {% for image in images %}
@@ -131,6 +133,7 @@
                             {% else %}
                                     <p>No Images</p>
                             {% endif %}
+                            <input type="submit" class="small" style="background-color: #999999;" name="imagesForm" value="Upload Photo">
                         </div>
 
                         <div class="tab" id="view5">
@@ -157,7 +160,7 @@
 
                     </div>
                 <br>
-                <input type="submit" value="Save">
+                <input type="submit" name="mainForm" value="Save">
             </div>
          </form>
     </div>

@@ -24,7 +24,9 @@ def manage_venue(request, listing_id):
     # if this is a new venue . . .
     if new is not None:
         form = NewVenueForm()
+        imageForm = NewImageForm()
         listing = None
+        newImage = None
         
     # it's an existing venue . . .    
     else:
@@ -54,68 +56,91 @@ def manage_venue(request, listing_id):
             'zipcode': listing.zipcode,
             'price_per_hour': listing.price_per_hour,
             'price_per_hour_weekend': listing.price_per_hour_weekend,
-            #'image_title': newImage.image_title,
-            #'image': newImage.image_file
+
         })
+        
+        imageForm = NewImageForm()
 
     success = False
 
     if request.method == 'POST':
-        form = NewVenueForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            if new is not None:
-                listing = hmod.Listing()
-                newImage = hmod.Listing_Photo()
-                  
-            success = True
-            listing.user = user
-            listing.title = form.cleaned_data['title']
-            listing.category = form.cleaned_data['category']
-            listing.sq_footage = form.cleaned_data['sq_footage']
-            listing.num_guests = form.cleaned_data['num_guests']
-            listing.description = form.cleaned_data['description']
-            listing.parking_desc = form.cleaned_data['parking_desc']
-            
-            feature_list = form.cleaned_data['features'].all()
-            for feature in feature_list:
-                listing_feature = hmod.Listing_Feature()
-                listing_feature.listing = listing
-                listing_feature.feature = feature
-                listing_feature.save()
+        # if it's a submit of the photos form, process ONLY that form
+        if 'imagesForm' in request.POST:
+            imageForm = NewImageForm(request.POST, request.FILES)
+            if imageForm.is_valid():
                 
-            listing.street = form.cleaned_data['street']
-            listing.street2 = form.cleaned_data['street2']
-            listing.city = form.cleaned_data['city']
-            listing.state = form.cleaned_data['state']
-            listing.zipcode = form.cleaned_data['zipcode']
-            listing.price_per_hour = form.cleaned_data['price_per_hour']
-            listing.price_per_hour_weekend = form.cleaned_data['price_per_hour_weekend']
-
-            g = geocoder.google(
-                form.cleaned_data['street'] + " " +
-                form.cleaned_data['street2'] + ", " +
-                form.cleaned_data['city'] + ", " +
-                form.cleaned_data['state']
-            )
-
-            listing.geolocation = Point(float(g.lat), float(g.lng))
-            listing.save()
+                # if this is a new venue and this form is being submitted before the main form . . .
+                # we need to create the venue object first
+                if new is not None:
+                    listing = hmod.Listing()
+                    listing.user = user
+                    listing.save()
+                # if it's an existing venue . . .
+                else:
+                    listing = hmod.Listing.objects.get(id=listing_id)
+                
+                has_image = request.FILES.get('image', False)
+                if has_image: 
+                    custom_forms.handle_uploaded_venue_file(request.FILES['image'],listing.id)
+                    newImage = hmod.Listing_Photo()
+                    newImage.image_title = imageForm.cleaned_data['image_title']
+                    newImage.image_name = imageForm.cleaned_data['image'].name   
+                    newImage.image_file = "/static/images/venue-images/" + str(listing_id) + "/" + imageForm.cleaned_data['image'].name
+                    newImage.listing = listing
+                    newImage.save()
+                    
+                    # reset the url param to be the id of the venue
+                    listing_id = listing.id
+                    
+                return HttpResponseRedirect('/venue/manage_venue/%s/' % listing.id)
+                    
+        # process the main form            
+        elif 'mainForm' in request.POST:     
+            form = NewVenueForm(request.POST)
             
-            # reset the url param to be the id of the venue
-            listing_id = listing.id
+            if form.is_valid():
+                if new is not None:
+                    listing = hmod.Listing()
+                    newImage = hmod.Listing_Photo()
+                  
+                success = True
+                listing.user = user
+                listing.title = form.cleaned_data['title']
+                listing.category = form.cleaned_data['category']
+                listing.sq_footage = form.cleaned_data['sq_footage']
+                listing.num_guests = form.cleaned_data['num_guests']
+                listing.description = form.cleaned_data['description']
+                listing.parking_desc = form.cleaned_data['parking_desc']
+            
+                feature_list = form.cleaned_data['features'].all()
+                for feature in feature_list:
+                    listing_feature = hmod.Listing_Feature()
+                    listing_feature.listing = listing
+                    listing_feature.feature = feature
+                    listing_feature.save()
+                
+                listing.street = form.cleaned_data['street']
+                listing.street2 = form.cleaned_data['street2']
+                listing.city = form.cleaned_data['city']
+                listing.state = form.cleaned_data['state']
+                listing.zipcode = form.cleaned_data['zipcode']
+                listing.price_per_hour = form.cleaned_data['price_per_hour']
+                listing.price_per_hour_weekend = form.cleaned_data['price_per_hour_weekend']
 
-            has_image = request.FILES.get('image', False)
-            if has_image:
-                custom_forms.handle_uploaded_venue_file(request.FILES['image'],listing_id)
-                newImage.image_title = form.cleaned_data['image_title']
-                newImage.image_name = form.cleaned_data['image'].name
-                newImage.image_file = "/static/images/venue-images/" + str(listing_id) + "/" + form.cleaned_data['image'].name
+                g = geocoder.google(
+                    form.cleaned_data['street'] + " " +
+                    form.cleaned_data['street2'] + ", " +
+                    form.cleaned_data['city'] + ", " +
+                    form.cleaned_data['state']
+                )
 
-                newImage.listing = listing
-                newImage.save()
+                listing.geolocation = Point(float(g.lat), float(g.lng))
+                listing.save()
+            
+                # reset the url param to be the id of the venue
+                listing_id = listing.id
 
-            return HttpResponseRedirect('/venue/manage_venue/%s/' % listing_id)
+                return HttpResponseRedirect('/venue/manage_venue/%s/' % listing_id)
 
     # get the images for this listing
     images = hmod.Listing_Photo.objects.filter(listing=listing)
@@ -124,6 +149,7 @@ def manage_venue(request, listing_id):
     context = {
         'success': success,
         'form': form,
+        'imageForm': imageForm,
         'images': images,
         'listing': listing,
     }
@@ -161,6 +187,7 @@ class NewVenueForm(forms.Form):
     }))
     price_per_hour = forms.DecimalField(max_digits=6, decimal_places=0, min_value=0)
     price_per_hour_weekend = forms.DecimalField(max_digits=6, decimal_places=0, min_value=0)
-
+    
+class NewImageForm(forms.Form):
     image_title = forms.CharField(widget=forms.TextInput(), required=False)
     image = forms.ImageField(label='Select a file', required=False)
