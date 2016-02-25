@@ -666,6 +666,12 @@ hr.hr-border{
     background-image: url('/static/images/ui-icons_444444_256x240.png');
 }
 
+.calendar-ajax-content{
+    width: 65%;
+    margin: 0 auto;
+    text-align: left;
+}
+
 /***************** Messages App ************************/
 /*#message-left-side-menu{
     position: absolute;

@@ -2,6 +2,7 @@
 <!-- inbox, view message, etc. -->
 <div class="message-list-preview">
     {% for message in message_list %}
+    <!-- the viewMessage() js function is in /static/js/django_messages.js -->
     <a href="javascript:void(0);" style="text-decoration: none; color: inherit" onclick='viewMessage({{ message.id }});'>
             <div class="message-preview" id="{{ message.id }}">
                 <span class="message_sender"><strong>{{ message.sender }}</strong></span><br>

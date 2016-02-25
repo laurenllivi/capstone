@@ -21,6 +21,7 @@
                     <li><a id="view3-link" class="tab-link" href="#view3">Location</a></li>
                     <li><a id="view4-link" class="tab-link" href="#view4">Photos</a></li>
                     <li><a id="view5-link" class="tab-link" href="#view5">Pricing</a></li>
+                    <li><a id="view6-link" class="tab-link" href="#view6" onclick="viewVenueCalendar({{ listing.id }});">Availability</a></li>
                 </ul>
                     <div class="tabcontents">
                         <div class="tab" id="view1">
@@ -133,6 +134,7 @@
                         </div>
 
                         <div class="tab" id="view5">
+                             <button class="next-tab-button" onclick="nextTab(); viewVenueCalendar({{ listing.id }});">Next <i class="fa fa-arrow-right"></i></button>
                             <div class="input-number {% if form.price_per_hour.errors %}field_error{% endif %}">
                                 <strong>Weekday Price Per Hour (M-Th)</strong>
                                 <br/>
@@ -144,6 +146,12 @@
                                 <br/>
                                 ${{ form.price_per_hour_weekend }}
                                 {{ form.price_per_hour_weekend.errors }}
+                            </div>
+                        </div>
+                        
+                        <div class="tab" id="view6">
+                            <div class="calendar-ajax-content">
+                             
                             </div>
                         </div>
 
