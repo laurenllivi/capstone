@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^update_find/$', views.find_venue_form, name='update_find_form'),
     url(r'^calendar/(?P<listing_id>[0-9]+)/$', views.calendar, name='calendar'),
     url(r'^test/$', views.test, name='test'),
+    url(r'^manage_venue__del_img/(?P<listing_id>[0-9]+)/(?P<image_id>[0-9]+)/$', views.manage_venue__del_img, name='manage_venue__del_img'),
 
 ]

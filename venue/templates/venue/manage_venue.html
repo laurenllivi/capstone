@@ -119,13 +119,16 @@
                             </div>
 
                             {{ imageForm.image }}
+                            <br><br>
+                            <input type="submit" class="small" name="imagesForm" value="Upload Photo">
                             
                             <br><br>
                             
                             {% if images %}
                                 <ul>
                                 {% for image in images %}
-                                    <div class="ven-img-thumbnail">
+                                    <div class="ven-img-thumbnail hover-delete">
+                                        <a href="/venue/manage_venue__del_img/{{ listing.id }}/{{ image.id }}" style="color: #272727;" class="delete-venue-image"><i class="fa fa-times fa-2x hide-x-until-hover"></i></a>
                                         <img src='{% static "images/venue-images/" %}{{ listing.id }}/{{image.image_name}}' alt="" />
                                     </div>
                                 {% endfor %}
@@ -133,7 +136,6 @@
                             {% else %}
                                     <p>No Images</p>
                             {% endif %}
-                            <input type="submit" class="small" style="background-color: #999999;" name="imagesForm" value="Upload Photo">
                         </div>
 
                         <div class="tab" id="view5">

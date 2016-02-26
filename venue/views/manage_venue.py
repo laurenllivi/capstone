@@ -32,6 +32,12 @@ def manage_venue(request, listing_id):
     else:
         # create the venue form and prepopulate it with saved values
         listing = hmod.Listing.objects.get(id=listing_id)
+        
+        # make sure that only the owner of the venue can access this page
+        # (since the venue ID is passed through the URL)
+        if user.id != listing.user.id:
+            return HttpResponseRedirect('/homepage/error_message')
+        
         newImage = hmod.Listing_Photo()
         try:
             listing_features = hmod.Listing_Feature.objects.filter(feature_id=listing_id)
@@ -155,7 +161,20 @@ def manage_venue(request, listing_id):
     }
     return render(request, 'venue/manage_venue.html', context)
 
-# VENUE_FEATURE_CHOICES = choices.FEATURE_CHOICES
+@login_required
+def manage_venue__del_img(request, listing_id, image_id):   
+    '''deleting an image from a venue listing'''
+    
+    user = request.user
+    
+    listing = hmod.Listing.objects.get(id=listing_id)
+    image = hmod.Listing_Photo.objects.get(id=image_id)
+    
+    image.delete()
+    
+    # how do we actually delete the object? Do we even want to do that?
+    
+    return HttpResponseRedirect('/venue/manage_venue/%s/' % listing_id)
 
 class NewVenueForm(forms.Form):
     title = forms.CharField(widget=forms.TextInput())

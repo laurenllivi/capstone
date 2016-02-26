@@ -12,7 +12,17 @@ $(document).ready(function(){
             link.click();
         }
      },10)
-});
+      
+     //hover effect for deleting images from the manage venue page
+     $(function(){  
+         $('.hover-delete').stop().mouseenter(function(){
+             $(this).find('.hide-x-until-hover').css('visibility', 'visible') 
+         }).stop().mouseleave(function(){
+             $(this).find('.hide-x-until-hover').css('visibility', 'hidden') 
+         });//mouseenter 
+     });
+     
+}); //ready
 
 function nextTab() {
    var currentTab = $(".selected").first();
@@ -45,3 +55,23 @@ function viewVenueCalendar(id)
      }
    });
 }
+
+// // delete a venue image
+// $('.delete-venue-image').click(function(){
+//
+//         //make the ajax call to reload the page
+//         $.ajax({
+//
+//             //Get the cart page to put into the modal. Call the __del function, and pass the item ID of the
+//             //item to remove from the cart
+//             url: "/homepage/cart__del/" + $(this).attr('data-id') + "/",
+//             success: function(data){
+//
+//                 $('.modal-body').html(data);
+//             },
+//
+//     });//ajax
+//
+//     //)}; //load modal
+//
+// });//click

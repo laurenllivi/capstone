@@ -292,10 +292,22 @@ footer ul.icons li
 .ven-img-thumbnail
 {
     display:inline-block;
-    height:200px;
-    width:300px;
+    height:250px;
+    width:375px;
     overflow:hidden;
+    padding: 15px;
+    margin-top: -40px;
+    margin-left: -10px;
 }
+
+    .hide-x-until-hover{
+        /* hidden until proven visible :) */
+        visibility: hidden;
+        position: relative;
+        z-index: 5;
+        top: 20px;
+        left: 330px;
+    }
 
 .ven-img-thumbnail img
 {
