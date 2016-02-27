@@ -10,7 +10,13 @@ def post_venue(request, listing_id):
     
     user = request.user
     listing = hmod.Listing.objects.get(id=listing_id)
+    images = hmod.Listing_Photo.objects.filter(listing_id=listing_id)
+    image_count = hmod.Listing_Photo.objects.filter(listing_id=listing_id).count()
     available_dates = hmod.Listing_Date.objects.filter(listing_id=listing.id)
+    
+    # if the list of available dates is empty
+    if not available_dates:
+        available_dates = "None"
     
     # make sure that only the owner of the venue can access this page
     # (since the venue ID is passed through the URL)
@@ -27,6 +33,8 @@ def post_venue(request, listing_id):
         'listing': listing,
         'user': user,
         'available_dates': available_dates,
+        'images': images,
+        'image_count': image_count,
     }
 
     return render_to_response('venue/post_venue.html', context, RequestContext(request))

@@ -168,15 +168,32 @@ def manage_venue(request, listing_id):
             return HttpResponseRedirect('/venue/manage_venue/%s/' % listing.id)
                     
         # process the main form
-        ############################### Main Form (values aren't required )##############################################
-        elif 'mainForm' in request.POST:     
-            form = NewVenueForm(request.POST)
-            
+        #################### Main Form (values aren't required ), Post Venue (values ARE required )################
+        else:
+            if 'postVenue' in request.POST:
+                form = NewVenueForm(request.POST)
+                required = 'postVenue' in request.POST
+                form.fields['title'].required = required
+                form.fields['category'].required = required
+                form.fields['sq_footage'].required = required
+                form.fields['num_guests'].required = required
+                form.fields['description'].required = required
+                form.fields['parking_desc'].required = required
+                form.fields['street'].required = required
+                form.fields['city'].required = required
+                form.fields['state'].required = required
+                form.fields['zipcode'].required = required
+                form.fields['price_per_hour'].required = required
+                form.fields['price_per_hour_weekend'].required = required
+                
+            elif 'mainForm' in request.POST:     
+                form = NewVenueForm(request.POST)  
+                  
             if form.is_valid():
                 if new is not None:
                     listing = hmod.Listing()
                     newImage = hmod.Listing_Photo()
-                  
+          
                 success = True
                 listing.user = user
                 listing.title = form.cleaned_data['title']
@@ -185,14 +202,14 @@ def manage_venue(request, listing_id):
                 listing.num_guests = form.cleaned_data['num_guests']
                 listing.description = form.cleaned_data['description']
                 listing.parking_desc = form.cleaned_data['parking_desc']
-            
+    
                 feature_list = form.cleaned_data['features'].all()
                 for feature in feature_list:
                     listing_feature = hmod.Listing_Feature()
                     listing_feature.listing = listing
                     listing_feature.feature = feature
                     listing_feature.save()
-                
+        
                 listing.street = form.cleaned_data['street']
                 listing.street2 = form.cleaned_data['street2']
                 listing.city = form.cleaned_data['city']
@@ -210,11 +227,14 @@ def manage_venue(request, listing_id):
 
                 listing.geolocation = Point(float(g.lat), float(g.lng))
                 listing.save()
-            
+    
                 # reset the url param to be the id of the venue
                 listing_id = listing.id
 
-                return HttpResponseRedirect('/venue/manage_venue/%s/' % listing_id)
+                if 'mainForm' in request.POST:
+                    return HttpResponseRedirect('/venue/manage_venue/%s/' % listing_id)
+                elif 'postVenue' in request.POST:
+                    return HttpResponseRedirect('/venue/post_venue/%s' % listing_id)
 
     # get the images for this listing
     images = hmod.Listing_Photo.objects.filter(listing=listing)
@@ -247,35 +267,42 @@ def manage_venue__del_img(request, listing_id, image_id):
     return HttpResponseRedirect('/venue/manage_venue/%s/' % listing_id)
 
 class NewVenueForm(forms.Form):
-    title = forms.CharField(widget=forms.TextInput())
-    category = forms.ChoiceField(widget=forms.Select(), choices=choices.VENUE_TYPE_CHOICES)
-    sq_footage = forms.DecimalField(max_digits=8, decimal_places=2, min_value=0)
-    num_guests = forms.DecimalField(max_digits=6, decimal_places=0, min_value=0)
-    description = forms.CharField(widget=forms.Textarea)
-    parking_desc = forms.CharField(widget=forms.Textarea)
-    features = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple(), queryset=hmod.Feature.objects.all(), required=False)
+    title = forms.CharField(required=False, widget=forms.TextInput())
+    category = forms.ChoiceField(required=False, widget=forms.Select(), choices=choices.VENUE_TYPE_CHOICES)
+    sq_footage = forms.DecimalField(required=False, max_digits=8, decimal_places=2, min_value=0)
+    num_guests = forms.DecimalField(required=False, max_digits=6, decimal_places=0, min_value=0)
+    description = forms.CharField(required=False, widget=forms.Textarea)
+    parking_desc = forms.CharField(required=False, widget=forms.Textarea)
+    features = forms.ModelMultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple(), queryset=hmod.Feature.objects.all())
     search_address = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'placeholder': 'Search for your address . . .',
         'id': 'autocomplete',
         'onFocus': 'geolocate()',
     }))
-    street = forms.CharField(widget=forms.TextInput(attrs={
+    street = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'id': 'street_number'
     }))
     street2 = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'id': 'route'
     }))
-    city = forms.CharField(widget=forms.TextInput(attrs={
+    city = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'id': 'locality'
     }))
-    state = forms.ChoiceField(choices=choices.STATE_CHOICES, widget=forms.Select(attrs={
+    state = forms.ChoiceField(required=False, choices=choices.STATE_CHOICES, widget=forms.Select(attrs={
         'id': 'administrative_area_level_1'
     }))
-    zipcode = forms.CharField(widget=forms.TextInput(attrs={
+    zipcode = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'id': 'postal_code'
     }))
-    price_per_hour = forms.DecimalField(max_digits=6, decimal_places=0, min_value=0)
-    price_per_hour_weekend = forms.DecimalField(max_digits=6, decimal_places=0, min_value=0)
+    price_per_hour = forms.DecimalField(required=False, max_digits=6, decimal_places=0, min_value=0)
+    price_per_hour_weekend = forms.DecimalField(required=False, max_digits=6, decimal_places=0, min_value=0)
+    
+    def clean(self):
+        if len(self.errors) == 0:
+            return self.cleaned_data
+        else:
+            print(">>>>>>>>>>>>>>> You have errors >>>>>>>>>>>>")
+            print(self.errors)
     
 class NewImageForm(forms.Form):
     image_title = forms.CharField(widget=forms.TextInput(), required=False)
@@ -291,4 +318,5 @@ class CalendarForm(forms.Form):
         if len(self.errors) == 0:
             return self.cleaned_data
         else:
+            print(">>>>>>>>>>>>>>> You have errors >>>>>>>>>>>>")
             print(self.errors)

@@ -2,26 +2,101 @@
 {% load staticfiles %}
 
 {% block stylesheets %}
+    <link href="{% static 'css/unslider.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/unslider-dots.css' %}" rel="stylesheet" type="text/css" />
+    
+    <script src="{% static 'js/unslider-min.js' %}"></script>  
 {% endblock %}
 
 {% block content %}
 
 <section id="main" class="wrapper">
     <div class="container">
-		<h3>Post Your Venue</h3>
+		<h3>Post Venue - Review Your Settings</h3>
         <h5>Please review your venue settings and submit when you are ready for your venue to go live.</h5>
         
-        <h4 style="color: #4dac71">General</h4>
+        <h3 class="review-settings-title">General<a href="/venue/manage_venue/{{ listing.id }}/#view1" class="pull-right edit-venue-settings"><i class="fa fa-pencil-square-o"></i> Edit</a></h3>
+        <table class="review-settings-table">
+            <tr>
+                <td class="col-1"><strong>Title:</strong></td>
+                <td>{{ listing.title }}</td>
+            </tr>
+            <tr>
+                <td class="col-1"><strong>Category:</strong></td>
+                <td>{{ listing.category }}</td>
+            </tr>
+            <tr>
+                <td class="col-1"><strong>Square Footage:</strong></td>
+                <td>{{ listing.sq_footage }}</td>
+            </tr>
+            <tr>
+                <td class="col-1"><strong>Number of Guests that Can be Accommodated:</strong></td>
+                <td>{{ listing.num_guests }}</td>
+            </tr>
+        </table>
         
-        <h4 style="color: #4dac71">Features</h4>
+        <h3 class="review-settings-title">Features<a href="/venue/manage_venue/{{ listing.id }}/#view2" class="pull-right edit-venue-settings"><i class="fa fa-pencil-square-o"></i> Edit</a></h3>
+        <table class="review-settings-table">
+            <tr>
+                <td class="col-1"><strong>Description:</strong></td>
+                <td>{{ listing.description }}</td>
+            </tr>
+            <tr>
+                <td class="col-1"><strong>Description of Parking Facilities and/or Availability:</strong></td>
+                <td>{{ listing.parking_desc }}</td>
+            </tr>
+            <tr>
+                <td class="col-1"><strong>Features:</strong></td>
+                <td>{{ listing.features }}</td>
+            </tr>
+        </table>
         
-        <h4 style="color: #4dac71">Location</h4>
+        <h3 class="review-settings-title">Location<a href="/venue/manage_venue/{{ listing.id }}/#view3" class="pull-right edit-venue-settings"><i class="fa fa-pencil-square-o"></i> Edit</a></h3>
+        <table class="review-settings-table">
+            <tr>
+                <td class="col-1"><strong>Address:</strong></td>
+                <td>{{ listing.street }} {{ listing.street2 }}<br>
+                    {{ listing.city}}, {{ listing.state }}<br>
+                    {{ listing.zipcode }}</td>
+            </tr>
+        </table>
         
-        <h4 style="color: #4dac71">Photos</h4>
+        <h3 class="review-settings-title">Pricing<a href="/venue/manage_venue/{{ listing.id }}/#view5" class="pull-right edit-venue-settings"><i class="fa fa-pencil-square-o"></i> Edit</a></h3>
+        <table class="review-settings-table">
+            <tr>
+                <td class="col-1"><strong>Weekday Price per Hour <br>(M-Th):</strong></td>
+                <td>{{ listing.price_per_hour }}</td>
+            </tr>
+            <tr>
+                <td class="col-1"><strong>Weekend Price per Hour <br>(F-Su):</strong></td>
+                <td>{{ listing.price_per_hour_weekend }}</td>
+            </tr>
+        </table>
         
-        <h4 style="color: #4dac71">Pricing</h4>
+        <h3 class="review-settings-title">Availability<a href="/venue/manage_venue/{{ listing.id }}/#view6" class="pull-right edit-venue-settings"><i class="fa fa-pencil-square-o"></i> Edit</a></h3>
+        <table class="review-settings-table">
+            <tr>
+                <td class="col-1"><strong>Dates Available:</strong></td>
+                {% if available_dates == 'None' %}
+                    <td style="color: #FF6666">{{ available_dates }}</td>
+                {% else %}
+                    <td>{{ available_dates }}</td>
+                {% endif %}
+                
+            </tr>
+        </table>
         
-        <h4 style="color: #4dac71">Availability</h4>
+        <h3 class="review-settings-title">Photos ({{ image_count }})<a href="/venue/manage_venue/{{ listing.id }}/#view4" class="pull-right edit-venue-settings"><i class="fa fa-pencil-square-o"></i> Edit</a></h3>
+        
+        <div class="photo-slider-div">
+            <div id="post-venue-photo-slider">
+            	<ul>
+            		 {% for image in images %}
+                         <li><img src='{% static "images/venue-images/" %}{{ listing.id }}/{{image.image_name}}'/></li>
+                     {% endfor %}
+            	</ul>
+            </div>
+        </div><!-- photo-slider-div -->
         
         <br>
         <form method="POST">
@@ -30,6 +105,12 @@
         
 	</div>
 </section>
+
+<script>
+    $(function(){
+        $('#post-venue-photo-slider').unslider();
+    })
+</script
 
 {% endblock %}
 
