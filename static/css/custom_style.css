@@ -614,6 +614,12 @@ hr.hr-border{
 /************************ Calendar ***************************/
 /*override the multidatespicker css*/
 
+#custom-jquery-calendar{
+    width: 65%;
+    margin: 0 auto;
+    text-align: left;
+}
+
 #custom-jquery-calendar .ui-datepicker-title{
     font-size: 24px;
     color: #4dac71;
@@ -678,11 +684,6 @@ hr.hr-border{
     background-image: url('/static/images/ui-icons_444444_256x240.png');
 }
 
-.calendar-ajax-content{
-    width: 65%;
-    margin: 0 auto;
-    text-align: left;
-}
 
 /***************** Messages App ************************/
 /*#message-left-side-menu{

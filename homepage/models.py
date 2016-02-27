@@ -57,6 +57,7 @@ class Listing(models.Model):
     post_date = models.DateTimeField(auto_now_add=True, auto_now=False)
     modified_date = models.DateTimeField(auto_now=True, auto_now_add=False)
     geolocation = models.PointField(blank=True, null=True)
+    currently_listed = models.NullBooleanField(default=False, blank=True)
     user = models.ForeignKey('User')
     
     def __str__(self):

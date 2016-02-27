@@ -34,8 +34,14 @@
                                     </a>
                                 <a href="/venue/manage_venue/{{ venue.id }}" class="button small pull-right" style="margin-left: 10px">Edit</a> 
                                 {{ venue.title }}<br>
-                                <a href="/venue/manage_venue/{{ venue.id }}">Edit venue and availability</a>
-                                  
+                                {% if venue.currently_listed %}
+                                    <strong><span style="color: #4dac71">Listed</span></strong><br>
+                                    <a href="/venue/manage_venue/{{ venue.id }}">Edit venue and availability</a>   
+                                {% else %}
+                                    <strong><span style="color: #FF6666">Unlisted</span></strong><br>
+                                    <a href="/venue/manage_venue/{{ venue.id }}">Edit and post venue</a>
+                                {% endif %}
+                                <br>                                  
                             </div><!-- my_venue_wrapper -->
                             <hr class="hr-style">
                         {% endfor %}

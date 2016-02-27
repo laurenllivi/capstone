@@ -4,7 +4,8 @@
 {% block stylesheets %}
     <script src="{% static 'js/tabcontent.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/manage_venue.js' %}" type="text/javascript"></script>  
-    <script src="{% static 'js/google-autocomplete.js' %}"></script>     
+    <script src="{% static 'js/google-autocomplete.js' %}"></script>  
+    <script src="{% static 'js/jquery-ui.multidatespicker.js' %}"></script>   
 
     <link href="{% static 'css/tabcontent.css' %}" rel="stylesheet" type="text/css" />
 {% endblock %}
@@ -155,18 +156,43 @@
                         </div>
                         
                         <div class="tab" id="view6">
-                            <div class="calendar-ajax-content">
+                            
+                            <div id="custom-jquery-calendar">
+                                <div id="main-calendar"></div>
+                            </div><!-- custom-jquery-calendar -->
+                            
+                             {{ calendarForm }}
                              
-                            </div>
+                             <!--<input type="text" value="{{ dates_list_string }}">-->
+                             <br>
+                             <input type="submit" class="small" name="calendarForm" value="Save Dates">
                         </div>
 
                     </div>
                 <br>
-                <input type="submit" name="mainForm" value="Save">
+                <!-- simply saves the values - all fields aren't required unless the user is posting the venue -->
+                <input type="submit" class="small" style="width: 120px" name="mainForm" value="Save">
+                
+                {% if listing.currently_listed %}
+                    <a href="/venue/post_venue__unlist/{{ listing.id }}" class="button small pull-right" style="background-color: #FF6666">Unlist Venue</a><br><br>
+                    <h5 class="pull-right">Unlisting the venue will prevent potential renters from seeing it.</h5>
+                {% else %}
+                    <!-- <input type="submit" class="small pull-right" name="postVenue" value="Post Venue"><br><br>-->
+                    <a href="/venue/post_venue/{{ listing.id }}" class="button small pull-right">Post Venue</a><br><br>
+                    <h5 class="pull-right">You'll be able to review the changes first.</h5>
+                {% endif %}
             </div>
          </form>
     </div>
 </section>
+
+<script>
+    //instantiate the calendar
+    $('#main-calendar').multiDatesPicker({
+        //altField: '#id_dates_available',
+        minDate: 0,
+    });
+</script>
 
 {% endblock %}
 

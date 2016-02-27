@@ -56,7 +56,8 @@ def find_venue_form(request):
         .filter(geolocation__distance_lte=(pnt, D(mi=50)))\
         .filter(category__iexact=venue_type)\
         .filter(price_per_hour__gte=price_per_hour_range[0])\
-        .filter(price_per_hour__lte=price_per_hour_range[1])
+        .filter(price_per_hour__lte=price_per_hour_range[1])\
+        .filter(currently_listed=True)
     venue_pics_dict = {}
     venue_locations_dict = {}
     for venue in venues:

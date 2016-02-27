@@ -41,37 +41,22 @@ function nextTab() {
     window.event.preventDefault();
 }
 
+// // event to check the altField on the calendar and update the calendar accordingly
+// $(function(){
+//
+// });
+
 // use ajax to update the content on the right
 // according to which message was selected
-function viewVenueCalendar(id)
-{
-   $.ajax({
-
-     type: "GET",
-     url: '/venue/calendar/' + id,
-     success: function(data) {
-           // pass the data to the right div on the page
-          $('.calendar-ajax-content').html(data);
-     }
-   });
-}
-
-// // delete a venue image
-// $('.delete-venue-image').click(function(){
+// function viewVenueCalendar(id)
+// {
+//    $.ajax({
 //
-//         //make the ajax call to reload the page
-//         $.ajax({
-//
-//             //Get the cart page to put into the modal. Call the __del function, and pass the item ID of the
-//             //item to remove from the cart
-//             url: "/homepage/cart__del/" + $(this).attr('data-id') + "/",
-//             success: function(data){
-//
-//                 $('.modal-body').html(data);
-//             },
-//
-//     });//ajax
-//
-//     //)}; //load modal
-//
-// });//click
+//      type: "GET",
+//      url: '/venue/calendar/' + id,
+//      success: function(data) {
+//            // pass the data to the right div on the page
+//           $('.calendar-ajax-content').html(data);
+//      }
+//    });
+// }

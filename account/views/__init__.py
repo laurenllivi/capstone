@@ -11,3 +11,4 @@ from .change_password import *
 from .logout import *
 from .my_venues import *
 from .my_reservations import *
+from .payment_preferences import *

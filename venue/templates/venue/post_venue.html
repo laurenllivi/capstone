@@ -1,0 +1,35 @@
+{% extends 'capstone/auth_base.html' %}
+{% load staticfiles %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+
+<section id="main" class="wrapper">
+    <div class="container">
+		<h3>Post Your Venue</h3>
+        <h5>Please review your venue settings and submit when you are ready for your venue to go live.</h5>
+        
+        <h4 style="color: #4dac71">General</h4>
+        
+        <h4 style="color: #4dac71">Features</h4>
+        
+        <h4 style="color: #4dac71">Location</h4>
+        
+        <h4 style="color: #4dac71">Photos</h4>
+        
+        <h4 style="color: #4dac71">Pricing</h4>
+        
+        <h4 style="color: #4dac71">Availability</h4>
+        
+        <br>
+        <form method="POST">
+            <input type="submit" value="Post Venue" class="small">
+        </form>
+        
+	</div>
+</section>
+
+{% endblock %}
+

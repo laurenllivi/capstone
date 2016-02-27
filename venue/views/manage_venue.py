@@ -25,6 +25,7 @@ def manage_venue(request, listing_id):
     if new is not None:
         form = NewVenueForm()
         imageForm = NewImageForm()
+        calendarForm = CalendarForm()
         listing = None
         newImage = None
         
@@ -32,6 +33,7 @@ def manage_venue(request, listing_id):
     else:
         # create the venue form and prepopulate it with saved values
         listing = hmod.Listing.objects.get(id=listing_id)
+        available_dates = hmod.Listing_Date.objects.filter(listing_id = listing.id)
         
         # make sure that only the owner of the venue can access this page
         # (since the venue ID is passed through the URL)
@@ -66,11 +68,31 @@ def manage_venue(request, listing_id):
         })
         
         imageForm = NewImageForm()
+        
+        dates_list_string = ""
+        first = True
+        # convert the list of available date objects into a string to display in the text field
+        for date in available_dates:
+            # convert the date into the format we want to display
+            display_format_year = str(date.date).split("-")[0]
+            display_format_month = str(date.date).split("-")[1]
+            display_format_day = str(date.date).split("-")[2]
+            
+            if first:
+                dates_list_string = dates_list_string + display_format_month + "/" + display_format_day + "/" + display_format_year
+                first = False
+            else:
+                dates_list_string = dates_list_string + ", " + display_format_month + "/" + display_format_day + "/" + display_format_year
+                
+        calendarForm = CalendarForm(initial={
+            'dates_available': str(dates_list_string),
+        })
 
     success = False
 
     if request.method == 'POST':
         # if it's a submit of the photos form, process ONLY that form
+        ############################### Images Form ##############################################
         if 'imagesForm' in request.POST:
             imageForm = NewImageForm(request.POST, request.FILES)
             if imageForm.is_valid():
@@ -99,8 +121,54 @@ def manage_venue(request, listing_id):
                     listing_id = listing.id
                     
                 return HttpResponseRedirect('/venue/manage_venue/%s/' % listing.id)
+            
+        # process the calendar form
+        ############################### Calendar Form ##############################################
+        elif 'calendarForm' in request.POST:
+            calendarForm = CalendarForm(request.POST)
+            if calendarForm.is_valid():
+                
+                # if this is a new venue and this form is being submitted before the main form . . .
+                # we need to create the venue object first
+                if new is not None:
+                    listing = hmod.Listing()
+                    listing.user = user
+                    listing.save()
                     
-        # process the main form            
+                # it's an existing venue . . .
+                else:
+                    listing = hmod.Listing.objects.get(id=listing_id)
+                    
+                # each date is saved as a new object in the Listing_Date model
+                # split the string into individual dates to save  
+                dates_string = calendarForm.cleaned_data['dates_available']
+                
+                # if the user has submitted dates . . .
+                if dates_string != "":
+                    dates_list = dates_string.split(', ')
+                    for date in dates_list: 
+                        # first rearrange the date to meet the datetime object python format
+                        db_format_year = date.split("/")[2]
+                        db_format_month = date.split("/")[0]
+                        db_format_day = date.split("/")[1]
+                        db_format_date = db_format_year + "-" + db_format_month + "-" + db_format_day
+                
+                        # save to the database (if the same date isn't already in there)
+                        try:
+                            hmod.Listing_Date.objects.get(listing=listing, date = db_format_date)
+                        except hmod.Listing_Date.DoesNotExist: 
+                            d = hmod.Listing_Date()
+                            d.date = db_format_date
+                            d.listing = listing
+                            d.save()
+                    
+                    # reset the url param to be the id of the venue
+                    listing_id = listing.id
+                
+            return HttpResponseRedirect('/venue/manage_venue/%s/' % listing.id)
+                    
+        # process the main form
+        ############################### Main Form (values aren't required )##############################################
         elif 'mainForm' in request.POST:     
             form = NewVenueForm(request.POST)
             
@@ -156,8 +224,10 @@ def manage_venue(request, listing_id):
         'success': success,
         'form': form,
         'imageForm': imageForm,
+        'calendarForm': calendarForm,
         'images': images,
         'listing': listing,
+        'dates_list_string': dates_list_string,
     }
     return render(request, 'venue/manage_venue.html', context)
 
@@ -210,3 +280,15 @@ class NewVenueForm(forms.Form):
 class NewImageForm(forms.Form):
     image_title = forms.CharField(widget=forms.TextInput(), required=False)
     image = forms.ImageField(label='Select a file', required=False)
+    
+class CalendarForm(forms.Form):
+    dates_available = forms.CharField(required=False, widget=forms.TextInput(attrs={
+        # 'disabled': 'disabled',
+        'readonly': 'true',
+        }))
+    
+    def clean(self):
+        if len(self.errors) == 0:
+            return self.cleaned_data
+        else:
+            print(self.errors)

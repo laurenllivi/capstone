@@ -11,9 +11,13 @@ django.setup()
 # imports
 from django.conf import settings
 from homepage import models as hmod
+from django_messages import models as mmod
 import datetime
 from django.contrib.gis.geos import Point
 import geocoder
+
+os.system("python3 manage.py makemigrations")
+os.system("python3 manage.py migrate")
 
 ######### Add some test data to the system ############################
 
@@ -62,11 +66,11 @@ l.description = "This is a nice, quiet backyard in the countryside. We love havi
 l.sq_footage = 2000
 l.num_guests = 200
 l.parking_desc = "There is parking for about 100, and more parking on the street. Might require a short walk if guests have to park a little bit further down the road."
-l.street = "1030 E State Street"
-l.street2 = "Apt. 2A"
-l.city = "Lindon"
+l.street = "700 E 500 N"
+l.street2 = ""
+l.city = "Provo"
 l.state = "UT"
-l.zipcode = "84042"
+l.zipcode = "84606"
 l.price_per_hour = 100
 l.price_per_hour_weekend = 150
 g = geocoder.google(
@@ -76,6 +80,7 @@ g = geocoder.google(
     l.state
 )
 l.geolocation = Point(float(g.lat), float(g.lng))
+l.currently_listed = True
 l.user = u
 l.save()
 
@@ -87,8 +92,8 @@ l2.description = "This is a nice, quiet backyard in the countryside. Pool and fo
 l2.sq_footage = 4000
 l2.num_guests = 400
 l2.parking_desc = "There is parking for about 100, and more parking on the street. Might require a short walk if guests have to park a little bit further down the road."
-l2.street = "5000 State Street"
-l2.street2 = "Apt. 2A"
+l2.street = "260 E 500 N"
+l2.street2 = ""
 l2.city = "Provo"
 l2.state = "UT"
 l2.zipcode = "84606"
@@ -101,6 +106,7 @@ g2 = geocoder.google(
     l2.state
 )
 l2.geolocation = Point(float(g2.lat), float(g2.lng))
+l2.currently_listed = True
 l2.user = u2
 l2.save()
 
@@ -125,6 +131,7 @@ g3 = geocoder.google(
     l3.state
 )
 l3.geolocation = Point(float(g3.lat), float(g3.lng))
+l3.currently_listed = False
 l3.user = u
 l3.save()
 
@@ -137,11 +144,11 @@ l4.description = "This is a nice, quiet backyard in the countryside. We love hav
 l4.sq_footage = 2000
 l4.num_guests = 200
 l4.parking_desc = "There is parking for about 100, and more parking on the street. Might require a short walk if guests have to park a little bit further down the road."
-l4.street = "1030 E State Street"
-l4.street2 = "Apt. 2A"
-l4.city = "Provo"
+l4.street = "1030 East Center Street"
+l4.street2 = ""
+l4.city = "Lindon"
 l4.state = "UT"
-l4.zipcode = "84606"
+l4.zipcode = "84042"
 g4 = geocoder.google(
     l4.street + " " + 
     l4.street2 + " " + 
@@ -149,6 +156,7 @@ g4 = geocoder.google(
     l4.state
 )
 l4.geolocation = Point(float(g4.lat), float(g4.lng))
+l4.currently_listed = False
 l4.user = u2
 l4.save()
 
@@ -229,33 +237,33 @@ ao.price_per = 10
 ao.listing = l2
 ao.save()
 
-# Listing_Date
-ld = hmod.Listing_Date()
-#ld.start_date = datetime.datetime.today()
-#ld.end_date = datetime.datetime.today()
-#ld.status = True
-ld.listing = l2
-ld.save()
+# # Listing_Date
+# ld = hmod.Listing_Date()
+# #ld.start_date = datetime.datetime.today()
+# #ld.end_date = datetime.datetime.today()
+# #ld.status = True
+# ld.listing = l2
+# ld.save()
 
-# Rental_Request
-rr = hmod.Rental_Request()
-rr.listing_date = ld
-rr.notes = "Is this still available for this day?"
-rr.approved = False
-rr.user = u
-rr.save()
+# # Rental_Request
+# rr = hmod.Rental_Request()
+# rr.listing_date = ld
+# rr.notes = "Is this still available for this day?"
+# rr.approved = False
+# rr.user = u
+# rr.save()
 
-# Transaction
-t = hmod.Transaction()
-t.date = datetime.datetime.today()
-t.price = 150
-t.paid = True
-t.notes = "Paid through Paypal"
-t.renter = u
-t.owner = u2
-t.listing = l2
-t.rental_request = rr
-t.save()
+# # Transaction
+# t = hmod.Transaction()
+# t.date = datetime.datetime.today()
+# t.price = 150
+# t.paid = True
+# t.notes = "Paid through Paypal"
+# t.renter = u
+# t.owner = u2
+# t.listing = l2
+# t.rental_request = rr
+# t.save()
 
 # Message
 m = hmod.Message()
@@ -273,4 +281,39 @@ rs.expiration = datetime.datetime.today()
 rs.user = u
 rs.save()
 
+# Messages
+m = mmod.Message()
+m.subject = "Thanks for emailing me"
+m.body = "Thanks for the message. I'm excited to rent out your theatre for my family reunion next month!"
+m.sender = u
+m.recipient = u2
+m.sent_at = datetime.datetime.now()
+m.read_at = datetime.datetime.now()
+m.save()
 
+m2 = mmod.Message()
+m2.subject = "We had a great time"
+m2.body = "We appreciated the hospitality when we rented out your backyard for our reception last weekend. Thank you, and I'll be sure to leave you a nice review! :)"
+m2.sender = u
+m2.recipient = u2
+m2.sent_at = datetime.datetime.now()
+m2.read_at = datetime.datetime.now()
+m2.save()
+
+m3 = mmod.Message()
+m3.subject = "Thanks for emailing me"
+m3.body = "Thanks for the message. I'm excited to rent out your theatre for my family reunion next month!"
+m3.sender = u2
+m3.recipient = u
+m3.sent_at = datetime.datetime.now()
+m3.read_at = datetime.datetime.now()
+m3.save()
+
+m4 = mmod.Message()
+m4.subject = "We had a great time"
+m4.body = "We appreciated the hospitality when we rented out your backyard for our reception last weekend. Thank you, and I'll be sure to leave you a nice review! :)"
+m4.sender = u2
+m4.recipient = u
+m4.sent_at = datetime.datetime.now()
+m4.read_at = datetime.datetime.now()
+m4.save()
