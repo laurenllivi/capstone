@@ -7,6 +7,7 @@ capstone/urls.pyc
 capstone/wsgi.pyc
 homepage/__init__.pyc
 homepage/admin.pyc
+homepage/migrations/
 homepage/migrations/0001_initial.pyc
 homepage/migrations/__init__.pyc
 homepage/models.pyc
