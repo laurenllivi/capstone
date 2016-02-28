@@ -2,25 +2,102 @@
 {% load staticfiles %}
 
 {% block stylesheets %}
-
+    <script src="{% static 'js/view_venue.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery.form.js' %}"></script>
+    <script src="{% static 'jonthornton-jquery-timepicker/jquery.timepicker.min.js' %}" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'jonthornton-jquery-timepicker/jquery.timepicker.css' %}">
 {% endblock %}
 
 {% block content %}
 <section id="main" class="wrapper">
-    <div class="container">
-        View Venue Page
-        <div>{{listing.title}}</div>
-        <div>{{host.first_name}}</div>
-        <div>{{listing.city}}, {{listing.state}}</div>
-        <div>{{listing.category}}</div>
-        <div>Weekday Price ${{listing.price_per_hour}}</div>
-        <div>Weekend Price ${{listing.price_per_hour_weekend}}</div>
-        <div>{{listing.description}}</div>
-        <div>{{listing.sq_footage}}</div>
-        <div>{{listing.num_guests}}</div>
-        <div>Parking: {{listing.parking_desc}}</div>
+    <div class="venue-intro">
+        <div class="cover-photo-container">
+                <div class="cover-photo" style="background-image:url({% static 'images/venue-images/' %}{{ listing.id }}/{{cover_pic.image_name}})"></div>
+        </div>
+        <div class="title-container">
+            <div class="venue-title">{{listing.title}}</div>
+            <div>{{listing.category|capfirst}}</div>
+            <div class="venue-rating">
+                4.7 stars
+                <a href="">Reviews</a>
+            </div>
+        </div>
     </div>
+
+    <div class="container">
+
+            <div class="description-div">
+
+                <div id="booking-container" class="booking-container">
+                    {{ formhtml|safe }}
+                </div>
+
+                <div class="details-container">
+                    <div class="venue-owner">
+                        <div class="profile-pic-container med-profile-pic-container">
+                            <div class="profile-pic-wrapper med-profile-pic-wrapper">
+                                <a href="/account/profile"><img class="med-profile-pic" src="{{ host.profile_pic.image_file }}" /></a>
+                            </div><!-- wrapper -->
+                        </div><!-- container -->
+
+                        <div class="contact-owner">
+                            <a href="#" class="button alt small">Contact Owner</a>
+                            <a href="">{{host.first_name}} {{host.last_name}}</a>
+                        </div>
+
+                    </div>
+
+                    <div class="venue-features">
+                        <ul class="venue-features-list">
+                            <li><i class="fa fa-users"></i> Accomodates {{listing.num_guests}} guests</li>
+                            <li><i class="fa fa-area-chart"></i> {{listing.sq_footage}}sq. feet</li>
+                            {%for feature in features%}
+                                <li>{{ feature }}</li>
+                            {%endfor%}
+
+                        </ul>
+                    </div>
+                </div>
+
+                <hr class="hr-style" />
+
+                <div class="description">
+                    <div class="sub-heading">Venue Details</div>
+                    <div>
+                        <div><span class="label">Decription:</span> {{listing.description}}</div>
+                        <div><i class="fa fa-car"></i> {{listing.parking_desc}}</div>
+                    </div>
+                </div>
+
+                <div class="dates-container">
+                    <div class="select-date">
+                        Available Dates
+                    </div>
+                </div>
+                <div class="map-container">
+                    {{listing.city}}, {{listing.state}}
+                    <!--<div id="map"></div>-->
+                </div>
+
+                <div class="venue-photos">
+                    {% if images %}
+                        <ul>
+                        {% for image in images %}
+                            <div class="ven-img-thumbnail">
+                                <img src='{% static "images/venue-images/" %}{{ listing.id }}/{{image.image_name}}' alt="" />
+                            </div>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                            <p>No Images</p>
+                    {% endif %}
+                </div>
+
+            </div>
+    </div>
+
 </section>
+
 
 {% endblock %}
 

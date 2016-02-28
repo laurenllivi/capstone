@@ -95,16 +95,6 @@ def find_venue_form(request):
     return render_to_response('venue/venue_results.html', context, RequestContext(request))
 
 
-PRICE_CHOICES = (
-    ('5', '5'),
-    ('10', '10'),
-    ('15', '15'),
-    ('20', '20'),
-    ('30', '30'),
-    ('50', '50'),
-    ('100', '100'),
-)
-
 class FindVenueForm(forms.Form):
     within_miles = forms.ChoiceField(required=False, widget=forms.Select(attrs={'id': 'venue-distance'}), label="Within", choices=choices.WITHIN_MILES_CHOICES)
     location = forms.CharField(widget=forms.TextInput(attrs={

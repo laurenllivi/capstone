@@ -42,6 +42,7 @@ def manage_venue(request, listing_id):
         
         newImage = hmod.Listing_Photo()
         try:
+            #WHY IS THIS GETTING FEATURES WHERE THE FEATURE ID = THE LISTING ID?
             listing_features = hmod.Listing_Feature.objects.filter(feature_id=listing_id)
         except hmod.Listing_Feature.DoesNotExist:
             listing_features = None

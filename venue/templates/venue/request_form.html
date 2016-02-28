@@ -1,0 +1,39 @@
+    <form id="request-booking-form" action="{% url 'update_request_form' listing.id %}" method="post">
+        {% csrf_token %}
+        <div class="message">{{ message }}</div>
+        <div class="3u view-form-field">
+            Event Date:
+            {{form.event_date}}
+        </div>
+        <div class="3u view-form-field">
+            Start Time:
+            {{form.start_time}}
+        </div>
+        <div class="3u view-form-field">
+            End Time:
+            {{form.start_time}}
+        </div>
+        <input type="submit" value="Request To Book">
+
+        <div class="venue-price">
+            <span class="display-price">M-Th: ${{listing.price_per_hour}} per hour</span>
+            <span class="display-price">F-Su: ${{listing.price_per_hour_weekend}} per hour</span>
+        </div>
+    </form>
+
+<script>
+    //$body = $("body");
+
+    //$(document).on({
+      //  ajaxStart: function() { $body.addClass("loading");    },
+        // ajaxStop: function() { $body.removeClass("loading"); }
+    //});
+
+    $(document).ready(function() {
+
+        $('#request-booking-form').ajaxForm({
+            // target identifies the element(s) to update with the server response
+            target: '#booking-container',
+        });
+    });
+</script>

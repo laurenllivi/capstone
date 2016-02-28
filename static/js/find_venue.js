@@ -5,17 +5,13 @@ var price_per_hour_range = [];
 $(document).ready(function(){
 
 //    pageSetup();
+    $('.datepicker').datepicker();
 
 })//document ready
 
 function pageSetup()
 {
     mapSetup();
-
-    //datepicker
-      $(document).ready(function() {
-          $('.datepicker').datepicker();
-      });
 
     ///price slider
 //    setSliders()
