@@ -12,6 +12,7 @@ homepage/migrations/__init__.pyc
 homepage/models.pyc
 homepage/urls.pyc
 homepage/views.pyc
+homepage/migrations
 *.pyo
 *.pyc
 .idea/
