@@ -317,12 +317,9 @@ footer ul.icons li
 .ven-img-thumbnail
 {
     display:inline-block;
-    height:250px;
-    width:375px;
+    height:200px;
+    width:300px;
     overflow:hidden;
-    padding: 15px;
-    margin-top: -40px;
-    margin-left: -10px;
 }
 
     .hide-x-until-hover{

@@ -67,7 +67,7 @@
 
                 {% for venue in venues %}
                     <div class="venue-result">
-                        <a href="view-venue.html">
+                        <a href="/venue/view_venue/{{venue.id}}">
                             {% if venue_pics_dict|get_item:venue.id == None %}
                                 <img class="tiny-camera-icon venue-pic" src="/static/images/camera-icon.png"/></a>
                                 <img class="venue-pic" src="" />
