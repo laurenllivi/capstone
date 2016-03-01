@@ -230,7 +230,7 @@ def manage_venue(request, listing_id):
         'calendarForm': calendarForm,
         'images': images,
         'listing': listing,
-        'available_dates': available_dates,
+        #'available_dates': available_dates,
     }
     return render(request, 'venue/manage_venue.html', context)
 

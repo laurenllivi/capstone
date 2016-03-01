@@ -5,6 +5,12 @@ input[type="number"]
     display:inline-block;
 }
 
+label{
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+
 .errorlist
 {
     color: red;
@@ -939,7 +945,7 @@ hr.hr-border{
 }
 
 #custom-jquery-calendar .ui-icon {
-    background-image: url('/static/images/ui-icons_444444_256x240.png');
+    background-image: url('/static/css/images/ui-icons_444444_256x240.png');
 }
 
 
@@ -1092,7 +1098,7 @@ hr.hr-border{
     height: 32px;
     overflow: hidden;
     background: rgba(0,0,0,.3) no-repeat 50% 50%;
-    background-image: url('/static/images/prev-arrow.png');
+    background-image: url('/static/css/images/prev-arrow.png');
     background-size: 7px 11px;
     border-radius: 32px;
     text-indent: -999em;
@@ -1110,7 +1116,7 @@ hr.hr-border{
     height: 32px;
     overflow: hidden;
     background: rgba(0,0,0,.3) no-repeat 50% 50%;
-    background-image: url('/static/images/next-arrow.png');
+    background-image: url('/static/css/images/next-arrow.png');
     background-size: 7px 11px;
     border-radius: 32px;
     text-indent: -999em;
@@ -1121,5 +1127,6 @@ hr.hr-border{
     bottom: 175px;
 
 }
+
 
 
