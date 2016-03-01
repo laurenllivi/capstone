@@ -4,6 +4,7 @@ from django import forms
 from homepage import models as hmod
 from lib import forms as custom_forms
 from lib import choices
+from lib import convert_date_string as convert_date
 from capstone.settings import MEDIA_ROOT
 from django.contrib.auth.decorators import login_required
 import os.path
@@ -26,6 +27,7 @@ def manage_venue(request, listing_id):
         form = NewVenueForm()
         imageForm = NewImageForm()
         calendarForm = CalendarForm()
+        dates_list_string = ""
         listing = None
         newImage = None
         
@@ -33,7 +35,7 @@ def manage_venue(request, listing_id):
     else:
         # create the venue form and prepopulate it with saved values
         listing = hmod.Listing.objects.get(id=listing_id)
-        available_dates = hmod.Listing_Date.objects.filter(listing_id = listing.id)
+        available_dates = hmod.Listing_Date.objects.filter(listing_id=listing.id)
         
         # make sure that only the owner of the venue can access this page
         # (since the venue ID is passed through the URL)
@@ -42,12 +44,16 @@ def manage_venue(request, listing_id):
         
         newImage = hmod.Listing_Photo()
         try:
-            #WHY IS THIS GETTING FEATURES WHERE THE FEATURE ID = THE LISTING ID?
-            listing_features = hmod.Listing_Feature.objects.filter(feature_id=listing_id)
+            listing_features = hmod.Listing_Feature.objects.filter(listing_id=listing_id)
         except hmod.Listing_Feature.DoesNotExist:
             listing_features = None
 
-        # location = geocoder.google([listing.geolocation.x, listing.geolocation.y], method='reverse')
+        # use my custom method to convert the list of objects into a string of dates
+        dates_available = convert_date.convert_db_into_date_string(available_dates)
+                
+        calendarForm = CalendarForm(initial={
+            'dates_available': dates_available,
+        })
 
         form = NewVenueForm(initial={
             'title': request.session.get('venueform_title') or listing.title,
@@ -69,25 +75,6 @@ def manage_venue(request, listing_id):
         })
         
         imageForm = NewImageForm()
-        
-        dates_list_string = ""
-        first = True
-        # convert the list of available date objects into a string to display in the text field
-        for date in available_dates:
-            # convert the date into the format we want to display
-            display_format_year = str(date.date).split("-")[0]
-            display_format_month = str(date.date).split("-")[1]
-            display_format_day = str(date.date).split("-")[2]
-            
-            if first:
-                dates_list_string = dates_list_string + display_format_month + "/" + display_format_day + "/" + display_format_year
-                first = False
-            else:
-                dates_list_string = dates_list_string + ", " + display_format_month + "/" + display_format_day + "/" + display_format_year
-                
-        calendarForm = CalendarForm(initial={
-            'dates_available': str(dates_list_string),
-        })
 
     success = False
 
@@ -143,17 +130,12 @@ def manage_venue(request, listing_id):
                 # each date is saved as a new object in the Listing_Date model
                 # split the string into individual dates to save  
                 dates_string = calendarForm.cleaned_data['dates_available']
-                
+              
                 # if the user has submitted dates . . .
                 if dates_string != "":
                     dates_list = dates_string.split(', ')
-                    for date in dates_list: 
-                        # first rearrange the date to meet the datetime object python format
-                        db_format_year = date.split("/")[2]
-                        db_format_month = date.split("/")[0]
-                        db_format_day = date.split("/")[1]
-                        db_format_date = db_format_year + "-" + db_format_month + "-" + db_format_day
-                
+                    for date in dates_list:      
+                        db_format_date = convert_date.convert_date_string_into_db(date)
                         # save to the database (if the same date isn't already in there)
                         try:
                             hmod.Listing_Date.objects.get(listing=listing, date = db_format_date)
@@ -248,7 +230,7 @@ def manage_venue(request, listing_id):
         'calendarForm': calendarForm,
         'images': images,
         'listing': listing,
-        'dates_list_string': dates_list_string,
+        'available_dates': available_dates,
     }
     return render(request, 'venue/manage_venue.html', context)
 
@@ -310,7 +292,7 @@ class NewImageForm(forms.Form):
     image = forms.ImageField(label='Select a file', required=False)
     
 class CalendarForm(forms.Form):
-    dates_available = forms.CharField(required=False, widget=forms.TextInput(attrs={
+    dates_available = forms.CharField(label="Saved Dates", required=False, widget=forms.TextInput(attrs={
         # 'disabled': 'disabled',
         'readonly': 'true',
         }))

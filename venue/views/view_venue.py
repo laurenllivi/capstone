@@ -43,7 +43,7 @@ def request_booking_form(request, listing_id):
     message = ''
 
     if request.method == 'POST':
-        print 'method was post'
+        print('method was post')
         # event_date = form.cleaned_data['event_date']
         # start_time = form.cleaned_data['start_time']
         # end_time = form.cleaned_data['end_time']

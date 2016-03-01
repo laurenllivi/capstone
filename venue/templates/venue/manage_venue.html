@@ -128,7 +128,7 @@
                             {% if images %}
                                 <ul>
                                 {% for image in images %}
-                                    <div class="ven-img-thumbnail hover-delete">
+                                    <div class="ven-img-thumbnail-manage hover-delete">
                                         <a href="/venue/manage_venue__del_img/{{ listing.id }}/{{ image.id }}" style="color: #272727;" class="delete-venue-image"><i class="fa fa-times fa-2x hide-x-until-hover"></i></a>
                                         <img src='{% static "images/venue-images/" %}{{ listing.id }}/{{image.image_name}}' alt="" />
                                     </div>
@@ -163,15 +163,15 @@
                             
                              {{ calendarForm }}
                              
-                             <!--<input type="text" value="{{ dates_list_string }}">-->
                              <br>
-                             <input type="submit" class="small" name="calendarForm" value="Save Dates">
+                             <input type="submit" class="small" name="calendarForm" value="Update Dates">
                         </div>
 
                     </div>
                 <br>
                 <!-- simply saves the values - all fields aren't required unless the user is posting the venue -->
                 <input type="submit" class="small" style="width: 120px" name="mainForm" value="Save">
+            
                 
                 {% if listing.currently_listed %}
                     <a href="/venue/post_venue__unlist/{{ listing.id }}" class="button small pull-right" style="background-color: #FF6666">Unlist Venue</a><br><br>
@@ -189,7 +189,7 @@
 <script>
     //instantiate the calendar
     $('#main-calendar').multiDatesPicker({
-        //altField: '#id_dates_available',
+        altField: '#id_dates_available',
         minDate: 0,
     });
 </script>

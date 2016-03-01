@@ -36,6 +36,7 @@
                 {{ form.venue_type }}
 
            </div>
+           <br><br>
             <input type="submit" value="Search">
         <!--<hr class="hr-style" />-->
 
@@ -68,12 +69,8 @@
                 {% for venue in venues %}
                     <div class="venue-result">
                         <a href="/venue/view_venue/{{venue.id}}">
-                            {% if venue_pics_dict|get_item:venue.id == None %}
-                                <img class="tiny-camera-icon venue-pic" src="/static/images/camera-icon.png"/></a>
-                                <img class="venue-pic" src="" />
-                            {% else %}
-                                <img class="venue-pic" src="/static/images/venue-images/{{ venue.id }}/{{ venue_pics_dict|get_item:venue.id }}"/>
-                            {% endif %}
+                            <img class="venue-pic" src="/static/images/venue-images/{{ venue.id }}/{{ venue_pics_dict|get_item:venue.id }}"/>
+                        </a>
                             <div class="price-label">${{ venue.price_per_hour }}</div>
                             <div class="favorite-container">
                                 <i class="fa fa-heart-o fa-2x"></i>

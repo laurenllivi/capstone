@@ -43,6 +43,7 @@ class Login_Form(forms.Form):
     password = forms.CharField(required=True, widget=forms.PasswordInput())
 
     def clean(self): 
+        user = None
         if len(self.errors) ==0:
             user = authenticate(username=self.cleaned_data['username'], password=self.cleaned_data['password'])
         if user == None:            

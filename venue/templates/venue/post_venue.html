@@ -78,9 +78,9 @@
             <tr>
                 <td class="col-1"><strong>Dates Available:</strong></td>
                 {% if available_dates == 'None' %}
-                    <td style="color: #FF6666">{{ available_dates }}</td>
+                    <td style="color: #FF6666">{{ dates_available }}</td>
                 {% else %}
-                    <td>{{ available_dates }}</td>
+                    <td>{{ dates_available }}</td>
                 {% endif %}
                 
             </tr>
@@ -100,7 +100,7 @@
         
         <br>
         <form method="POST">
-            <input type="submit" value="Post Venue" class="small">
+            <input type="submit" value="Post Venue" class="small pull-right">
         </form>
         
 	</div>

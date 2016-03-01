@@ -3,6 +3,7 @@ from django.shortcuts import *
 from django import forms
 from homepage import models as hmod
 from django.contrib.auth.decorators import login_required
+from lib import convert_date_string as convert_date
 
 @login_required
 def post_venue(request, listing_id):
@@ -16,8 +17,11 @@ def post_venue(request, listing_id):
     
     # if the list of available dates is empty
     if not available_dates:
-        available_dates = "None"
-    
+        dates_available = "None"
+    else:
+        # use my method to convert the list of objects into a string of dates
+        dates_available = convert_date.convert_db_into_date_string(available_dates)
+            
     # make sure that only the owner of the venue can access this page
     # (since the venue ID is passed through the URL)
     if user.id != listing.user.id:
@@ -32,7 +36,7 @@ def post_venue(request, listing_id):
     context = {
         'listing': listing,
         'user': user,
-        'available_dates': available_dates,
+        'dates_available': dates_available,
         'images': images,
         'image_count': image_count,
     }

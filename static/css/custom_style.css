@@ -171,6 +171,48 @@ body.loading .modal {
         position: relative;
         right: -50%;
     }
+    
+/* Navbar drop down */
+    
+
+    /* Dropdown Button */
+    .dropbtn {
+        border: none;
+        cursor: pointer;
+    }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+        z-index: 5;
+    }
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+        text-align: center;
+        width: 200px;
+        right: 1px;
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    }
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+        text-decoration: none;
+        display: block;
+        color: #4dac71 !important;
+    }
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {color: grey !important;}
 
 /***************** Header *****************/
 .header-clear {
@@ -322,6 +364,17 @@ footer ul.icons li
     overflow:hidden;
 }
 
+.ven-img-thumbnail-manage
+{
+    display:inline-block;
+    height:250px;
+    width:375px;
+    overflow:hidden;
+    padding: 15px;
+    margin-top: -40px;
+    margin-left: -10px;
+}
+
     .hide-x-until-hover{
         /* hidden until proven visible :) */
         visibility: hidden;
@@ -333,6 +386,11 @@ footer ul.icons li
     }
 
 .ven-img-thumbnail img
+{
+    width:100%;
+}
+
+.ven-img-thumbnail-manage img
 {
     width:100%;
 }
@@ -444,8 +502,8 @@ footer ul.icons li
 
 .venue-pic
 {
-	max-width: 100%;
-	height: auto;
+	min-width: 100%;
+	height: 200px;
 	width: auto\9; /* ie8 */
 	vertical-align:middle;
 	vertical-align: -webkit-baseline-middle;
@@ -827,14 +885,6 @@ hr.hr-border{
     min-height: 100%;
     border-left: 1px solid #C6C6C6;
 }
-/*
-.messages-left-menu-container
-{
-    position: relative;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}*/
 
 
 .messages-leftdiv
@@ -851,13 +901,6 @@ hr.hr-border{
     -webkit-overflow-scrolling: touch;
    
 }
-
-/*.messages-leftdiv:after
-{
-    content: "";
-    display: block;
-    height: 50px;
-}*/
 
 .delete-object{
     color: #FF6666;
@@ -886,6 +929,11 @@ hr.hr-border{
     padding-left: 2em;
     padding-right: 2em;
     padding-top: .5em;
+    line-height: 1.2;
+}
+
+.message-preview .message_body {
+    line-height: 1 !important;
 }
 
 .message-preview:hover{
@@ -1000,4 +1048,5 @@ hr.hr-border{
     bottom: 175px;
 
 }
+
 
