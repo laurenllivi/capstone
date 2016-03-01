@@ -4,11 +4,16 @@
 {% block stylesheets %}
     <script src="{% static 'js/view_venue.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/jquery.form.js' %}"></script>
+    <script src="{% static 'js/maplace.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'jonthornton-jquery-timepicker/jquery.timepicker.min.js' %}" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'jonthornton-jquery-timepicker/jquery.timepicker.css' %}">
 
     <link rel="stylesheet" type="text/css" href="{% static 'jquery-horizontal-scrollbars/jquery.horizontal.scroll.css' %}" />
     <script src="{% static 'jquery-horizontal-scrollbars/jquery.horizontal.scroll.js' %}" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        sizePhotoContainter({{ image_count }})
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -16,10 +21,11 @@
     <div class="venue-intro">
         <div class="cover-photo-container">
                 <div class="cover-photo" style="background-image:url({% static 'images/venue-images/' %}{{ listing.id }}/{{cover_pic.image_name}})"></div>
+                <!--<div class="price-label price-label-right">${{ listing.price_per_hour }} - ${{ listing.price_per_hour_weekend }}</div>-->
         </div>
         <div class="title-container">
             <div class="venue-title">{{listing.title}}</div>
-            <div>{{listing.category|capfirst}}</div>
+            <div>{{listing.category|capfirst}} in {{listing.city}}, {{listing.state}}</div>
             <div class="venue-rating">
                 4.7 stars
                 <a href="">Reviews</a>
@@ -27,59 +33,59 @@
         </div>
     </div>
 
-    <div class="container">
+
+    <div id="view-venue-sub-intro">
+        <div class="venue-owner">
+            <div class="profile-pic-container med-profile-pic-container">
+                <div class="profile-pic-wrapper med-profile-pic-wrapper">
+                    <a href="/account/profile"><img class="med-profile-pic" src="{{ host.profile_pic.image_file }}" /></a>
+                </div><!-- wrapper -->
+            </div><!-- container -->
+
+            <div class="contact-owner">
+                <a href="">{{host.first_name}} {{host.last_name}}</a>
+                <a href="">Contact Host</a>
+            </div>
+        </div>
+
+
+        <div id="venue-highlights">
+            <span class="highlight"><i class="fa fa-users"></i> Accomodates {{listing.num_guests}} guests</span>
+            <span class="highlight"><i class="fa fa-area-chart"></i> {{listing.sq_footage}}sq. feet</span>
+        </div>
+    </div>
+
+    <div id="venue-details-container" class="container">
 
             <div class="description-div">
 
                 <div id="booking-container" class="booking-container">
+                    <div id="booking-container-top"></div>
                     {{ formhtml|safe }}
                 </div>
 
-                <div class="details-container">
-                    <div class="venue-owner">
-                        <div class="profile-pic-container med-profile-pic-container">
-                            <div class="profile-pic-wrapper med-profile-pic-wrapper">
-                                <a href="/account/profile"><img class="med-profile-pic" src="{{ host.profile_pic.image_file }}" /></a>
-                            </div><!-- wrapper -->
-                        </div><!-- container -->
-
-                        <div class="contact-owner">
-                            <a href="#" class="button alt small">Contact Owner</a>
-                            <a href="">{{host.first_name}} {{host.last_name}}</a>
-                        </div>
-
-                    </div>
-
-                    <div class="venue-features">
-                        <ul class="venue-features-list">
-                            <li><i class="fa fa-users"></i> Accomodates {{listing.num_guests}} guests</li>
-                            <li><i class="fa fa-area-chart"></i> {{listing.sq_footage}}sq. feet</li>
-                            {%for feature in features%}
-                                <li>{{ feature }}</li>
-                            {%endfor%}
-
-                        </ul>
-                    </div>
-                </div>
-
-                <hr class="hr-style" />
 
                 <div class="description">
                     <div class="sub-heading">Venue Details</div>
+
+                    {%if features%}
+                    <h1>Additional Features</h1>
+                    <div class="details-container">
+                        <div class="venue-features">
+                            <ul class="venue-features-list">
+                                {%for feature in features%}
+                                    <li>{{ feature }}</li>
+                                {%endfor%}
+
+                            </ul>
+                        </div>
+                    </div>
+                    {%endif%}
+
                     <div>
                         <div><i class="fa fa-hand-o-right"></i> {{listing.description}}</div>
                         <div><i class="fa fa-car"></i> {{listing.parking_desc}}</div>
                     </div>
-                </div>
-
-                <div class="dates-container">
-                    <div class="select-date">
-                        Available Dates
-                    </div>
-                </div>
-                <div class="map-container">
-                    {{listing.city}}, {{listing.state}}
-                    <!--<div id="map"></div>-->
                 </div>
 
                 <div class="venue-photos">
@@ -109,6 +115,10 @@
                     <a id="right_scroll" class="mouseover_right" href="#"></a>
                 </div>
             </div>
+
+        <div class="view-map-container">
+            <div id="gmap-circles"></div>
+        </div>
 
     </div>
 

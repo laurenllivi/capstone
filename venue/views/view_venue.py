@@ -28,6 +28,7 @@ def view_venue(request, listing_id):
     context = {
         'cover_pic': cover_pic,
         'images': images,
+        'image_count': len(images),
         'listing': listing,
         'host': host,
         'formhtml': request_form.content,
