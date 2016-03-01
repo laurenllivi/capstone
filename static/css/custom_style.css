@@ -755,6 +755,12 @@ hr.hr-border{
     .contact-owner a
     {
         display: block;
+        text-decoration: none;
+    }
+
+    .contact-owner a:hover
+    {
+        text-decoration: underline;
     }
 
 .view-dates-container
