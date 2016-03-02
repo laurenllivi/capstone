@@ -25,8 +25,7 @@ def change_password(request):
     }
     return render(request, 'account/change_password.html', context)
     
-class Change_Password_Form(forms.Form):
-    
+class Change_Password_Form(forms.Form): 
     # lets me access the request in the form
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)

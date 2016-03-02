@@ -110,6 +110,17 @@ body.loading .modal {
 	transform: translateY(0);
 }
 
+.profile-pic-container .hide-x-until-hover{
+    /* hidden until proven visible :) */
+    visibility: hidden;
+    position: absolute;
+    padding: 10px;
+    z-index: 5;
+    top: -15px;
+    left: 165px;
+    color: grey;
+}
+
 .profile-pic-wrapper
 {
     position: relative;

@@ -38,6 +38,25 @@ def profile_photo(request):
     }
     return render(request, 'account/profile_photo.html', context)
     
+@login_required
+def profile_photo__del_img(request):   
+    '''deleting a user's profile image'''
+    
+    user = request.user
+    user_photo = user.profile_pic
+    user_photo.delete()
+    
+    new_profile_pic = hmod.User_Photo()
+    new_profile_pic.image_name = user.username + "_profile_photo"
+    new_profile_pic.image_title = user.username + "_ profile_photo"
+    new_profile_pic.image_file = static_url + "images/profile-images/default_user.png"
+    new_profile_pic.save()
+    
+    user.profile_pic = new_profile_pic
+    user.save()
+        
+    return HttpResponseRedirect('/account/profile_photo/')
+    
 class New_Profile_Photo_Form(forms.Form):
     image = forms.ImageField(label="Change your profile photo",required=False)
     

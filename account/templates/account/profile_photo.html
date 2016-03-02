@@ -1,4 +1,9 @@
 {% extends 'capstone/auth_base.html' %}
+{% load staticfiles %}
+
+{% block stylesheets %}
+    <script src="{% static 'js/profile_photo.js' %}"></script>  
+{% endblock %}
 
 <section id="main" class="wrapper">
     <div class="container">
@@ -17,7 +22,8 @@
                     <div class="panel-profile-content">
                         
                         <div class="bio-pic">
-                            <div class="profile-pic-container">
+                            <div class="profile-pic-container hover-delete">
+                                <a href="/account/profile_photo__del_img/" style="color: #272727;" class="delete-venue-image"><i class="fa fa-times fa-2x hide-x-until-hover"></i></a>
                                 <div class="profile-pic-wrapper">
                                     <img class="profile-pic" src="{{ user.profile_pic.image_file }}" />
                                 </div>
