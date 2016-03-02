@@ -9,7 +9,7 @@ class User_Photo(models.Model):
     image_file = models.ImageField(default='profile-images/no-img.jpg')
     
     def __str__(self):
-        return self.name   
+        return self.image_name   
 
 class User(AbstractUser):
     '''Extension of Django's user class'''

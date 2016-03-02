@@ -1,0 +1,26 @@
+{% extends 'capstone/auth_base.html' %}
+
+{% block content %}
+
+    <section id="main" class="wrapper">
+        <div class="container">
+
+            {% block left_menu %}
+                {% include 'partials/_events_left_menu.html' %}
+            {% endblock %}
+            
+            <div class="profile-right-side-content">
+                <div class="panel-header">My Upcoming Events</div>
+                    <div class="panel-profile-content">
+                       
+                    </div><!-- panel-profile-content-->
+            </div>
+        
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block footer %}
+    {% include "partials/_footer.html" %}
+{% endblock %}

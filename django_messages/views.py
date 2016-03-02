@@ -7,6 +7,7 @@ from django.utils.translation import ugettext as _
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from homepage import models as hmod
 
 from django_messages.models import Message
 from django_messages.forms import ComposeForm
@@ -83,7 +84,15 @@ def compose(request, recipient=None, form_class=ComposeForm,
                 success_url = request.GET['next']
             return HttpResponseRedirect(success_url)
     else:
-        form = form_class()
+        # added by Lauren on 3/1/16
+        try:
+            recipient = hmod.User.objects.get(id=recipient).username
+        except hmod.User.DoesNotExist:
+            recipient=""
+        form = form_class(initial={
+            'recipient': recipient,
+        })
+        ############################
         if recipient is not None:
             recipients = [u for u in User.objects.filter(**{'%s__in' % get_username_field(): [r.strip() for r in recipient.split('+')]})]
             form.fields['recipient'].initial = recipients

@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^my_venues/$', views.my_venues, name='my_venues'),
     url(r'^my_reservations/$', views.my_reservations, name='my_reservations'),
     url(r'^payment_preferences/$', views.payment_preferences, name='payment_preferences'),
+    url(r'^my_events/$', views.my_events, name='my_events'),
 ]
