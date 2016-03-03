@@ -15,7 +15,7 @@
 			// if code supported, link in the style sheet and call the init function onload
 			if ( dw_scrollObj.isSupported() ) {
 			    //dw_Util.writeStyleSheet('css/scroll.css');
-			    dw_Event.add( window, 'load', init_dw_Scroll);
+//			    dw_Event.add( window, 'load', init_dw_Scroll);
 			}
   });
  };

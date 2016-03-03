@@ -1,15 +1,20 @@
 {% extends 'capstone/base_template.html' %}
 {% load staticfiles %}
 
+{% block subtitle %}
+ - View Venue
+{% endblock %}
+
 {% block stylesheets %}
     <script src="{% static 'js/view_venue.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/jquery.form.js' %}"></script>
     <script src="{% static 'js/maplace.min.js' %}" type="text/javascript"></script>
-    <script src="{% static 'jonthornton-jquery-timepicker/jquery.timepicker.min.js' %}" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'jonthornton-jquery-timepicker/jquery.timepicker.css' %}">
 
     <link rel="stylesheet" type="text/css" href="{% static 'jquery-horizontal-scrollbars/jquery.horizontal.scroll.css' %}" />
     <script src="{% static 'jquery-horizontal-scrollbars/jquery.horizontal.scroll.js' %}" type="text/javascript"></script>
+
+    <script src="{% static 'star-rating/jquery.rating.js' %}" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'star-rating/jquery.rating.css' %}" />
 
     <script type="text/javascript">
         sizePhotoContainter({{ image_count }})
@@ -60,7 +65,6 @@
             <div class="description-div">
 
                 <div id="booking-container" class="booking-container">
-                    <div id="booking-container-top"></div>
                     {{ formhtml|safe }}
                 </div>
 
@@ -115,6 +119,27 @@
                     <a id="right_scroll" class="mouseover_right" href="#"></a>
                 </div>
             </div>
+
+        <div class="review-container">
+            <h2>Reviews</h2>
+            <ul class="alt">
+                {% for review in reviews %}
+                <li>
+                    <div>
+                        {% for i in range %}
+                        {% if i == review.starcount %}
+                        <input title="{{ review.rating }}" name="star{{review.id}}" type="radio" class="star {split:2}" disabled="disabled" checked="checked"/>
+                        {% else %}
+                        <input title="{{ review.rating }}" name="star{{review.id}}" type="radio" class="star {split:2}" disabled="disabled"/>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <br/>
+                    <div>{{ review.description }}</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
 
         <div class="view-map-container">
             <div id="gmap-circles"></div>

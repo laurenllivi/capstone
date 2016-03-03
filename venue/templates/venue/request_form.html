@@ -1,5 +1,9 @@
+
+
+    <div id="booking-container-top"></div>
     <form id="request-booking-form" action="{% url 'update_request_form' listing.id %}" method="post">
         {% csrf_token %}
+        <script type="text/javascript">setAvailableDates({{ listing_dates|safe }});</script>
         <div class="message">{{ message }}</div>
         <div class="3u view-form-field">
             Event Date:
@@ -11,7 +15,7 @@
         </div>
         <div class="3u view-form-field">
             End Time:
-            {{form.start_time}}
+            {{form.end_time}}
         </div>
         <input type="submit" value="Request To Book">
 

@@ -1,4 +1,5 @@
 var imageCount = 0;
+var listingDates = [];
 
 window.addEventListener('resize', function(event){
   $('#horiz_container_outer').horizontalScroll();
@@ -18,10 +19,9 @@ $(document).ready(function(){
     var oneYear = new Date(new Date().setYear(new Date().getFullYear() + 1));
 
     //enabled dates
-    var enableDays = ["6-3-2016", "17-3-2016"];
     function enableAllTheseDays(date) {
-            var sdate = $.datepicker.formatDate( 'd-m-yy', date)
-            if($.inArray(sdate, enableDays) != -1) {
+            var sdate = $.datepicker.formatDate( 'mm/dd/yy', date)
+            if($.inArray(sdate, listingDates) != -1) {
                 return [true];
             }
             return [false];
@@ -30,19 +30,21 @@ $(document).ready(function(){
     $('.datepicker').datepicker({
         minDate: dateToday,
         maxDate: oneYear,
-        dateFormat: 'dd-mm-yy',
+        dateFormat: 'mm/dd/yy',
         beforeShowDay: enableAllTheseDays
     });
 
-    $('.timepicker').timepicker();
-
     makeMap(Circles, 40.2404048, -111.6465722)
 
+    //photo scroller
     imageWidth = 308; //including padding
     container_width = imageWidth * imageCount;
     document.getElementById('horiz_container').style.width = container_width + "px";
 
     $('#horiz_container_outer').horizontalScroll();
+
+    //star ratings
+    $('.rating-cancel').remove()
 
 })//document ready
 
@@ -82,4 +84,9 @@ function makeMap(Circles, centerLat, centerLon)
 function sizePhotoContainter(count)
 {
     imageCount = count;
+}
+
+function setAvailableDates(listing_dates)
+{
+    listingDates = listing_dates;
 }

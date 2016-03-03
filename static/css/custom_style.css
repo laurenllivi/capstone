@@ -796,11 +796,9 @@ hr.hr-border{
         text-decoration: underline;
     }
 
-.view-dates-container
+.rating-cancel
 {
-    width: 46%;
-    height: 500px;
-    display: inline-block;
+    display: none !important;
 }
 
 .view-map-container

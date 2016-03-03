@@ -75,7 +75,7 @@ class Listing_Photo(models.Model):
     
 class Review(models.Model):
     '''A user gives a listing a review'''
-    rating = models.IntegerField(blank=True, null=True)
+    rating = models.DecimalField(decimal_places=1, max_digits=2, blank=True, null=True)
     description = models.CharField(max_length=500, blank=True, null=True)
     listing = models.ForeignKey('Listing')
     review_date = models.DateTimeField(auto_now_add=True)
@@ -106,8 +106,10 @@ class Rental_Request(models.Model):
     notes = models.CharField(max_length=255, blank=True, null=True)
     approved = models.NullBooleanField(default=False, blank=True, null=True)
     request_date = models.DateTimeField(auto_now_add=True)
+    start_time = models.TimeField(default='19:00')
+    end_time = models.TimeField(default='19:00')
     user = models.ForeignKey(User)
-    listing_date = models.ForeignKey('Listing_Date')
+    listing_date = models.ForeignKey('Listing_Date', blank=True, null=True)
     
 class Transaction(models.Model):
     date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
