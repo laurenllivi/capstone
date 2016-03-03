@@ -153,6 +153,12 @@
                                 ${{ form.price_per_hour_weekend }}
                                 {{ form.price_per_hour_weekend.errors }}
                             </div>
+                             <div class="input-number {% if form.deposit.errors %}field_error{% endif %}">
+                                <strong>Deposit Amount</strong>
+                                <br/>
+                                ${{ form.deposit }}
+                                {{ form.deposit.errors }}
+                            </div>
                         </div>
                         
                         <div class="tab" id="view6">

@@ -71,6 +71,7 @@ def manage_venue(request, listing_id):
             'zipcode': listing.zipcode,
             'price_per_hour': listing.price_per_hour,
             'price_per_hour_weekend': listing.price_per_hour_weekend,
+            'deposit': listing.deposit,
 
         })
         
@@ -200,6 +201,7 @@ def manage_venue(request, listing_id):
                 listing.zipcode = form.cleaned_data['zipcode']
                 listing.price_per_hour = form.cleaned_data['price_per_hour']
                 listing.price_per_hour_weekend = form.cleaned_data['price_per_hour_weekend']
+                listing.deposit = form.cleaned_data['deposit']
 
                 g = geocoder.google(
                     form.cleaned_data['street'] + " " +
@@ -279,6 +281,7 @@ class NewVenueForm(forms.Form):
     }))
     price_per_hour = forms.DecimalField(required=False, max_digits=6, decimal_places=0, min_value=0)
     price_per_hour_weekend = forms.DecimalField(required=False, max_digits=6, decimal_places=0, min_value=0)
+    deposit = forms.DecimalField(required=False, max_digits=6, decimal_places=0, min_value=0)
     
     def clean(self):
         if len(self.errors) == 0:
