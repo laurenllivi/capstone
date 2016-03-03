@@ -24,16 +24,13 @@ def view_venue(request, listing_id):
     # get the images for this listing
     cover_pic = hmod.Listing_Photo.objects.filter(listing=listing).first()
     images = hmod.Listing_Photo.objects.filter(listing=listing)
-<<<<<<< a935526c94329429c5cc60b8e893428e4ff674ea
     
     # get the reviews for this venue
-    reviews = hmod.Review.objects.filter(listing=listing)
-=======
-    reviews = hmod.Review.objects.filter(listing=listing_id)
+
+    reviews = hmod.Review.objects.filter(listing_id=listing_id)
     for review in reviews:
         review.user = hmod.User.objects.get(id=review.user_id)
         review.starcount = round(int(review.rating * 2)) - 1  #minus one for the 0 index
->>>>>>> show reviews/ratings and set calendar with available dates
 
     # the equivalent of template_vars in DMP
     context = {
@@ -45,10 +42,7 @@ def view_venue(request, listing_id):
         'formhtml': request_form.content,
         'features': features,
         'reviews': reviews,
-<<<<<<< a935526c94329429c5cc60b8e893428e4ff674ea
-=======
         'range': range(10),  # 5 stars broken into 2 pieces each
->>>>>>> show reviews/ratings and set calendar with available dates
     }
 
     return render_to_response('venue/view_venue.html', context, RequestContext(request))
