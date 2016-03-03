@@ -26,11 +26,12 @@ def view_venue(request, listing_id):
     images = hmod.Listing_Photo.objects.filter(listing=listing)
     
     # get the reviews for this venue
-
     reviews = hmod.Review.objects.filter(listing_id=listing_id)
+    average_rating = reviews[0].rating
     for review in reviews:
         review.user = hmod.User.objects.get(id=review.user_id)
         review.starcount = round(int(review.rating * 2)) - 1  #minus one for the 0 index
+        average_rating = (average_rating + review.rating)/2
 
     # the equivalent of template_vars in DMP
     context = {
@@ -43,6 +44,7 @@ def view_venue(request, listing_id):
         'features': features,
         'reviews': reviews,
         'range': range(10),  # 5 stars broken into 2 pieces each
+        'average_rating': average_rating,
     }
 
     return render_to_response('venue/view_venue.html', context, RequestContext(request))

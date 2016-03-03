@@ -11,9 +11,19 @@
                     </div>
                 </div>
                 <br>
-                <a href"">{{ review.user.first_name }}</a>
+                <a href="">{{ review.user.first_name }}</a>
             </div>
             <div class="review-text-container">
+                        <div>
+                            {% for i in range %}
+                            {% if i == review.starcount %}
+                            <input title="{{ review.rating }}" name="star{{review.id}}" type="radio" class="star {split:2}" disabled="disabled" checked="checked"/>
+                            {% else %}
+                            <input title="{{ review.rating }}" name="star{{review.id}}" type="radio" class="star {split:2}" disabled="disabled"/>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <br/>
                 {{ review.description }}<br><br>
                 <span style="font-size: 16px">{{ review.review_date|date:"F Y" }}</span>
                 <hr class="hr-border">

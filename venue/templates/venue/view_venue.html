@@ -32,8 +32,8 @@
             <div class="venue-title">{{listing.title}}</div>
             <div>{{listing.category|capfirst}} in {{listing.city}}, {{listing.state}}</div>
             <div class="venue-rating">
-                4.7 stars
-                <a href="">Reviews</a>
+                {{ average_rating }} stars
+                <a href="#reviews">Reviews</a>
             </div>
         </div>
     </div>
@@ -120,36 +120,18 @@
                 </div>
             </div>
 
-        <div class="review-container">
-            <h2>Reviews</h2>
-            <ul class="alt">
-                {% for review in reviews %}
-                <li>
-                    <div>
-                        {% for i in range %}
-                        {% if i == review.starcount %}
-                        <input title="{{ review.rating }}" name="star{{review.id}}" type="radio" class="star {split:2}" disabled="disabled" checked="checked"/>
-                        {% else %}
-                        <input title="{{ review.rating }}" name="star{{review.id}}" type="radio" class="star {split:2}" disabled="disabled"/>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-                    <br/>
-                    <div>{{ review.description }}</div>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
+            <hr class="hr-border">
+            <!-- Reviews-->
+            <span id="reviews"></span>
+            {% block reviews %}
+                {% include 'venue/reviews.html' %}
+            {% endblock %}
 
+        <hr class="hr-border">
         <div class="view-map-container">
             <div id="gmap-circles"></div>
         </div>
         <br>
-        <hr class="hr-border">
-        <!-- Reviews-->
-        {% block reviews %}
-            {% include 'venue/reviews.html' %}
-        {% endblock %}
 
     </div>
 </section>
