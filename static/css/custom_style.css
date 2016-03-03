@@ -162,6 +162,23 @@ body.loading .modal {
         position: relative;
         right: -50%;
     }
+    
+    .small-profile-pic-container{
+        width: 75px;
+        height: 75px;
+        border: 2px solid white;
+    }
+    
+    .small-profile-pic-wrapper{
+        border-radius: 50%;
+    }
+    
+    .small-profile-pic{
+        height: 75px;
+        min-width: 75px;
+        position: relative;
+        right: -50%;
+    }
 
     .mini-profile-pic-wrapper
     {
@@ -618,7 +635,6 @@ hr.hr-style
 
 hr.hr-border{
     border: 1px solid #C6C6C6;
-    height: 1px;
     width:100%;
 }
 
@@ -792,6 +808,24 @@ hr.hr-border{
     width: 50%;
     height: 500px;
     display: inline-block;
+}
+
+.review-container{
+    width: 600px;
+    display: inline-block;
+}
+
+.reviewer-photo-container{
+    position: relative;
+    text-align: center;
+    width: 25%;
+    float: left;
+ 
+}
+
+.review-text-container{
+    width: 75%;
+    float: right;
 }
 
 /**************** Profile **************************************************/
@@ -989,6 +1023,7 @@ hr.hr-border{
     width: 30%;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+    display: inline-block;
    
 }
 

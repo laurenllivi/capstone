@@ -119,9 +119,14 @@
         <div class="view-map-container">
             <div id="gmap-circles"></div>
         </div>
+        <br>
+        <hr class="hr-border">
+        <!-- Reviews-->
+        {% block reviews %}
+            {% include 'venue/reviews.html' %}
+        {% endblock %}
 
     </div>
-
 </section>
 
 

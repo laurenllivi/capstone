@@ -1,0 +1,25 @@
+<div class="sub-heading">Reviews</div>
+<br>
+{% if reviews %}
+    <!-- must be used on a page that has the reviews template variable passed to it-->
+    {% for review in reviews %}
+        <div class="review-container">
+            <div class="reviewer-photo-container">
+                <div class="profile-pic-container small-profile-pic-container">
+                    <div class="profile-pic-wrapper small-profile-pic-wrapper">
+                        <img src="{{ review.user.profile_pic.image_file }}" class="small-profile-pic"/><br>
+                    </div>
+                </div>
+                <br>
+                <a href"">{{ review.user.first_name }}</a>
+            </div>
+            <div class="review-text-container">
+                {{ review.description }}<br><br>
+                <span style="font-size: 16px">{{ review.review_date|date:"F Y" }}</span>
+                <hr class="hr-border">
+            </div>
+        </div><!-- review-container -->
+    {% endfor %}
+{% else %}
+    No reviews
+{% endif %}

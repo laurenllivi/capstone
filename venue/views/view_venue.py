@@ -23,6 +23,9 @@ def view_venue(request, listing_id):
     # get the images for this listing
     cover_pic = hmod.Listing_Photo.objects.filter(listing=listing).first()
     images = hmod.Listing_Photo.objects.filter(listing=listing)
+    
+    # get the reviews for this venue
+    reviews = hmod.Review.objects.filter(listing=listing)
 
     # the equivalent of template_vars in DMP
     context = {
@@ -33,6 +36,7 @@ def view_venue(request, listing_id):
         'host': host,
         'formhtml': request_form.content,
         'features': features,
+        'reviews': reviews,
     }
 
     return render_to_response('venue/view_venue.html', context, RequestContext(request))

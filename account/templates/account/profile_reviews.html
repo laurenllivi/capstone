@@ -1,0 +1,76 @@
+{% extends 'capstone/auth_base.html' %}
+{% load staticfiles %}
+
+{% block stylesheets %}
+    <script src="{% static 'js/tabcontent.js' %}" type="text/javascript"></script>
+    <link href="{% static 'css/tabcontent.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+
+    <section id="main" class="wrapper">
+        <div class="container">
+            
+            {% block left_menu %}
+                {% include "partials/_profile_left_menu.html" %}
+            {% endblock %}
+            
+            <div class="profile-right-side-content">
+                <div class="panel-header">Reviews</div>
+                    <div class="panel-profile-content">
+                         
+                        <div>
+                            <ul class="tabs" data-persist="true">
+                                <li><a id="view1-link" class="tab-link" href="#view1">Reviews I've Written</a></li>
+                                <li><a id="view2-link" class="tab-link" href="#view2">Reviews About My Venues</a></li>
+                            </ul>
+                                <div class="tabcontents-nosideborders-custom">
+                                    <br>
+                                    <div class="tab" id="view1">
+                                        <div class="review-container--profile">
+                                            {% for review in reviews_i_wrote %}
+                                                <strong>Venue:</strong> <a href="/venue/view_venue/{{ review.listing.id }}">{{ review.listing.title }}</a>
+                                                <span class="pull-right"><a href="">Edit Comments</a></span><br>
+                                                <span style="font-size: 14px">{{ review.review_date|date:'F j, Y' }}</span>
+                                                <br><br>
+                                                {{ review.description }}
+                                                <hr class="hr-border">
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="tab" id="view2">
+                                        <div class="review-container--profile">
+                                            {% for review in my_venue_reviews %}
+                                            <div class="pull-right" style="text-align: center">
+                                                <div class="profile-pic-container small-profile-pic-container">
+                                                    <div class="profile-pic-wrapper small-profile-pic-wrapper">
+                                                        <img class="small-profile-pic" src="{{ review.user.profile_pic.image_file }}">
+                                                    </div><!-- wrapper -->
+                                                </div><!-- container -->
+                                                <br>
+                                                <a href="">{{ review.user.first_name }}</a> 
+                                            </div>
+                                            <strong>Venue:</strong> <a href="/venue/view_venue/{{ review.listing.id }}">{{ review.listing.title }}</a><br>
+                                                {{ review.review_date|date:'F j, Y' }}<br>
+                                                Stars go here<br><br>
+                                                {{ review.description }}
+                                                <hr class="hr-border">
+                                            {% endfor %}
+                                        </div><!-- review-container-profile -->
+                                    </div>
+                                </div>
+                        </div>
+                        
+                        
+                      
+                    </div><!-- panel-profile-content-->
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block footer %}
+    {% include "partials/_footer.html" %}
+{% endblock %}

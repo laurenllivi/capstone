@@ -65,3 +65,8 @@ div.tabcontents
     border: 1px solid #C6C6C6;
     padding: 30px 10px;
 }
+
+/* added by Lauren */
+.tabcontents-nosideborders-custom{
+    border-top: 1px solid #C6C6C6;
+}
