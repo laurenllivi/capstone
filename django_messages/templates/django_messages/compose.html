@@ -1,13 +1,10 @@
-{% extends "capstone/auth_base.html" %} 
+{% extends "message_base.html" %} 
 {% load i18n %} 
-
-{% block sidebar %}
-    {% include 'partials/_message_left_menu.html' %}
-{% endblock %}
 
 {% block content %} 
 
-    <section id="main" class="wrapper">    
+    <section id="main" class="wrapper"> 
+        {% include 'partials/_message_left_menu.html' %}   
         <div class="messages-rightdiv"> 
             <h3>{% trans "Compose Message"%}</h3>
             <form action="" method="post">

@@ -103,7 +103,7 @@
         </div><!-- photo-slider-div -->
         
         <br>
-        <form method="POST">
+        <form method="POST">{% csrf_token %}
             <input type="submit" value="Post Venue" class="small pull-right">
         </form>
         

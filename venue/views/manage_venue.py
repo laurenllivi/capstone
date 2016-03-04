@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 import os.path
 from django.contrib.gis.geos import Point
 import geocoder
+from localflavor.us.forms import USZipCodeField
 
 # make sure the user is logged in before accessing this view
 # redirects the user to the previous url after login
@@ -252,31 +253,31 @@ def manage_venue__del_img(request, listing_id, image_id):
     return HttpResponseRedirect('/venue/manage_venue/%s/' % listing_id)
 
 class NewVenueForm(forms.Form):
-    title = forms.CharField(required=False, widget=forms.TextInput())
+    title = forms.CharField(required=False, max_length=100, widget=forms.TextInput())
     category = forms.ChoiceField(required=False, widget=forms.Select(), choices=choices.VENUE_TYPE_CHOICES)
     sq_footage = forms.DecimalField(required=False, max_digits=8, decimal_places=2, min_value=0)
     num_guests = forms.DecimalField(required=False, max_digits=6, decimal_places=0, min_value=0)
-    description = forms.CharField(required=False, widget=forms.Textarea)
-    parking_desc = forms.CharField(required=False, widget=forms.Textarea)
+    description = forms.CharField(required=False, max_length=800, widget=forms.Textarea)
+    parking_desc = forms.CharField(required=False, max_length=800, widget=forms.Textarea)
     features = forms.ModelMultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple(), queryset=hmod.Feature.objects.all())
     search_address = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'placeholder': 'Search for your address . . .',
         'id': 'autocomplete',
         'onFocus': 'geolocate()',
     }))
-    street = forms.CharField(required=False, widget=forms.TextInput(attrs={
+    street = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={
         'id': 'street_number'
     }))
-    street2 = forms.CharField(required=False, widget=forms.TextInput(attrs={
+    street2 = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={
         'id': 'route'
     }))
-    city = forms.CharField(required=False, widget=forms.TextInput(attrs={
+    city = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={
         'id': 'locality'
     }))
     state = forms.ChoiceField(required=False, choices=choices.STATE_CHOICES, widget=forms.Select(attrs={
         'id': 'administrative_area_level_1'
     }))
-    zipcode = forms.CharField(required=False, widget=forms.TextInput(attrs={
+    zipcode = USZipCodeField(required=False, max_length=100, widget=forms.TextInput(attrs={
         'id': 'postal_code'
     }))
     price_per_hour = forms.DecimalField(required=False, max_digits=6, decimal_places=0, min_value=0)
@@ -291,7 +292,7 @@ class NewVenueForm(forms.Form):
             print(self.errors)
     
 class NewImageForm(forms.Form):
-    image_title = forms.CharField(widget=forms.TextInput(), required=False)
+    image_title = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
     image = forms.ImageField(label='Select a file', required=False)
     
 class CalendarForm(forms.Form):
@@ -306,3 +307,8 @@ class CalendarForm(forms.Form):
         else:
             print(">>>>>>>>>>>>>>> You have errors >>>>>>>>>>>>")
             print(self.errors)
+            
+def process_request__del_venue(request, listing_id):
+    '''deleting a user's venue - we are not really deleting. Just inactivating'''
+    
+    return HttpResponseRedirect('/account/my_venues/')

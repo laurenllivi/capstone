@@ -53,7 +53,9 @@ $(document).ready(function(){
     var firstSelectedMessage = document.getElementsByClassName('message-preview')[0];
     $(firstSelectedMessage).addClass('message-preview-selected');
     message_id= $(firstSelectedMessage).attr('id')
-    viewMessage(message_id)
+    if(message_id){
+        viewMessage(message_id)
+    }
 });//ready
 
 // use ajax to update the content on the right

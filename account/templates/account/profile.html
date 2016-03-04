@@ -15,7 +15,7 @@
             <div class="profile-right-side-content">
                 <div class="panel-header">Edit Profile</div>
                     <div class="panel-profile-content">
-                        <form method="POST">
+                        <form method="POST">{% csrf_token %}
                             {{ form }}
                             <br><input type="submit" value="Save" class="small">
                         </form>

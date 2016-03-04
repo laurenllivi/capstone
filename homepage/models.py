@@ -46,10 +46,10 @@ class Listing(models.Model):
     price_per_hour_weekend = models.DecimalField(decimal_places=0, max_digits=8, blank=True, null=True)
     deposit = models.DecimalField(decimal_places=0, max_digits=8, blank=True, null=True)
     listing_type = models.CharField(max_length=255, blank=True, null=True)
-    description = models.CharField(max_length=500, blank=True, null=True)
+    description = models.CharField(max_length=1000, blank=True, null=True)
     sq_footage = models.IntegerField(blank=True, null=True)
     num_guests = models.IntegerField(blank=True, null=True)
-    parking_desc = models.CharField(max_length=255, blank=True, null=True)
+    parking_desc = models.CharField(max_length=1000, blank=True, null=True)
     street = models.CharField(max_length=255, blank=True, null=True)
     street2 = models.CharField(max_length=255, blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)
@@ -59,6 +59,7 @@ class Listing(models.Model):
     modified_date = models.DateTimeField(auto_now=True, auto_now_add=False)
     geolocation = models.PointField(blank=True, null=True)
     currently_listed = models.NullBooleanField(default=False, blank=True)
+    is_active = models.NullBooleanField(default=True, blank=True)
     user = models.ForeignKey('User')
     
     def __str__(self):
@@ -66,8 +67,8 @@ class Listing(models.Model):
     
 class Listing_Photo(models.Model):
     '''Photos for listings '''
-    image_name = models.CharField(max_length=50, blank=True, null=True)
-    image_title = models.CharField(max_length=20, blank=True, null=True)
+    image_name = models.CharField(max_length=255, blank=True, null=True)
+    image_title = models.CharField(max_length=255, blank=True, null=True)
     image_file = models.ImageField(default='venue-images/None/no-img.jpg')
     listing = models.ForeignKey('Listing')
     

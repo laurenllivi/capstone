@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from homepage import models as hmod
 from django import forms
+from localflavor.us.forms import USPhoneNumberField
+from django.core.validators import validate_email
 
 @login_required
 def profile(request):
@@ -46,12 +48,13 @@ class Edit_User_Form(forms.Form):
             self.request = kwargs.pop('request', None)
             super(Edit_User_Form, self).__init__(*args, **kwargs)
     
-    first_name = forms.CharField(widget=forms.TextInput())
-    last_name = forms.CharField(widget=forms.TextInput())
-    username = forms.CharField(widget=forms.TextInput())
-    #password = forms.CharField(widget=forms.PasswordInput())
+    first_name = forms.CharField(max_length=50, widget=forms.TextInput())
+    last_name = forms.CharField(max_length=50, widget=forms.TextInput())
+    username = forms.CharField(max_length=20, widget=forms.TextInput())
     email = forms.EmailField(widget=forms.EmailInput())
-    phone = forms.IntegerField(widget=forms.TextInput(), required=False)
+    phone = USPhoneNumberField(required=False, widget=forms.TextInput(attrs={
+        'placeholder': 'xxx-xxx-xxxx'
+    }))
 
     # checks to make sure that the username isn't already taken   
     def clean_username(self):

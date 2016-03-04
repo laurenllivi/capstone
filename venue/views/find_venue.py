@@ -97,11 +97,11 @@ def find_venue_form(request):
 
 class FindVenueForm(forms.Form):
     within_miles = forms.ChoiceField(required=False, widget=forms.Select(attrs={'id': 'venue-distance'}), label="Within", choices=choices.WITHIN_MILES_CHOICES)
-    location = forms.CharField(widget=forms.TextInput(attrs={
+    location = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
         'class': 'location-search-autocomplete ui-autocomplete-input ui-corner-all'
     }))
     event_date = forms.DateField(required=False, widget=forms.TextInput(attrs={'class': 'datepicker'}))
     venue_type = forms.ChoiceField(widget=forms.Select(), choices=choices.VENUE_TYPE_CHOICES)
-    price_per_hour = forms.DecimalField(required=False, widget=forms.TextInput())
-    price_per_hour_lower = forms.CharField(required=False)
-    price_per_hour_upper = forms.CharField(required=False)
+    price_per_hour = forms.DecimalField(decimal_places=0, max_digits=6, required=False, widget=forms.TextInput())
+    price_per_hour_lower = forms.DecimalField(required=False)
+    price_per_hour_upper = forms.DecimalField(required=False)

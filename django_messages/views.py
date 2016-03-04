@@ -60,7 +60,7 @@ def trash(request, template_name='django_messages/trash.html'):
 
 @login_required
 def compose(request, recipient=None, form_class=ComposeForm,
-        template_name='django_messages/compose.html', success_url=None, recipient_filter=None):
+        template_name='django_messages/compose.html', success_url=None, recipient_filter=None, listing=None):
     """
     Displays and handles the ``form_class`` form to compose new messages.
     Required Arguments: None
@@ -85,12 +85,23 @@ def compose(request, recipient=None, form_class=ComposeForm,
             return HttpResponseRedirect(success_url)
     else:
         # added by Lauren on 3/1/16
+        if listing != None:
+            try:
+                listing = hmod.Listing.objects.get(id=listing)
+            except hmod.User.DoesNotExist:
+                listing=""
         try:
             recipient = hmod.User.objects.get(id=recipient).username
         except hmod.User.DoesNotExist:
             recipient=""
+            
+        if listing:
+            subject = "Regarding your venue: " + str(listing.title)
+        else:
+            subject = ""
         form = form_class(initial={
             'recipient': recipient,
+            'subject': subject,
         })
         ############################
         if recipient is not None:

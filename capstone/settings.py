@@ -44,15 +44,15 @@ INSTALLED_APPS = [
     'homepage',
     'account',
     'venue',
-    'message',
     'django_messages',
+    'localflavor', #used for validating US zipcodes and phone numbers
 ]
 
 MIDDLEWARE_CLASSES = [
-    #'django.middleware.security.SecurityMiddleware',
+    #'django.middleware.security.SecurityMiddleware', # NEED TO UNCOMMENT BEFORE DEPLOYMENT
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware', #NEED TO UNCOMMENT THIS BEFORE DEPLOYMENT
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',

@@ -917,6 +917,12 @@ hr.hr-border{
             width: 150px;
             height: 100px;   
         }
+    
+.delete-venue{
+    position: relative; 
+    bottom: 10px; 
+    right: 5px;
+}
         
 /************************ Calendar ***************************/
 /*override the multidatespicker css*/
@@ -1014,7 +1020,6 @@ hr.hr-border{
 	position: absolute;
     top: 7em;
     left: 0;
-    bottom: 0;
     padding-left:2em;
     padding-right: 2em;
     padding-top: 1em;
