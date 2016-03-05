@@ -72,13 +72,18 @@
                             <strong>Features</strong>
                             <br/>
                             {% for key, value in form.features.field.choices %}
-                                <input type="checkbox" id="id_feature_{{ key }}" value="{{key}}" name="features">
+                                <input type="checkbox" id="id_feature_{{ key }}" value="{{key}}" name="features"
+                                {% if value in features%}
+                                    checked>
+                                {% else %}
+                                    >
+                                {% endif %}
+
                                 <label for="id_feature_{{ key }}">
                                     {{ value }}
                                 </label>
                             {% endfor %}  
-                            
-                            <!--{{ form.features }}-->
+
                         </div>
                         <div class="tab" id="view3">
                             <button class="next-tab-button" onclick="nextTab()">Next <i class="fa fa-arrow-right"></i></button>

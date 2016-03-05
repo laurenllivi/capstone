@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django import forms
+from django.core.validators import MaxValueValidator, MinValueValidator
 from homepage import models as hmod
 from lib import forms as custom_forms
 from lib import choices
@@ -46,6 +47,10 @@ def manage_venue(request, listing_id):
         newImage = hmod.Listing_Photo()
         try:
             listing_features = hmod.Listing_Feature.objects.filter(listing_id=listing_id)
+            features = []
+            for feature in listing_features:
+                #add feature names to list to prepopulate checkboxes
+                features.append(hmod.Feature.objects.get(id=feature.feature_id).name)
         except hmod.Listing_Feature.DoesNotExist:
             listing_features = None
 
@@ -63,8 +68,6 @@ def manage_venue(request, listing_id):
             'num_guests': listing.num_guests,
             'description': listing.description,
             'parking_desc': listing.parking_desc,
-            #can't figure out how to prepopulate with saved values
-            'features': listing_features,
             'street': listing.street,
             'street2': listing.street2,
             'city': listing.city,
@@ -187,14 +190,24 @@ def manage_venue(request, listing_id):
                 listing.num_guests = form.cleaned_data['num_guests']
                 listing.description = form.cleaned_data['description']
                 listing.parking_desc = form.cleaned_data['parking_desc']
-    
-                feature_list = form.cleaned_data['features'].all()
-                for feature in feature_list:
-                    listing_feature = hmod.Listing_Feature()
-                    listing_feature.listing = listing
-                    listing_feature.feature = feature
-                    listing_feature.save()
-        
+
+                all_features = hmod.Feature.objects.all()
+                updated_feature_list = form.cleaned_data['features'].all()
+                for feature in all_features:
+                    if feature in updated_feature_list:
+                        # if the feature is in the list of selected features, add to db
+                        hmod.Listing_Feature.objects.update_or_create(
+                            listing_id=listing.id, feature_id=feature.id
+                        )
+                    else:
+                        # if feature is not in list of selected features, remove from db if it exists
+                        if hmod.Listing_Feature.objects.filter(listing_id=listing.id, feature_id=feature.id).exists():
+                                hmod.Listing_Feature.objects.filter(
+                                    listing_id=listing.id, feature_id=feature.id
+                                ).delete()
+
+
+
                 listing.street = form.cleaned_data['street']
                 listing.street2 = form.cleaned_data['street2']
                 listing.city = form.cleaned_data['city']
@@ -233,6 +246,7 @@ def manage_venue(request, listing_id):
         'calendarForm': calendarForm,
         'images': images,
         'listing': listing,
+        'features': features,
         #'available_dates': available_dates,
     }
     return render(request, 'venue/manage_venue.html', context)
@@ -255,11 +269,29 @@ def manage_venue__del_img(request, listing_id, image_id):
 class NewVenueForm(forms.Form):
     title = forms.CharField(required=False, max_length=100, widget=forms.TextInput())
     category = forms.ChoiceField(required=False, widget=forms.Select(), choices=choices.VENUE_TYPE_CHOICES)
-    sq_footage = forms.DecimalField(required=False, max_digits=8, decimal_places=2, min_value=0)
-    num_guests = forms.DecimalField(required=False, max_digits=6, decimal_places=0, min_value=0)
+    sq_footage = forms.DecimalField(
+        required=False,
+        max_digits=8,
+        decimal_places=0,
+        validators=[
+            MinValueValidator(0)
+        ]
+    )
+    num_guests = forms.DecimalField(
+        required=False,
+        max_digits=6,
+        decimal_places=0,
+        validators=[
+            MinValueValidator(0)
+        ]
+    )
     description = forms.CharField(required=False, max_length=800, widget=forms.Textarea)
     parking_desc = forms.CharField(required=False, max_length=800, widget=forms.Textarea)
-    features = forms.ModelMultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple(), queryset=hmod.Feature.objects.all())
+    features = forms.ModelMultipleChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple(),
+        queryset=hmod.Feature.objects.all()
+    )
     search_address = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'placeholder': 'Search for your address . . .',
         'id': 'autocomplete',
@@ -274,15 +306,40 @@ class NewVenueForm(forms.Form):
     city = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={
         'id': 'locality'
     }))
-    state = forms.ChoiceField(required=False, choices=choices.STATE_CHOICES, widget=forms.Select(attrs={
-        'id': 'administrative_area_level_1'
-    }))
+    state = forms.ChoiceField(
+        required=False,
+        choices=choices.STATE_CHOICES,
+        widget=forms.Select(attrs={
+            'id': 'administrative_area_level_1'
+        })
+    )
     zipcode = USZipCodeField(required=False, max_length=100, widget=forms.TextInput(attrs={
         'id': 'postal_code'
     }))
-    price_per_hour = forms.DecimalField(required=False, max_digits=6, decimal_places=0, min_value=0)
-    price_per_hour_weekend = forms.DecimalField(required=False, max_digits=6, decimal_places=0, min_value=0)
-    deposit = forms.DecimalField(required=False, max_digits=6, decimal_places=0, min_value=0)
+    price_per_hour = forms.DecimalField(
+        required=False,
+        max_digits=6,
+        decimal_places=0,
+        validators=[
+            MinValueValidator(0)
+        ]
+    )
+    price_per_hour_weekend = forms.DecimalField(
+        required=False,
+        max_digits=6,
+        decimal_places=0,
+        validators=[
+            MinValueValidator(0)
+        ]
+    )
+    deposit = forms.DecimalField(
+        required=False,
+        max_digits=6,
+        decimal_places=0,
+        validators=[
+            MinValueValidator(0)
+        ]
+    )
     
     def clean(self):
         if len(self.errors) == 0:
