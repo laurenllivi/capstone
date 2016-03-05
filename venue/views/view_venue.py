@@ -100,8 +100,12 @@ def request_booking_form(request, listing_id):
 
 class RequestBookingForm(forms.Form):
     event_date = forms.DateField(widget=forms.TextInput(
-        attrs={'class': 'datepicker', 'required': 'True'}
+        attrs={'id': 'event-date', 'class': 'datepicker', 'required': 'True'}
     ))
-    start_time = forms.ChoiceField(widget=forms.Select(), choices=choices.TIME_CHOICES, required=True)
+    start_time = forms.ChoiceField(widget=forms.Select(
+        attrs={'id': 'start-time', 'required': 'True'}
+    ), choices=choices.TIME_CHOICES, required=True)
 
-    end_time = forms.ChoiceField(widget=forms.Select(), choices=choices.TIME_CHOICES, required=True)
+    end_time = forms.ChoiceField(widget=forms.Select(
+        attrs={'id': 'end-time', 'required': 'True'}
+    ), choices=choices.TIME_CHOICES, required=True)

@@ -18,5 +18,4 @@ urlpatterns = [
 
     url(r'^view_venue/(?P<listing_id>[0-9]+)/$', views.view_venue, name='view_venue'),
     url(r'^update_request_form/(?P<listing_id>[0-9]+)/$', views.request_booking_form, name='update_request_form'),
-
 ]

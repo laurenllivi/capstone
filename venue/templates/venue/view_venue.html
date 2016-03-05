@@ -18,6 +18,7 @@
 
     <script type="text/javascript">
         sizePhotoContainter({{ image_count }})
+        setVariables({{listing.price_per_hour}}, {{listing.deposit}})
     </script>
 {% endblock %}
 
@@ -65,7 +66,8 @@
             <div class="description-div">
 
                 <div id="booking-container" class="booking-container">
-                    {{ formhtml|safe }}
+                    <span id="booking-form">{{ formhtml|safe }}</span>
+                    <span id="price-form"></span>
                 </div>
 
 
