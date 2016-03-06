@@ -1,7 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django import forms
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.forms.util import ErrorList
+from django.core.validators import MaxValueValidator, MinValueValidator, ValidationError
 from homepage import models as hmod
 from lib import forms as custom_forms
 from lib import choices
@@ -12,6 +13,7 @@ import os.path
 from django.contrib.gis.geos import Point
 import geocoder
 from localflavor.us.forms import USZipCodeField
+import uuid
 
 # make sure the user is logged in before accessing this view
 # redirects the user to the previous url after login
@@ -88,8 +90,8 @@ def manage_venue(request, listing_id):
         ############################### Images Form ##############################################
         if 'imagesForm' in request.POST:
             imageForm = NewImageForm(request.POST, request.FILES)
+
             if imageForm.is_valid():
-                
                 # if this is a new venue and this form is being submitted before the main form . . .
                 # we need to create the venue object first
                 if new is not None:
@@ -101,15 +103,16 @@ def manage_venue(request, listing_id):
                     listing = hmod.Listing.objects.get(id=listing_id)
                 
                 has_image = request.FILES.get('image', False)
-                if has_image: 
-                    custom_forms.handle_uploaded_venue_file(request.FILES['image'],listing.id)
+                if has_image:
                     newImage = hmod.Listing_Photo()
                     newImage.image_title = imageForm.cleaned_data['image_title']
-                    newImage.image_name = imageForm.cleaned_data['image'].name   
-                    newImage.image_file = "/static/images/venue-images/" + str(listing_id) + "/" + imageForm.cleaned_data['image'].name
+                    newImage.image_name = str(uuid.uuid4()) + '.jpg'
+                    # newImage.image_name = imageForm.cleaned_data['image'].name
+                    newImage.image_file = "/static/images/venue-images/" + str(listing_id) + "/" + newImage.image_name
                     newImage.listing = listing
                     newImage.save()
-                    
+
+                    custom_forms.handle_uploaded_venue_file(request.FILES['image'],listing.id, newImage.image_name)
                     # reset the url param to be the id of the venue
                     listing_id = listing.id
                     
@@ -350,7 +353,17 @@ class NewVenueForm(forms.Form):
     
 class NewImageForm(forms.Form):
     image_title = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
-    image = forms.ImageField(label='Select a file', required=False)
+    image = forms.ImageField(label='Select a file')
+
+    # def clean(self):
+    #     cleaned_data = super(NewImageForm, self).clean()
+    #     if cleaned_data.get("image"):
+    #         image_name = cleaned_data.get("image").name
+    #
+    #         if len(image_name) > 50:
+    #             self.add_error('image', 'File name is too long')
+    #             print(self.errors)
+    #             print(">>>>>>>>>>>>>>>>>Added Image Errors>>>>>>>>>>>>>>>>>>>>>>>>")
     
 class CalendarForm(forms.Form):
     dates_available = forms.CharField(label="Saved Dates", required=False, widget=forms.TextInput(attrs={
