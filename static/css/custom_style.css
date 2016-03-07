@@ -97,6 +97,11 @@ body.loading .modal {
     color:#4dac71;
 }
 
+select {
+    background: rgba(144, 144, 144, 0.075) url("/static/images/down-arrow.png") no-repeat 95% 50%;
+    background-size: 10px;
+}
+
 
 /*********************** Homepage *******************/
 #search-overlay{

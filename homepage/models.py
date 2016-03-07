@@ -142,3 +142,8 @@ class Image(models.Model):
     image_title = models.CharField(max_length=20, blank=True, null=True)
     image_file = models.ImageField(default='venue-images/None/no-img.jpg')
     listing = models.ForeignKey('Listing')
+
+class Customer_Inquiry(models.Model):
+    subject = models.CharField(max_length=30)
+    message = models.CharField(max_length=500)
+    user = models.ForeignKey('User')

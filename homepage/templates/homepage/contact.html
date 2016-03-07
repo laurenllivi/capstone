@@ -5,7 +5,29 @@
 
 <section id="main" class="wrapper">
     <div class="container">
-        <h1>Contact Page</h1>
+        <section>
+            <h3>Contact Us</h3>
+            <h1>Have a question or suggestion? We'd love to hear from you!</h1>
+            <div class="message">{{message}}</div>
+            <form method="post" action="#">
+                {% csrf_token %}
+                <div class="row uniform 50%">
+                    <div class="6u$">
+                        {{form.subject.errors}}
+                        {{form.subject}}
+                    </div>
+                    <div class="12u$">
+                        {{ form.message.errors }}
+                        {{form.message}}
+                    </div>
+                    <div class="12u$">
+                        <ul class="actions">
+                            <li><input type="submit" value="Send Message" class="special" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </section>
     </div>
 </section>
 

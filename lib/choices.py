@@ -2,6 +2,15 @@ from homepage import models as hmod
 
 # FEATURE_CHOICES = [(feature.name, feature.name) for feature in hmod.Feature.objects.all()]
 
+QUESTION_TOPICS = (
+    ('Booking a Venue', 'Booking a Venue'),
+    ('Managing my Venue', 'Managing my Venue'),
+    ('Account and Profile', 'Account and Profile'),
+    ('Payments', 'Payments'),
+    ('Rules and Regulations', 'Rules and Regulations'),
+    ('General', 'General'),
+)
+
 VENUE_TYPE_CHOICES = (
     ('backyard', 'Backyard'),
     ('barn', 'Barn'),
