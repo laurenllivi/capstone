@@ -249,6 +249,12 @@ body.loading .modal {
     /* Change color of dropdown links on hover */
     .dropdown-content a:hover {color: grey !important;}
 
+/*The first body wrapper*/
+#one{
+    padding: 3em 0em 3em;
+}
+
+
 /***************** Header *****************/
 .header-clear {
     background-color: rgba(0,0,0,0) !important;
