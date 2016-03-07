@@ -1,5 +1,11 @@
+var selectedTab = 1;
+
 $(document).ready(function(){
+
      setTimeout(function(){
+         tab = document.getElementById("view"+selectedTab+"-link");
+         tab.click();
+
          var x = $(".field_error")
             .first()
             .closest(".tab")
@@ -39,6 +45,11 @@ function nextTab() {
    }
 
     window.event.preventDefault();
+}
+
+function setPageVars(tab)
+{
+    selectedTab = tab
 }
 
 // // event to check the altField on the calendar and update the calendar accordingly

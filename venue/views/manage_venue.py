@@ -20,9 +20,11 @@ import uuid
 @login_required
 def manage_venue(request, listing_id):
     '''create new listing'''
-    
+
     user = request.user
-    
+    features = []
+    tab = request.GET.get('tab', '1')
+
     # see if this is a new or existing venue
     new = request.GET.get('status')
     
@@ -49,7 +51,6 @@ def manage_venue(request, listing_id):
         newImage = hmod.Listing_Photo()
         try:
             listing_features = hmod.Listing_Feature.objects.filter(listing_id=listing_id)
-            features = []
             for feature in listing_features:
                 #add feature names to list to prepopulate checkboxes
                 features.append(hmod.Feature.objects.get(id=feature.feature_id).name)
@@ -78,7 +79,6 @@ def manage_venue(request, listing_id):
             'price_per_hour': listing.price_per_hour,
             'price_per_hour_weekend': listing.price_per_hour_weekend,
             'deposit': listing.deposit,
-
         })
         
         imageForm = NewImageForm()
@@ -250,6 +250,7 @@ def manage_venue(request, listing_id):
         'images': images,
         'listing': listing,
         'features': features,
+        'tab': tab,
         #'available_dates': available_dates,
     }
     return render(request, 'venue/manage_venue.html', context)
