@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import loader
 from django.shortcuts import render
 from django import forms
@@ -13,8 +13,6 @@ def contact(request):
     message = ''
 
     if request.method == 'POST':
-        print 'method was post'
-        print '>>>>>>>>>>>>>>>>>>>>>>>>>>>'
         form = ContactForm(request.POST)
 
         if form.is_valid():
@@ -25,6 +23,7 @@ def contact(request):
             inquiry.user = user
             inquiry.save()
 
+            form = ContactForm
 
     # the equivalent of template_vars in DMP
     context = {
@@ -37,5 +36,5 @@ def contact(request):
 
 
 class ContactForm(forms.Form):
-    subject = forms.ChoiceField(widget=forms.Select(), choices=choices.QUESTION_TOPICS)
+    subject = forms.ChoiceField(widget=forms.Select(attrs={'placeholder': 'Subject'}), choices=choices.QUESTION_TOPICS)
     message = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Enter Your Message', 'rows': 6}))

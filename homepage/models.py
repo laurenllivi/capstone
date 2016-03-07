@@ -146,4 +146,5 @@ class Image(models.Model):
 class Customer_Inquiry(models.Model):
     subject = models.CharField(max_length=30)
     message = models.CharField(max_length=500)
+    timestamp = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey('User')
