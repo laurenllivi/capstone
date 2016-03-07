@@ -1,10 +1,62 @@
 {% extends 'capstone/base_template.html' %}
 {% load staticfiles %}
 
+{% block stylesheets %}
+<script src="{% static 'js/tabcontent.js' %}" type="text/javascript" xmlns="http://www.w3.org/1999/html"></script>
+    <link href="{% static 'css/tabcontent.css' %}" rel="stylesheet" type="text/css" />
+{%endblock%}
+
 {% block content %}
 <section id="main" class="wrapper">
     <div class="container">
+        <h2>How It Works</h2>
+        <div>
+            <ul class="tabs" data-persist="true">
+                    <li><a id="view1-link" class="tab-link" href="#view1">Hosting</a></li>
+                    <li><a id="view2-link" class="tab-link" href="#view2">Renting</a></li>
+                    <li><a id="view3-link" class="tab-link" href="#view3">General</a></li>
+                </ul>
+                    <div class="tabcontents">
+                        <div class="tab" id="view1">
 
+                        </div>
+                        <div class="tab" id="view2">
+                            <div class="content-tile">
+                                You're smart. You're creative. You have big plans for a big event. But the space you have is just not right for the event you've imagined. Finding the perfect venue has always been a daunting task. It can be hard to know where to start, and when you do find the perfect spot, the price tag is likely to dampen your spirits. Don't worry, we've got tools to make it easy and make sure the price is right.
+                            </div>
+                            <div class="content-tile">
+                                <div><i class="icon big rounded fa-binoculars"></i></div>
+                                <div>
+                                     Our <a href="/venue/find_venue">search tool</a> makes finding a venue easy. You just specify what you're looking for and we'll show you what's available.
+                                </div>
+                            </div>
+                            <div class="content-tile">
+                                <div><i class="icon big rounded fa-comments"></i></div>
+                                <div>
+                                    Once you've found the right place, you can ask the owner questions about the property or schedule a visit.
+                                </div>
+                            </div>
+                            <div class="content-tile">
+                                <div><i class="icon big rounded fa-credit-card"></i></div>
+                                <div>
+                                    When you know which venue you want, you can securely pay for your venue rental online.
+                                </div>
+                            </div>
+                            <div class="content-tile">
+                                <div><i class="icon big rounded fa-birthday-cake"></i></div>
+                                <div>
+                                    Once you've booked your venue and planned your event, all that's left is enjoy it.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab" id="view3">
+
+                        </div>
+
+                        </div>
+
+                    </div>
+        </div>
     </div>
 </section>
 {% endblock %}
