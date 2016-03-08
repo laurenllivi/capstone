@@ -17,6 +17,7 @@ def profile_reviews(request):
         'user': user,
         'reviews_i_wrote': reviews_i_wrote,
         'my_venue_reviews': my_venue_reviews,
+        'range': range(10),  # 5 stars broken into 2 pieces each
 
     }
     return render(request, 'account/profile_reviews.html', context)

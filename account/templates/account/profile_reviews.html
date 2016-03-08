@@ -52,7 +52,18 @@
                                             </div>
                                             <strong>Venue:</strong> <a href="/venue/view_venue/{{ review.listing.id }}">{{ review.listing.title }}</a><br>
                                                 <span style="font-size: 14px">{{ review.review_date|date:'F j, Y' }}</span><br>
-                                                Stars go here<br><br>
+                                                <div>
+                                                    {% for i in range %}
+                                                    {% if i == review.starcount %}
+                                                    <input title="{{ review.rating }}" name="star{{review.id}}" type="radio" class="star {split:2}" disabled="disabled" checked="checked"/>
+                                                    {% else %}
+                                                    <input title="{{ review.rating }}" name="star{{review.id}}" type="radio" class="star {split:2}" disabled="disabled"/>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                                
+                                                
+                                                <br><br>
                                                 {{ review.description }}
                                                 <hr class="hr-border">
                                             {% endfor %}

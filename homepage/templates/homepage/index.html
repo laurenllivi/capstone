@@ -31,7 +31,7 @@
     
     <div id="search-overlay">
         <div id="index-search-form">
-            <form method="POST">
+            <form method="POST">{% csrf_token %}
                 City
                 {{ form.city }}
                 Category
