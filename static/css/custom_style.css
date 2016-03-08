@@ -41,6 +41,10 @@ label{
     background: rgba(34,33,33,0.6);
 }
 
+.view-venue-modal{
+    font-size: 17px;
+}
+
 /* When the body has the loading class, we turn
    the scrollbar off with overflow:hidden */
 body.loading {

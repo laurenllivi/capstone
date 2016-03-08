@@ -48,6 +48,38 @@
                                 <strong>Square Footage of Space Available to Guests</strong>
                                 {{ form.sq_footage }}
                                 {{ form.sq_footage.errors }}
+                                <a data-toggle="modal" data-target="#sqFtComparisons"><i class="fa fa-question-circle fa-lg" style="cursor: pointer"></i></a>
+                                
+                                <!-- modal for square foot comparisons -->
+                                <div class="modal fade" id="sqFtComparisons" tabindex="-1" role="dialog">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="comparisons">Square Footage Comparisons</h4>
+                                      </div>
+                                      <div class="modal-body"> 
+                                        Don't know how to estimate your space's square footage? 
+                                        <br>
+                                        Maybe these comparisons will help:
+                                        <br>
+                                        <br>
+                                        <ul>
+                                            <li>The interior of a school bus is about <strong>300</strong> square feet.</li>
+                                            <li>The average 3-car garage is a little over <strong>600</strong> square feet</li>
+                                            <li>A regulation-sized basketball court is about <strong>4,700</strong> square feet</li>
+                                            <li>An NHL ice rink measures <strong>20,000</strong> square feet.</li>
+                                            <li>A football field (including endzones) measures about <strong>57,000</strong> square feet</li>
+                                        </ul>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <a class="button small" data-dismiss="modal">Close</a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                
                             </div>
                             <div class="input-number {% if form.num_guests.errors %}field_error{% endif %}">
                                 <strong>Number of Guests that Can be Accommodated</strong>
@@ -209,7 +241,7 @@
              <div class="modal-content">
                <div class="modal-header">
                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                 <h4 class="modal-title" id="myModalLabel">Confirm Deletion</h4>
+                 <h4 class="modal-title" id="confirmVenueDelete">Confirm Deletion</h4>
                </div>
                <div class="modal-body"> 
                  Are you sure you want to delete this venue?
