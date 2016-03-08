@@ -47,7 +47,19 @@
             </tr>
             <tr>
                 <td class="col-1"><strong>Features:</strong></td>
-                <td>{{ listing.features }}</td>
+                <td class="post-venue-features">
+                    {% if not features %}
+                        None
+                    {% else %}
+                        {% for feature in features %}
+                            <input class="checkbox-display-only" type="checkbox" disabled="true" id="id_feature_{{ feature.id }}"value="{{ feature.name }}" name="features" checked>
+                        
+                            <label for="id_feature_{{ feature.id }}">
+                                {{ feature.feature.name }}
+                            </label>
+                        {% endfor %}
+                    {% endif %}
+                </td>
             </tr>
         </table>
         

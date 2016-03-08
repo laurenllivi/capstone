@@ -14,7 +14,7 @@ def get_item(dictionary, key):
 def my_venues(request):
     
     user = request.user
-    my_venues = hmod.Listing.objects.filter(user=user)
+    my_venues = hmod.Listing.objects.filter(user=user, is_active=True)
     
     venue_pics_dict = {}
     

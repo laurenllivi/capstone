@@ -38,9 +38,7 @@ label{
     left:       0;
     height:     100%;
     width:      100%;
-    background: rgba( 255, 255, 255, .8 )
-                50% 50%
-                no-repeat;
+    background: rgba(34,33,33,0.6);
 }
 
 /* When the body has the loading class, we turn
@@ -1225,8 +1223,13 @@ hr.hr-border{
     transition: opacity .2s;
 
     right: 250px;
-    bottom: 175px;
+    bottom: 150px;
 
+}
+
+.post-venue-features input[type="checkbox"] + label{
+    cursor: default;
+    
 }
 
 

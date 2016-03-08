@@ -3,7 +3,7 @@ from venue import views
 
 urlpatterns = [
     url(r'^manage_venue/(?P<listing_id>[0-9]+)/$', views.manage_venue, name='manage_venue'),
-    url(r'^manage_venue__del_venue/(?P<listing_id>[0-9]+)/$', views.manage_venue, name='manage_venue'),
+    url(r'^manage_venue__del_venue/(?P<listing_id>[0-9]+)/$', views.manage_venue__del_venue, name='manage_venue__del_venue'),
     url(r'^manage_venue/$', views.manage_venue, name='manage_venue'),
 
     url(r'^find_venue/$', views.find_venue, name='find_venue'),

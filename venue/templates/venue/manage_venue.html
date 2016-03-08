@@ -20,9 +20,9 @@
         <form method="POST" enctype="multipart/form-data">{% csrf_token %}
             <div>
                 <div class="delete-venue">
-                    <!-- this isn't working yet-->
-                    <a href="#" data-toggle="modal" data-target="Delete{{ listing.id }}"><i class="fa fa-trash-o fa-2x pull-right delete-object"></i></a>
+                    <a class="delete-object-modal" href="#" data-toggle="modal" data-target="#Delete{{ listing.id }}"><i class="fa fa-trash-o fa-2x pull-right delete-object"></i></a>
                 </div>
+                
                 <ul class="tabs" data-persist="true">
                     <li><a id="view1-link" class="tab-link" href="#view1">General</a></li>
                     <li><a id="view2-link" class="tab-link" href="#view2">Features</a></li>
@@ -147,7 +147,7 @@
                                 {% endfor %}
                                 </ul>
                             {% else %}
-                                    <p>No Images</p>
+                                    <p>You must add at least one photo</p>
                             {% endif %}
                         </div>
 
@@ -211,14 +211,12 @@
                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                  <h4 class="modal-title" id="myModalLabel">Confirm Deletion</h4>
                </div>
-               <div class="modal-body">
-               
-                 
-                 
+               <div class="modal-body"> 
+                 Are you sure you want to delete this venue?
                </div>
                <div class="modal-footer">
-                 <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-                 <a href="/manager/edit_serialized_inventory/${ mstore.id }/${ s.id }/${ 'deactivate' }/"class="btn btn-sm btn-custom-purple">Deactivate</a>
+                 <a class="button small" data-dismiss="modal">Cancel</a>
+                 <a href="/venue/manage_venue__del_venue/{{ listing.id }}"class="button small" style="background-color: #FF6666">Delete</a>
                </div>
              </div>
            </div>

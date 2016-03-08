@@ -251,7 +251,6 @@ def manage_venue(request, listing_id):
         'listing': listing,
         'features': features,
         'tab': tab,
-        #'available_dates': available_dates,
     }
     return render(request, 'venue/manage_venue.html', context)
 
@@ -368,7 +367,6 @@ class NewImageForm(forms.Form):
     
 class CalendarForm(forms.Form):
     dates_available = forms.CharField(label="Saved Dates", required=False, widget=forms.TextInput(attrs={
-        # 'disabled': 'disabled',
         'readonly': 'true',
         }))
     
@@ -379,7 +377,11 @@ class CalendarForm(forms.Form):
             print(">>>>>>>>>>>>>>> You have errors >>>>>>>>>>>>")
             print(self.errors)
             
-def process_request__del_venue(request, listing_id):
+def manage_venue__del_venue(request, listing_id):
     '''deleting a user's venue - we are not really deleting. Just inactivating'''
+    
+    venue_to_delete = hmod.Listing.objects.get(id=listing_id)
+    venue_to_delete.is_active = False
+    venue_to_delete.save()
     
     return HttpResponseRedirect('/account/my_venues/')
