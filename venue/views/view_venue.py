@@ -75,6 +75,7 @@ def request_booking_form(request, listing_id):
                     rental_request.start_time = form.cleaned_data['start_time']
                     rental_request.end_time = form.cleaned_data['end_time']
                     rental_request.user_id = request.user.id
+                    rental_request.listing = hmod.Listing.objects.get(id=listing_id)
                     rental_request.listing_date_id = hmod.Listing_Date.objects\
                         .filter(listing_id=listing.id)\
                         .filter(date=rental_request.request_date)[0].id

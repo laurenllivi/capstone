@@ -26,7 +26,11 @@
             <tr>
                 <td>Deposit</td>
                 <td></td>
-                <td>${{listing.deposit}}</td>
+                {% if listing.deposit == None %}
+                <td id="deposit-price">$0</td>
+                {% else %}
+                <td id="deposit-price">${{listing.deposit}}</td>
+                {% endif %}
             </tr>
             <tr>
                 <td>Hours</td>

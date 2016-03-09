@@ -104,6 +104,15 @@ select {
     background-size: 10px;
 }
 
+input[type="submit"].warning-btn
+{
+    background-color:#FF6666 !important;
+}
+
+input[type="submit"].warning-btn:hover
+{
+    background-color:#FF9B9B !important;
+}
 
 /*********************** Homepage *******************/
 #search-overlay{
@@ -160,7 +169,7 @@ select {
     position: relative;
     float: right;
     right: 50%;
-    border-radius:150px;
+    border-radius:50%;
 }
 
 .profile-pic
@@ -971,11 +980,31 @@ hr.hr-border{
             width: 150px;
             height: 100px;   
         }
-    
+
 .delete-venue{
     position: relative; 
     bottom: 10px; 
     right: 5px;
+}
+
+/*************** Reservation Requests **********************************/
+.venue-request-wrapper .venue-image, .venue-request-wrapper .request-details
+{
+    display:inline-block;
+}
+
+.request-options
+{
+    text-align: center;
+    margin-top: 1em;
+}
+
+.time-of-request
+{
+    font-size: 14px;
+    color: grey;
+    right:0;
+    text-align: right;
 }
         
 /************************ Calendar ***************************/

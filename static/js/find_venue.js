@@ -4,7 +4,6 @@ var price_per_hour_range = [];
 
 $(document).ready(function(){
 
-//    pageSetup();
     $('.datepicker').datepicker();
 
 })//document ready
@@ -12,9 +11,6 @@ $(document).ready(function(){
 function pageSetup()
 {
     mapSetup();
-
-    ///price slider
-//    setSliders()
 }
 
 function mapSetup()
