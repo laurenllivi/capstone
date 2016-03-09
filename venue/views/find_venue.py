@@ -9,7 +9,8 @@ from django.contrib.gis.geos import Point
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.measure import D #shortcut for distance
 from django.template import RequestContext
-import json
+import simplejson as json
+from django.core.serializers.json import DjangoJSONEncoder
 
 
 def find_venue(request):
@@ -27,11 +28,12 @@ def find_venue(request):
 def find_venue_form(request):
 
     search_location = 'Provo, Ut, United States'
-    venue_type = 'Backyard'
+    venue_type = 'backyard'
     price_per_hour_range = [0, 5000]
 
     form = FindVenueForm(initial={
         'location': search_location,
+        'venue_type': venue_type,
         'price_per_hour_lower': price_per_hour_range[0],
         'price_per_hour_upper': price_per_hour_range[1],
     })
@@ -82,7 +84,6 @@ def find_venue_form(request):
 
     search_location = json.dumps(search_location)
     location_data = json.dumps(venue_locations_dict)  # lat and lon of venues
-    price_per_hour_range = json.dumps(price_per_hour_range)
 
     context = {
         'form': form,
@@ -102,6 +103,6 @@ class FindVenueForm(forms.Form):
     }))
     event_date = forms.DateField(required=False, widget=forms.TextInput(attrs={'class': 'datepicker'}))
     venue_type = forms.ChoiceField(widget=forms.Select(), choices=choices.VENUE_TYPE_CHOICES)
-    price_per_hour = forms.DecimalField(decimal_places=0, max_digits=6, required=False, widget=forms.TextInput())
-    price_per_hour_lower = forms.DecimalField(required=False)
-    price_per_hour_upper = forms.DecimalField(required=False)
+    price_per_hour = forms.IntegerField(required=False, widget=forms.TextInput())
+    price_per_hour_lower = forms.IntegerField(required=False)
+    price_per_hour_upper = forms.IntegerField(required=False)
