@@ -935,6 +935,12 @@ hr.hr-border{
     color: gray;
 }
 
+.panel-profile-content .tabcontents
+{
+    border:none;
+    border-top: 1px solid #C6C6C6;
+}
+
 #new-photo-upload{
     position: relative;
     display: inline-block;

@@ -1,0 +1,47 @@
+{% extends 'capstone/auth_base.html' %}
+{% load staticfiles %}
+
+{% block stylesheets %}
+    <script src="{% static 'js/tabcontent.js' %}" type="text/javascript" xmlns="http://www.w3.org/1999/html"></script>
+    <link href="{% static 'css/tabcontent.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+
+    <section id="main" class="wrapper">
+        <div class="container">
+
+            {% block left_menu %}
+                {% include "partials/_profile_venues_left_menu.html" %}
+            {% endblock %}
+
+            <div class="profile-right-side-content">
+                <div class="panel-header">My Reservations</div>
+                    <div class="panel-profile-content">
+
+
+                        <div>
+                            <ul class="tabs" data-persist="true">
+                                    <li><a id="view1-link" class="tab-link" href="#view1">New Requests</a></li>
+                                    <li><a id="view2-link" class="tab-link" href="#view2">Approved Rentals</a></li>
+                                </ul>
+                                    <div class="tabcontents">
+                                        <div class="tab" id="view1">
+                                            {{ pendinghtml|safe }}
+                                        </div>
+                                        <div class="tab" id="view2">
+                                            {{ approvedhtml|safe }}
+                                        </div>
+
+                                    </div>
+                        </div>
+                    </div>
+            </div><!-- panel-profile-content-->
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block footer %}
+    {% include "partials/_footer.html" %}
+{% endblock %}

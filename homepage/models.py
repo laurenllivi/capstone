@@ -106,7 +106,7 @@ class Listing_Date(models.Model):
 class Rental_Request(models.Model):
     '''When a user makes a request to rent a venue'''
     notes = models.CharField(max_length=255, blank=True, null=True)
-    approved = models.NullBooleanField(default=False, blank=True, null=True)
+    approved = models.NullBooleanField(blank=True, null=True)
     request_date = models.DateTimeField(auto_now_add=True)
     start_time = models.TimeField(default='19:00')
     end_time = models.TimeField(default='19:00')

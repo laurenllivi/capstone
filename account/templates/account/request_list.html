@@ -1,0 +1,54 @@
+ <div class="my_venue_wrapper venue-request-wrapper">
+    {% for r in request_list %}
+
+        <div class="venue-image">
+            <a href="/venue/manage_venue/{{ r.listing.id }}">
+                <div class="venue-pic-wrapper">
+                    {% if venue_pics_dict|get_item:r.listing.id == None %}
+                        <img class="tiny-camera-icon" src="/static/images/camera-icon.png"/>
+                        <img class="main_venue_photo pull-left" src="" />
+                    {% else %}
+                        <img class="main_venue_photo pull-left" src="/static/images/venue-images/{{ r.listing.id }}/{{ venue_pics_dict|get_item:r.listing.id }}"/>
+                    {% endif %}
+                </div><!-- venue-pic-wrapper -->
+            </a>
+        </div>
+
+        <div class="request-details">
+            <div class="time-of-request">{{r.request_date}}</div>
+            <div>{{r.listing.title}}</div>
+            <span>
+                <div class="profile-pic-container mini-profile-pic-container">
+                  <div class="profile-pic-wrapper">
+                      <a href="#"><img class="mini-profile-pic" src="{{ r.user.profile_pic.image_file }}" /></a>
+                  </div><!-- wrapper -->
+                </div><!-- container -->
+            </span>
+
+            <span><a href="#">{{r.user.first_name}}</a></span>
+
+            <div>Requested For: {{r.listing_date.date}} {{r.start_time}} to {{r.end_time}}</div>
+        </div>
+
+
+     {%if approved%}
+        <form method="POST">
+            {% csrf_token %}
+             <div class="request-options">
+                <input type="submit" class="small warning-btn" name="cancelRequest{{r.id}}" value="Cancel Reservation">
+            </div>
+        </form>
+     {%else%}
+        <form method="POST">
+            {% csrf_token %}
+             <div class="request-options">
+                <input type="submit" class="small" name="approveRequest{{r.id}}" value="Approve">
+                <input type="submit" class="small warning-btn" name="denyRequest{{r.id}}" value="Deny">
+                <input type="submit" class="small alt" name="messageUser{{r.user.id}}" value="Message {{r.user.first_name}}">
+            </div>
+        </form>
+     {%endif%}
+
+    <hr class="hr-style"/>
+    {% endfor %}
+</div>

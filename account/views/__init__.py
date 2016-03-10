@@ -10,6 +10,6 @@ from .reset_confirmation import *
 from .change_password import *
 from .logout import *
 from .my_venues import *
-from .my_reservations import *
+from .venue_requests import *
 from .payment_preferences import *
 from .my_events import *

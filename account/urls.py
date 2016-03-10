@@ -17,7 +17,8 @@ urlpatterns = [
     url(r'^reset_password/$', views.reset_password, name='reset_password'),
     url(r'^change_password/$', views.change_password, name='change_password'),
     url(r'^my_venues/$', views.my_venues, name='my_venues'),
-    url(r'^my_reservations/$', views.my_reservations, name='my_reservations'),
+    url(r'venue_requests/$', views.venue_requests, name='venue_requests'),
+    url(r'request_list/$', views.format_ven_requests, name='format_ven_requests'),
     url(r'^payment_preferences/$', views.payment_preferences, name='payment_preferences'),
     url(r'^my_events/$', views.my_events, name='my_events'),
 ]
