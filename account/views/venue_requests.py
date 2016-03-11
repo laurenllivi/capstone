@@ -62,7 +62,7 @@ def format_ven_requests(request, listings, user, approved):
 
         elif 'messageUser' in request_string:
             user_id = re.search('messageUser(\d+)', request_string).group(1)
-            print user_id
+            print(user_id)
 
     context = {
         'user': user,

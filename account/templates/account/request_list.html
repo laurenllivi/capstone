@@ -44,7 +44,7 @@
              <div class="request-options">
                 <input type="submit" class="small" name="approveRequest{{r.id}}" value="Approve">
                 <input type="submit" class="small warning-btn" name="denyRequest{{r.id}}" value="Deny">
-                <input type="submit" class="small alt" name="messageUser{{r.user.id}}" value="Message {{r.user.first_name}}">
+                <a href="/django_messages/compose/{{ r.user.id }}/{{ r.listing.id }}" class="button small alt">Message {{ r.user.first_name }}</a>
             </div>
         </form>
      {%endif%}
