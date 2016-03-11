@@ -162,6 +162,7 @@ def manage_venue(request, listing_id):
         #################### Main Form (values aren't required ), Post Venue (values ARE required )################
         else:
             if 'postVenue' in request.POST:
+                # make all fields required in order to post a venue
                 form = NewVenueForm(request.POST)
                 required = 'postVenue' in request.POST
                 form.fields['title'].required = required
@@ -177,8 +178,14 @@ def manage_venue(request, listing_id):
                 form.fields['price_per_hour'].required = required
                 form.fields['price_per_hour_weekend'].required = required
                 
+                # make at least one image required
+                image_count = hmod.Listing_Photo.objects.filter(listing_id=listing_id).count()
+                if image_count == 0:
+                    form.add_error(None, "You must add at least one venue photo")
+                
             elif 'mainForm' in request.POST:     
                 form = NewVenueForm(request.POST)  
+                # and fields are NOT required by default
                   
             if form.is_valid():
                 if new is not None:
@@ -208,8 +215,6 @@ def manage_venue(request, listing_id):
                                 hmod.Listing_Feature.objects.filter(
                                     listing_id=listing.id, feature_id=feature.id
                                 ).delete()
-
-
 
                 listing.street = form.cleaned_data['street']
                 listing.street2 = form.cleaned_data['street2']
@@ -354,7 +359,7 @@ class NewVenueForm(forms.Form):
 class NewImageForm(forms.Form):
     image_title = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
     image = forms.ImageField(label='Select a file')
-
+    
     # def clean(self):
     #     cleaned_data = super(NewImageForm, self).clean()
     #     if cleaned_data.get("image"):

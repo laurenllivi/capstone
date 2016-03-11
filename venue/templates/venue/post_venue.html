@@ -77,15 +77,19 @@
         <table class="review-settings-table">
             <tr>
                 <td class="col-1"><strong>Weekday Price per Hour <br>(M-Th):</strong></td>
-                <td>{{ listing.price_per_hour }}</td>
+                <td>${{ listing.price_per_hour }}</td>
             </tr>
             <tr>
                 <td class="col-1"><strong>Weekend Price per Hour <br>(F-Su):</strong></td>
-                <td>{{ listing.price_per_hour_weekend }}</td>
+                <td>${{ listing.price_per_hour_weekend }}</td>
             </tr>
             <tr>
                 <td class="col-1"><strong>Deposit Amount:</strong></td>
-                <td>{{ listing.deposit }}</td>
+                {% if listing.deposit %}
+                    <td>${{ listing.deposit }}</td>
+                {% else %}
+                    <td>None</td>
+                {% endif %}
             </tr>
         </table>
         
