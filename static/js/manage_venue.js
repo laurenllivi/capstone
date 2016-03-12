@@ -52,6 +52,12 @@ function setPageVars(tab)
     selectedTab = tab
 }
 
+// function setAvailableDates(){
+//     //get the available dates and prepopulate the calendar
+//     var availableDatesField = $('#id_dates_available');
+//
+// }
+
 // // event to check the altField on the calendar and update the calendar accordingly
 // $(function(){
 //

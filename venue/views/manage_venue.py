@@ -182,6 +182,11 @@ def manage_venue(request, listing_id):
                 image_count = hmod.Listing_Photo.objects.filter(listing_id=listing_id).count()
                 if image_count == 0:
                     form.add_error(None, "You must add at least one venue photo")
+                    
+                # make at least one available date required
+                date_count = hmod.Listing_Date.objects.filter(listing_id=listing_id).count()
+                if date_count == 0:
+                    form.add_error(None, "You must add at least one available date")
                 
             elif 'mainForm' in request.POST:     
                 form = NewVenueForm(request.POST)  
