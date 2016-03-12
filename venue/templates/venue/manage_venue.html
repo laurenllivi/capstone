@@ -173,13 +173,13 @@
                             </div>
                         </div><!-- view 4 -->
                         
-                        <div class="tab" id="view5">
+                        <div class="tab" id="view5" style="text-align: center">
                             <button class="next-tab-button" onclick="nextTab()">Next <i class="fa fa-arrow-right"></i></button>
                             <div id="custom-jquery-calendar">
                                 <div id="main-calendar"></div>
                             </div><!-- custom-jquery-calendar -->
-                            
-                             {{ calendarForm }}
+                             {{ calendarForm.saved_dates.as_hidden }}
+                             {{ calendarForm.dates_available.as_hidden }}
                              
                              <br>
                              <input type="submit" class="small" name="calendarForm" value="Update Dates">
@@ -216,7 +216,6 @@
                 <br>
                 <!-- simply saves the values - all fields aren't required unless the user is posting the venue -->
                 <input type="submit" class="small" style="width: 120px" name="mainForm" value="Save">
-            
                 
                 {% if listing.currently_listed %}
                     <a href="/venue/post_venue__unlist/{{ listing.id }}" class="button small pull-right" style="background-color: #FF6666">Unlist Venue</a><br><br>
@@ -232,11 +231,16 @@
     </div>
 </section>
 
-<script>
+<script type="text/javascript">
+var dates = $('#id_saved_dates').val().split(', ');
+if(dates !=""){
+    var preselectDates = dates;
+}
     //instantiate the calendar
     $('#main-calendar').multiDatesPicker({
         altField: '#id_dates_available',
-        minDate: 0,
+        minDate: 0,    
+        addDates: preselectDates,
     });
 </script>
 

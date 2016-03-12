@@ -61,7 +61,7 @@ def manage_venue(request, listing_id):
         dates_available = convert_date.convert_db_into_date_string(available_dates)
                 
         calendarForm = CalendarForm(initial={
-            'dates_available': dates_available,
+            'saved_dates': dates_available,
         })
 
         form = NewVenueForm(initial={
@@ -138,7 +138,8 @@ def manage_venue(request, listing_id):
                 # each date is saved as a new object in the Listing_Date model
                 # split the string into individual dates to save  
                 dates_string = calendarForm.cleaned_data['dates_available']
-              
+                all_dates = hmod.Listing_Date.objects.filter(listing_id=listing.id)
+
                 # if the user has submitted dates . . .
                 if dates_string != "":
                     dates_list = dates_string.split(', ')
@@ -146,12 +147,18 @@ def manage_venue(request, listing_id):
                         db_format_date = convert_date.convert_date_string_into_db(date)
                         # save to the database (if the same date isn't already in there)
                         try:
-                            hmod.Listing_Date.objects.get(listing=listing, date = db_format_date)
+                            hmod.Listing_Date.objects.get(listing=listing, date=db_format_date)
                         except hmod.Listing_Date.DoesNotExist: 
                             d = hmod.Listing_Date()
                             d.date = db_format_date
                             d.listing = listing
                             d.save()
+                            
+                # take out the dates that are no longer selected
+                for date in all_dates:
+                    date_string = date.date.strftime('%m/%d/%Y')
+                    if date_string not in dates_string:
+                        date.delete()
                     
                     # reset the url param to be the id of the venue
                     listing_id = listing.id
@@ -261,6 +268,7 @@ def manage_venue(request, listing_id):
         'listing': listing,
         'features': features,
         'tab': tab,
+        'dates_available': dates_available,
     }
     return render(request, 'venue/manage_venue.html', context)
 
@@ -376,6 +384,7 @@ class NewImageForm(forms.Form):
     #             print(">>>>>>>>>>>>>>>>>Added Image Errors>>>>>>>>>>>>>>>>>>>>>>>>")
     
 class CalendarForm(forms.Form):
+    saved_dates = forms.CharField(label="Test Saved Dates", required=False, widget=forms.TextInput(attrs={}))
     dates_available = forms.CharField(label="Saved Dates", required=False, widget=forms.TextInput(attrs={
         'readonly': 'true',
         }))
