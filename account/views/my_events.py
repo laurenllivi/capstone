@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import *
+from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from homepage import models as hmod
 from django import forms
@@ -9,15 +10,48 @@ from django.template.defaulttags import register
 def my_events(request):
     
     user = request.user
+    event_requests = hmod.Rental_Request.objects.filter(user=user)
     
-    # get approved events for the user
-    approved_events = hmod.Rental_Request.objects.filter(user=user).filter(approved=True)
-    pending_approval_events = hmod.Rental_Request.objects.filter(user=user).filter(approved=False)
+    approved_events = format_event_requests(request, event_requests, user, True)
+    pending_approval_events = format_event_requests(request, event_requests, user, False)
         
     context = {
         'user': user,
-        'approved_events': approved_events,
-        'pending_approval_events': pending_approval_events,
+        'approvedhtml': approved_events.content,
+        'pendinghtml': pending_approval_events.content,
         
     }
-    return render(request, 'account/my_events.html', context)
+    return render_to_response('account/my_events.html', context, RequestContext(request))
+    
+def format_event_requests(request, event_requests, user, approved):
+
+    venue_pics_dict = {}
+    event_list = []
+
+    for event_request in event_requests:
+        listing = hmod.Listing.objects.get(id=event_request.listing.id)
+        try:
+            # get only the first pic from the venue
+            venue_pic = hmod.Listing_Photo.objects.filter(listing=listing).first()
+            # and add it to the dictionary
+            venue_pics_dict[listing.id] = venue_pic
+
+        except hmod.Listing_Photo.DoesNotExist:
+            pass
+
+        if approved:
+            events = hmod.Rental_Request.objects.filter(user=user).filter(approved=True)
+        else:
+            events = hmod.Rental_Request.objects.filter(user=user).exclude(approved=True)
+
+        for e in events:
+            event_list.append(e)
+
+    context = {
+        'user': user,
+        'event_list': event_list,
+        'venue_pics_dict': venue_pics_dict,
+        'approved': approved,
+    }
+
+    return render_to_response('account/event_list.html', context, RequestContext(request))

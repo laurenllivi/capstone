@@ -1,8 +1,29 @@
  <div class="my_venue_wrapper venue-request-wrapper">
      
-    {% for event in approved_events %}
-        {{ event.approved }}<br>
-        still working on this
+    {% for event in event_list %}
+      
+      <div class="venue-image">
+          <a href="/venue/view_venue/{{ event.listing.id }}">
+              <div class="venue-pic-wrapper">
+                    <img class="main_venue_photo pull-left" src="/static/images/venue-images/{{ event.listing.id }}/{{ venue_pics_dict|get_item:event.listing.id }}"/>
+              </div><!-- venue-pic-wrapper -->
+          </a>
+      </div>
+      
+      <div class="request-details">
+          <div class="time-of-request">{{event.request_date}}</div>
+          <div>{{event.listing.title}}</div>
+
+              <div class="mini-profile-pic-container profile-pic-container">
+                <div class="profile-pic-wrapper">
+                    <a href="#"><img class="mini-profile-pic" src="{{ event.listing.user.profile_pic.image_file }}" /></a>
+                </div><!-- wrapper -->
+              </div><!-- container -->
+
+          <span>Host: <a href="#">{{event.listing.user.first_name}}</a></span>
+
+          <div>Requested For: {{event.listing_date.date}} {{event.start_time}} to {{event.end_time}}</div>
+      </div>
 
     <hr class="hr-style"/>
     {% endfor %}

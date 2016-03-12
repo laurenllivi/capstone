@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'request_list/$', views.format_ven_requests, name='format_ven_requests'),
     url(r'^payment_preferences/$', views.payment_preferences, name='payment_preferences'),
     url(r'^my_events/$', views.my_events, name='my_events'),
+    url(r'event_list/$', views.format_event_requests, name='format_event_requests'),
 ]

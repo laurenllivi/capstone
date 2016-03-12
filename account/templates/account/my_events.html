@@ -29,18 +29,10 @@
                                 <div class="tabcontents-nosideborders-custom">
                                     <br>
                                     <div class="tab" id="view1">
-                                        {% if approved_events %}
-                                            {% include 'account/event_list.html' %}
-                                        {% else %}
-                                            No approved events yet.
-                                        {% endif %}
+                                       {{ approvedhtml|safe }}
                                     </div>
                                     <div class="tab" id="view2">
-                                       {% if pending_approval_events %}
-                                           {{ pending_approval_events }}
-                                       {% else %}
-                                           No events pending approval.
-                                       {% endif %}
+                                      {{ pendinghtml|safe }}
                                     </div>
                                 </div>
                         </div>
