@@ -40,7 +40,8 @@ def format_event_requests(request, event_requests, user, approved):
             pass
 
         if approved:
-            events = hmod.Rental_Request.objects.filter(user=user).filter(approved=True)
+            events = hmod.Rental_Request.objects.filter(user=user, approved=True)
+            
         else:
             events = hmod.Rental_Request.objects.filter(user=user).exclude(approved=True)
 
@@ -55,3 +56,11 @@ def format_event_requests(request, event_requests, user, approved):
     }
 
     return render_to_response('account/event_list.html', context, RequestContext(request))
+    
+def my_events__del_rental_request(rental_request_id):
+    '''delete a venue request'''
+    
+    event_request = hmod.Rental_Request.objects.get(id=rental_request_id)
+    event_request.delete()
+    
+    return HttpResponseRedirect('/account/my_events/')
