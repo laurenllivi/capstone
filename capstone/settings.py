@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'venue',
     'django_messages',
     'localflavor', #used for validating US zipcodes and phone numbers
+    'payment',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -162,3 +163,7 @@ AUTH_USER_MODEL = 'homepage.User'
 
 MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
 # MEDIA_URL = '/media/'
+
+# Stripe Key Settings
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')

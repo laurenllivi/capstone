@@ -1,6 +1,7 @@
 from django.contrib.gis.db import models
 from django.contrib.auth.models import AbstractUser 
 from django.conf import settings
+import stripe
 
 class User_Photo(models.Model):
     '''profile pics for users'''
@@ -26,9 +27,37 @@ class User(AbstractUser):
     # last_login
     phone = models.CharField(max_length=15, blank=True, null=True)
     profile_pic = models.ForeignKey('User_Photo', blank=True, null=True)
+    stripe_id = models.CharField(max_length=30, blank=True)
     
     def __str__(self):
         return self.first_name + " " + self.last_name
+        
+    def charge(self, request, email, fee):
+        # Set your secret key: remember to change this to your live secret key
+        # in production. See your keys here https://manage.stripe.com/account
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+
+        # Get the credit card details submitted by the form
+        token = request.POST['stripeToken']
+
+        # Create a Customer
+        stripe_customer = stripe.Customer.create(
+            card=token,
+            description=email
+        )
+
+        # Save the Stripe ID to the customer's profile
+        self.stripe_id = stripe_customer.id
+        self.save()
+
+        # Charge the Customer instead of the card
+        stripe.Charge.create(
+            amount=fee, # in cents
+            currency="usd",
+            customer=stripe_customer.id
+        )
+
+        return stripe_customer
 
 class Feature(models.Model):
     '''A feature that a listing has'''

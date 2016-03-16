@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^homepage/', include('homepage.urls')),
     url(r'^account/', include('account.urls')),
     url(r'^venue/', include('venue.urls')),
+    url(r'^payment/', include('payment.urls')),
     url(r'^django_messages/', include('django_messages.urls')),
 ]
