@@ -226,6 +226,30 @@ lf.listing = l
 lf.feature = f
 lf.save()
 
+
+# Cancellation Policy
+p = hmod.Cancellation_Policy()
+p.title = 'flexible'
+p.days_to_cancel = 2
+p.deposit_refunded = True
+p.percent_refunded = 100
+p.save()
+
+p = hmod.Cancellation_Policy()
+p.title = 'moderate'
+p.days_to_cancel = 7
+p.deposit_refunded = False
+p.percent_refunded = 100
+p.save()
+
+p = hmod.Cancellation_Policy()
+p.title = 'strict'
+p.days_to_cancel = 14
+p.deposit_refunded = False
+p.percent_refunded = 80
+p.save()
+
+
 ## add more here......
 
 # Add_On

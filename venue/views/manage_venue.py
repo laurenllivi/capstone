@@ -24,6 +24,7 @@ def manage_venue(request, listing_id):
     user = request.user
     features = []
     tab = request.GET.get('tab', '1')
+    policies = hmod.Cancellation_Policy.objects.all()
 
     # see if this is a new or existing venue
     new = request.GET.get('status')
@@ -79,6 +80,7 @@ def manage_venue(request, listing_id):
             'price_per_hour': listing.price_per_hour,
             'price_per_hour_weekend': listing.price_per_hour_weekend,
             'deposit': listing.deposit,
+            'policies': policies,
         })
         
         imageForm = NewImageForm()

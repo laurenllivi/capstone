@@ -49,6 +49,7 @@
                     <li><a id="view2-link" class="tab-link" href="#view2">Features</a></li>
                     <li><a id="view3-link" class="tab-link" href="#view3">Location</a></li>
                     <li><a id="view5-link" class="tab-link" href="#view4">Pricing</a></li>
+                    <li><a id="view7-link" class="tab-link" href="#view7">Cancellation Policy</a></li>
                     <li><a id="view6-link" class="tab-link" href="#view5" onclick="viewVenueCalendar({{ listing.id }});">Availability</a></li>
                     <li><a id="view4-link" class="tab-link" href="#view6">Photos</a></li>
                 </ul>
@@ -185,6 +186,7 @@
                              <input type="submit" class="small" name="calendarForm" value="Update Dates">
                         </div><!-- view5 -->
 
+
                         <div class="tab" id="view6">
                             <div {% if form.image_title.errors %}class="field_error"{% endif %}>
                                  <strong>Image Title</strong>
@@ -210,7 +212,12 @@
                                     <p>You must add at least one photo</p>
                             {% endif %}
                         </div><!-- view 6 -->
-                        
+
+                        <div class="tab" id="view7">
+                            {% for policy in policies %}
+                            {% endfor %}
+                            Stuff about cancellation policies
+                        </div>
 
                     </div>
                 <br>

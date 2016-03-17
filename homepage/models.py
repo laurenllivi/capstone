@@ -67,6 +67,12 @@ class Feature(models.Model):
     def __str__(self):
         return self.name
 
+class Cancellation_Policy(models.Model):
+    title = models.IntegerField()
+    days_to_cancel = models.IntegerField()
+    percent_refunded = models.IntegerField()
+    deposit_refunded = models.NullBooleanField(default=False)
+
 class Listing(models.Model):
     '''A venue listing posted by a user'''
     title = models.CharField(max_length=255, blank=True, null=True)
@@ -93,7 +99,8 @@ class Listing(models.Model):
     
     def __str__(self):
         return self.title
-    
+
+
 class Listing_Photo(models.Model):
     '''Photos for listings '''
     image_name = models.CharField(max_length=255, blank=True, null=True)
@@ -103,7 +110,8 @@ class Listing_Photo(models.Model):
     
     def __str__(self):
         return self.image_name
-    
+
+
 class Review(models.Model):
     '''A user gives a listing a review'''
     rating = models.DecimalField(decimal_places=1, max_digits=2, blank=True, null=True)
@@ -111,12 +119,14 @@ class Review(models.Model):
     listing = models.ForeignKey('Listing')
     review_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User)
-        
+
+
 class Listing_Feature(models.Model):
     '''Association class between listing and feature'''
     listing = models.ForeignKey('Listing')
     feature = models.ForeignKey('Feature')
-        
+
+
 class Add_On(models.Model):
     item_name = models.CharField(max_length=255, blank=True, null=True)
     description = models.CharField(max_length=500, blank=True, null=True)
@@ -130,6 +140,10 @@ class Listing_Date(models.Model):
     # end_date = models.DateTimeField(blank=True, null=True)
     # status = models.NullBooleanField(default=False, blank=True, null=True)
     date = models.DateField(blank=True, null=True)
+    listing = models.ForeignKey('Listing')
+
+class Listing_Policy(models.Model):
+    cancellation_policy = models.ForeignKey('Cancellation_Policy')
     listing = models.ForeignKey('Listing')
     
 class Rental_Request(models.Model):
