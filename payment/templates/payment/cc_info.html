@@ -40,6 +40,8 @@
             <h5 class="pull-right">You'll be able to review this order before your card is charged.</h5>
             
         </form>
+        
+        <form id="order-form" action="" method="post">{% csrf_token %}</form>
             
     </div><!-- container-->
 </section>
@@ -48,10 +50,10 @@
     <script type="text/javascript">
         // This identifies your website in the createToken call below
         Stripe.setPublishableKey("{{ STRIPE_PUBLISHABLE_KEY }}");
-
+        
         var stripeResponseHandler = function(status, response) {
             var $form = $('#payment-form');
-            var $regform = $('#user-reg-form');
+            var $orderForm = $('#order-form');
 
             if (response.error) {
                 // Show the errors on the form
@@ -61,11 +63,11 @@
                 // token contains id, last4, and card type
                 var token = response.id;
                 // Insert the token into the form so it gets submitted to the server
-                $regform.append(
+                $orderForm.append(
                         $('<input type="hidden" name="stripeToken" />').val(token)
                 );
                 // and submit
-                $regform.get(0).submit();
+                $orderForm.get(0).submit();
             }
         };
 

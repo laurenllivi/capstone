@@ -1,6 +1,8 @@
 from django.contrib.gis.db import models
 from django.contrib.auth.models import AbstractUser 
 from django.conf import settings
+import datetime
+import decimal
 import stripe
 
 class User_Photo(models.Model):
@@ -161,6 +163,19 @@ class Rental_Request(models.Model):
     canceled_by = models.CharField(max_length=20, blank=True, null=True)
     listing = models.ForeignKey('Listing')
     listing_date = models.ForeignKey('Listing_Date', blank=True, null=True)
+    
+    def duration(self):
+        '''gets the difference between the start and end times (in hours - decimal) - have to combine the times with 
+        a dummy date because you can't subtract two Python time objects'''
+        dummydate = datetime.date(2000,1,1)
+        duration = datetime.datetime.combine(dummydate,self.end_time) - datetime.datetime.combine(dummydate,self.start_time)
+        total_seconds = duration.total_seconds()
+        hours = total_seconds / 60 / 60
+        hours = decimal.Decimal(float(hours))
+        return hours
+        
+        
+        return self.end_time - self.start_time
     
 class Transaction(models.Model):
     date = models.DateTimeField(auto_now_add=True, blank=True, null=True)

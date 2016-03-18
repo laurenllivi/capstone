@@ -7,6 +7,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 import datetime
+from time import time
 import stripe
 
 @login_required
@@ -25,26 +26,24 @@ def cc_info(request, rental_request_id):
         fee_base = listing.price_per_hour_weekend
     else:
         fee_base = listing.price_per_hour
-
+        
     # then we need to subtract the end time from the start time to get the hours
-    # hours = rental_request.end_time - rental_request.start_time
-    
-    # multiply the hours by the rate and set that equal to the fee variable below?
-     
+    hours = rental_request.duration()
+    fee = hours * fee_base
+       
     # Process payment (via Stripe)
     
-    # set the price of the venue
-    # fee = settings.SUBSCRIPTION_PRICE
-    
-    # try:
-    #     stripe_customer = sub.charge(request, email, fee)
-    # except stripe.StripeError as e:
-    #     form._errors[NON_FIELD_ERRORS] = form.error_class([e.args[0]])
-    #     return render(request, template,
-    #         {'form':form,
-    #          'STRIPE_PUBLISHABLE_KEY':settings.STRIPE_PUBLISHABLE_KEY}
-    #     )              
+    if request.method == "POST":
+        try:
+            stripe_customer = user.charge(request, user.email, fee)
+        except stripe.StripeError as e:
+            form._errors[NON_FIELD_ERRORS] = form.error_class([e.args[0]])
+            return render(request, template,
+                {'form':form,
+                 'STRIPE_PUBLISHABLE_KEY':settings.STRIPE_PUBLISHABLE_KEY}
+            )             
                 
     context = {
+        'STRIPE_PUBLISHABLE_KEY': settings.STRIPE_PUBLISHABLE_KEY,
     }
     return render(request, 'payment/cc_info.html', context)
