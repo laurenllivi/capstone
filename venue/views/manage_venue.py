@@ -43,7 +43,8 @@ def manage_venue(request, listing_id):
         # create the venue form and prepopulate it with saved values
         listing = hmod.Listing.objects.get(id=listing_id)
         available_dates = hmod.Listing_Date.objects.filter(listing_id=listing.id)
-        
+        cancellation_policy = hmod.Listing_Policy.objects.filter(listing_id=listing.id)[0]
+
         # make sure that only the owner of the venue can access this page
         # (since the venue ID is passed through the URL)
         if user.id != listing.user.id:
@@ -80,7 +81,6 @@ def manage_venue(request, listing_id):
             'price_per_hour': listing.price_per_hour,
             'price_per_hour_weekend': listing.price_per_hour_weekend,
             'deposit': listing.deposit,
-            'policies': policies,
         })
         
         imageForm = NewImageForm()
@@ -215,6 +215,7 @@ def manage_venue(request, listing_id):
                 listing.description = form.cleaned_data['description']
                 listing.parking_desc = form.cleaned_data['parking_desc']
 
+                #save listing features
                 all_features = hmod.Feature.objects.all()
                 updated_feature_list = form.cleaned_data['features'].all()
                 for feature in all_features:
@@ -238,6 +239,15 @@ def manage_venue(request, listing_id):
                 listing.price_per_hour = form.cleaned_data['price_per_hour']
                 listing.price_per_hour_weekend = form.cleaned_data['price_per_hour_weekend']
                 listing.deposit = form.cleaned_data['deposit']
+
+                #save cancellation policy
+                updated_policy = request.POST['policy-select']
+                if hmod.Listing_Policy.objects.filter(listing_id=listing.id).exists():
+                    listing_policy = hmod.Listing_Policy.objects.filter(listing_id=listing.id)[0]
+                else:
+                    listing_policy = hmod.Listing_Policy()
+                listing_policy.cancellation_policy_id = updated_policy
+                listing_policy.save()
 
                 g = geocoder.google(
                     form.cleaned_data['street'] + " " +
@@ -271,6 +281,8 @@ def manage_venue(request, listing_id):
         'features': features,
         'tab': tab,
         'dates_available': dates_available,
+        'policies': policies,
+        'cancellation_policy': cancellation_policy,
     }
     return render(request, 'venue/manage_venue.html', context)
 
@@ -362,6 +374,12 @@ class NewVenueForm(forms.Form):
         validators=[
             MinValueValidator(0)
         ]
+    )
+    cancellation_policy = forms.ModelChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple(),
+        queryset=hmod.Cancellation_Policy.objects.all(),
+        empty_label=None
     )
     
     def clean(self):

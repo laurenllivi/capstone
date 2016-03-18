@@ -49,7 +49,7 @@
                     <li><a id="view2-link" class="tab-link" href="#view2">Features</a></li>
                     <li><a id="view3-link" class="tab-link" href="#view3">Location</a></li>
                     <li><a id="view5-link" class="tab-link" href="#view4">Pricing</a></li>
-                    <li><a id="view7-link" class="tab-link" href="#view7">Cancellation Policy</a></li>
+                    <li><a id="view7-link" class="tab-link" href="#view7">Cancellations</a></li>
                     <li><a id="view6-link" class="tab-link" href="#view5" onclick="viewVenueCalendar({{ listing.id }});">Availability</a></li>
                     <li><a id="view4-link" class="tab-link" href="#view6">Photos</a></li>
                 </ul>
@@ -103,10 +103,9 @@
                             {% for key, value in form.features.field.choices %}
                                 <input type="checkbox" id="id_feature_{{ key }}" value="{{key}}" name="features"
                                 {% if value in features%}
-                                    checked>
-                                {% else %}
-                                    >
+                                    checked
                                 {% endif %}
+                                    >
 
                                 <label for="id_feature_{{ key }}">
                                     {{ value }}
@@ -172,6 +171,10 @@
                                 ${{ form.deposit }}
                                 {{ form.deposit.errors }}
                             </div>
+
+                            Deposit is due at the time of the reservation. Payment in full is due one week prior to the event.
+                            <br/>
+                            Funds will be transferred to the venue owner after the event.
                         </div><!-- view 4 -->
                         
                         <div class="tab" id="view5" style="text-align: center">
@@ -214,9 +217,36 @@
                         </div><!-- view 6 -->
 
                         <div class="tab" id="view7">
+                            <ul class="tabs policy-tabs" data-persist="true">
+                                {% for policy in policies %}
+                                    <li><a id="policy{{ forloop.counter }}-link" class="tab-link" href="#policy{{ forloop.counter }}">{{ policy.name|capfirst }}</a></li>
+                                {% endfor %}
+                            </ul>
+
                             {% for policy in policies %}
+                                <div class="tab policy-tab" id="policy{{ forloop.counter }}">
+                                    The guest will receive a(n) {{ policy.percent_refunded }}% refund if they cancel {{ policy.days_to_cancel }} days prior to the event. (Excluding Fees)
+                                    <br/>
+                                    The deposit will {% if policy.deposit_refunded == False %} NOT {% endif %} be refunded.
+                                </div>
                             {% endfor %}
-                            Stuff about cancellation policies
+
+                            <ul class="cancellation-rules-list">
+                                <li>The Purlieu service fee is non-refundable.</li>
+                                <li>Purlieu has the final say in all disputes and will mediate when necessary.</li>
+                                <li>Complaints from either party must be received by Purlieu 48 hours before the event to be considered for a refund exception.</li>
+                                <li>Refunds will be issued automatically according to the owner's Cancellation Policy</li>
+                                <li>A reservation has been officially canceled when the renter selects the "Cancel Reservation" button and confirms the cancellation.</li>
+                                <li>Applicable taxes will be retained and remitted.</li>
+                            </ul>
+
+                            <div class="policy-options">
+                                {% for key, value in form.cancellation_policy.field.choices %}
+                                    <input type="radio" id="{{value}}-select" name="policy-select" value="{{forloop.counter}}"
+                                        {% if key == cancellation_policy.cancellation_policy_id %} checked {% endif %}>
+                                    <label for="{{value}}-select">{{ value|capfirst }}</label>
+                                {% endfor %}
+                            </div>
                         </div>
 
                     </div>

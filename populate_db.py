@@ -74,9 +74,9 @@ l.zipcode = "84606"
 l.price_per_hour = 100
 l.price_per_hour_weekend = 150
 g = geocoder.google(
-    l.street + " " + 
-    l.street2 + " " + 
-    l.city + " " + 
+    l.street + " " +
+    l.street2 + " " +
+    l.city + " " +
     l.state
 )
 l.geolocation = Point(float(g.lat), float(g.lng))
@@ -100,9 +100,9 @@ l2.zipcode = "84606"
 l2.price_per_hour = 100
 l2.price_per_hour_weekend = 150
 g2 = geocoder.google(
-    l2.street + " " + 
-    l2.street2 + " " + 
-    l2.city + " " + 
+    l2.street + " " +
+    l2.street2 + " " +
+    l2.city + " " +
     l2.state
 )
 l2.geolocation = Point(float(g2.lat), float(g2.lng))
@@ -125,9 +125,9 @@ l3.city = "Pittsburgh"
 l3.state = "PA"
 l3.zipcode = "15232"
 g3 = geocoder.google(
-    l3.street + " " + 
-    l3.street2 + " " + 
-    l3.city + " " + 
+    l3.street + " " +
+    l3.street2 + " " +
+    l3.city + " " +
     l3.state
 )
 l3.geolocation = Point(float(g3.lat), float(g3.lng))
@@ -150,9 +150,9 @@ l4.city = "Lindon"
 l4.state = "UT"
 l4.zipcode = "84042"
 g4 = geocoder.google(
-    l4.street + " " + 
-    l4.street2 + " " + 
-    l4.city + " " + 
+    l4.street + " " +
+    l4.street2 + " " +
+    l4.city + " " +
     l4.state
 )
 l4.geolocation = Point(float(g4.lat), float(g4.lng))

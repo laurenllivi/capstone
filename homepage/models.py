@@ -61,17 +61,20 @@ class User(AbstractUser):
 
 class Feature(models.Model):
     '''A feature that a listing has'''
-    name = models.CharField(max_length=255, blank=True, null=True)
+    name = models.CharField(max_length=255, null=True)
     description = models.CharField(max_length=500, blank=True, null=True)
 
     def __str__(self):
         return self.name
 
 class Cancellation_Policy(models.Model):
-    title = models.IntegerField()
+    name = models.CharField(max_length=50)
     days_to_cancel = models.IntegerField()
     percent_refunded = models.IntegerField()
     deposit_refunded = models.NullBooleanField(default=False)
+
+    def __str__(self):
+        return self.name
 
 class Listing(models.Model):
     '''A venue listing posted by a user'''
