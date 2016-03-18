@@ -157,6 +157,8 @@ class Rental_Request(models.Model):
     start_time = models.TimeField(default='19:00')
     end_time = models.TimeField(default='19:00')
     user = models.ForeignKey(User)
+    canceled = models.NullBooleanField(default=False, blank=True, null=True)
+    canceled_by = models.CharField(max_length=20, blank=True, null=True)
     listing = models.ForeignKey('Listing')
     listing_date = models.ForeignKey('Listing_Date', blank=True, null=True)
     

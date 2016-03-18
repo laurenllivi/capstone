@@ -229,26 +229,45 @@ lf.save()
 
 # Cancellation Policy
 p = hmod.Cancellation_Policy()
-p.title = 'flexible'
+p.name = 'flexible'
 p.days_to_cancel = 2
 p.deposit_refunded = True
 p.percent_refunded = 100
 p.save()
 
 p = hmod.Cancellation_Policy()
-p.title = 'moderate'
+p.name = 'moderate'
 p.days_to_cancel = 7
 p.deposit_refunded = False
 p.percent_refunded = 100
 p.save()
 
 p = hmod.Cancellation_Policy()
-p.title = 'strict'
+p.name = 'strict'
 p.days_to_cancel = 14
 p.deposit_refunded = False
 p.percent_refunded = 80
 p.save()
 
+lp = hmod.Listing_Policy()
+lp.listing_id = 1
+lp.cancellation_policy_id = 2
+lp.save()
+
+lp2 = hmod.Listing_Policy()
+lp2.listing_id = 2
+lp2.cancellation_policy_id = 2
+lp2.save()
+
+lp3 = hmod.Listing_Policy()
+lp3.listing_id = 3
+lp3.cancellation_policy_id = 2
+lp3.save()
+
+lp4 = hmod.Listing_Policy()
+lp4.listing_id = 4
+lp4.cancellation_policy_id = 2
+lp4.save()
 
 ## add more here......
 

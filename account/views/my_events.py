@@ -61,6 +61,8 @@ def my_events__del_rental_request(request, rental_request_id):
     '''delete a venue request'''
     
     event_request = hmod.Rental_Request.objects.get(id=rental_request_id)
-    event_request.delete()
+    event_request.canceled = True
+    event_request.canceled_by = "Guest"
+    event_request.save()
     
     return HttpResponseRedirect('/account/my_events/')
