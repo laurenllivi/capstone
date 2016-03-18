@@ -23,14 +23,24 @@
           <div>Requested For: {{event.listing_date.date}} {{event.start_time}} to {{event.end_time}}</div>
       </div>
       
-      {%if approved%}
+      {%if approved and not canceled%}
               <div class="request-options">
                   <a data-toggle="modal" data-target="#paymentHelp"><i class="fa fa-question-circle fa-lg" style="cursor: pointer"></i></a>              
                  <a href="/payment/cc_info/{{ event.id }}"><input type="submit" class="small" name="payNow{{event.id}}" value="Pay Now"></a>
                  <a data-toggle="modal" data-target="#cancelReservation{{ event.id }}"><input type="submit" class="small warning-btn" value="Cancel Reservation"/></a>   
                  <a href="/django_messages/compose/{{ event.listing.user.id }}/{{ event.listing.id }}" class="button small alt">Message {{ event.listing.user.first_name }}</a>
              </div>
-
+      {%elif canceled%}
+        <div>Canceled By:
+            {%if event.canceled_by == "Guest" %}
+                Me
+            {%else%}
+                {{event.user.first_name}}
+            {% endif %}
+        </div>
+        <div class="request-options">
+            <a href="/django_messages/compose/{{ event.listing.user.id }}/{{ event.listing.id }}" class="button small alt">Message {{ event.listing.user.first_name }}</a>
+        </div>
       {%else%}
            <div class="request-options">
                <a class="delete-request-modal" data-toggle="modal" data-target="#cancelRequest{{ event.id }}"><input type="submit" class="small warning-btn" value="Cancel Request"/></a>

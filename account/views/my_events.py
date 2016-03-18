@@ -12,18 +12,19 @@ def my_events(request):
     user = request.user
     event_requests = hmod.Rental_Request.objects.filter(user=user)
     
-    approved_events = format_event_requests(request, event_requests, user, True)
-    pending_approval_events = format_event_requests(request, event_requests, user, False)
+    approved_events = format_event_requests(request, event_requests, user, True, False)
+    pending_approval_events = format_event_requests(request, event_requests, user, False, False)
+    canceled_requests = format_event_requests(request, event_requests, user, True, True)
         
     context = {
         'user': user,
         'approvedhtml': approved_events.content,
         'pendinghtml': pending_approval_events.content,
-        
+        'canceledhtml': canceled_requests.content,
     }
     return render_to_response('account/my_events.html', context, RequestContext(request))
     
-def format_event_requests(request, event_requests, user, approved):
+def format_event_requests(request, event_requests, user, approved, canceled):
 
     venue_pics_dict = {}
     event_list = []
@@ -39,11 +40,12 @@ def format_event_requests(request, event_requests, user, approved):
         except hmod.Listing_Photo.DoesNotExist:
             pass
 
-        if approved:
-            events = hmod.Rental_Request.objects.filter(user=user, approved=True)
-            
+        if approved and not canceled:
+            events = hmod.Rental_Request.objects.filter(user=user, approved=True).exclude(canceled=True)
+        elif canceled:
+            events = hmod.Rental_Request.objects.filter(user=user, approved=True, canceled=True)
         else:
-            events = hmod.Rental_Request.objects.filter(user=user).exclude(approved=True)
+            events = hmod.Rental_Request.objects.filter(user=user).exclude(approved=True).exclude(canceled=True)
 
         for e in events:
             event_list.append(e)
@@ -53,6 +55,7 @@ def format_event_requests(request, event_requests, user, approved):
         'event_list': event_list,
         'venue_pics_dict': venue_pics_dict,
         'approved': approved,
+        'canceled': canceled,
     }
 
     return render_to_response('account/event_list.html', context, RequestContext(request))

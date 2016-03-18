@@ -28,6 +28,7 @@
                             <ul class="tabs" data-persist="true">
                                 <li><a id="view1-link" class="tab-link" href="#view1">Approved</a></li>
                                 <li><a id="view2-link" class="tab-link" href="#view2">Pending Approval</a></li>
+                                <li><a id="view3-link" class="tab-link" href="#view3">Canceled</a></li>
                             </ul>
                                 <div class="tabcontents-nosideborders-custom">
                                     <br>
@@ -36,6 +37,9 @@
                                     </div>
                                     <div class="tab" id="view2">
                                       {{ pendinghtml|safe }}
+                                    </div>
+                                    <div class="tab" id="view3">
+                                      {{ canceledhtml|safe }}
                                     </div>
                                 </div>
                         </div>

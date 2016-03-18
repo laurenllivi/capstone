@@ -12,17 +12,19 @@ def venue_requests(request):
     user = request.user
     listings = hmod.Listing.objects.filter(user_id=user.id)
 
-    all_requests = format_ven_requests(request, listings, user, False)
-    approved_requests = format_ven_requests(request, listings, user, True)
+    all_requests = format_ven_requests(request, listings, user, False, False)
+    approved_requests = format_ven_requests(request, listings, user, True, False)
+    cancelled_requests = format_ven_requests(request, listings, user, True, True)
 
     context = {
         'pendinghtml': all_requests.content,
         'approvedhtml': approved_requests.content,
+        'canceledhtml': cancelled_requests.content,
     }
 
     return render_to_response('account/venue_requests.html', context, RequestContext(request))
 
-def format_ven_requests(request, listings, user, approved):
+def format_ven_requests(request, listings, user, approved, canceled):
 
     venue_pics_dict = {}
     request_list = []
@@ -37,10 +39,15 @@ def format_ven_requests(request, listings, user, approved):
         except hmod.Listing_Photo.DoesNotExist:
             pass
 
-        if approved:
-            requests = hmod.Rental_Request.objects.filter(listing_id=listing.id).filter(approved=True)
+        if approved and not canceled:
+            requests = hmod.Rental_Request.objects.filter(listing_id=listing.id).filter(approved=True).exclude(canceled=True)
+        elif canceled:
+            requests = hmod.Rental_Request.objects.filter(listing_id=listing.id).filter(canceled=True)
         else:
-            requests = hmod.Rental_Request.objects.filter(listing_id=listing.id).exclude(approved=True)
+            requests = hmod.Rental_Request.objects\
+                .filter(listing_id=listing.id)\
+                .exclude(approved=True)\
+                .exclude(canceled=True)
 
         for i in requests:
             request_list.append(i)
@@ -64,11 +71,13 @@ def format_ven_requests(request, listings, user, approved):
             user_id = re.search('messageUser(\d+)', request_string).group(1)
             print(user_id)
 
+
     context = {
         'user': user,
         'request_list': request_list,
         'venue_pics_dict': venue_pics_dict,
         'approved': approved,
+        'canceled': canceled,
     }
 
     return render_to_response('account/request_list.html', context, RequestContext(request))

@@ -31,11 +31,25 @@
         </div>
 
 
-     {%if approved%}
+     {%if approved and not canceled%}
         <form method="POST">
             {% csrf_token %}
              <div class="request-options">
                 <input type="submit" class="small warning-btn" name="cancelRequest{{r.id}}" value="Cancel Reservation">
+            </div>
+        </form>
+     {%elif canceled%}
+        <span>Canceled By:
+        {%if r.canceled_by == "Owner" %}
+            Me
+        {%else%}
+            {{r.user.first_name}}
+        {% endif %}
+            </span>
+        <form method="POST">
+            {% csrf_token %}
+             <div class="request-options">
+                <a href="/django_messages/compose/{{ r.user.id }}/{{ r.listing.id }}" class="button small alt">Message {{ r.user.first_name }}</a>
             </div>
         </form>
      {%else%}

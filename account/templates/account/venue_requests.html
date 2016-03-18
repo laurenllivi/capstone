@@ -24,6 +24,7 @@
                             <ul class="tabs" data-persist="true">
                                     <li><a id="view1-link" class="tab-link" href="#view1">New Requests</a></li>
                                     <li><a id="view2-link" class="tab-link" href="#view2">Approved Rentals</a></li>
+                                    <li><a id="view3-link" class="tab-link" href="#view3">Cancelled Rentals</a></li>
                                 </ul>
                                     <div class="tabcontents">
                                         <div class="tab" id="view1">
@@ -32,7 +33,9 @@
                                         <div class="tab" id="view2">
                                             {{ approvedhtml|safe }}
                                         </div>
-
+                                        <div class="tab" id="view3">
+                                            {{ canceledhtml|safe }}
+                                        </div>
                                     </div>
                         </div>
                     </div>
