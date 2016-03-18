@@ -57,7 +57,7 @@ def format_event_requests(request, event_requests, user, approved):
 
     return render_to_response('account/event_list.html', context, RequestContext(request))
     
-def my_events__del_rental_request(rental_request_id):
+def my_events__del_rental_request(request, rental_request_id):
     '''delete a venue request'''
     
     event_request = hmod.Rental_Request.objects.get(id=rental_request_id)

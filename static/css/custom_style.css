@@ -923,8 +923,7 @@ hr.hr-border{
 
 .profile-left-side-menu{
     position: absolute;
-    min-width: 25%;
-    min-height: 100%;
+    max-width: 25%;
 }
 
 .profile-left-side-menu ul > li{
@@ -949,8 +948,8 @@ hr.hr-border{
 
 .profile-right-side-content{
     position:relative;
-    min-height: 100%;
-    left: 25%;
+    min-height: 460px;
+    left: 27%;
     width: 75%;
     border: 1px solid #C6C6C6;
 }
