@@ -1022,6 +1022,13 @@ hr.hr-border{
     right: 5px;
 }
 
+.main_venue_photo-med{
+    background-color: grey;
+    position: relative;
+    width: 300px;
+    height: 200px;   
+}
+
 /*************** Reservation Requests **********************************/
 .venue-request-wrapper .venue-image, .venue-request-wrapper .request-details
 {
@@ -1297,6 +1304,25 @@ hr.hr-border{
 
 .post-venue-features input[type="checkbox"] + label{
     cursor: default;
+    
+}
+
+/************* CCinfo page ***********************/
+
+.venue-details-container{
+    padding-left: 15px;
+    display: inline-block;
+    
+}
+
+.review-reservation-details-div{
+    
+    width: 100%;
+    display: inline-block;
+}
+
+.venue-image-review-reservation{
+    
     
 }
 

@@ -15,8 +15,8 @@ def post_venue(request, listing_id):
     image_count = hmod.Listing_Photo.objects.filter(listing_id=listing_id).count()
     available_dates = hmod.Listing_Date.objects.filter(listing_id=listing.id)
     features = hmod.Listing_Feature.objects.filter(listing_id=listing.id)
-    print(">>>>>>>>>>>>>>>>>>>>>>")
-    print(features)
+    listing_policy = hmod.Listing_Policy.objects.get(listing_id=listing.id)
+    cancellation_policy = hmod.Cancellation_Policy.objects.get(id=listing_policy.cancellation_policy.id)
     
     # if the list of available dates is empty
     if not available_dates:
@@ -43,6 +43,7 @@ def post_venue(request, listing_id):
         'images': images,
         'image_count': image_count,
         'features': features,
+        'cancellation_policy': cancellation_policy,
     }
 
     return render_to_response('venue/post_venue.html', context, RequestContext(request))

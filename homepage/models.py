@@ -171,12 +171,9 @@ class Rental_Request(models.Model):
         duration = datetime.datetime.combine(dummydate,self.end_time) - datetime.datetime.combine(dummydate,self.start_time)
         total_seconds = duration.total_seconds()
         hours = total_seconds / 60 / 60
-        hours = decimal.Decimal(float(hours))
+        hours = decimal.Decimal(hours)
         return hours
-        
-        
-        return self.end_time - self.start_time
-    
+            
 class Transaction(models.Model):
     date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)

@@ -10,7 +10,7 @@
 <section id="main" class="wrapper">
     <div class="container">
     
-        <h4>Please enter your payment information.</h4>
+        <h3>Please enter your payment information.</h3>
         <form id="payment-form" action="." method="post">
             {% csrf_token %}
             <table class="table">
@@ -34,14 +34,60 @@
                 {% for err in form.non_field_errors %}
                     <p class="label label-danger">{{ err }}</p>
                 {% endfor %}
+                
+                {% if error %}
+                    Need to remove this for production
+                {% endif %}<br>
+                {{ error }}
             </div>
-            <input id="payment-submit" type="submit" value="Review Order" class="button small pull-right"/>
-            <br><br>
-            <h5 class="pull-right">You'll be able to review this order before your card is charged.</h5>
+        
+        <hr class="hr-border">
+        
+        <h3>Review your reservation information.</h3>
+        
+        <div class="review-reservation-details-div">
+            <!-- venue image -->
+            <div class="venue-image-review-reservation"> 
+              <img class="main_venue_photo-med pull-left" src="/static/images/venue-images/{{ listing.id }}/{{ venue_pic.image_name }}"/>  
+            </div>
+        
+            <div class="venue-details-container">
+                <h4>{{ listing.title }}</h4>
+                
+                <table>
+                    <tr>
+                        <td>Reservation Date: </td>
+                        <td>{{ listing_date.date }}</td>
+                    </tr>
+                    <tr>
+                        <td>Reservation Time: </td>
+                        <td>{{ rental_request.start_time }} - {{ rental_request.end_time }}</td>
+                    </tr>
+                    <tr>
+                        <td>Price: </td>
+                        <td>${{ fee_in_dollars }}&nbsp
+                            {% if weekend %}
+                                (${{ listing.price_per_hour_weekend }} per hour)
+                            {% else %}
+                                (${{ listing.price_per_hour }} per hour)
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
             
+            </div><!-- venue details-->
+        </div><!-- review-reservation-details-div -->
+        
+        <hr class="hr-border">
+        
+        <input id="payment-submit" type="submit" value="Pay Now" class="button small pull-right"/>
+        <br>
+        <br>
+        <h5 class="pull-right">Your card will be charged and your reservation will be subject to the owner's cancellation policy.</h5> 
+        
         </form>
         
-        <form id="order-form" action="" method="post">{% csrf_token %}</form>
+        <form id="order-form" action="" method="post">{% csrf_token %}</form>           
             
     </div><!-- container-->
 </section>
