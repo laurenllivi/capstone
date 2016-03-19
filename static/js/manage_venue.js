@@ -3,7 +3,7 @@ var selectedTab = 1;
 $(document).ready(function(){
 
      setTimeout(function(){
-         tab = document.getElementById("view"+selectedTab+"-link");
+        tab = document.getElementById("view"+selectedTab+"-link");
          tab.click();
 
          var x = $(".field_error")
@@ -27,7 +27,10 @@ $(document).ready(function(){
              $(this).find('.hide-x-until-hover').css('visibility', 'hidden') 
          });//mouseenter 
      });
-     
+
+
+
+
 }); //ready
 
 function nextTab() {

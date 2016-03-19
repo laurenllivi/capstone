@@ -48,10 +48,10 @@
                     <li><a id="view1-link" class="tab-link" href="#view1">General</a></li>
                     <li><a id="view2-link" class="tab-link" href="#view2">Features</a></li>
                     <li><a id="view3-link" class="tab-link" href="#view3">Location</a></li>
-                    <li><a id="view5-link" class="tab-link" href="#view4">Pricing</a></li>
-                    <li><a id="view7-link" class="tab-link" href="#view7">Cancellations</a></li>
-                    <li><a id="view6-link" class="tab-link" href="#view5" onclick="viewVenueCalendar({{ listing.id }});">Availability</a></li>
-                    <li><a id="view4-link" class="tab-link" href="#view6">Photos</a></li>
+                    <li><a id="view4-link" class="tab-link" href="#view4">Pricing</a></li>
+                    <li><a id="view5-link" class="tab-link" href="#view5">Cancellations</a></li>
+                    <li><a id="view6-link" class="tab-link" href="#view6" onclick="viewVenueCalendar({{ listing.id }});">Availability</a></li>
+                    <li><a id="view7-link" class="tab-link" href="#view7">Photos</a></li>
                 </ul>
                     <div class="tabcontents">
                         <div class="tab" id="view1">
@@ -176,47 +176,10 @@
                             <br/>
                             Funds will be transferred to the venue owner after the event.
                         </div><!-- view 4 -->
-                        
-                        <div class="tab" id="view5" style="text-align: center">
+
+
+                        <div class="tab" id="view5">
                             <button class="next-tab-button" onclick="nextTab()">Next <i class="fa fa-arrow-right"></i></button>
-                            <div id="custom-jquery-calendar">
-                                <div id="main-calendar"></div>
-                            </div><!-- custom-jquery-calendar -->
-                             {{ calendarForm.saved_dates.as_hidden }}
-                             {{ calendarForm.dates_available.as_hidden }}
-                             
-                             <br>
-                             <input type="submit" class="small" name="calendarForm" value="Update Dates">
-                        </div><!-- view5 -->
-
-
-                        <div class="tab" id="view6">
-                            <div {% if form.image_title.errors %}class="field_error"{% endif %}>
-                                 <strong>Image Title</strong>
-                                {{ imageForm.image_title }}
-                            </div>
-                            {{form.image.errors}}
-                            {{ imageForm.image }}
-                            <br><br>
-                            <input type="submit" class="small" name="imagesForm" value="Upload Photo">
-                            
-                            <br><br>
-                            
-                            {% if images %}
-                                <ul>
-                                {% for image in images %}
-                                    <div class="ven-img-thumbnail-manage hover-delete">
-                                        <a href="/venue/manage_venue__del_img/{{ listing.id }}/{{ image.id }}" style="color: #272727;" class="delete-venue-image"><i class="fa fa-times fa-2x hide-x-until-hover"></i></a>
-                                        <img src='{% static "images/venue-images/" %}{{ listing.id }}/{{image.image_name}}' alt="" />
-                                    </div>
-                                {% endfor %}
-                                </ul>
-                            {% else %}
-                                    <p>You must add at least one photo</p>
-                            {% endif %}
-                        </div><!-- view 6 -->
-
-                        <div class="tab" id="view7">
                             <ul class="tabs policy-tabs" data-persist="true">
                                 {% for policy in policies %}
                                     <li><a id="policy{{ forloop.counter }}-link" class="tab-link" href="#policy{{ forloop.counter }}">{{ policy.name|capfirst }}</a></li>
@@ -247,7 +210,48 @@
                                     <label for="{{value}}-select">{{ value|capfirst }}</label>
                                 {% endfor %}
                             </div>
-                        </div>
+                        </div><!-- view 5 -->
+
+                        <div class="tab" id="view6" style="text-align: center">
+                            <button class="next-tab-button" onclick="nextTab()">Next <i class="fa fa-arrow-right"></i></button>
+                            <div id="custom-jquery-calendar">
+                                <div id="main-calendar"></div>
+                            </div><!-- custom-jquery-calendar -->
+                             {{ calendarForm.saved_dates.as_hidden }}
+                             {{ calendarForm.dates_available.as_hidden }}
+                             
+                             <br>
+                             <input type="submit" class="small" name="calendarForm" value="Update Dates">
+                        </div><!-- view6 -->
+
+
+                        <div class="tab" id="view7">
+                            <div {% if form.image_title.errors %}class="field_error"{% endif %}>
+                                 <strong>Image Title</strong>
+                                {{ imageForm.image_title }}
+                            </div>
+                            {{form.image.errors}}
+                            {{ imageForm.image }}
+                            <br><br>
+                            <input type="submit" class="small" name="imagesForm" value="Upload Photo">
+                            
+                            <br><br>
+                            
+                            {% if images %}
+                                <ul>
+                                {% for image in images %}
+                                    <div class="ven-img-thumbnail-manage hover-delete">
+                                        <a href="/venue/manage_venue__del_img/{{ listing.id }}/{{ image.id }}" style="color: #272727;" class="delete-venue-image"><i class="fa fa-times fa-2x hide-x-until-hover"></i></a>
+                                        <img src='{% static "images/venue-images/" %}{{ listing.id }}/{{image.image_name}}' alt="" />
+                                    </div>
+                                {% endfor %}
+                                </ul>
+                            {% else %}
+                                    <p>You must add at least one photo</p>
+                            {% endif %}
+                        </div><!-- view 7 -->
+
+
 
                     </div>
                 <br>
