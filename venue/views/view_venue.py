@@ -10,11 +10,15 @@ def view_venue(request, listing_id):
     '''create new listing'''
 
     request_form = request_booking_form(request, listing_id)
+    policies = get_cancellation_policies(request)
 
     user = request.user
 
     listing = hmod.Listing.objects.get(id=listing_id)
     host = hmod.User.objects.get(id=listing.user_id)
+    listing_policy = hmod.Listing_Policy.objects.get(listing_id=listing.id)
+    cancellation_policy = hmod.Cancellation_Policy.objects.get(id=listing_policy.cancellation_policy_id)
+
     listing_features = hmod.Listing_Feature.objects.filter(listing_id=listing.id)
     features = []
     for feature in listing_features:
@@ -50,9 +54,20 @@ def view_venue(request, listing_id):
         'reviews': reviews,
         'range': range(10),  # 5 stars broken into 2 pieces each
         'average_rating': average_rating,
+        'cancellation_policy': cancellation_policy,
+        'policieshtml': policies.content,
     }
 
     return render_to_response('venue/view_venue.html', context, RequestContext(request))
+
+def get_cancellation_policies(request):
+    cancellation_policies = hmod.Cancellation_Policy.objects.all()
+
+    context = {
+        'policies': cancellation_policies
+    }
+
+    return render_to_response('partials/_cancellation_policy.html', context, RequestContext(request))
 
 def request_booking_form(request, listing_id):
 

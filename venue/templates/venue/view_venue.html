@@ -9,7 +9,10 @@
     <script src="{% static 'js/view_venue.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/jquery.form.js' %}"></script>
     <script src="{% static 'js/maplace.min.js' %}" type="text/javascript"></script>
-    <script src="{% static 'js/bootstrap-modal.js' %}"></script>  
+    <script src="{% static 'js/bootstrap-modal.js' %}"></script>
+
+    <script src="{% static 'js/tabcontent.js' %}" type="text/javascript"></script>
+    <link href="{% static 'css/tabcontent.css' %}" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" type="text/css" href="{% static 'jquery-horizontal-scrollbars/jquery.horizontal.scroll.css' %}" />
     <script src="{% static 'jquery-horizontal-scrollbars/jquery.horizontal.scroll.js' %}" type="text/javascript"></script>
@@ -36,7 +39,9 @@
             <div class="venue-title">{{listing.title}}</div>
             <div>{{listing.category|capfirst}} in {{listing.city}}, {{listing.state}}</div>
             <div class="venue-rating">
-                {{ average_rating }} stars
+                {% if average_rating > 0 %}
+                    {{ average_rating }} stars
+                {% endif %}
                 <a href="#reviews">Reviews</a>
             </div>
         </div>
@@ -60,13 +65,26 @@
 
         <div id="venue-highlights">
             <span class="highlight"><i class="fa fa-users"></i> Accomodates {{listing.num_guests}} guests</span>
-            <span class="highlight"><i class="fa fa-area-chart"></i> {{listing.sq_footage}}sq. feet</span>
-            
-            <a data-toggle="modal" data-target="#sqFtComparisons"><i class="fa fa-question-circle fa-lg" style="cursor: pointer"></i></a>
-            
+            <span class="highlight"><i class="fa fa-area-chart"></i>
+                {{listing.sq_footage}}sq. feet
+                <a data-toggle="modal" data-target="#sqFtComparisons"><i class="fa fa-question-circle fa-lg" style="cursor: pointer"></i></a>
+            </span>
+
+            <span class="highlight">
+                Cancellation Policy:
+                <a data-toggle="modal" data-target="#policies-modal">
+                    {{cancellation_policy.name|capfirst}}
+                </a>
+            </span>
+
+
             <!-- modal for square foot comparisons -->
             {% include 'partials/_sq_footage_comparisons.html' %}
-            
+
+            <div>
+                {{policieshtml|safe}}
+            </div>
+
         </div>
     </div>
 

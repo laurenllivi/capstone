@@ -240,7 +240,7 @@ def manage_venue(request, listing_id):
                 listing.price_per_hour_weekend = form.cleaned_data['price_per_hour_weekend']
                 listing.deposit = form.cleaned_data['deposit']
 
-                #save cancellation policy
+                #save cancelation policy
                 updated_policy = request.POST['policy-select']
                 if hmod.Listing_Policy.objects.filter(listing_id=listing.id).exists():
                     listing_policy = hmod.Listing_Policy.objects.filter(listing_id=listing.id)[0]

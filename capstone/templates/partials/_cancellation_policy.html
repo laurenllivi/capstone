@@ -1,0 +1,47 @@
+<!-- popup modal for cancellation policies-->
+<div class="modal fade view-venue-modal" id="policies-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="comparisons">Cancellation Policies</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="tabs policy-tabs" data-persist="true">
+                    {% for policy in policies %}
+                        <li><a id="policy{{ forloop.counter }}-link" class="tab-link" href="#policy{{ forloop.counter }}">{{ policy.name|capfirst }}</a></li>
+                    {% endfor %}
+                </ul>
+
+                {% for policy in policies %}
+                    <div class="tab policy-tab" id="policy{{ forloop.counter }}">
+                        The guest will receive a(n) {{ policy.percent_refunded }}% refund if they cancel {{ policy.days_to_cancel }} days prior to the event. (Excluding Fees)
+                        <br/>
+                        The deposit will {% if policy.deposit_refunded == False %} NOT {% endif %} be refunded.
+                    </div>
+                {% endfor %}
+
+                <ul class="cancellation-rules-list">
+                    <li>The Purlieu service fee is non-refundable.</li>
+                    <li>Purlieu has the final say in all disputes and will mediate when necessary.</li>
+                    <li>Complaints from either party must be received by Purlieu 48 hours before the event to be considered for a refund exception.</li>
+                    <li>Refunds will be issued automatically according to the owner's Cancellation Policy</li>
+                    <li>A reservation has been officially canceled when the renter selects the "Cancel Reservation" button and confirms the cancellation.</li>
+                    <li>Applicable taxes will be retained and remitted.</li>
+                </ul>
+
+                <div class="policy-options">
+                    {% for key, value in form.cancellation_policy.field.choices %}
+                        <input type="radio" id="{{value}}-select" name="policy-select" value="{{forloop.counter}}"
+                            {% if key == cancellation_policy.cancellation_policy_id %} checked {% endif %}>
+                        <label for="{{value}}-select">{{ value|capfirst }}</label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="button small" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+

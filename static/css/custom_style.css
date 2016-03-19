@@ -790,6 +790,7 @@ hr.hr-border{
 .highlight
 {
     padding-left:5%;
+    white-space: nowrap;
 }
 
 #venue-details-container
