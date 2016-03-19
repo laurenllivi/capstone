@@ -27,11 +27,16 @@ def view_venue(request, listing_id):
     
     # get the reviews for this venue
     reviews = hmod.Review.objects.filter(listing_id=listing_id)
-    average_rating = reviews[0].rating
-    for review in reviews:
-        review.user = hmod.User.objects.get(id=review.user_id)
-        review.starcount = round(int(review.rating * 2)) - 1  #minus one for the 0 index
-        average_rating = (average_rating + review.rating)/2
+    average_rating = 0
+    if reviews:
+        average_rating = reviews[0].rating
+
+        for review in reviews:
+            review.user = hmod.User.objects.get(id=review.user_id)
+            review.starcount = round(int(review.rating * 2)) - 1  #minus one for the 0 index
+            average_rating = (average_rating + review.rating)/2
+    else:
+        average_rating = 0
 
     # the equivalent of template_vars in DMP
     context = {

@@ -47,6 +47,7 @@ def format_ven_requests(request, listings, user, approved, canceled):
             requests = hmod.Rental_Request.objects\
                 .filter(listing_id=listing.id)\
                 .exclude(approved=True)\
+                .exclude(approved=False)\
                 .exclude(canceled=True)
 
         for i in requests:

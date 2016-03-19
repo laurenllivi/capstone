@@ -40,15 +40,15 @@ def format_event_requests(request, event_requests, user, approved, canceled):
         except hmod.Listing_Photo.DoesNotExist:
             pass
 
-        if approved and not canceled:
-            events = hmod.Rental_Request.objects.filter(user=user, approved=True).exclude(canceled=True)
-        elif canceled:
-            events = hmod.Rental_Request.objects.filter(user=user, approved=True, canceled=True)
-        else:
-            events = hmod.Rental_Request.objects.filter(user=user).exclude(approved=True).exclude(canceled=True)
+    if approved and not canceled:
+        events = hmod.Rental_Request.objects.filter(user=user).filter(approved=True).exclude(canceled=True)
+    elif canceled:
+        events = hmod.Rental_Request.objects.filter(user=user).filter(approved=True).filter(canceled=True)
+    else:
+        events = hmod.Rental_Request.objects.filter(user=user).exclude(approved=True).exclude(canceled=True)
 
-        for e in events:
-            event_list.append(e)
+    for e in events:
+        event_list.append(e)
 
     context = {
         'user': user,
