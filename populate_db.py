@@ -13,6 +13,7 @@ from django.conf import settings
 from homepage import models as hmod
 from django_messages import models as mmod
 import datetime
+from datetime import timedelta
 from django.contrib.gis.geos import Point
 import geocoder
 
@@ -84,6 +85,35 @@ l.currently_listed = True
 l.user = u
 l.save()
 
+ld = hmod.Listing_Date()
+ld.date = datetime.datetime.now()
+ld.listing = l
+ld.save()
+
+ld2 = hmod.Listing_Date()
+ld.date = datetime.datetime.now() + timedelta(days=1)
+ld.listing = l
+ld.save()
+
+rr = hmod.Rental_Request()
+rr.approved = False
+rr.start_time = '17:00:00'
+rr.end_time = '19:00:00'
+rr.user = u
+rr.listing = l
+rr.listing_date = ld
+rr.save()
+
+rr3 = hmod.Rental_Request()
+rr3.approved = True
+rr3.start_time = '13:00:00'
+rr3.end_time = '15:00:00'
+rr3.user = u
+rr3.listing = l
+rr3.listing_date = ld2
+rr3.full_amount_paid = False
+rr3.save()
+
 l2 = hmod.Listing()
 l2.title = "Beautiful, green backyard with fountains and pool"
 l2.category = "Backyard"
@@ -109,6 +139,36 @@ l2.geolocation = Point(float(g2.lat), float(g2.lng))
 l2.currently_listed = True
 l2.user = u2
 l2.save()
+
+ld3 = hmod.Listing_Date()
+ld3.date = datetime.datetime.now()
+ld3.listing = l2
+ld3.save()
+
+ld4 = hmod.Listing_Date()
+ld4.date = datetime.datetime.now() + timedelta(days=2)
+ld4.listing = l2
+ld4.save()
+
+rr2 = hmod.Rental_Request()
+rr2.approved = True
+rr2.start_time = '18:00:00'
+rr2.end_time = '20:00:00'
+rr2.user = u
+rr2.listing = l2
+rr2.listing_date = ld3
+rr.full_amount_paid = True
+rr2.save()
+
+rr4 = hmod.Rental_Request()
+rr4.approved = True
+rr4.start_time = '18:00:00'
+rr4.end_time = '20:00:00'
+rr4.user = u2
+rr4.listing = l2
+rr4.listing_date = ld4
+rr4.full_amount_paid = False
+rr4.save()
 
 l3 = hmod.Listing()
 l3.title = "Large home pool"
@@ -226,7 +286,6 @@ lf.listing = l
 lf.feature = f
 lf.save()
 
-
 # Cancellation Policy
 p = hmod.Cancellation_Policy()
 p.name = 'flexible'
@@ -279,34 +338,6 @@ ao.quantity_available = 50
 ao.price_per = 10
 ao.listing = l2
 ao.save()
-
-# # Listing_Date
-# ld = hmod.Listing_Date()
-# #ld.start_date = datetime.datetime.today()
-# #ld.end_date = datetime.datetime.today()
-# #ld.status = True
-# ld.listing = l2
-# ld.save()
-
-# # Rental_Request
-# rr = hmod.Rental_Request()
-# rr.listing_date = ld
-# rr.notes = "Is this still available for this day?"
-# rr.approved = False
-# rr.user = u
-# rr.save()
-
-# # Transaction
-# t = hmod.Transaction()
-# t.date = datetime.datetime.today()
-# t.price = 150
-# t.paid = True
-# t.notes = "Paid through Paypal"
-# t.renter = u
-# t.owner = u2
-# t.listing = l2
-# t.rental_request = rr
-# t.save()
 
 # Message
 m = hmod.Message()
