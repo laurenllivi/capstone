@@ -24,9 +24,13 @@
       </div>
       
       {%if approved and not canceled%}
-              <div class="request-options">
-                  <a data-toggle="modal" data-target="#paymentHelp"><i class="fa fa-question-circle fa-lg" style="cursor: pointer"></i></a>              
-                 <a href="/payment/cc_info/{{ event.id }}"><input type="submit" class="small" name="payNow{{event.id}}" value="Pay Now"></a>
+              <div class="request-options">  
+                 {% if event.full_amount_paid %} 
+                     <span style="color: #4dac71"><i class="fa fa-check-circle-o fa-lg"></i> Paid&nbsp&nbsp</span>
+                 {% else %} 
+                     <a data-toggle="modal" data-target="#paymentHelp"><i class="fa fa-question-circle fa-lg" style="cursor: pointer"></i></a>          
+                     <a href="/payment/cc_info/{{ event.id }}"><input type="submit" class="small" name="payNow{{event.id}}" value="Pay Now"></a>
+                 {% endif %}
                  <a data-toggle="modal" data-target="#cancelReservation{{ event.id }}"><input type="submit" class="small warning-btn" value="Cancel Reservation"/></a>   
                  <a href="/django_messages/compose/{{ event.listing.user.id }}/{{ event.listing.id }}" class="button small alt">Message {{ event.listing.user.first_name }}</a>
              </div>

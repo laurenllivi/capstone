@@ -1,0 +1,37 @@
+<!-- the template for the reservation confirmation email -->
+
+<h3>Thank you for your event reservation, {{ user.first_name }}.</h3>
+Below are the details of your reservation.<br>
+
+<div style="width: 100%; display: inline-block">
+    <!-- venue image -->
+    <div class="venue-image-review-reservation"> 
+      <img class="main_venue_photo-med pull-left" src="/static/images/venue-images/{{ listing.id }}/{{ venue_pic.image_name }}"/>  
+    </div>
+
+    <div style="padding-left: 15px; display: inline-block;">
+        <h4>{{ listing.title }}</h4>
+        
+        <table>
+            <tr>
+                <td>Reservation Date: </td>
+                <td>{{ listing_date.date }}</td>
+            </tr>
+            <tr>
+                <td>Reservation Time: </td>
+                <td>{{ rental_request.start_time }} - {{ rental_request.end_time }}</td>
+            </tr>
+            <tr>
+                <td>Amount Paid: </td>
+                <td>${{ fee_in_dollars }}&nbsp
+                    {% if weekend %}
+                        (${{ listing.price_per_hour_weekend }} per hour)
+                    {% else %}
+                        (${{ listing.price_per_hour }} per hour)
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    
+    </div><!-- venue details-->
+</div><!-- review-reservation-details-div -->

@@ -7,9 +7,15 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 import datetime
+from django.core.mail import send_mail
 from time import time
 import decimal
 import stripe
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from email.mime.image import MIMEImage
+import os
 
 @login_required
 def cc_info(request, rental_request_id):
@@ -60,6 +66,33 @@ def cc_info(request, rental_request_id):
     if request.method == "POST":
         try:
             stripe_customer = user.charge(request, user.email, fee)
+            
+            # mark the rental request as paid
+            # STILL NEED TO ACCOUNT FOR DEPOSITS
+            rental_request.full_amount_paid = True
+            rental_request.save()
+            
+            # send a confirmation email
+            subject, from_email, to = 'Thank you for your reservation', settings.EMAIL_HOST_USER, user.email
+
+            html_content = render_to_string('payment/reservation_confirmation.html', {'user':user,\
+                    'venue_pic': venue_pic, 'listing': listing, 'rental_request': rental_request,\
+                     'listing_date': listing_date, 'fee_in_dollars': fee_in_dollars})
+            text_content = strip_tags(html_content) # this strips the html, so people will have the text as well.
+
+            # create the email, and attach the HTML version as well.
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg.mixed_subtype = 'related'
+            msg.attach_alternative(html_content, "text/html")
+            
+            # fp = open('/static/images/venue-images/' + str(listing.id) + "/" + str(venue_pic.image_name), 'rb')
+            # msgImage = MIMEImage(fp.read())
+            # fp.close()
+            # msgImage.add_header('Content-ID', '<image1>')
+            # msg.attach(msgImage)
+                 
+            msg.send()
+            
             # redirect to the success page
             return HttpResponseRedirect('/payment/success/%s/' % rental_request.id)
             
