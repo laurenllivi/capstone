@@ -3,8 +3,10 @@ from django.shortcuts import render
 from django import forms
 from homepage import models as hmod
 from uuid import *
-from django.core.mail import send_mail
 from django.utils import timezone
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 import datetime
 from capstone import settings as settings
 
@@ -29,13 +31,19 @@ def forgot_password(request):
             user.save()
             
             url = "localhost:8000/account/reset_password/?string=" + str(recovery_string.rand_string)
-        
-            subject = "Forgotten Password"
-            message = "Please click the link below to be taken to a reset password page.\n\n" + url
-            from_email = settings.EMAIL_HOST_USER
-            to_list = [ email ]
+            
+            # send an email with reset link
+            subject, from_email, to = 'Reset Your Password', settings.EMAIL_HOST_USER, email
 
-            send_mail(subject, message, from_email, to_list, fail_silently=False)
+            html_content = render_to_string('account/forgotPWTemplate.html', {'user':user, 'url': url})
+            text_content = strip_tags(html_content) # this strips the html, so people will have the text as well.
+
+            # create the email, and attach the HTML version as well.
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg.mixed_subtype = 'related'
+            msg.attach_alternative(html_content, "text/html")
+                 
+            msg.send()
             
             #return HttpResponseRedirect('/account/reset_confirmation')
             return HttpResponseRedirect("/account/reset_confirmation/?type=%s" %('sent'))

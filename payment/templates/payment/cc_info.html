@@ -64,12 +64,20 @@
                         <td>{{ rental_request.start_time }} - {{ rental_request.end_time }}</td>
                     </tr>
                     <tr>
+                        <td>Deposit: </td>
+                        <td>
+                        {% if listing.deposit %}
+                            $
+                        {% endif %}
+                        {{ listing.deposit }}</td>
+                    </tr>
+                    <tr>
                         <td>Price: </td>
-                        <td>${{ fee_in_dollars }}&nbsp
+                        <td>$ {{ fee_in_dollars }}&nbsp
                             {% if weekend %}
-                                (${{ listing.price_per_hour_weekend }} per hour)
+                                ($ {{ listing.price_per_hour_weekend }} per hour)
                             {% else %}
-                                (${{ listing.price_per_hour }} per hour)
+                                ($ {{ listing.price_per_hour }} per hour)
                             {% endif %}
                         </td>
                     </tr>
