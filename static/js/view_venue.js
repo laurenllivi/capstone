@@ -1,6 +1,7 @@
 var imageCount = 0;
 var listingDates = [];
 var pricePerHour = 0;
+var pricePerHourWeekend = 0;
 var depositAmount = 0;
 
 window.addEventListener('resize', function(event){
@@ -96,22 +97,36 @@ function setAvailableDates(listing_dates)
     listingDates = listing_dates;
 }
 
-function setVariables(price_per_hour, deposit)
+function setVariables(price_per_hour, price_per_hour_wkend, deposit)
 {
     pricePerHour = price_per_hour;
+    pricePerHourWeekend = price_per_hour_wkend;
     depositAmount = deposit;
 }
 
 function changeTotal()
 {
     var eventDate = document.getElementById('event-date').value;
+    var dateString = new Date(eventDate).toDateString("MM/dd/yy");
+    var msec = Date.parse(dateString);
+    var dateObject = new Date(msec);
+    var dayOfWeek = dateObject.getDay();
+
     var startTime = document.getElementById('start-time').value;
     var endTime = document.getElementById('end-time').value;
     var timeDifference = parseTime(endTime) - parseTime(startTime);
     var totalHours = timeDifference/60;
     var totalHourPrice = totalHours * pricePerHour;
-    var totalPrice = depositAmount + totalHourPrice;
-    var serviceFee = totalPrice * .05;
+
+    //if Sunday, Friday or Saturday use weekend price
+    if (dayOfWeek == 0 || dayOfWeek == 5 || dayOfWeek == 6)
+    {
+        totalHourPrice = totalHours * pricePerHourWeekend;
+    }
+
+    var subTotal = depositAmount + totalHourPrice;
+    var serviceFee = subTotal * .05;
+    var totalPrice = subTotal + serviceFee;
 
     if (isNaN(totalHours) || endTime < startTime)
     {
@@ -124,9 +139,9 @@ function changeTotal()
     else
     {
         document.getElementById('total-hours').innerHTML = totalHours;
-        document.getElementById('hours-price').innerHTML = '$' + totalHourPrice;
-        document.getElementById('total-price').innerHTML = '$' + totalPrice;
-        document.getElementById('service-fee').innerHTML = '$' + serviceFee;
+        document.getElementById('hours-price').innerHTML = '$' + totalHourPrice.toFixed(2);
+        document.getElementById('service-fee').innerHTML = '$' + serviceFee.toFixed(2);
+        document.getElementById('total-price').innerHTML = '$' + totalPrice.toFixed(2);
     }
 
 }
