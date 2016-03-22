@@ -293,7 +293,7 @@ input[type="submit"].warning-btn:hover
     .dropdown-content {
         text-align: center;
         width: 200px;
-        right: 1px;
+        right: -1em;
         display: none;
         position: absolute;
         background-color: #fff;
@@ -305,6 +305,12 @@ input[type="submit"].warning-btn:hover
         text-decoration: none;
         display: block;
         color: #4dac71 !important;
+        width: 100%;
+    }
+
+    .dropdown-content a:hover
+    {
+        background-color:#E4E4E4;
     }
 
     /* Show the dropdown menu on hover */
