@@ -54,13 +54,13 @@ class New_User_Form(forms.Form):
     def clean(self):
         password1 = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('password2')
-    
+
         try:
-            hmod.User.objects.get(username = self.cleaned_data['username'])
+            hmod.User.objects.get(username = self.cleaned_data.get('username'))
             raise forms.ValidationError("That username is already taken. Please choose another.")
         except hmod.User.DoesNotExist:
             pass
-        # then check to make sure the new password fields match    
+        # then check to make sure the new password fields match
         if password1 != password2:
             raise forms.ValidationError('The passwords do not match')
         return self.cleaned_data
