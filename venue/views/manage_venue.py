@@ -35,8 +35,10 @@ def manage_venue(request, listing_id):
         imageForm = NewImageForm()
         calendarForm = CalendarForm()
         dates_list_string = ""
+        dates_available = ""
         listing = None
         newImage = None
+        cancellation_policy = hmod.Listing_Policy.objects.filter()[0]
         
     # it's an existing venue . . .    
     else:
@@ -214,6 +216,7 @@ def manage_venue(request, listing_id):
                 listing.num_guests = form.cleaned_data['num_guests']
                 listing.description = form.cleaned_data['description']
                 listing.parking_desc = form.cleaned_data['parking_desc']
+                listing.save()
 
                 #save listing features
                 all_features = hmod.Feature.objects.all()
@@ -246,6 +249,7 @@ def manage_venue(request, listing_id):
                     listing_policy = hmod.Listing_Policy.objects.filter(listing_id=listing.id)[0]
                 else:
                     listing_policy = hmod.Listing_Policy()
+                    listing_policy.listing_id = listing.id
                 listing_policy.cancellation_policy_id = updated_policy
                 listing_policy.save()
 
@@ -368,7 +372,6 @@ class NewVenueForm(forms.Form):
         ]
     )
     deposit = forms.DecimalField(
-        required=False,
         max_digits=6,
         decimal_places=0,
         validators=[
