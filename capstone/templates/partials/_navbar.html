@@ -10,6 +10,12 @@
             <li>
                 <a href="/account/my_venues/">
                     <i class="fa fa-bell"></i>
+                    {%if new_request_count > 0%}
+                        <span class="fa-stack">
+                            <i class="fa fa-certificate fa-stack-1x"></i>
+                            <span class="fa-stack-1x badge-text">{{new_request_count}}</span>
+                        </span>
+                    {% endif %}
                 </a>
             </li>
             <li>

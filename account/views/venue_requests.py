@@ -12,12 +12,12 @@ def venue_requests(request):
     user = request.user
     listings = hmod.Listing.objects.filter(user_id=user.id)
 
-    all_requests = format_ven_requests(request, listings, user, False, False)
+    new_requests = format_ven_requests(request, listings, user, False, False)
     approved_requests = format_ven_requests(request, listings, user, True, False)
     cancelled_requests = format_ven_requests(request, listings, user, True, True)
 
     context = {
-        'pendinghtml': all_requests.content,
+        'pendinghtml': new_requests.content,
         'approvedhtml': approved_requests.content,
         'canceledhtml': cancelled_requests.content,
     }
@@ -49,6 +49,9 @@ def format_ven_requests(request, listings, user, approved, canceled):
                 .exclude(approved=True)\
                 .exclude(approved=False)\
                 .exclude(canceled=True)
+            for listing_request in requests:
+                listing_request.viewed_by_owner = True
+                listing_request.save()
 
         for i in requests:
             request_list.append(i)

@@ -165,6 +165,7 @@ class Rental_Request(models.Model):
     listing_date = models.ForeignKey('Listing_Date', blank=True, null=True)
     full_amount_paid = models.NullBooleanField(blank=True, null=True, default=False)
     deposit_paid = models.NullBooleanField(blank=True, null=True, default=False)
+    viewed_by_owner = models.NullBooleanField(default=False, blank=True, null=True)
     
     def duration(self):
         '''gets the difference between the start and end times (in hours - decimal) - have to combine the times with 
