@@ -249,7 +249,7 @@ input[type="submit"].warning-btn:hover
         position: relative;
         right: -50%;
     }
-
+    
 /********************************* Navbar **************************************/
 
 #nav .fa-stack
@@ -260,17 +260,19 @@ input[type="submit"].warning-btn:hover
 
 #nav .fa-certificate
 {
-    color:#ffffff;
+	color:#ffffff;
     font-size:1.5em;
 }
 
 #nav .badge-text
 {
     color:green;
-    font-weight:400;
+	font-weight:400;
 }
 
 
+/* Navbar drop down */
+    
 /* Navbar drop down */
     
 
@@ -1149,12 +1151,12 @@ hr.hr-border{
 .messages-left-menu-container
 {
     width: 30%;
-    position: absolute;
-    height: calc(72% - 2em);
-    overflow: auto;
-    border-right: 1px solid #C6C6C6
+	position: absolute;
+	height: calc(72% - 2em);
+	overflow: auto;
+	border-right: 1px solid #C6C6C6
 }
-
+	
 
 .messages-rightdiv
 {
@@ -1175,13 +1177,14 @@ hr.hr-border{
 {
     top: 7em;
     left: 0;
-    width:100%;
+    width: 100%;
     padding-left:2em;
     padding-right: 2em;
     padding-top: 1em;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     display: inline-block;
+   
 }
 
 .delete-object{
@@ -1196,7 +1199,8 @@ hr.hr-border{
 }
 
 .message-list-preview{
-    top: 17em;
+    top: 17em; 
+    
 }
 
 .message-preview{
@@ -1345,11 +1349,6 @@ hr.hr-border{
     
     width: 100%;
     display: inline-block;
-}
-
-.venue-image-review-reservation{
-    
-    
 }
 
 .favorite-heart-filled{
