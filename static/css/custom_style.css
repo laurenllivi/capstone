@@ -1352,5 +1352,20 @@ hr.hr-border{
     
 }
 
+.favorite-heart-filled{
+    /* hide until the user clicks the favorite icon */
+    visibility: hidden;
+    color: #FF6666;
+    font-size: 30px;
+}
+
+.favorite-heart-infront{
+    z-index: 5;
+}
+
+.favorite-clicked{
+    visibility: visible;
+}
+
 
 

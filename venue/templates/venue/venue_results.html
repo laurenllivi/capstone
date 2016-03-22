@@ -52,9 +52,14 @@
                             <img class="venue-pic" src="/static/images/venue-images/{{ venue.id }}/{{ venue_pics_dict|get_item:venue.id }}"/>
                         </a>
                             <div class="price-label">${{ venue.price_per_hour }}</div>
-                            <div class="favorite-container">
-                                <i class="fa fa-heart-o fa-2x"></i>
-                            </div>
+                            <a style="cursor: pointer;" class="favorite-click" data-id="click-favorite-{{ venue.id }}">
+                                <div class="favorite-container">
+                                    <span class="fa-stack">
+                                        <i class="fa fa-heart-o fa-2x fa-stack-1x favorite-heart-infront" id="favorite-venue-{{ venue.id }}"></i>
+                                        <i class="fa fa-heart fa-2x favorite-heart-filled fa-stack-1x" id="favorite-venue-filled-{{ venue.id }}"></i>       
+                                    </span>
+                                </div>
+                            </a>
                         </a>
                     </div>
                 {% endfor %}
@@ -69,6 +74,13 @@
 
 <script>
     $body = $("body");
+    
+   // fill in the favorite icon when it is clicked
+   $(function(){
+       $('.favorite-click').click(function(){
+           $(this).find('.favorite-heart-filled').toggleClass('favorite-clicked')
+       })
+   });//function
 
     $(document).on({
         ajaxStart: function() { $body.addClass("loading");    },
