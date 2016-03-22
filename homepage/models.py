@@ -191,6 +191,7 @@ class Message(models.Model):
     time_stamp = models.DateTimeField(blank=True, null=True)
     subject = models.CharField(max_length=255, blank=True, null=True)
     body = models.CharField(max_length=255, blank=True, null=True)
+    read = models.NullBooleanField(default=False, blank=True)
     sender = models.ForeignKey(User, related_name='message_sender')
     recipient = models.ForeignKey(User, related_name='message_recipient')
     

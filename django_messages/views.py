@@ -230,6 +230,7 @@ def view(request, message_id, form_class=ComposeForm, quote_helper=format_quote,
         raise Http404
     if message.read_at is None and message.recipient == user:
         message.read_at = now
+        message.read = True
         message.save()
 
     context = {'message': message, 'reply_form': None}

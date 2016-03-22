@@ -363,6 +363,7 @@ m.sender = u
 m.recipient = u2
 m.sent_at = datetime.datetime.now()
 m.read_at = datetime.datetime.now()
+m.read = True
 m.save()
 
 m2 = mmod.Message()
@@ -372,6 +373,7 @@ m2.sender = u
 m2.recipient = u2
 m2.sent_at = datetime.datetime.now()
 m2.read_at = datetime.datetime.now()
+m2.read = True
 m2.save()
 
 m3 = mmod.Message()
@@ -381,6 +383,7 @@ m3.sender = u2
 m3.recipient = u
 m3.sent_at = datetime.datetime.now()
 m3.read_at = datetime.datetime.now()
+m3.read = True
 m3.save()
 
 m4 = mmod.Message()
@@ -390,4 +393,5 @@ m4.sender = u2
 m4.recipient = u
 m4.sent_at = datetime.datetime.now()
 m4.read_at = datetime.datetime.now()
+m4.read = True
 m4.save()

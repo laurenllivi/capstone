@@ -83,6 +83,12 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django_messages.context_processors.notifications_processor',
+)
+
+
 WSGI_APPLICATION = 'capstone.wsgi.application'
 
 EMAIL_USER = open('/var/capstone/email_address.txt', 'r').read().strip()

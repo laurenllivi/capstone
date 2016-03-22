@@ -249,7 +249,28 @@ input[type="submit"].warning-btn:hover
         position: relative;
         right: -50%;
     }
-    
+
+/********************************* Navbar **************************************/
+
+#nav .fa-stack
+{
+    position:absolute;
+    top:10px;
+}
+
+#nav .fa-certificate
+{
+    color:#ffffff;
+    font-size:1.5em;
+}
+
+#nav .badge-text
+{
+    color:green;
+    font-weight:400;
+}
+
+
 /* Navbar drop down */
     
 
@@ -1125,6 +1146,16 @@ hr.hr-border{
 
 
 /***************** Messages App ************************/
+.messages-left-menu-container
+{
+    width: 30%;
+    position: absolute;
+    height: calc(72% - 2em);
+    overflow: auto;
+    border-right: 1px solid #C6C6C6
+}
+
+
 .messages-rightdiv
 {
 	position: relative;
@@ -1136,24 +1167,21 @@ hr.hr-border{
 	height:-moz-calc(100% - 3.75em);
 	height:-webkit-calc(100% - 3.75em);
     height: calc(100% - 3.75em);
-    min-height: 100%;
-    border-left: 1px solid #C6C6C6;
+    min-height: 500px;
 }
 
 
 .messages-leftdiv
 {
-	position: absolute;
     top: 7em;
     left: 0;
+    width:100%;
     padding-left:2em;
     padding-right: 2em;
     padding-top: 1em;
-    width: 30%;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     display: inline-block;
-   
 }
 
 .delete-object{
@@ -1168,10 +1196,7 @@ hr.hr-border{
 }
 
 .message-list-preview{
-    position: absolute;
-    width: 30%;
-    top: 17em; 
-    
+    top: 17em;
 }
 
 .message-preview{
