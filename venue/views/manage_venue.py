@@ -188,6 +188,7 @@ def manage_venue(request, listing_id):
                 form.fields['zipcode'].required = required
                 form.fields['price_per_hour'].required = required
                 form.fields['price_per_hour_weekend'].required = required
+                form.fields['deposit'].required = required
                 
                 # make at least one image required
                 image_count = hmod.Listing_Photo.objects.filter(listing_id=listing_id).count()
@@ -372,6 +373,7 @@ class NewVenueForm(forms.Form):
         ]
     )
     deposit = forms.DecimalField(
+        required=False,
         max_digits=6,
         decimal_places=0,
         validators=[
