@@ -4,6 +4,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from homepage import models as hmod
 from django import forms
+import datetime as dt
 from django.template.defaulttags import register
 
 @login_required
@@ -11,6 +12,7 @@ def my_events(request):
     
     user = request.user
     event_requests = hmod.Rental_Request.objects.filter(user=user)
+    policies = get_cancellation_policies(request)
     
     approved_events = format_event_requests(request, event_requests, user, True, False)
     pending_approval_events = format_event_requests(request, event_requests, user, False, False)
@@ -21,12 +23,15 @@ def my_events(request):
         'approvedhtml': approved_events.content,
         'pendinghtml': pending_approval_events.content,
         'canceledhtml': canceled_requests.content,
+        'policieshtml': policies.content,
     }
     return render_to_response('account/my_events.html', context, RequestContext(request))
     
 def format_event_requests(request, event_requests, user, approved, canceled):
 
     venue_pics_dict = {}
+    cancellation_dict = {}
+    days_to_event_dict = {}
     event_list = []
 
     for event_request in event_requests:
@@ -40,6 +45,7 @@ def format_event_requests(request, event_requests, user, approved, canceled):
         except hmod.Listing_Photo.DoesNotExist:
             pass
 
+
     if approved and not canceled:
         events = hmod.Rental_Request.objects.filter(user=user).filter(approved=True).exclude(canceled=True)
     elif canceled:
@@ -49,6 +55,13 @@ def format_event_requests(request, event_requests, user, approved, canceled):
 
     for e in events:
         event_list.append(e)
+        cancellation_policy = hmod.Listing_Policy.objects.filter(listing_id=listing.id).first()
+        cancellation_policy = hmod.Cancellation_Policy.objects.filter(id=cancellation_policy.cancellation_policy_id).first()
+        cancellation_dict[listing.id] = cancellation_policy
+
+        event_date = hmod.Listing_Date.objects.filter(id=e.listing_date_id).first()
+        days_to_event = abs((event_date.date - dt.date.today()).days)
+        days_to_event_dict[e.id] = days_to_event
 
     context = {
         'user': user,
@@ -56,16 +69,29 @@ def format_event_requests(request, event_requests, user, approved, canceled):
         'venue_pics_dict': venue_pics_dict,
         'approved': approved,
         'canceled': canceled,
+        'cancellation_dict': cancellation_dict,
+        'days_to_event_dict': days_to_event_dict,
     }
 
     return render_to_response('account/event_list.html', context, RequestContext(request))
     
 def my_events__del_rental_request(request, rental_request_id):
     '''delete a venue request'''
-    
+
+    # TODO: issue refund if event has been paid for
+
     event_request = hmod.Rental_Request.objects.get(id=rental_request_id)
     event_request.canceled = True
     event_request.canceled_by = "Guest"
     event_request.save()
     
     return HttpResponseRedirect('/account/my_events/')
+
+def get_cancellation_policies(request):
+    cancellation_policies = hmod.Cancellation_Policy.objects.all()
+
+    context = {
+        'policies': cancellation_policies
+    }
+
+    return render_to_response('partials/_cancellation_policy.html', context, RequestContext(request))

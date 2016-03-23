@@ -52,7 +52,7 @@
       {%endif%}
       
 <!--******************* Modals ***********************-->
-      
+
       <!-- popup modal for displaying helpful information on payment -->
       <div class="modal fade" id="paymentHelp" tabindex="-1" role="dialog">
         <div class="modal-dialog">
@@ -62,7 +62,7 @@
               <h4 class="modal-title" id="paymentsHelp">Payments Help</h4>
             </div>
             <div class="modal-body"> 
-              
+
                 You must pay for the venue before the day of your event.
                 <br><br>
                 Please see <a href="/homepage/faq">Payment FAQs</a> for more information. 
@@ -85,11 +85,22 @@
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h4 class="modal-title" id="confirmReservationCancel">Confirm Reservation Cancellation</h4>
             </div>
-            <div class="modal-body"> 
+            <div class="modal-body" style="text-align:center">
+              This Venue has a
+                <a data-toggle="modal" data-target="#policies-modal" style="cursor:pointer">
+                    {{cancellation_dict|get_item:event.listing.id|capfirst}} cancellation policy
+                </a>
+                and your event is
+                {%if days_to_event_dict|get_item:event.id == 0%}
+                today.
+                {%else%}
+                in {{days_to_event_dict|get_item:event.id}} days.
+                {%endif%}
+              <br/>
               Are you sure you want to cancel this reservation?
-              <br>
+              <br/>
               You won't be able to undo this action, but you can always resubmit a request.
-              <br>
+              <br/>
               <a href="/django_messages/compose/{{ event.listing.user.id }}/{{ event.listing.id }}">Message the host</a> to explain why you are cancelling.
             </div>
             <div class="modal-footer">
