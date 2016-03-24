@@ -1,7 +1,8 @@
 <header id="header" class="header-clear">
-    <h1><a href="/homepage/">Purlieu</a></h1>
+    <h1><a href="/homepage/">Backyardly</a></h1>
     <nav id="nav">
         <ul>
+            <li><a href="/venue/manage_venue/0/?status=new">Post a Venue</a></li>
             <li><a href="/venue/find_venue">Find a Venue</a></li>
             
             {% if user.is_authenticated %}
@@ -20,7 +21,8 @@
                   <div class="dropdown-content">
                     <a href="/account/profile">My Profile</a><br>
                     <a href="/account/my_venues">My Venues</a><br>
-                    <a href="/account/logout">Logout</a>  
+                    <a href="/account/my_events">My Events</a><br>
+                    <a href="/account/logout">Logout</a>
                   </div>
                 </div>
             </li>
