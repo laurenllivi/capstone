@@ -78,9 +78,11 @@ def format_event_requests(request, event_requests, user, approved, canceled):
 def my_events__del_rental_request(request, rental_request_id):
     '''delete a venue request'''
 
-    # TODO: issue refund if event has been paid for
 
     event_request = hmod.Rental_Request.objects.get(id=rental_request_id)
+    # refund_amount = 0
+    # if event_request.deposit_paid == True:
+    #     # TODO: issue refund if event has been paid for
     event_request.canceled = True
     event_request.canceled_by = "Guest"
     event_request.save()
