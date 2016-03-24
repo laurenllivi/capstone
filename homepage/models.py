@@ -28,6 +28,7 @@ class User(AbstractUser):
     # date_joined
     # last_login
     phone = models.CharField(max_length=15, blank=True, null=True)
+    bio = models.CharField(max_length=300, blank=True, null=True)
     profile_pic = models.ForeignKey('User_Photo', blank=True, null=True)
     stripe_id = models.CharField(max_length=30, blank=True)
     

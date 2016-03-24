@@ -12,11 +12,12 @@ def profile(request):
     user = request.user
     
     form = Edit_User_Form(initial={
-        'first_name' : user.first_name,
-        'last_name' : user.last_name,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
         'username': user.username,
         'email': user.email,
         'phone': user.phone,
+        'bio': user.bio,
         # should we allow the user to change their password on this page?
     })
     
@@ -55,6 +56,7 @@ class Edit_User_Form(forms.Form):
     phone = USPhoneNumberField(required=False, widget=forms.TextInput(attrs={
         'placeholder': 'xxx-xxx-xxxx'
     }))
+    bio = forms.CharField(max_length=300, label="About Me", widget=forms.Textarea())
 
     # checks to make sure that the username isn't already taken   
     def clean_username(self):

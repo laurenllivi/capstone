@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^profile_photo/$', views.profile_photo, name='profile_photo'),
     url(r'^profile_photo__del_img/$', views.profile_photo__del_img, name='profile_photo__del_img'),
+    url(r'^public_profile/(?P<user_id>[0-9]+)/$', views.public_profile, name='public_profile'),
     url(r'^verification/$', views.verification, name='verification'),
     url(r'^profile_reviews/$', views.profile_reviews, name='profile_reviews'),
     url(r'^forgot_password/$', views.forgot_password, name='forgot_password'),

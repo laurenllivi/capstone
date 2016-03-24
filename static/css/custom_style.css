@@ -1015,6 +1015,53 @@ hr.hr-border{
     top: 25px;
 }
 
+
+/************************ Public Profile **********************/
+.public-prof-desc
+{
+    display: inline-block;
+    vertical-align: middle;
+    vertical-align: -webkit-baseline-middle;
+}
+
+.public-bio
+{
+    margin: 2em 2em 0 2em;
+    text-align: center;
+}
+
+.profile_venue-container
+{
+    text-align:center;
+    margin-top: 2em;
+}
+
+.profile_venue_wrapper
+{
+    display: inline-block;
+    text-align:center;
+    width: 300px;
+    vertical-align:top;
+    margin:1em;
+}
+
+.profile_venue_image
+{
+    display:block;
+}
+
+.profile_venue_wrapper .venue-pic-wrapper
+{
+    height: 200px;
+    width: auto;
+}
+
+.profile_venue_wrapper .main_venue_photo
+{
+    width: 300px;
+    height: 200px;
+}
+
 /**************** My Venues *********************/
 .my_venue_wrapper{
     min-height: 100px;
