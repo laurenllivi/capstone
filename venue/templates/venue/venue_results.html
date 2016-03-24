@@ -1,5 +1,12 @@
 {% load staticfiles %}
 
+{% block stylesheets %}
+    <script src="{% static 'js/jquery.bootstrap-growl.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/bootstrap-alert.js' %}" type="text/javascript"></script>
+
+    <link href="{% static 'css/bootstrap-alert.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
 <form id="htmlFindForm" action="{% url 'update_find_form' %}" method="post">
     {% csrf_token %}
     <script language="javascript" type="text/javascript" src="{% static 'noUiSlider.8.1.0/nouislider.js' %}"></script>
@@ -52,7 +59,7 @@
                             <img class="venue-pic" src="/static/images/venue-images/{{ venue.id }}/{{ venue_pics_dict|get_item:venue.id }}"/>
                         </a>
                             <div class="price-label">${{ venue.price_per_hour }}</div>
-                            <a style="cursor: pointer;" class="favorite-click" data-id="click-favorite-{{ venue.id }}">
+                            <a href="/venue/find_venue__add_favorite/{{ venue.id }}" style="cursor: pointer;" class="favorite-click">
                                 <div class="favorite-container">
                                     <span class="fa-stack">
                                         <i class="fa fa-heart-o fa-2x fa-stack-1x favorite-heart-infront" id="favorite-venue-{{ venue.id }}"></i>
@@ -60,7 +67,6 @@
                                     </span>
                                 </div>
                             </a>
-                        </a>
                     </div>
                 {% endfor %}
 
@@ -74,11 +80,26 @@
 
 <script>
     $body = $("body");
-    
+        
    // fill in the favorite icon when it is clicked
    $(function(){
        $('.favorite-click').click(function(){
-           $(this).find('.favorite-heart-filled').toggleClass('favorite-clicked')
+           $(this).find('.favorite-heart-filled').toggleClass('favorite-clicked');
+           
+           var favorited = $('.favorite-heart-filled').hasClass('favorite-clicked');
+                      
+           if(favorited){
+               
+               // show the alert
+               $.bootstrapGrowl("Added to favorites",{
+                   allow_dismiss: false,
+                   delay: 2000,
+                   offset: {from: 'bottom', amount: 20},
+                   align: 'left',
+                   type: 'danger',
+                   width: 175,
+               });
+           };//if
        })
    });//function
 

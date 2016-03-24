@@ -104,7 +104,11 @@ class Listing(models.Model):
     
     def __str__(self):
         return self.title
-
+        
+class Favorite_Listing(models.Model):
+    '''stores thes user's favorite venues'''
+    user = models.ForeignKey('User')
+    listing = models.ForeignKey('Listing')
 
 class Listing_Photo(models.Model):
     '''Photos for listings '''

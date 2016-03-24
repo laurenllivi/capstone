@@ -30,7 +30,11 @@ def find_venue_form(request):
     search_location = 'Provo, Ut, United States'
     venue_type = 'backyard'
     price_per_hour_range = [0, 5000]
-
+    
+    # get the list of favorite venues
+    favorites = hmod.Favorite_Listing.objects.filter(user_id=request.user.id)
+    favorite_venues_list = hmod.Listing.objects.filter(id__in=favorites)
+    
     form = FindVenueForm(initial={
         'location': search_location,
         'venue_type': venue_type,
@@ -92,9 +96,26 @@ def find_venue_form(request):
         'venue_pics_dict': venue_pics_dict,
         'location_data': location_data,
         'price_per_hour_range': price_per_hour_range,
+        'favorite_venues_list': favorite_venues_list,
     }
     return render_to_response('venue/venue_results.html', context, RequestContext(request))
+    
+@login_required
+def find_venue__add_favorite(request, venue_id):
+    '''adds a venue to the user's list of favorite venues'''
+    
+    listing = hmod.Listing.objects.get(id=venue_id)
+    
+    # make sure there are no duplicates
+    try:
+        favorite = hmod.Favorite_Listing.objects.get(listing_id=venue_id, user_id=request.user.id)
+    except hmod.Favorite_Listing.DoesNotExist:
+        favorite = hmod.Favorite_Listing()
+        favorite.listing = listing
+        favorite.user = request.user
+        favorite.save()
 
+    return HttpResponseRedirect('/venue/find_venue')
 
 class FindVenueForm(forms.Form):
     within_miles = forms.ChoiceField(required=False, widget=forms.Select(attrs={'id': 'venue-distance'}), label="Within", choices=choices.WITHIN_MILES_CHOICES)
