@@ -21,6 +21,10 @@ import os
 def cc_info(request, rental_request_id):
     '''enter payment information'''
     
+    # are they only paying for the deposit right now?
+    # see if this is a new or existing venue
+    paying_deposit = request.GET.get('deposit')
+    
     user = request.user
     rental_request = hmod.Rental_Request.objects.get(id=rental_request_id)
     listing = hmod.Listing.objects.get(id=rental_request.listing.id)
@@ -29,22 +33,28 @@ def cc_info(request, rental_request_id):
         venue_pic = hmod.Listing_Photo.objects.filter(listing=listing).first()
     except hmod.Listing_Photo.DoesNotExist:
         pass
-    
+        
     # need to get the listing_date to see whether to use weekend pricing or not
     listing_date = hmod.Listing_Date.objects.get(id=rental_request.listing_date.id)
     # weekday gets the day of the week, with 0 being Monday and 6 being Sunday
     weekday = listing_date.date.weekday()
-    if weekday > 4:
-        fee_base = listing.price_per_hour_weekend
-        weekend = True
+    weekend = ""
+    
+    # if they are only paying for the deposit right now . . .
+    if paying_deposit == "true":
+        fee = listing.deposit
     else:
-        fee_base = listing.price_per_hour
-        weekend = False
+        if weekday > 4:
+            fee_base = listing.price_per_hour_weekend
+            weekend = True
+        else:
+            fee_base = listing.price_per_hour
+            weekend = False
         
-    # then we need to subtract the end time from the start time to get the hours
-    hours = rental_request.duration()
-    # amount passed to stripe must be in cents
-    fee = int((hours * fee_base) * 100)
+        # then we need to subtract the end time from the start time to get the hours
+        hours = rental_request.duration()
+        # amount passed to stripe must be in cents
+        fee = int((hours * fee_base) * 100)
     
     # for the template . . .
     fee_in_dollars = round(decimal.Decimal(fee / 100),2)
@@ -68,9 +78,14 @@ def cc_info(request, rental_request_id):
             stripe_customer = user.charge(request, user.email, fee)
             
             # mark the rental request as paid
-            # STILL NEED TO ACCOUNT FOR DEPOSITS
-            rental_request.full_amount_paid = True
-            rental_request.save()
+            
+            if paying_deposit == "true":
+                rental_request.deposit_paid = True
+                rental_request.save()
+                
+            if rental_request.deposit_paid == True & rental_request.fee_paid == True:   
+                rental_request.full_amount_paid = True
+                rental_request.save()
             
             # send a confirmation email
             subject, from_email, to = 'Thank you for your reservation', settings.EMAIL_HOST_USER, user.email

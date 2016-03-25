@@ -10,6 +10,13 @@ label{
     margin-top: 10px;
 }
 
+.green-text{
+    color: #4dac71;
+}
+
+.red-text{
+    color: #FF6666;
+}
 
 .errorlist
 {
@@ -23,6 +30,52 @@ label{
     display:inline-block;
     width:49%;
     vertical-align:top;
+}
+
+/* dropdown menu buttons */
+.dropdown-button-group {
+    position: relative;
+    /** Make it fit tightly around it's children */
+    display: inline-block;
+}
+
+.dropdown-button-group .dropdown-button-menu {
+    position: absolute;
+    list-style: none;
+    text-decoration: none;
+    display: none;
+    top: 100%;
+    left: 0;
+    margin: 0;
+    width: 100%; /** Set the width to 100% of it's parent */
+    padding: 0;
+   
+}
+
+/** List Item Styles **/
+.dropdown-button-group a {
+    display: block;
+    padding: 0.2em;
+    margin-left: -8px;
+    text-decoration: none;
+    
+}
+
+/** List Item Hover Styles **/
+.dropdown-button-group a:hover {
+    background: #BBBBBB;
+    z-index: 5;
+    border-bottom-radius: 2px;
+}
+
+/**
+ * Apply these styles to .dropdown-menu when user hovers
+ * over .dropdown
+ */
+.dropdown-button-group:hover .dropdown-button-menu {
+    display: block;
+    background: #D3D3D3;
+    border-bottom-radius: 2px;
 }
 
 /* Start by setting display:none to make this hidden.
@@ -1417,6 +1470,15 @@ hr.hr-border{
 
 .favorite-clicked{
     visibility: visible;
+}
+
+.fee-table{
+    margin-top: 10px;
+    margin-bottom: -5px;
+}
+.fee-table td{
+    padding: 5px;
+    width: 33%;
 }
 
 

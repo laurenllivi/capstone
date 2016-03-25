@@ -21,16 +21,64 @@
           <span>Host: <a href="#">{{event.listing.user.first_name}}</a></span>
 
           <div>Requested For: {{event.listing_date.date}} {{event.start_time}} to {{event.end_time}}</div>
+          
+          <div>
+              <table class="fee-table">
+                  <tr>
+                      <td>Deposit: </td>
+                      <td>
+                          {% if event.listing.deposit != None %} $ 
+                          {% endif %}
+                          {{ event.listing.deposit }}</td>
+                      <td>
+                          {% if event.deposit_paid %}
+                          <span class="green-text">Paid</span>
+                          {% elif event.listing.deposit == None or event.listing.deposit == 0 %}
+                          N/A
+                          {% else %}
+                          <span class="red-text">Not Paid</span>
+                          {% endif %}
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>Fee: </td>
+                      <td>$ </td>
+                      <td>
+                          {% if event.fee_paid %}
+                          <span class="green-text">Paid</span>
+                          {% else %}
+                          <span class="red-text">Not Paid</span>
+                          {% endif %}
+                      </td>
+              </table> 
+          </div>
       </div>
       
       {%if approved and not canceled%}
               <div class="request-options">  
                  {% if event.full_amount_paid %} 
                      <span style="color: #4dac71"><i class="fa fa-check-circle-o fa-lg"></i> Paid&nbsp&nbsp</span>
+                 {% elif event.deposit_paid or event.listing.deposit == None or event.listing.deposit == 0 %} 
+                      <a data-toggle="modal" data-target="#paymentHelp"><i class="fa fa-question-circle fa-lg" style="cursor: pointer"></i></a> 
+                      <!-- pay the full remaining amount -->
+                      <a href="/payment/cc_info/{{ event.id }}"><input type="button" class="button small" style="width: 130px" value="Pay Now"></a>
+            
                  {% else %} 
-                     <a data-toggle="modal" data-target="#paymentHelp"><i class="fa fa-question-circle fa-lg" style="cursor: pointer"></i></a>          
-                     <a href="/payment/cc_info/{{ event.id }}"><input type="submit" class="small" name="payNow{{event.id}}" value="Pay Now"></a>
+                     <a data-toggle="modal" data-target="#paymentHelp"><i class="fa fa-question-circle fa-lg" style="cursor: pointer"></i></a> 
+                     <!-- dropdown button container -->
+                     <div class="dropdown-button-group">
+                         <!-- trigger button -->
+                         <button class="button small" style="width: 130px">Pay Now <i class="fa fa-caret-down"></i></button>
+                         <!-- dropdown menu -->
+                         <ul class="dropdown-button-menu">
+                             <li><a href="/payment/cc_info/{{ event.id }}/?deposit=true">Deposit</a></li>
+                             <li><a href="/payment/cc_info/{{ event.id }}">Full Balance</a></li>
+                         </ul>
+                     </div>
+             
                  {% endif %}
+                
+                
                  <a data-toggle="modal" data-target="#cancelReservation{{ event.id }}"><input type="submit" class="small warning-btn" value="Cancel Reservation"/></a>   
                  <a href="/django_messages/compose/{{ event.listing.user.id }}/{{ event.listing.id }}" class="button small alt">Message {{ event.listing.user.first_name }}</a>
              </div>

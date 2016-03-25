@@ -91,9 +91,9 @@ ld.listing = l
 ld.save()
 
 ld2 = hmod.Listing_Date()
-ld.date = datetime.datetime.now() + timedelta(days=1)
-ld.listing = l
-ld.save()
+ld2.date = datetime.datetime.now() + timedelta(days=1)
+ld2.listing = l
+ld2.save()
 
 rr = hmod.Rental_Request()
 rr.approved = False

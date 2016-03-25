@@ -7,6 +7,14 @@ from django import forms
 import datetime as dt
 from django.template.defaulttags import register
 
+@register.simple_tag
+def get_fee(fee_base, hours, *args, **kwargs):
+    return fee_base * hours
+
+@register.simple_tag
+def get_duration(start_time, end_time, *args, **kwargs):
+    return end_time - start_time
+
 @login_required
 def my_events(request):
     
@@ -45,7 +53,6 @@ def format_event_requests(request, event_requests, user, approved, canceled):
         except hmod.Listing_Photo.DoesNotExist:
             pass
 
-
     if approved and not canceled:
         events = hmod.Rental_Request.objects.filter(user=user).filter(approved=True).exclude(canceled=True)
     elif canceled:
@@ -62,7 +69,7 @@ def format_event_requests(request, event_requests, user, approved, canceled):
         event_date = hmod.Listing_Date.objects.filter(id=e.listing_date_id).first()
         days_to_event = abs((event_date.date - dt.date.today()).days)
         days_to_event_dict[e.id] = days_to_event
-
+        
     context = {
         'user': user,
         'event_list': event_list,

@@ -168,6 +168,7 @@ class Rental_Request(models.Model):
     canceled_by = models.CharField(max_length=20, blank=True, null=True)
     listing = models.ForeignKey('Listing')
     listing_date = models.ForeignKey('Listing_Date', blank=True, null=True)
+    fee_paid = models.NullBooleanField(blank=True, null=True, default=False)
     full_amount_paid = models.NullBooleanField(blank=True, null=True, default=False)
     deposit_paid = models.NullBooleanField(blank=True, null=True, default=False)
     viewed_by_owner = models.NullBooleanField(default=False, blank=True, null=True)
@@ -181,6 +182,9 @@ class Rental_Request(models.Model):
         hours = total_seconds / 60 / 60
         hours = decimal.Decimal(hours)
         return hours
+        
+    def _get_fee_amount(self, hours, base_rate):
+        amount_owed = hours * base_rate
             
 class Transaction(models.Model):
     date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
