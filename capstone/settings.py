@@ -174,5 +174,5 @@ STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 
 
 CRONJOBS = [
-    # ('*/1 * * * *', 'capstone.views.cron.my_scheduled_job')
+    ('0 0 * * *', 'capstone.views.cron.my_scheduled_job')
 ]
