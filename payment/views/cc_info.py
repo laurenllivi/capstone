@@ -23,7 +23,11 @@ def cc_info(request, rental_request_id):
     
     # are they only paying for the deposit right now?
     # see if this is a new or existing venue
-    paying_deposit = request.GET.get('deposit')
+    paying_deposit_only = request.GET.get('deposit_only')
+    if paying_deposit_only == "true":
+        pay_full_balance = False
+    else:
+        pay_full_balance = True
     
     user = request.user
     rental_request = hmod.Rental_Request.objects.get(id=rental_request_id)
@@ -40,9 +44,20 @@ def cc_info(request, rental_request_id):
     weekday = listing_date.date.weekday()
     weekend = ""
     
+    # set a new variable for the deposit for formatting purposes in the template
+    if listing.deposit is not None:
+        deposit_amount = round(decimal.Decimal(listing.deposit),2)
+    else:
+        deposit_amount = "None"
+    
     # if they are only paying for the deposit right now . . .
-    if paying_deposit == "true":
-        fee = listing.deposit
+    if not pay_full_balance:
+        # remember, the fee passed to stripe must be in cents
+        total_fee = int(listing.deposit * 100)
+        rental_fee = None
+        rental_fee_in_dollars = None
+        
+    # else they are paying the remaining balance - deposit + fee
     else:
         if weekday > 4:
             fee_base = listing.price_per_hour_weekend
@@ -54,10 +69,17 @@ def cc_info(request, rental_request_id):
         # then we need to subtract the end time from the start time to get the hours
         hours = rental_request.duration()
         # amount passed to stripe must be in cents
-        fee = int((hours * fee_base) * 100)
-    
+        rental_fee = int((hours * fee_base) * 100)
+        
+        # for the template . . .
+        rental_fee_in_dollars = round(decimal.Decimal(rental_fee / 100),2)
+        if listing.deposit is not None:
+            total_fee = rental_fee + int(listing.deposit * 100)
+        else:
+            total_fee = rental_fee
+        
     # for the template . . .
-    fee_in_dollars = round(decimal.Decimal(fee / 100),2)
+    total_fee_in_dollars = round(decimal.Decimal(total_fee / 100),2)
     
     context = {
         'STRIPE_PUBLISHABLE_KEY': settings.STRIPE_PUBLISHABLE_KEY,
@@ -66,24 +88,27 @@ def cc_info(request, rental_request_id):
         'rental_request': rental_request,
         'venue_pic': venue_pic,
         'listing_date': listing_date,
-        'fee': fee,
+        'rental_fee': rental_fee,
+        'total_fee': total_fee,
         'weekend': weekend,
-        'fee_in_dollars': fee_in_dollars,
+        'rental_fee_in_dollars': rental_fee_in_dollars,
+        'total_fee_in_dollars': total_fee_in_dollars,
+        'pay_full_balance': pay_full_balance,
+        'deposit_amount': deposit_amount,
     }
        
     # Process payment (via Stripe)
     
     if request.method == "POST":
         try:
-            stripe_customer = user.charge(request, user.email, fee)
+            stripe_customer = user.charge(request, user.email, total_fee)
             
-            # mark the rental request as paid
+            # mark the rental request as paid if the charge was successful
+            rental_request.deposit_paid = True
+            rental_request.save()
             
-            if paying_deposit == "true":
-                rental_request.deposit_paid = True
-                rental_request.save()
-                
-            if rental_request.deposit_paid == True & rental_request.fee_paid == True:   
+            if pay_full_balance:
+                rental_request.fee_paid = True
                 rental_request.full_amount_paid = True
                 rental_request.save()
             
@@ -92,7 +117,7 @@ def cc_info(request, rental_request_id):
 
             html_content = render_to_string('payment/reservation_confirmation.html', {'user':user,\
                     'venue_pic': venue_pic, 'listing': listing, 'rental_request': rental_request,\
-                     'listing_date': listing_date, 'fee_in_dollars': fee_in_dollars})
+                     'listing_date': listing_date, 'total_fee_in_dollars': total_fee_in_dollars})
             text_content = strip_tags(html_content) # this strips the html, so people will have the text as well.
 
             # create the email, and attach the HTML version as well.

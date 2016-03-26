@@ -69,17 +69,23 @@
                         {% if listing.deposit %}
                             $
                         {% endif %}
-                        {{ listing.deposit }}</td>
+                        {{ deposit_amount }}</td>
                     </tr>
+                    {% if pay_full_balance %}
                     <tr>
-                        <td>Fee: </td>
-                        <td>$ {{ fee_in_dollars }}&nbsp
+                        <td>Rental Fee: </td>
+                        <td>$ {{ rental_fee_in_dollars }}&nbsp
                             {% if weekend %}
                                 ($ {{ listing.price_per_hour_weekend }} per hour)
                             {% else %}
                                 ($ {{ listing.price_per_hour }} per hour)
                             {% endif %}
                         </td>
+                    </tr>
+                    {% endif %}
+                    <tr style="background-color: #4dac71;">
+                        <td style="font-size:20px;" class="white-text">Total Charge Amount:</td>
+                        <td style="font-size:20px" class="white-text">$ {{ total_fee_in_dollars }}</td>
                     </tr>
                 </table>
             
@@ -91,7 +97,7 @@
         <input id="payment-submit" type="submit" value="Pay Now" class="button small pull-right"/>
         <br>
         <br>
-        <h5 class="pull-right">Your card will be charged and your reservation will be subject to the owner's cancellation policy.</h5> 
+        <h5 class="pull-right">Your card will be charged for the total above and your reservation will be subject to the owner's cancellation policy.</h5> 
         
         </form>
         

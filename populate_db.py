@@ -86,7 +86,7 @@ l.user = u
 l.save()
 
 ld = hmod.Listing_Date()
-ld.date = datetime.datetime.now()
+ld.date = datetime.datetime.now() + timedelta(days=5)
 ld.listing = l
 ld.save()
 
@@ -97,21 +97,26 @@ ld2.save()
 
 rr = hmod.Rental_Request()
 rr.approved = False
+rr.request_date = datetime.datetime.now()
 rr.start_time = '17:00:00'
 rr.end_time = '19:00:00'
-rr.user = u
+rr.user = u2
 rr.listing = l
 rr.listing_date = ld
+rr.viewed_by_owner = False
+rr.full_amount_paid = False
 rr.save()
 
 rr3 = hmod.Rental_Request()
+rr3.request_date = datetime.datetime.now()
 rr3.approved = True
 rr3.start_time = '13:00:00'
 rr3.end_time = '15:00:00'
-rr3.user = u
+rr3.user = u2
 rr3.listing = l
 rr3.listing_date = ld2
 rr3.full_amount_paid = False
+rr3.viewed_by_owner = True
 rr3.save()
 
 l2 = hmod.Listing()
@@ -151,17 +156,19 @@ ld4.listing = l2
 ld4.save()
 
 rr2 = hmod.Rental_Request()
+rr2.viewed_by_owner =True
 rr2.approved = True
 rr2.start_time = '18:00:00'
 rr2.end_time = '20:00:00'
 rr2.user = u
 rr2.listing = l2
 rr2.listing_date = ld3
-rr.full_amount_paid = True
+rr2.full_amount_paid = True
 rr2.save()
 
 rr4 = hmod.Rental_Request()
-rr4.approved = True
+rr4.approved = False
+rr4.viewed_by_owner = True
 rr4.start_time = '18:00:00'
 rr4.end_time = '20:00:00'
 rr4.user = u2

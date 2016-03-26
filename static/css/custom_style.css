@@ -18,6 +18,10 @@ label{
     color: #FF6666;
 }
 
+.white-text{
+    color: #FFFFFF;
+}
+
 .errorlist
 {
     color: red;

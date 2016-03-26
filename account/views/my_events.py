@@ -5,15 +5,6 @@ from django.contrib.auth.decorators import login_required
 from homepage import models as hmod
 from django import forms
 import datetime as dt
-from django.template.defaulttags import register
-
-@register.simple_tag
-def get_fee(fee_base, hours, *args, **kwargs):
-    return fee_base * hours
-
-@register.simple_tag
-def get_duration(start_time, end_time, *args, **kwargs):
-    return end_time - start_time
 
 @login_required
 def my_events(request):

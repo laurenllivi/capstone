@@ -41,7 +41,7 @@
                       </td>
                   </tr>
                   <tr>
-                      <td>Fee: </td>
+                      <td>Rental Fee: </td>
                       <td>$ </td>
                       <td>
                           {% if event.fee_paid %}
@@ -71,7 +71,7 @@
                          <button class="button small" style="width: 130px">Pay Now <i class="fa fa-caret-down"></i></button>
                          <!-- dropdown menu -->
                          <ul class="dropdown-button-menu">
-                             <li><a href="/payment/cc_info/{{ event.id }}/?deposit=true">Deposit</a></li>
+                             <li><a href="/payment/cc_info/{{ event.id }}/?deposit_only=true">Deposit</a></li>
                              <li><a href="/payment/cc_info/{{ event.id }}">Full Balance</a></li>
                          </ul>
                      </div>
