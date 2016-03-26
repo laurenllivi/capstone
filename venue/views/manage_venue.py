@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django import forms
-from django.forms.util import ErrorList
+from django.forms.utils import ErrorList
 from django.core.validators import MaxValueValidator, MinValueValidator, ValidationError
 from homepage import models as hmod
 from lib import forms as custom_forms

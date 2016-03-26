@@ -1,0 +1,19 @@
+
+{{reservation.user.first_name}},
+<br/>
+Your event is in {{days_to_event}} days and you have not paid for your venue reservation.
+<br/>
+<br/>
+<h3>Reservation Details:</h3>
+<ul>
+    <li>Venue: {{reservation.listing.title}}</li>
+    <li>{{reservation.listing_date.date|date:"l, d F Y"}}</li>
+    <li>From {{reservation.start_time}} to {{reservation.end_time}}</li>
+</ul>
+You can pay now with our <a href="localhost:8000/account/my_events/">secure payment system.</a>
+<br/>
+If you do not pay within 48 hours of your event, your reservation will be canceled.
+
+<br/>
+<br/>
+-Backyardly Customer Service

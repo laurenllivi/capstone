@@ -41,12 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'homepage',
     'account',
     'venue',
     'django_messages',
     'localflavor', #used for validating US zipcodes and phone numbers
     'payment',
+    'django_crontab',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -63,14 +65,13 @@ MIDDLEWARE_CLASSES = [
 ROOT_URLCONF = 'capstone.urls'
 
 PROJECT_DIR = os.path.dirname(__file__)
-TEMPLATE_DIRS = (
-    os.path.join(PROJECT_DIR, 'templates'),
-)
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(PROJECT_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,15 +79,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_messages.context_processors.notifications_processor',
             ],
         },
     },
 ]
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django_messages.context_processors.notifications_processor',
-)
 
 
 WSGI_APPLICATION = 'capstone.wsgi.application'
@@ -173,3 +170,9 @@ MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
 # Stripe Key Settings
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+
+
+
+CRONJOBS = [
+    # ('*/1 * * * *', 'capstone.views.cron.my_scheduled_job')
+]
