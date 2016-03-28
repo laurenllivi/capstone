@@ -168,8 +168,8 @@ MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
 # MEDIA_URL = '/media/'
 
 # Stripe Key Settings
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
-STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = open('/var/capstone/stripe_secret.txt', 'r').read().strip()
+STRIPE_PUBLISHABLE_KEY = open('/var/capstone/stripe_publishable.txt', 'r').read().strip()
 
 
 
