@@ -32,9 +32,9 @@ def run_daily():
 
 
     #
-    # cancel all unpaid events in two days
+    # cancel all unpaid events that are one day away
     #
-    days_to_event = 2
+    days_to_event = 1
     date_ids = get_date_ids(today, days_to_event)
     reservations_to_cancel = get_reservations(date_ids)
     cancel_reservations(reservations_to_cancel)
