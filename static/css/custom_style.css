@@ -669,6 +669,11 @@ footer ul.icons li
 	width:100%;
 }
 
+.dot-title
+{
+    text-align:center;
+}
+
 .results-wrapper
 {
 	width:100%;

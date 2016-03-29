@@ -6,7 +6,30 @@
             <li><a href="/venue/find_venue">Find a Venue</a></li>
             
             {% if user.is_authenticated %}
-        
+
+            <li>
+                <a href="/account/venue_requests/">
+                    <i class="fa fa-bell"></i>
+                    {%if new_request_count > 0%}
+                        <span class="fa-stack">
+                            <i class="fa fa-certificate fa-stack-1x"></i>
+                            <span class="fa-stack-1x badge-text">{{new_request_count}}</span>
+                        </span>
+                    {% endif %}
+                </a>
+            </li>
+            <li>
+                <a href="/django_messages/inbox/">
+                    <i class="fa fa-envelope"></i>
+                    {%if new_message_count > 0%}
+                        <span class="fa-stack">
+                            <i class="fa fa-certificate fa-stack-1x"></i>
+                            <span class="fa-stack-1x badge-text">{{new_message_count}}</span>
+                        </span>
+                    {% endif %}
+                </a>
+            </li>
+
             <li>
                 <div class="dropdown">
                     

@@ -76,11 +76,17 @@ def find_venue_form(request):
         except hmod.Listing_Photo.DoesNotExist:
             pass
 
+        venue_html = "<a href='/venue/view_venue/" + str(venue.id) + "'>"\
+                     "<img class='venue-pic' src='/static/images/venue-images/" \
+                     + str(venue.id) + "/" \
+                     + str(venue_pic) + "'/>" \
+                     + "<div class='dot-title'>" + venue.title + "</div>"\
+                     + "</a>"
         try:
             venue_locations_dict[venue.id] = {
                 "lat": venue.geolocation.x,
                 "lon": venue.geolocation.y,
-                "title": venue.title
+                "title": venue_html
             }
 
         except:
