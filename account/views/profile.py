@@ -30,6 +30,7 @@ def profile(request):
             user.username = form.cleaned_data['username']
             user.email = form.cleaned_data['email']
             user.phone = form.cleaned_data['phone']
+            user.bio = form.cleaned_data['bio']
             user.save()
             
             # need to figure out how to send a success variable over so I can put a "success" message on the page
