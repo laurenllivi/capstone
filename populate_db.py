@@ -74,6 +74,7 @@ l.state = "UT"
 l.zipcode = "84606"
 l.price_per_hour = 100
 l.price_per_hour_weekend = 150
+l.deposit = 50
 g = geocoder.google(
     l.street + " " +
     l.street2 + " " +
@@ -134,6 +135,7 @@ l2.state = "UT"
 l2.zipcode = "84606"
 l2.price_per_hour = 100
 l2.price_per_hour_weekend = 150
+l2.deposit = 50
 g2 = geocoder.google(
     l2.street + " " +
     l2.street2 + " " +
@@ -181,6 +183,8 @@ l3 = hmod.Listing()
 l3.title = "Large home pool"
 l3.category = "Pool"
 l3.price_per_hour = 50
+l3.price_per_hour_weekend = 150
+l3.deposit = 50
 l3.listing_type = "Pool"
 l3.description = "This is a nice, quiet backyard in the countryside. We love having parties and are excited to offer our backyard for the use of your event."
 l3.sq_footage = 2000
@@ -206,6 +210,8 @@ l4 = hmod.Listing()
 l4.title = "Large home pool"
 l4.category = "Pool"
 l4.price_per_hour = 50
+l4.price_per_hour_weekend = 150
+l4.deposit = 50
 l4.listing_type = "Pool"
 l4.description = "This is a nice, quiet backyard in the countryside. We love having parties and are excited to offer our backyard for the use of your event."
 l4.sq_footage = 2000
@@ -231,6 +237,8 @@ l5 = hmod.Listing()
 l5.title = "Gorgeous Backyard"
 l5.category = "Backyard"
 l5.price_per_hour = 200
+l5.price_per_hour_weekend = 250
+l5.deposit = 50
 l5.listing_type = "Backyard"
 l5.description = "Beautiful Backyard"
 l5.sq_footage = 2000
@@ -256,6 +264,8 @@ l6 = hmod.Listing()
 l6.title = "Magical Backyard"
 l6.category = "Backyard"
 l6.price_per_hour = 200
+l6.price_per_hour_weekend = 250
+l6.deposit = 50
 l6.listing_type = "Backyard"
 l6.description = "Beautiful Backyard"
 l6.sq_footage = 2000
@@ -281,6 +291,8 @@ l7 = hmod.Listing()
 l7.title = "Perfect Yard for Receptions"
 l7.category = "Backyard"
 l7.price_per_hour = 200
+l7.price_per_hour_weekend = 250
+l7.deposit = 50
 l7.listing_type = "Backyard"
 l7.description = "Beautiful Backyard"
 l7.sq_footage = 2000
@@ -306,6 +318,8 @@ l8 = hmod.Listing()
 l8.title = "Beautiful Yard"
 l8.category = "Backyard"
 l8.price_per_hour = 200
+l8.price_per_hour_weekend = 250
+l8.deposit = 50
 l8.listing_type = "Backyard"
 l8.description = "Beautiful Backyard"
 l8.sq_footage = 2000
@@ -331,6 +345,8 @@ l9 = hmod.Listing()
 l9.title = "Well-kept yard"
 l9.category = "Backyard"
 l9.price_per_hour = 200
+l9.price_per_hour_weekend = 250
+l9.deposit = 50
 l9.listing_type = "Backyard"
 l9.description = "Beautiful Backyard"
 l9.sq_footage = 2000
@@ -356,6 +372,8 @@ l10 = hmod.Listing()
 l10.title = "Cool Yard"
 l10.category = "Backyard"
 l10.price_per_hour = 200
+l10.price_per_hour_weekend = 250
+l10.deposit = 50
 l10.listing_type = "Backyard"
 l10.description = "Beautiful Backyard"
 l10.sq_footage = 2000
@@ -381,6 +399,8 @@ l11 = hmod.Listing()
 l11.title = "Luxurioius Yard"
 l11.category = "Backyard"
 l11.price_per_hour = 200
+l11.price_per_hour_weekend = 250
+l11.deposit = 50
 l11.listing_type = "Backyard"
 l11.description = "Beautiful Backyard"
 l11.sq_footage = 2000
@@ -406,6 +426,8 @@ l12 = hmod.Listing()
 l12.title = "Fantastic Yard"
 l12.category = "Backyard"
 l12.price_per_hour = 200
+l12.price_per_hour_weekend = 250
+l12.deposit = 50
 l12.listing_type = "Backyard"
 l12.description = "Beautiful Backyard"
 l12.sq_footage = 2000
@@ -431,6 +453,8 @@ l13 = hmod.Listing()
 l13.title = "Coolest Yard Ever"
 l13.category = "Backyard"
 l13.price_per_hour = 200
+l13.price_per_hour_weekend = 250
+l13.deposit = 50
 l13.listing_type = "Backyard"
 l13.description = "Beautiful Backyard"
 l13.sq_footage = 2000
@@ -456,6 +480,8 @@ l14 = hmod.Listing()
 l14.title = "Stomp the Yard"
 l14.category = "Backyard"
 l14.price_per_hour = 200
+l14.price_per_hour_weekend = 250
+l14.deposit = 50
 l14.listing_type = "Backyard"
 l14.description = "Beautiful Backyard"
 l14.sq_footage = 2000
@@ -481,6 +507,8 @@ l15 = hmod.Listing()
 l15.title = "Wonderful Large Yard"
 l15.category = "Backyard"
 l15.price_per_hour = 200
+l15.price_per_hour_weekend = 250
+l15.deposit = 50
 l15.listing_type = "Backyard"
 l15.description = "Beautiful Backyard"
 l15.sq_footage = 2000
@@ -508,7 +536,7 @@ p = hmod.Listing_Photo()
 p.listing = l
 p.image_name = "home-theatre.jpg"
 p.image_title = "Home Theatre"
-p.image_file = '/static/images/venue-images/1/home-theatre.jpg'
+p.image_file = '/static/images/venue-images/1/gazebo.jpg'
 p.save()
 
 # Listing Photo
@@ -516,7 +544,7 @@ p2 = hmod.Listing_Photo()
 p2.listing = l2
 p2.image_name = "IMG_0051.JPG"
 p2.image_title = "Books"
-p2.image_file = '/static/images/venue-images/2/IMG_0051.JPG'
+p2.image_file = '/static/images/venue-images/2/backyard.jpg'
 p2.save()
 
 # Listing Photo
@@ -687,6 +715,61 @@ lp4 = hmod.Listing_Policy()
 lp4.listing_id = 4
 lp4.cancellation_policy_id = 2
 lp4.save()
+
+lp5 = hmod.Listing_Policy()
+lp5.listing_id = 5
+lp5.cancellation_policy_id = 2
+lp5.save()
+
+lp6 = hmod.Listing_Policy()
+lp6.listing_id = 6
+lp6.cancellation_policy_id = 2
+lp6.save()
+
+lp7 = hmod.Listing_Policy()
+lp7.listing_id = 7
+lp7.cancellation_policy_id = 2
+lp7.save()
+
+lp8 = hmod.Listing_Policy()
+lp8.listing_id = 8
+lp8.cancellation_policy_id = 2
+lp8.save()
+
+lp9 = hmod.Listing_Policy()
+lp9.listing_id = 9
+lp9.cancellation_policy_id = 2
+lp9.save()
+
+lp10 = hmod.Listing_Policy()
+lp10.listing_id = 10
+lp10.cancellation_policy_id = 2
+lp10.save()
+
+lp11 = hmod.Listing_Policy()
+lp11.listing_id = 11
+lp11.cancellation_policy_id = 2
+lp11.save()
+
+lp12 = hmod.Listing_Policy()
+lp12.listing_id = 12
+lp12.cancellation_policy_id = 2
+lp12.save()
+
+lp13 = hmod.Listing_Policy()
+lp13.listing_id = 13
+lp13.cancellation_policy_id = 2
+lp13.save()
+
+lp14 = hmod.Listing_Policy()
+lp14.listing_id = 14
+lp14.cancellation_policy_id = 2
+lp14.save()
+
+lp15 = hmod.Listing_Policy()
+lp15.listing_id = 15
+lp15.cancellation_policy_id = 2
+lp15.save()
 
 ## add more here......
 
