@@ -30,6 +30,7 @@ def find_venue_form(request):
     search_location = 'Provo, Ut, United States'
     venue_type = 'backyard'
     price_per_hour_range = [0, 5000]
+    event_date = None
     
     # get the list of favorite venues
     favorites = hmod.Favorite_Listing.objects.filter(user_id=request.user.id)
@@ -53,17 +54,29 @@ def find_venue_form(request):
             # price_per_hour_range = [lower, upper]
             price_per_hour_range = [form.cleaned_data['price_per_hour_lower'],
                                     form.cleaned_data['price_per_hour_upper']]
+            event_date = form.cleaned_data['event_date']
 
     g = geocoder.google(search_location)
     search_geo = Point(float(g.lat), float(g.lng))
 
     pnt = GEOSGeometry(search_geo)
-    venues = hmod.Listing.objects\
+    venue_list = hmod.Listing.objects\
         .filter(geolocation__distance_lte=(pnt, D(mi=25)))\
         .filter(category__iexact=venue_type)\
         .filter(price_per_hour__gte=price_per_hour_range[0])\
         .filter(price_per_hour__lte=price_per_hour_range[1])\
         .filter(currently_listed=True)
+
+    if event_date:
+        venues = []
+        for venue in venue_list:
+            if hmod.Listing_Date.objects.filter(date=event_date, listing_id=venue.id).exists():
+                venues.append(venue)
+        print venues
+
+    else:
+        venues = venue_list
+
     venue_pics_dict = {}
     venue_locations_dict = {}
     for venue in venues:

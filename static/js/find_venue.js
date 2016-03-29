@@ -2,14 +2,9 @@ var search_location = '';
 var location_markers = {};
 var price_per_hour_range = [];
 
-$(document).ready(function(){
-
-    $('.datepicker').datepicker();
-
-})//document ready
-
 function pageSetup()
 {
+    $('.datepicker').datepicker();
     mapSetup();
 }
 
