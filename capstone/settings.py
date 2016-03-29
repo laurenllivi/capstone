@@ -174,5 +174,5 @@ STRIPE_PUBLISHABLE_KEY = open('/var/capstone/stripe_publishable.txt', 'r').read(
 
 
 CRONJOBS = [
-    ('0 0 * * *', 'capstone.views.cron.my_scheduled_job')
+    ('1 0 * * *', 'capstone.views.cron.run_daily')
 ]

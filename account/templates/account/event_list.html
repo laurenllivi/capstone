@@ -83,11 +83,14 @@
                  <a href="/django_messages/compose/{{ event.listing.user.id }}/{{ event.listing.id }}" class="button small alt">Message {{ event.listing.user.first_name }}</a>
              </div>
       {%elif canceled%}
+        <br/>
         <div>Canceled By:
             {%if event.canceled_by == "Guest" %}
                 Me
-            {%else%}
+            {%elif event.canceled_by == "Owner"%}
                 {{event.user.first_name}}
+            {%elif event.canceled_by == "Unpaid"%}
+                This reservation was canceled because the fee was not paid in time.
             {% endif %}
         </div>
         <div class="request-options">

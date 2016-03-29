@@ -75,6 +75,13 @@ def format_ven_requests(request, listings, user, approved, canceled):
             user_id = re.search('messageUser(\d+)', request_string).group(1)
             print(user_id)
 
+        elif 'cancelRequest' in request_string:
+            ven_request_id = re.search('cancelRequest(\d+)', request_string).group(1)
+            ven_request = hmod.Rental_Request.objects.get(id=ven_request_id)
+            ven_request.canceled = True
+            ven_request.canceled_by = "Owner"
+            ven_request.save()
+
 
     context = {
         'user': user,
