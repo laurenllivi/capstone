@@ -30,6 +30,7 @@ def format_event_requests(request, event_requests, user, approved, canceled):
 
     venue_pics_dict = {}
     cancellation_dict = {}
+    fees_dict = {}
     days_to_event_dict = {}
     event_list = []
 
@@ -43,6 +44,19 @@ def format_event_requests(request, event_requests, user, approved, canceled):
 
         except hmod.Listing_Photo.DoesNotExist:
             pass
+            
+        # add the rental fees to the dictionary for the template
+        weekday = event_request.listing_date.date.weekday()
+        if weekday > 4:
+            fee_base = event_request.listing.price_per_hour_weekend
+            weekend = True
+        else:
+            fee_base = event_request.listing.price_per_hour
+            weekend = False    
+        hours = event_request.duration()
+        rental_fee = hours * fee_base
+        # add the rental request ids and rental fees to the dictionary
+        fees_dict[event_request.id] = rental_fee
 
     if approved and not canceled:
         events = hmod.Rental_Request.objects.filter(user=user).filter(approved=True).exclude(canceled=True)
@@ -69,6 +83,7 @@ def format_event_requests(request, event_requests, user, approved, canceled):
         'canceled': canceled,
         'cancellation_dict': cancellation_dict,
         'days_to_event_dict': days_to_event_dict,
+        'fees_dict': fees_dict,
     }
 
     return render_to_response('account/event_list.html', context, RequestContext(request))

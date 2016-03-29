@@ -42,7 +42,7 @@
                   </tr>
                   <tr>
                       <td>Rental Fee: </td>
-                      <td>$ </td>
+                      <td>$ {{ fees_dict|get_item:event.id }}</td>
                       <td>
                           {% if event.fee_paid %}
                           <span class="green-text">Paid</span>
