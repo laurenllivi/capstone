@@ -31,7 +31,7 @@
                           {% endif %}
                           {{ event.listing.deposit }}</td>
                       <td>
-                          {% if event.deposit_paid %}
+                          {% if event.deposit_paid and event.deposit != None %}
                           <span class="green-text">Paid</span>
                           {% elif event.listing.deposit == None or event.listing.deposit == 0 %}
                           N/A
