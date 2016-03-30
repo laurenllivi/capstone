@@ -30,7 +30,7 @@ def forgot_password(request):
             recovery_string.save()
             user.save()
             
-            url = "localhost:8000/account/reset_password/?string=" + str(recovery_string.rand_string)
+            url = "http://backyardly.com/account/reset_password/?string=" + str(recovery_string.rand_string)
             
             # send an email with reset link
             subject, from_email, to = 'Reset Your Password', settings.EMAIL_HOST_USER, email
