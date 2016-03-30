@@ -31,6 +31,7 @@ def find_venue_form(request):
     venue_type = 'backyard'
     price_per_hour_range = [0, 5000]
     event_date = None
+    distance = 5
     
     # get the list of favorite venues
     # favorites = hmod.Favorite_Listing.objects.filter(user_id=request.user.id)
@@ -49,6 +50,7 @@ def find_venue_form(request):
         # upper = request.POST.get('upper', '')
 
         if form.is_valid():
+            distance = form.cleaned_data['within_miles']
             search_location = form.cleaned_data['location']
             venue_type = form.cleaned_data['venue_type']
             # price_per_hour_range = [lower, upper]
@@ -61,7 +63,7 @@ def find_venue_form(request):
 
     pnt = GEOSGeometry(search_geo)
     venue_list = hmod.Listing.objects\
-        .filter(geolocation__distance_lte=(pnt, D(mi=25)))\
+        .filter(geolocation__distance_lte=(pnt, D(mi=distance)))\
         .filter(category__iexact=venue_type)\
         .filter(price_per_hour__gte=price_per_hour_range[0])\
         .filter(price_per_hour__lte=price_per_hour_range[1])\

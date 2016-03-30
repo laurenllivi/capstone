@@ -31,7 +31,7 @@ WITHIN_MILES_CHOICES = (
     ('20', '20 miles'),
     ('30', '30 miles'),
     ('50', '50 miles'),
-    ('100', '100 miles +'),  
+    ('100', '100 miles'),
 )
 
 STATE_CHOICES = (
