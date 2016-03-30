@@ -13,10 +13,10 @@ import simplejson as json
 from django.core.serializers.json import DjangoJSONEncoder
 
 
-def find_venue(request):
+def find_venue(request, city=None, category=None):
     '''search for a venue'''
 
-    response = find_venue_form(request)
+    response = find_venue_form(request, city, category)
 
     context = {
         'formhtml': response.content,
@@ -25,10 +25,17 @@ def find_venue(request):
     return render_to_response('venue/find_venue.html', context, RequestContext(request))
 
 
-def find_venue_form(request):
+def find_venue_form(request, city=None, category=None):
 
-    search_location = 'Provo, Ut, United States'
-    venue_type = 'backyard'
+    if city:
+        search_location = city
+    else:
+        search_location = 'Provo, Ut, United States'
+    if category:
+        venue_type = category
+    else:
+        venue_type = 'backyard'
+
     price_per_hour_range = [0, 5000]
     event_date = None
     distance = 5

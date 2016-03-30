@@ -11,10 +11,11 @@ def index(request):
     if request.method == 'POST':
         form = Homepage_Search_Form(request.POST)
         if form.is_valid():
-            print(form.cleaned_data['city'])
-            print(form.cleaned_data['category']) 
+            city = form.cleaned_data['city']
+            print str(city)
+            category = form.cleaned_data['category']
             # now what to do with these . . .    
-            return HttpResponseRedirect('/venue/find_venue/')
+            return HttpResponseRedirect('/venue/find_venue/' + str(city) + '/' + str(category))
             
     # the equivalent of template_vars in DMP
     context = {
