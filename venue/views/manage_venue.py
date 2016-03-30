@@ -38,14 +38,14 @@ def manage_venue(request, listing_id):
         dates_available = ""
         listing = None
         newImage = None
-        cancellation_policy = hmod.Listing_Policy.objects.filter()[0]
+        cancellation_policy = hmod.Listing_Policy.objects.filter().first()
         
     # it's an existing venue . . .    
     else:
         # create the venue form and prepopulate it with saved values
         listing = hmod.Listing.objects.get(id=listing_id)
         available_dates = hmod.Listing_Date.objects.filter(listing_id=listing.id)
-        cancellation_policy = hmod.Listing_Policy.objects.filter(listing_id=listing.id)[0]
+        cancellation_policy = hmod.Listing_Policy.objects.filter(listing_id=listing.id).first()
 
         # make sure that only the owner of the venue can access this page
         # (since the venue ID is passed through the URL)

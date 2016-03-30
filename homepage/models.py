@@ -1,6 +1,7 @@
 from django.contrib.gis.db import models
 from django.contrib.auth.models import AbstractUser 
 from django.conf import settings
+from django.utils import timezone
 import datetime
 import decimal
 import stripe
@@ -96,8 +97,8 @@ class Listing(models.Model):
     city = models.CharField(max_length=255, blank=True, null=True)
     state = models.CharField(max_length=255, blank=True, null=True)
     zipcode = models.CharField(max_length=255, blank=True, null=True)
-    post_date = models.DateTimeField(auto_now_add=True, auto_now=False)
-    modified_date = models.DateTimeField(auto_now=True, auto_now_add=False)
+    post_date = models.DateTimeField(default=timezone.now, auto_now=False)
+    modified_date = models.DateTimeField(default=timezone.now, auto_now_add=False)
     geolocation = models.PointField(blank=True, null=True)
     currently_listed = models.NullBooleanField(default=False, blank=True)
     is_active = models.NullBooleanField(default=True, blank=True)
@@ -127,7 +128,7 @@ class Review(models.Model):
     rating = models.DecimalField(decimal_places=1, max_digits=2, blank=True, null=True)
     description = models.CharField(max_length=500, blank=True, null=True)
     listing = models.ForeignKey('Listing')
-    review_date = models.DateTimeField(auto_now_add=True)
+    review_date = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User)
 
 
@@ -160,7 +161,7 @@ class Rental_Request(models.Model):
     '''When a user makes a request to rent a venue'''
     notes = models.CharField(max_length=255, blank=True, null=True)
     approved = models.NullBooleanField(blank=True, null=True)
-    request_date = models.DateTimeField(auto_now_add=True)
+    request_date = models.DateTimeField(default=timezone.now)
     start_time = models.TimeField(default='19:00')
     end_time = models.TimeField(default='19:00')
     user = models.ForeignKey(User)
@@ -187,7 +188,7 @@ class Rental_Request(models.Model):
         amount_owed = hours * base_rate
             
 class Transaction(models.Model):
-    date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    date = models.DateTimeField(default=timezone.now, blank=True, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)
     paid = models.NullBooleanField(default=False, blank=True, null=True)
     notes = models.CharField(max_length=255, blank=True, null=True)
@@ -220,5 +221,5 @@ class Image(models.Model):
 class Customer_Inquiry(models.Model):
     subject = models.CharField(max_length=30)
     message = models.CharField(max_length=500)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey('User')

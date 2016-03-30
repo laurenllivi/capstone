@@ -83,28 +83,32 @@ def request_booking_form(request, listing_id):
 
     if request.method == 'POST':
         form = RequestBookingForm(request.POST)
+
         if form.is_valid():
-            try:
-                if form.cleaned_data['start_time'] > form.cleaned_data['end_time']:
-                    message = "End time must be later than start time."
+            if not request.user.is_authenticated():
+                message = 'You must be logged in to request a reservation.'
+            else:
+                try:
+                    if form.cleaned_data['start_time'] > form.cleaned_data['end_time']:
+                        message = "End time must be later than start time."
 
-                else:
-                    #Creat booking request
-                    rental_request = hmod.Rental_Request()
-                    rental_request.request_date = form.cleaned_data['event_date']
-                    rental_request.start_time = form.cleaned_data['start_time']
-                    rental_request.end_time = form.cleaned_data['end_time']
-                    rental_request.user_id = request.user.id
-                    rental_request.listing = hmod.Listing.objects.get(id=listing_id)
-                    rental_request.listing_date_id = hmod.Listing_Date.objects\
-                        .filter(listing_id=listing.id)\
-                        .filter(date=rental_request.request_date)[0].id
+                    else:
+                        #Creat booking request
+                        rental_request = hmod.Rental_Request()
+                        rental_request.request_date = form.cleaned_data['event_date']
+                        rental_request.start_time = form.cleaned_data['start_time']
+                        rental_request.end_time = form.cleaned_data['end_time']
+                        rental_request.user_id = request.user.id
+                        rental_request.listing = hmod.Listing.objects.get(id=listing_id)
+                        rental_request.listing_date_id = hmod.Listing_Date.objects\
+                            .filter(listing_id=listing.id)\
+                            .filter(date=rental_request.request_date)[0].id
 
-                    rental_request.save()
+                        rental_request.save()
 
-                    message = 'Request Has Been Sent!'
-            except:
-                message = 'Invalid Input'
+                        message = 'Request Has Been Sent!'
+                except:
+                    message = 'Invalid Input'
 
         else:
             message = 'Invalid Input'

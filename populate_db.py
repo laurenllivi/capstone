@@ -488,7 +488,7 @@ l15.save()
 # Listing Photo
 p = hmod.Listing_Photo()
 p.listing = l
-p.image_name = "home-theatre.jpg"
+p.image_name = "gazebo.jpg"
 p.image_title = "Home Theatre"
 p.image_file = '/static/images/venue-images/1/gazebo.jpg'
 p.save()
@@ -496,8 +496,8 @@ p.save()
 # Listing Photo
 p2 = hmod.Listing_Photo()
 p2.listing = l2
-p2.image_name = "backyard.JPG"
-p2.image_title = "Books"
+p2.image_name = "backyard.jpg"
+p2.image_title = "Backyard"
 p2.image_file = '/static/images/venue-images/2/backyard.jpg'
 p2.save()
 
