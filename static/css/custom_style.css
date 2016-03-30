@@ -183,8 +183,13 @@ input[type="submit"].warning-btn:hover
     height: 75px;
     color: white;
     text-align: center;
-    top: 500px;
-   
+    top: 20%;
+}
+
+@media (max-width: 736px) {
+  #search-overlay {
+    top:10%;
+  }
 }
 
 #index-search-form{
