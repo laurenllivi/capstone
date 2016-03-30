@@ -108,18 +108,6 @@ rr.viewed_by_owner = False
 rr.full_amount_paid = False
 rr.save()
 
-rr3 = hmod.Rental_Request()
-rr3.request_date = datetime.datetime.now()
-rr3.approved = True
-rr3.start_time = '13:00:00'
-rr3.end_time = '15:00:00'
-rr3.user = u2
-rr3.listing = l
-rr3.listing_date = ld2
-rr3.full_amount_paid = False
-rr3.viewed_by_owner = True
-rr3.save()
-
 l2 = hmod.Listing()
 l2.title = "Beautiful, green backyard with fountains and pool"
 l2.category = "Backyard"
@@ -166,6 +154,8 @@ rr2.user = u
 rr2.listing = l2
 rr2.listing_date = ld3
 rr2.full_amount_paid = True
+rr2.deposit_paid = True
+rr2.fee_paid = True
 rr2.save()
 
 rr4 = hmod.Rental_Request()

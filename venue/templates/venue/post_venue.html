@@ -120,7 +120,7 @@
             <div id="post-venue-photo-slider">
             	<ul>
             		 {% for image in images %}
-                         <li><img src='{% static "images/venue-images/" %}{{ listing.id }}/{{image.image_name}}'/></li>
+                         <li style="list-style:none;"><img src='{% static "images/venue-images/" %}{{ listing.id }}/{{image.image_name}}'/></li>
                      {% endfor %}
             	</ul>
             </div>
