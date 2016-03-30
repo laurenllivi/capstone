@@ -33,8 +33,8 @@ def find_venue_form(request):
     event_date = None
     
     # get the list of favorite venues
-    favorites = hmod.Favorite_Listing.objects.filter(user_id=request.user.id)
-    favorite_venues_list = hmod.Listing.objects.filter(id__in=favorites)
+    # favorites = hmod.Favorite_Listing.objects.filter(user_id=request.user.id)
+    # favorite_venues_list = hmod.Listing.objects.filter(id__in=favorites)
     
     form = FindVenueForm(initial={
         'location': search_location,
@@ -72,7 +72,6 @@ def find_venue_form(request):
         for venue in venue_list:
             if hmod.Listing_Date.objects.filter(date=event_date, listing_id=venue.id).exists():
                 venues.append(venue)
-        print venues
 
     else:
         venues = venue_list
@@ -115,26 +114,26 @@ def find_venue_form(request):
         'venue_pics_dict': venue_pics_dict,
         'location_data': location_data,
         'price_per_hour_range': price_per_hour_range,
-        'favorite_venues_list': favorite_venues_list,
+        # 'favorite_venues_list': favorite_venues_list,
     }
     return render_to_response('venue/venue_results.html', context, RequestContext(request))
     
-@login_required
-def find_venue__add_favorite(request, venue_id):
-    '''adds a venue to the user's list of favorite venues'''
-    
-    listing = hmod.Listing.objects.get(id=venue_id)
-    
-    # make sure there are no duplicates
-    try:
-        favorite = hmod.Favorite_Listing.objects.get(listing_id=venue_id, user_id=request.user.id)
-    except hmod.Favorite_Listing.DoesNotExist:
-        favorite = hmod.Favorite_Listing()
-        favorite.listing = listing
-        favorite.user = request.user
-        favorite.save()
-
-    return HttpResponseRedirect('/venue/find_venue')
+# @login_required
+# def find_venue__add_favorite(request, venue_id):
+#     '''adds a venue to the user's list of favorite venues'''
+#
+#     listing = hmod.Listing.objects.get(id=venue_id)
+#
+#     # make sure there are no duplicates
+#     try:
+#         favorite = hmod.Favorite_Listing.objects.get(listing_id=venue_id, user_id=request.user.id)
+#     except hmod.Favorite_Listing.DoesNotExist:
+#         favorite = hmod.Favorite_Listing()
+#         favorite.listing = listing
+#         favorite.user = request.user
+#         favorite.save()
+#
+#     return HttpResponseRedirect('/venue/find_venue')
 
 class FindVenueForm(forms.Form):
     within_miles = forms.ChoiceField(required=False, widget=forms.Select(attrs={'id': 'venue-distance'}), label="Within", choices=choices.WITHIN_MILES_CHOICES)

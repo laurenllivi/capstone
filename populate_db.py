@@ -96,18 +96,6 @@ ld2.date = datetime.datetime.now() + timedelta(days=1)
 ld2.listing = l
 ld2.save()
 
-rr = hmod.Rental_Request()
-rr.approved = False
-rr.request_date = datetime.datetime.now()
-rr.start_time = '17:00:00'
-rr.end_time = '19:00:00'
-rr.user = u2
-rr.listing = l
-rr.listing_date = ld
-rr.viewed_by_owner = False
-rr.full_amount_paid = False
-rr.save()
-
 l2 = hmod.Listing()
 l2.title = "Beautiful, green backyard with fountains and pool"
 l2.category = "Backyard"
@@ -144,30 +132,6 @@ ld4 = hmod.Listing_Date()
 ld4.date = datetime.datetime.now() + timedelta(days=2)
 ld4.listing = l2
 ld4.save()
-
-rr2 = hmod.Rental_Request()
-rr2.viewed_by_owner =True
-rr2.approved = True
-rr2.start_time = '18:00:00'
-rr2.end_time = '20:00:00'
-rr2.user = u
-rr2.listing = l2
-rr2.listing_date = ld3
-rr2.full_amount_paid = True
-rr2.deposit_paid = True
-rr2.fee_paid = True
-rr2.save()
-
-rr4 = hmod.Rental_Request()
-rr4.approved = False
-rr4.viewed_by_owner = True
-rr4.start_time = '18:00:00'
-rr4.end_time = '20:00:00'
-rr4.user = u2
-rr4.listing = l2
-rr4.listing_date = ld4
-rr4.full_amount_paid = False
-rr4.save()
 
 l3 = hmod.Listing()
 l3.title = "Large home pool"
@@ -532,7 +496,7 @@ p.save()
 # Listing Photo
 p2 = hmod.Listing_Photo()
 p2.listing = l2
-p2.image_name = "IMG_0051.JPG"
+p2.image_name = "backyard.JPG"
 p2.image_title = "Books"
 p2.image_file = '/static/images/venue-images/2/backyard.jpg'
 p2.save()
@@ -828,3 +792,8 @@ m4.sent_at = datetime.datetime.now()
 m4.read_at = datetime.datetime.now()
 m4.read = True
 m4.save()
+
+####################### Rental Requests ##########################
+
+# every time I try to add one of these, a phantom notification shows up! Not sure why!!
+

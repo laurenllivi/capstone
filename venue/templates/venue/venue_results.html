@@ -59,7 +59,7 @@
                             <img class="venue-pic" src="/static/images/venue-images/{{ venue.id }}/{{ venue_pics_dict|get_item:venue.id }}"/>
                         </a>
                             <div class="price-label">${{ venue.price_per_hour }}</div>
-                            <a href="/venue/find_venue__add_favorite/{{ venue.id }}" style="cursor: pointer;" class="favorite-click">
+                            <a style="cursor: pointer;" class="favorite-click">
                                 <div class="favorite-container">
                                     <span class="fa-stack">
                                         <i class="fa fa-heart-o fa-2x fa-stack-1x favorite-heart-infront" id="favorite-venue-{{ venue.id }}"></i>
