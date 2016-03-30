@@ -12,7 +12,6 @@ def index(request):
         form = Homepage_Search_Form(request.POST)
         if form.is_valid():
             city = form.cleaned_data['city']
-            print str(city)
             category = form.cleaned_data['category']
             # now what to do with these . . .    
             return HttpResponseRedirect('/venue/find_venue/' + str(city) + '/' + str(category))

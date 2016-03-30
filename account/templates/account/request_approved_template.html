@@ -1,0 +1,21 @@
+
+{{ven_request.user.first_name}},
+<br/>
+Your request for the venue {{ven_request.listing.title}} has been approved.
+<br/>
+<br/>
+<h3>Reservation Details:</h3>
+<ul>
+    <li>Venue: {{ven_request.listing.title}}</li>
+    <li>{{ven_request.listing_date.date|date:"l, d F Y"}}</li>
+    <li>From {{ven_request.start_time}} to {{reservation.end_time}}</li>
+</ul>
+Your reservation will not be officially secured until you have paid your deposit.
+<br/>
+Click <a href="localhost:8000/account/my_events/">here</a> to pay now or view your reservation.
+<br/>
+If you have not paid the day before your event, your reservation will be canceled.
+
+<br/>
+<br/>
+-Backyardly Customer Service

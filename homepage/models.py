@@ -161,6 +161,7 @@ class Rental_Request(models.Model):
     '''When a user makes a request to rent a venue'''
     notes = models.CharField(max_length=255, blank=True, null=True)
     approved = models.NullBooleanField(blank=True, null=True)
+    approval_email_sent_at = models.DateTimeField(blank=True, null=True)
     request_date = models.DateTimeField(default=timezone.now)
     start_time = models.TimeField(default='19:00')
     end_time = models.TimeField(default='19:00')
