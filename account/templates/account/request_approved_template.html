@@ -1,25 +1,29 @@
+<body style="background-color:#E2E2E2; font-size:14px;">
+    <div style="background-color:#3BA666; width:90%; font-size:20px; color:white; padding:10px; margin-left:auto; margin-right:auto; border-top-left-radius: 4px; border-top-right-radius: 4px;">
+        Backyardly
+    </div>
+    <div style="width:90%; background-color:#FFFFFF; margin-left:auto; margin-right:auto; padding:10px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;">
+        {{ven_request.user.first_name}},
+        <br/>
+        Your request for the venue "{{ven_request.listing.title}}" has been approved.
+        <br/>
+        <br/>
+        <div style="margin-left:5%;">
+            <h3>Reservation Details:</h3>
+                <ul>
+                    <li>Venue: {{ven_request.listing.title}}</li>
+                    <li>{{ven_request.listing_date.date|date:"l, d F Y"}}</li>
+                    <li>From {{ven_request.start_time}} to {{ven_request.end_time}}</li>
+                </ul>
+        </div>
 
-<div style="background-color:#3BA666; width:100%; font-size:20px; color:white; padding:10px; margin-bottom:10px;">
-    Backyardly
-</div>
+        Your reservation will not be officially secured until you have paid your deposit.
+        <br/>
+        Click <a href="localhost:8000/account/my_events/">here</a> to pay now or view your reservation.
+        <br/>
+        If you have not paid the day before your event, your reservation will be canceled.
+        <br/>
+        -Backyardly Customer Service
+    </div>
+</body>
 
-{{ven_request.user.first_name}},
-<br/>
-Your request for the venue "{{ven_request.listing.title}}" has been approved.
-<br/>
-<br/>
-<h3>Reservation Details:</h3>
-<ul>
-    <li>Venue: {{ven_request.listing.title}}</li>
-    <li>{{ven_request.listing_date.date|date:"l, d F Y"}}</li>
-    <li>From {{ven_request.start_time}} to {{ven_request.end_time}}</li>
-</ul>
-Your reservation will not be officially secured until you have paid your deposit.
-<br/>
-Click <a href="localhost:8000/account/my_events/">here</a> to pay now or view your reservation.
-<br/>
-If you have not paid the day before your event, your reservation will be canceled.
-
-<br/>
-<br/>
--Backyardly Customer Service
