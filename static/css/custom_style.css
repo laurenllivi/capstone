@@ -129,9 +129,11 @@ body.loading .modal {
     color:#F3AD30;
 }
 
-.message
+#booking-container .message
 {
     color:#F3AD30;
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
 .content-tile
