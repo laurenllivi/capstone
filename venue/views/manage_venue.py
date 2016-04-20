@@ -102,6 +102,7 @@ def manage_venue(request, listing_id):
                     listing = hmod.Listing()
                     listing.user = user
                     listing.save()
+                    set_cancellation_policy(request, listing)
                 # if it's an existing venue . . .
                 else:
                     listing = hmod.Listing.objects.get(id=listing_id)
@@ -134,6 +135,7 @@ def manage_venue(request, listing_id):
                     listing = hmod.Listing()
                     listing.user = user
                     listing.save()
+                    set_cancellation_policy(request, listing)
                     
                 # it's an existing venue . . .
                 else:
@@ -244,15 +246,7 @@ def manage_venue(request, listing_id):
                 listing.price_per_hour_weekend = form.cleaned_data['price_per_hour_weekend']
                 listing.deposit = form.cleaned_data['deposit']
 
-                #save cancelation policy
-                updated_policy = request.POST['policy-select']
-                if hmod.Listing_Policy.objects.filter(listing_id=listing.id).exists():
-                    listing_policy = hmod.Listing_Policy.objects.filter(listing_id=listing.id)[0]
-                else:
-                    listing_policy = hmod.Listing_Policy()
-                    listing_policy.listing_id = listing.id
-                listing_policy.cancellation_policy_id = updated_policy
-                listing_policy.save()
+                set_cancellation_policy(request, listing)
 
                 g = geocoder.google(
                     form.cleaned_data['street'] + " " +
@@ -305,6 +299,26 @@ def manage_venue__del_img(request, listing_id, image_id):
     # how do we actually delete the object? Do we even want to do that?
     
     return HttpResponseRedirect('/venue/manage_venue/%s/' % listing_id)
+
+def set_cancellation_policy(request, listing):
+     #set the cancellation policy
+    print "Saving cancellation policy"
+    try:
+        updated_policy = request.POST['policy-select']
+    except Exception:
+        updated_policy = 2
+
+    if hmod.Listing_Policy.objects.filter(listing_id=listing.id).exists():
+        listing_policy = hmod.Listing_Policy.objects.filter(listing_id=listing.id)[0]
+    else:
+        listing_policy = hmod.Listing_Policy()
+        listing_policy.listing_id = listing.id
+
+    listing_policy.cancellation_policy_id = updated_policy
+    listing_policy.save()
+
+    return None
+
 
 class NewVenueForm(forms.Form):
     title = forms.CharField(required=False, max_length=100, widget=forms.TextInput())
