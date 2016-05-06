@@ -4,8 +4,8 @@
 {% block stylesheets %}
     <link href="{% static 'css/unslider.css' %}" rel="stylesheet" type="text/css" />
     <link href="{% static 'css/unslider-dots.css' %}" rel="stylesheet" type="text/css" />
-    
-    <script src="{% static 'js/unslider-min.js' %}"></script>  
+
+    <script src="{% static 'js/jquery.form.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -125,20 +125,22 @@
             	</ul>
             </div>
         </div><!-- photo-slider-div -->
-        
+
+        <div id="captcha-container">
+            {{ captchaformhtml|safe }}
+        </div>
+
         <br>
         <form method="POST">{% csrf_token %}
-            <input type="submit" value="Post Venue" class="small pull-right">
+            <input id="post-venue-submit" type="submit" value="Post Venue" class="small pull-right" disabled>
         </form>
         
 	</div>
 </section>
 
 <script>
-    $(function(){
-        $('#post-venue-photo-slider').unslider();
-    })
-</script
+
+</script>
 
 {% endblock %}
 

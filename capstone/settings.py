@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'localflavor', #used for validating US zipcodes and phone numbers
     'payment',
     'django_crontab',
+    'captcha',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -171,8 +172,8 @@ MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
 STRIPE_SECRET_KEY = open('/var/capstone/stripe_secret.txt', 'r').read().strip()
 STRIPE_PUBLISHABLE_KEY = open('/var/capstone/stripe_publishable.txt', 'r').read().strip()
 
-
-
 CRONJOBS = [
     ('1 0 * * *', 'capstone.views.cron.run_daily')
 ]
+
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'

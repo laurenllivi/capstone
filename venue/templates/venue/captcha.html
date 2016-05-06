@@ -1,0 +1,42 @@
+{% load staticfiles %}
+
+<form id="captchaForm" action="{%url 'captcha' %}" method='POST'>{% csrf_token %}
+    <br/>
+    Please enter the characters below to prove you are not a robot.
+    {% if isHuman %}
+        <br>
+        <i class="fa fa-check-circle verified-check"></i>
+        Verified Human
+    {% else %}
+        {{ form }}
+        <!--<button class='js-captcha-refresh button alt small'>Change Image</button>-->
+        <input class="button alt small" type="submit" value="Verify" />
+    {% endif %}
+</form>
+
+<script>
+    $(document).ready(function() {
+
+        $('#captchaForm').ajaxForm({
+            // target identifies the element(s) to update with the server response
+            target: '#captcha-container',
+        });
+
+        if ("{{ isHuman }}" == "True")
+        {
+            document.getElementById("post-venue-submit").disabled = false;
+        }
+
+    });
+
+    $(document).on("click", ".js-captcha-refresh", function(){
+        $form = document.getElementById("captchaForm")
+
+        $.getJSON($(this).data('url'), {}, function(json) {
+            // This should update your captcha image src and captcha hidden input
+        });
+
+        return false;
+    });
+
+</script>

@@ -15,6 +15,7 @@ urlpatterns = [
 
     url(r'^post_venue/(?P<listing_id>[0-9]+)/$', views.post_venue, name='post_venue'),
     url(r'^post_venue__unlist/(?P<listing_id>[0-9]+)/$', views.post_venue__unlist, name='post_venue__unlist'),
+    url(r'^post_venue__captcha/$', views.post_venue__captcha, name='captcha'),
 
     # url(r'^calendar/(?P<listing_id>[0-9]+)/$', views.calendar, name='calendar'),
 

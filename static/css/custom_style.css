@@ -1463,6 +1463,25 @@ hr.hr-border{
     
 }
 
+.captcha
+{
+    width:200px;
+}
+
+#id_captcha_1
+{
+    max-width:300px;
+}
+
+.verified-check
+{
+    color:#3ba666;
+    font-size: 48px;
+    vertical-align: -webkit-baseline-middle;
+    padding: 0 10px 0 10px;
+}
+
+
 /************* CCinfo page ***********************/
 
 .venue-details-container{

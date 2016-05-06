@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^venue/', include('venue.urls')),
     url(r'^payment/', include('payment.urls')),
     url(r'^django_messages/', include('django_messages.urls')),
+    url(r'^captcha/', include('captcha.urls')),
 ]
