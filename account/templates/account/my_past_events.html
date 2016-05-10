@@ -1,0 +1,43 @@
+{% extends 'capstone/auth_base.html' %}
+{% load staticfiles %}
+
+{% block stylesheets %}
+
+    <script src="{% static 'js/tabcontent.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/bootstrap-modal.js' %}"></script>
+
+    <link href="{% static 'css/tabcontent.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/bootstrap-modal.css' %}" rel="stylesheet" type="text/css" />
+
+    <script src="{% static 'star-rating/jquery.rating.js' %}" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'star-rating/jquery.rating.css' %}" />
+
+{% endblock %}
+
+{% block content %}
+
+    <section id="main" class="wrapper">
+        <div class="container">
+
+            {% block left_menu %}
+                {% include 'partials/_events_left_menu.html' %}
+            {% endblock %}
+
+            <div class="profile-right-side-content">
+                <div class="panel-header">My Past Events</div>
+                    <div class="panel-profile-content">
+
+                        {{ eventlisthtml|safe }}
+
+                    </div><!-- panel-profile-content-->
+            </div>
+
+        </div>
+    </section>
+
+
+{% endblock %}
+
+{% block footer %}
+    {% include "partials/_footer.html" %}
+{% endblock %}

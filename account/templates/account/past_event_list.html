@@ -1,0 +1,92 @@
+ <div class="my_venue_wrapper venue-request-wrapper">
+    {% for event in event_list %}
+      <div class="venue-image">
+          <a href="/venue/view_venue/{{ event.listing.id }}">
+              <div class="venue-pic-wrapper">
+                    <img class="main_venue_photo pull-left" src="/static/images/venue-images/{{ event.listing.id }}/{{ venue_pics_dict|get_item:event.listing.id }}"/>
+              </div><!-- venue-pic-wrapper -->
+          </a>
+      </div>
+
+      <div class="request-details">
+          <div class="time-of-request">{{event.request_date}}</div>
+          <div>{{event.listing.title}}</div>
+              <div class="mini-profile-pic-container profile-pic-container">
+                <div class="profile-pic-wrapper">
+                    <a href="#"><img class="mini-profile-pic" src="{{ event.listing.user.profile_pic.image_file }}" /></a>
+                </div><!-- wrapper -->
+              </div><!-- container -->
+
+          <span>Host: <a href="#">{{event.listing.user.first_name}}</a></span>
+
+          <div>Date and Time: {{event.listing_date.date}} {{event.start_time}} to {{event.end_time}}</div>
+
+      </div>
+
+     <div class="user-rating">
+         {% if reviews_dict|get_item:event.id or star_count_dict|get_item:event.id %}
+            Your Review:
+            <br/>
+                {% for i in rating_range %}
+                {% if i == star_count_dict|get_item:event.id %}
+                <input title="rating-for-{{ event.id }}" name="star{{event.id}}" type="radio" class="star {split:2}" disabled="disabled" checked="checked"/>
+                {% else %}
+                <input title="rating-for-{{ event.id }}" name="star{{event.id}}" type="radio" class="star {split:2}" disabled="disabled"/>
+                {% endif %}
+                {% endfor %}
+            <br/>
+            {% if reviews_dict|get_item:event.id %}
+                {{ reviews_dict|get_item:event.id }}
+            {% endif %}
+         {% else %}
+            <a data-toggle="modal" class="rate-link" data-target="#submitReview{{ event.listing.id }}-{{ event.id }}">
+                Rate your experience with this venue
+                <div class="my-events-stars">
+                    {% for i in rating_range %}
+                        <input title="{{ event.id }}" name="star{{event.id}}" type="radio" class="star {split:2}" disabled/>
+                    {% endfor %}
+                </div>
+            </a>
+         {% endif %}
+
+
+     </div>
+
+    <hr class="hr-style"/>
+
+     <!-- ********************* Modals *************************** -->
+     <div class="modal fade" id="submitReview{{ event.listing.id }}-{{ event.id }}" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="submitVenueRating">Venue Rating</h4>
+            </div>
+            <form method="POST">{% csrf_token %}
+                <div class="modal-body">
+                    Rate your experience with:
+                    <br />
+                    {{ event.listing.title }}
+                    <br />
+                    {% for i in rating_range %}
+                        <input title="modal{{ event.id }}" name="starModal{{event.id}}" type="radio" class="star {split:2}" value="{{forloop.counter}}"/>
+                    {% endfor %}
+                    <br/>
+                    Include details that might help future guests:
+                    {{ form.description }}
+                </div>
+                <div class="modal-footer">
+                    <a href="" class="button small alt" data-dismiss="modal">Cancel</a>
+                    <!--<a href="/account/my_past_events__submit_review/{{ event.id }}" class="button small">Submit Review</a>-->
+                    <input type="hidden" name="event_id" value="{{event.id}}">
+                    <input type="submit" name="SubmitReview" class="small" value="Submit Review">
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+
+</div>
+

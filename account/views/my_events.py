@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from homepage import models as hmod
 from django import forms
 import datetime as dt
+from datetime import timedelta
 
 @login_required
 def my_events(request):
@@ -58,12 +59,23 @@ def format_event_requests(request, event_requests, user, approved, canceled):
         # add the rental request ids and rental fees to the dictionary
         fees_dict[event_request.id] = rental_fee
 
+
+    date_threshold = dt.datetime.now() + timedelta(days=1)
+
     if approved and not canceled:
-        events = hmod.Rental_Request.objects.filter(user=user).filter(approved=True).exclude(canceled=True)
+        events = hmod.Rental_Request.objects\
+            .filter(user=user)\
+            .filter(approved=True)\
+            .exclude(canceled=True)\
+            .filter(listing_date__date__gt=date_threshold)
     elif canceled:
-        events = hmod.Rental_Request.objects.filter(user=user).filter(approved=True).filter(canceled=True)
+        events = hmod.Rental_Request.objects\
+            .filter(user=user).filter(approved=True)\
+            .filter(canceled=True)
     else:
-        events = hmod.Rental_Request.objects.filter(user=user).exclude(approved=True).exclude(canceled=True)
+        events = hmod.Rental_Request.objects\
+            .filter(user=user).exclude(approved=True)\
+            .exclude(canceled=True)
 
     for e in events:
         event_list.append(e)

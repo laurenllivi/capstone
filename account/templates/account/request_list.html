@@ -27,11 +27,11 @@
 
             <span><a href="#">{{r.user.first_name}}</a></span>
 
-            <div>Requested For: {{r.listing_date.date}} {{r.start_time}} to {{r.end_time}}</div>
+            <div>Event Date: {{r.listing_date.date}} {{r.start_time}} to {{r.end_time}}</div>
         </div>
 
 
-     {%if approved and not canceled%}
+     {%if approved and not canceled and not past%}
         <form method="POST">
             {% csrf_token %}
              <div class="request-options">
@@ -53,6 +53,10 @@
                 <a href="/django_messages/compose/{{ r.user.id }}/{{ r.listing.id }}" class="button small alt">Message {{ r.user.first_name }}</a>
             </div>
         </form>
+     {% elif past %}
+        <div class="request-options">
+            <a href="/django_messages/compose/{{ r.user.id }}/{{ r.listing.id }}" class="button small alt">Message {{ r.user.first_name }}</a>
+        </div>
      {%else%}
         <form method="POST">
             {% csrf_token %}

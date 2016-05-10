@@ -14,3 +14,4 @@ from .my_venues import *
 from .venue_requests import *
 from .payment_preferences import *
 from .my_events import *
+from .my_past_events import *

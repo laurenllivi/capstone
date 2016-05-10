@@ -66,7 +66,7 @@ if (typeof jQuery === 'undefined') {
   }
 
   Modal.prototype.toggle = function (_relatedTarget) {
-    return this.isShown ? this.hide() : this.show(_relatedTarget)
+    return this.isShown ? this.hide() : this.show(_relatedTarget);
   }
 
   Modal.prototype.show = function (_relatedTarget) {

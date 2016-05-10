@@ -16,7 +16,7 @@
             {% endblock %}
 
             <div class="profile-right-side-content">
-                <div class="panel-header">My Reservations</div>
+                <div class="panel-header">Venue Reservations</div>
                     <div class="panel-profile-content">
 
 
@@ -25,6 +25,7 @@
                                     <li><a id="view1-link" class="tab-link" href="#view1">New Requests</a></li>
                                     <li><a id="view2-link" class="tab-link" href="#view2">Approved Rentals</a></li>
                                     <li><a id="view3-link" class="tab-link" href="#view3">Cancelled Rentals</a></li>
+                                    <li><a id="view4-link" class="tab-link" href="#view4">Past Rentals</a></li>
                                 </ul>
                                     <div class="tabcontents">
                                         <div class="tab" id="view1">
@@ -35,6 +36,9 @@
                                         </div>
                                         <div class="tab" id="view3">
                                             {{ canceledhtml|safe }}
+                                        </div>
+                                        <div class="tab" id="view4">
+                                            {{ pasteventshtml|safe }}
                                         </div>
                                     </div>
                         </div>

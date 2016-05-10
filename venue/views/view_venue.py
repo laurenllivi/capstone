@@ -37,7 +37,7 @@ def view_venue(request, listing_id):
 
         for review in reviews:
             review.user = hmod.User.objects.get(id=review.user_id)
-            review.starcount = round(int(review.rating * 2)) - 1  #minus one for the 0 index
+            review.starcount = round(int(review.rating * 2)) - 1  #minus one for the 0 index of the iterator
             average_rating = (average_rating + review.rating)/2
     else:
         average_rating = 0

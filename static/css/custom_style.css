@@ -519,9 +519,9 @@ footer ul.icons li
 }
 
 
-/***************** Sign up page *****************/
+/**************************************** Sign up page *************************/
 
-/***************** Post/Manage Venue page *****************/
+/************************************* Post/Manage Venue page ****************************/
 .input-number
 {
     margin-bottom: 1em;
@@ -904,7 +904,7 @@ hr.hr-border{
     {
         width: 100%;
         height: 20px;
-        background-color: #F3AD30;
+        background-color: rgb(255, 177, 119);
         top: 20px;
         position: relative;
     }
@@ -1135,7 +1135,7 @@ hr.hr-border{
     height: 200px;
 }
 
-/**************** My Venues *********************/
+/**************************************** My Venues ******************************/
 .my_venue_wrapper{
     min-height: 100px;
 }
@@ -1178,6 +1178,31 @@ hr.hr-border{
     width: 300px;
     height: 200px;   
 }
+
+/*************** My Events **********************************/
+.user-rating
+{
+    background-color: rgba(255, 177, 119, 0.4);
+    padding: .5em;
+    border-radius: 4px;
+}
+
+.rate-link
+{
+    text-decoration: none;
+    color: #A5A5A5;;
+}
+
+.rate-link:hover
+{
+    text-decoration: underline;
+}
+
+.my-events-stars
+{
+    display: flex;
+}
+
 
 /*************** Reservation Requests **********************************/
 .venue-request-wrapper .venue-image, .venue-request-wrapper .request-details

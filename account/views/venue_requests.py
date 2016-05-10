@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils import timezone
 import datetime
+from datetime import timedelta
 from homepage import models as hmod
 from capstone import settings
 from django import forms
@@ -18,19 +19,21 @@ def venue_requests(request):
     user = request.user
     listings = hmod.Listing.objects.filter(user_id=user.id)
 
-    new_requests = format_ven_requests(request, listings, user, False, False)
-    approved_requests = format_ven_requests(request, listings, user, True, False)
-    cancelled_requests = format_ven_requests(request, listings, user, True, True)
+    new_requests = format_ven_requests(request, listings, user, False, False, False)
+    approved_requests = format_ven_requests(request, listings, user, True, False, False)
+    cancelled_requests = format_ven_requests(request, listings, user, True, True, False)
+    past_events = format_ven_requests(request, listings, user, True, False, True)
 
     context = {
         'pendinghtml': new_requests.content,
         'approvedhtml': approved_requests.content,
         'canceledhtml': cancelled_requests.content,
+        'pasteventshtml': past_events.content,
     }
 
     return render_to_response('account/venue_requests.html', context, RequestContext(request))
 
-def format_ven_requests(request, listings, user, approved, canceled):
+def format_ven_requests(request, listings, user, approved, canceled, past):
 
     if request.method == 'POST':
 
@@ -89,16 +92,35 @@ def format_ven_requests(request, listings, user, approved, canceled):
         except hmod.Listing_Photo.DoesNotExist:
             pass
 
-        if approved and not canceled:
-            requests = hmod.Rental_Request.objects.filter(listing_id=listing.id).filter(approved=True).exclude(canceled=True)
+        date_threshold = datetime.datetime.now() - timedelta(days=1)
+        if approved and not canceled and not past:
+            # approved future events
+            requests = hmod.Rental_Request.objects\
+                .filter(listing_id=listing.id)\
+                .filter(approved=True)\
+                .exclude(canceled=True)\
+                .filter(listing_date__date__gt=date_threshold)
         elif canceled:
-            requests = hmod.Rental_Request.objects.filter(listing_id=listing.id).filter(canceled=True)
+            # canceled requests
+            requests = hmod.Rental_Request.objects\
+                .filter(listing_id=listing.id)\
+                .filter(canceled=True)
+        elif past:
+            # events that have happened
+            date_threshold = datetime.datetime.now() - timedelta(days=1)
+            requests = hmod.Rental_Request.objects\
+                .filter(listing_id=listing.id)\
+                .filter(approved=True)\
+                .filter(canceled=False)\
+                .filter(listing_date__date__lt=date_threshold)
         else:
+            # new requests
             requests = hmod.Rental_Request.objects\
                 .filter(listing_id=listing.id)\
                 .exclude(approved=True)\
                 .exclude(approved=False)\
-                .exclude(canceled=True)
+                .exclude(canceled=True)\
+                .filter(listing_date__date__gt=date_threshold)
             for listing_request in requests:
                 listing_request.viewed_by_owner = True
                 listing_request.save()
@@ -113,6 +135,7 @@ def format_ven_requests(request, listings, user, approved, canceled):
         'venue_pics_dict': venue_pics_dict,
         'approved': approved,
         'canceled': canceled,
+        'past': past,
     }
 
     return render_to_response('account/request_list.html', context, RequestContext(request))

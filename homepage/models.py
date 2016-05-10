@@ -123,15 +123,6 @@ class Listing_Photo(models.Model):
         return self.image_name
 
 
-class Review(models.Model):
-    '''A user gives a listing a review'''
-    rating = models.DecimalField(decimal_places=1, max_digits=2, blank=True, null=True)
-    description = models.CharField(max_length=500, blank=True, null=True)
-    listing = models.ForeignKey('Listing')
-    review_date = models.DateTimeField(default=timezone.now)
-    user = models.ForeignKey(User)
-
-
 class Listing_Feature(models.Model):
     '''Association class between listing and feature'''
     listing = models.ForeignKey('Listing')
@@ -187,7 +178,18 @@ class Rental_Request(models.Model):
         
     def _get_fee_amount(self, hours, base_rate):
         amount_owed = hours * base_rate
-            
+
+
+class Review(models.Model):
+    '''A user gives a listing a review'''
+    rating = models.DecimalField(decimal_places=1, max_digits=2, blank=True, null=True)
+    description = models.CharField(max_length=500, blank=True, null=True)
+    listing = models.ForeignKey('Listing')
+    event = models.ForeignKey('Rental_Request')
+    review_date = models.DateTimeField(default=timezone.now)
+    user = models.ForeignKey(User)
+
+
 class Transaction(models.Model):
     date = models.DateTimeField(default=timezone.now, blank=True, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)

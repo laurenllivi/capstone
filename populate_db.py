@@ -647,19 +647,19 @@ ld7c.listing = l7
 ld7c.save()
 
 # Review
-r = hmod.Review()
-r.rating = 5
-r.description = "Our event was FANTASTIC due to the hospitality and well-kept yard of the Burbidge's. Thank you!"
-r.listing = l2
-r.user = u2
-r.save()
+# r = hmod.Review()
+# r.rating = 5
+# r.description = "Our event was FANTASTIC due to the hospitality and well-kept yard of the Burbidge's. Thank you!"
+# r.listing = l2
+# r.user = u2
+# r.save()
 
-r2 = hmod.Review()
-r2.rating = 4
-r2.description = "Great experience. Beautiful yard."
-r2.listing = l
-r2.user = u
-r2.save()
+# r2 = hmod.Review()
+# r2.rating = 4
+# r2.description = "Great experience. Beautiful yard."
+# r2.listing = l
+# r2.user = u
+# r2.save()
 
 # Feature
 f = hmod.Feature()

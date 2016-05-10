@@ -17,11 +17,16 @@ urlpatterns = [
     #url(r'^reset_confirmation/$', TemplateView.as_view(template_name='account/reset_confirmation.html')),
     url(r'^reset_password/$', views.reset_password, name='reset_password'),
     url(r'^change_password/$', views.change_password, name='change_password'),
+
     url(r'^my_venues/$', views.my_venues, name='my_venues'),
     url(r'venue_requests/$', views.venue_requests, name='venue_requests'),
     url(r'request_list/$', views.format_ven_requests, name='format_ven_requests'),
     url(r'^payment_preferences/$', views.payment_preferences, name='payment_preferences'),
+
     url(r'^my_events/$', views.my_events, name='my_events'),
     url(r'^my_events__del_rental_request/(?P<rental_request_id>[0-9]+)/$', views.my_events__del_rental_request, name='my_events__del_rental_request'),
+    url(r'^my_past_events/$', views.my_past_events, name='my_past_events'),
+    # url(r'^my_past_events__submit_review/(?P<event_id>[0-9]+)/$', views.my_past_events__submit_review, name='my_past_events__submit_review'),
+
     url(r'event_list/$', views.format_event_requests, name='format_event_requests'),
 ]

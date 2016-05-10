@@ -30,6 +30,7 @@ ul.tabs li a
     border-right:0;
     border-top-right-radius:4px;
     border-top-left-radius:4px;
+    white-space: nowrap;
 }
 
 /*Note: IE8 and earlier doesn't support li:last-child. You have to add another class to the last tab (LI) and specify its border-right as below.*/
