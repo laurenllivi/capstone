@@ -1,0 +1,24 @@
+ <div class="my_venue_wrapper venue-request-wrapper">
+    {% for listing in favorite_listings %}
+
+     <div class="favorite-venue-container">
+         <div class="venue-image">
+              <a href="/venue/view_venue/{{ listing.id }}">
+                  <div class="venue-pic-wrapper">
+                        <img class="main_venue_photo pull-left" src="/static/images/venue-images/{{ listing.id }}/{{ venue_pics_dict|get_item:listing.id }}"/>
+                  </div><!-- venue-pic-wrapper -->
+              </a>
+          </div>
+
+         <div class="favorite-listing-title">{{listing.title|truncatechars:30}}</div>
+         <form method="POST">
+            {% csrf_token %}
+                 <a href="/django_messages/compose/{{ listing.user.id }}/{{ listing.id }}" class="button small alt">Message Owner</a>
+                <input type="submit" class="small button alt" name="removeFavorite{{listing.id}}" value="Remove">
+         </form>
+     </div>
+
+    {% endfor %}
+
+</div>
+

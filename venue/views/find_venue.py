@@ -113,6 +113,13 @@ def find_venue_form(request, city=None, category=None):
         except:
             pass
 
+        #get the user's favorites from this venue
+        if hmod.Favorite_Listing.objects.filter(listing=venue, user=request.user).exists():
+            venue.favorite = True
+        else:
+            venue.favorite = False
+
+
     search_location = json.dumps(search_location)
     location_data = json.dumps(venue_locations_dict)  # lat and lon of venues
 

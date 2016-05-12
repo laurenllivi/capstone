@@ -1203,6 +1203,49 @@ hr.hr-border{
     display: flex;
 }
 
+/******************************** Favorite Venues **********************************/
+.favorite-venue-container
+{
+    display:inline-block;
+    margin:4px;
+    text-align: center;
+    border: 1px solid #E4E4E4;
+    border-radius: 4px;
+    padding-bottom: 4px;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.favorite-listing-title
+{}
+
+.favorite-venue-container .venue-pic-wrapper
+{
+    width: 250px;
+    height: 200px;
+    margin-right: 0;
+    border-top-right-radius:4px;
+    border-top-left-radius:4px;
+}
+
+.favorite-venue-container .main_venue_photo
+{
+    width: 250px;
+    height: 200px;
+    border-top-right-radius:4px;
+    border-top-left-radius:4px;
+}
+
+.favorite-venue-container form
+{
+    margin: 0;
+}
+
+.favorite-venue-container form .button
+{
+    font-size:.7em;
+    box-shadow: inset 0 0 0 1px rgba(144, 144, 144, 0.25);
+}
+
 
 /*************** Reservation Requests **********************************/
 .venue-request-wrapper .venue-image, .venue-request-wrapper .request-details
