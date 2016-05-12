@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^my_events__del_rental_request/(?P<rental_request_id>[0-9]+)/$', views.my_events__del_rental_request, name='my_events__del_rental_request'),
     url(r'^my_past_events/$', views.my_past_events, name='my_past_events'),
     # url(r'^my_past_events__submit_review/(?P<event_id>[0-9]+)/$', views.my_past_events__submit_review, name='my_past_events__submit_review'),
-
     url(r'event_list/$', views.format_event_requests, name='format_event_requests'),
+
+    url(r'favorites/$', views.favorites, name='favorites'),
 ]

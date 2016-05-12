@@ -8,7 +8,9 @@ urlpatterns = [
 
     url(r'^find_venue/$', views.find_venue, name='find_venue'),
     url(r'^find_venue/(?P<city>[\w\s,.@+-]+)/(?P<category>[\w\s,.@+-]+)/$', views.find_venue, name='find_venue_city'),
-    #url(r'^find_venue__add_favorite/(?P<venue_id>[0-9]+)/$', views.find_venue__add_favorite, name='find_venue__add_favorite'),
+    url(r'^find_venue__update_favorite/(?P<venue_id>[0-9]+)/(?P<favorited>[\w\s,.@+-]+)/$',
+        views.find_venue__update_favorite,
+        name='find_venue__update_favorite'),
     url(r'^update_find/$', views.find_venue_form, name='update_find_form'),
 
     url(r'^manage_venue__del_img/(?P<listing_id>[0-9]+)/(?P<image_id>[0-9]+)/$', views.manage_venue__del_img, name='manage_venue__del_img'),

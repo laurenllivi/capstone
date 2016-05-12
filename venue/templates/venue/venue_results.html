@@ -50,7 +50,7 @@
 
 
         <!-- the results of the search -->
-        <div class="results-wrapper">
+        <div class="results-wrapper" id="results-wrapper">
             <div class="results-container">
 
                 {% for venue in venues %}
@@ -59,14 +59,14 @@
                             <img class="venue-pic" src="/static/images/venue-images/{{ venue.id }}/{{ venue_pics_dict|get_item:venue.id }}"/>
                         </a>
                             <div class="price-label">${{ venue.price_per_hour }}</div>
-                            <a style="cursor: pointer;" class="favorite-click">
-                                <div class="favorite-container">
-                                    <span class="fa-stack">
-                                        <i class="fa fa-heart-o fa-2x fa-stack-1x favorite-heart-infront" id="favorite-venue-{{ venue.id }}"></i>
-                                        <i class="fa fa-heart fa-2x favorite-heart-filled fa-stack-1x" id="favorite-venue-filled-{{ venue.id }}"></i>       
-                                    </span>
-                                </div>
-                            </a>
+                                <a style="cursor: pointer;" class="favorite-click" id="favorite-{{venue.id}}">
+                                    <div class="favorite-container">
+                                        <span class="fa-stack">
+                                            <i class="fa fa-heart-o fa-2x fa-stack-1x favorite-heart-infront" id="favorite-venue-{{ venue.id }}"></i>
+                                            <i class="fa fa-heart fa-2x favorite-heart-filled heart-fill-{{venue.id}} fa-stack-1x" id="favorite-venue-filled-{{ venue.id }}"></i>
+                                        </span>
+                                    </div>
+                                </a>
                     </div>
                 {% endfor %}
 
@@ -80,26 +80,42 @@
 
 <script>
     $body = $("body");
-        
-   // fill in the favorite icon when it is clicked
+
    $(function(){
        $('.favorite-click').click(function(){
-           $(this).find('.favorite-heart-filled').toggleClass('favorite-clicked');
-           
-           var favorited = $('.favorite-heart-filled').hasClass('favorite-clicked');
-                      
-           if(favorited){
-               
-               // show the alert
-               $.bootstrapGrowl("Added to favorites",{
-                   allow_dismiss: false,
-                   delay: 2000,
-                   offset: {from: 'bottom', amount: 20},
-                   align: 'left',
-                   type: 'danger',
-                   width: 175,
-               });
-           };//if
+           var $this = $(this);
+           var venueId = this.id.split("-")[1];
+            var heartClassName = '.heart-fill-' + venueId;
+
+           var favorited = !$(heartClassName).hasClass('favorite-clicked');
+
+           var url = '/venue/find_venue__update_favorite/' + venueId + '/' + favorited + '/';
+
+           $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                },
+                success: function(){
+
+                    $this.find(heartClassName).toggleClass('favorite-clicked');
+
+                    if(favorited){
+
+                       // show the alert
+                       $.bootstrapGrowl("Added to favorites",{
+                           allow_dismiss: false,
+                           delay: 2000,
+                           offset: {from: 'bottom', amount: 20},
+                           align: 'left',
+                           type: 'danger',
+                           width: 175,
+                       });
+                   };//if
+                },
+           });
+
        })
    });//function
 
