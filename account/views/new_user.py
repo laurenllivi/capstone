@@ -34,6 +34,18 @@ def new_user(request):
             newUser.profile_pic = newUserPhoto
             newUser.save()
             
+            newSecurityQuestion = hmod.User_Security_Question()
+            newSecurityQuestion.user = newUser
+            newSecurityQuestion.security_question = form.cleaned_data['security_question_1']
+            newSecurityQuestion.answer = form.cleaned_data['security_answer_1']
+            newSecurityQuestion.save()
+            
+            newSecurityQuestion2 = hmod.User_Security_Question()
+            newSecurityQuestion2.user = newUser
+            newSecurityQuestion2.security_question = form.cleaned_data['security_question_2']
+            newSecurityQuestion2.answer = form.cleaned_data['security_answer_2']
+            newSecurityQuestion2.save()
+            
             return HttpResponseRedirect('/account/profile')
             
     context = {
@@ -49,8 +61,12 @@ class New_User_Form(forms.Form):
     password2 = forms.CharField(label="Retype Password", widget=forms.PasswordInput())
     email = forms.EmailField(widget=forms.EmailInput())
     phone = forms.IntegerField(widget=forms.TextInput(), required=False)
+    security_question_1 = forms.ModelChoiceField(label="Security Question 1", queryset=hmod.Security_Question.objects.all(),initial=0)
+    security_answer_1 = forms.CharField(label="Answer to Question 1", widget=forms.TextInput())
+    security_question_2 = forms.ModelChoiceField(label="Security Question 2", queryset=hmod.Security_Question.objects.all())
+    security_answer_2 = forms.CharField(label="Answer to Question 2",widget=forms.TextInput())
  
-    # checks to make sure that the username isn't already taken   
+    # checks to make sure that the username or email isn't already taken  
     def clean(self):
         password1 = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('password2')
@@ -63,4 +79,12 @@ class New_User_Form(forms.Form):
         # then check to make sure the new password fields match
         if password1 != password2:
             raise forms.ValidationError('The passwords do not match')
+            
+        # check to make sure the username is unique
+        try:
+            hmod.User.objects.get(email = self.cleaned_data.get('email'))
+            raise forms.ValidationError("That email is already registered with a user in our system. Please choose another.")
+        except hmod.User.DoesNotExist:
+            pass
+            
         return self.cleaned_data

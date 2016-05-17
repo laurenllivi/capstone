@@ -6,17 +6,16 @@
         {% block content %}
         
         <section id="main" class="wrapper">
-            <div class="container">
-                <h2 class="main-content-heading">Login</h2>
+            <div class="container" style="height: 350px">
+                <h2 class="main-content-heading">Answer Security Question</h2>
 
                 <div class="main-content-container">
+                    Pick one of your security questions and answer it correctly to receive an email containing your username.
                     <form method="POST">{% csrf_token %}
                             {{ form }}
-                        <input type="hidden" name="next" value="{{ request.GET.next }}" />
-                        <a href="/account/forgot_password">Forgot password?</a><br>
-                        <a href="/account/forgot_username">Forgot username?</a>
                         <br><br>
-                        <input type="submit" value="Submit">
+                        <input type="submit" value="Submit" class="small">
+                        <br> 
                     </form>
                 </div>
 

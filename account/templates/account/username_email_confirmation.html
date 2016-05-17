@@ -1,0 +1,37 @@
+{% extends 'capstone/base_template.html' %}
+
+<section id="main" class="wrapper">
+    <div class="container">
+
+{% block content %}
+
+    <section id="main" class="wrapper">
+        <div class="container">
+            
+            {% if answered_or_not == "not_answered" %}
+            
+                <h2 class="main-content-heading">Email Sent</h2> 
+                <div class="main-content-container">
+                    <h4>Please check your email for a link to answer your security questions and recover your username.</h4>
+                </div>
+                
+            {% else %}
+            
+                <h2 class="main-content-heading">Email Sent</h2> 
+                <div class="main-content-container">
+                    <h4>Please check your email for your username. Then use it to login <a href="/account/login">here</a>.</h4>
+                </div>
+            
+            {% endif %}
+    
+        </div>
+    </section>
+
+{% endblock %}
+
+    </div><!-- container -->
+</section>
+
+{% block footer %}
+    {% include "partials/_footer.html" %}
+{% endblock %}

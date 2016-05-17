@@ -22,6 +22,39 @@ os.system("python3 manage.py migrate")
 
 ######### Add some test data to the system ############################
 
+# Security Questions
+sq = hmod.Security_Question()
+sq.question = "What is your mother's maiden name?"
+sq.save()
+
+sq2 = hmod.Security_Question()
+sq2.question = "What is/was your favorite pet's name?"
+sq2.save()
+
+sq3 = hmod.Security_Question()
+sq3.question = "What is the first name of your favorite teacher in elementary school?"
+sq3.save()
+
+sq4 = hmod.Security_Question()
+sq4.question = "What is your favorite sports team?"
+sq4.save()
+
+sq5 = hmod.Security_Question()
+sq5.question = "What is your favorite movie?"
+sq5.save()
+
+sq6 = hmod.Security_Question()
+sq6.question = "What is the name of the company that hired you for your first job?"
+sq6.save()
+
+sq7 = hmod.Security_Question()
+sq7.question = "What was the make and model of your first car?"
+sq7.save()
+
+sq8 = hmod.Security_Question()
+sq8.question = "What city was your father born in?"
+sq8.save()
+
 # Profile pics
 ph = hmod.User_Photo()
 ph.image_title = "profile-lauren"
@@ -47,6 +80,18 @@ u.is_active = True
 u.profile_pic = ph
 u.save()
 
+usq = hmod.User_Security_Question()
+usq.user = u
+usq.security_question = sq7
+usq.answer = "Nissan Pathfinder"
+usq.save()
+
+usq = hmod.User_Security_Question()
+usq.user = u
+usq.security_question = sq4
+usq.answer = "Penguins"
+usq.save()
+
 u2 = hmod.User()
 u2.first_name = "Shelly"
 u2.last_name = "Burbidge"
@@ -57,6 +102,18 @@ u2.phone = "8016678890"
 u2.is_active = True
 u2.profile_pic = ph2
 u2.save()
+
+usq = hmod.User_Security_Question()
+usq.user = u2
+usq.security_question = sq
+usq.answer = "Mitchell"
+usq.save()
+
+usq = hmod.User_Security_Question()
+usq.user = u2
+usq.security_question = sq5
+usq.answer = "Transformers"
+usq.save()
 
 # Listing
 l = hmod.Listing()

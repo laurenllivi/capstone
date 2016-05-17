@@ -302,7 +302,7 @@ def manage_venue__del_img(request, listing_id, image_id):
 
 def set_cancellation_policy(request, listing):
      #set the cancellation policy
-    print "Saving cancellation policy"
+    print("Saving cancellation policy")
     try:
         updated_policy = request.POST['policy-select']
     except Exception:

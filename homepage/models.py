@@ -62,6 +62,22 @@ class User(AbstractUser):
         )
 
         return stripe_customer
+        
+class Security_Question(models.Model):
+    '''A security question that allows a user to recover his or her username'''
+    question = models.CharField(max_length=500)
+    
+    def __str__(self):
+        return self.question
+        
+class User_Security_Question(models.Model):
+    '''The association class between users and security questions (many to many relationship) '''
+    user = models.ForeignKey('User')
+    security_question = models.ForeignKey('Security_Question')
+    answer = models.CharField(max_length=500)
+    
+    def __str__(self):
+        return self.security_question.question
 
 class Feature(models.Model):
     '''A feature that a listing has'''
@@ -179,7 +195,6 @@ class Rental_Request(models.Model):
     def _get_fee_amount(self, hours, base_rate):
         amount_owed = hours * base_rate
 
-
 class Review(models.Model):
     '''A user gives a listing a review'''
     rating = models.DecimalField(decimal_places=1, max_digits=2, blank=True, null=True)
@@ -188,7 +203,6 @@ class Review(models.Model):
     event = models.ForeignKey('Rental_Request')
     review_date = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User)
-
 
 class Transaction(models.Model):
     date = models.DateTimeField(default=timezone.now, blank=True, null=True)

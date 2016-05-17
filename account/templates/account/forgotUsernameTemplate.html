@@ -1,0 +1,14 @@
+<body style="background-color:#E2E2E2; font-size:14px;">
+    <div style="background-color:#3BA666; width:90%; font-size:20px; color:white; padding:10px; margin-left:auto; margin-right:auto; border-top-left-radius: 4px; border-top-right-radius: 4px;">
+        Backyardly
+    </div>
+    <div style="width:90%; background-color:#FFFFFF; margin-left:auto; margin-right:auto; padding:10px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;">
+        <h3>Hello {{ user.first_name }},</h3>
+        We believe you recently submitted a request to recover your Backyardly username. If not, please disregard this email. Otherwise, click the link below to answer your security questions in order to retrieve your username.<br><br>
+
+        <a href="{{ url }}">{{ url }}</a><br><br>
+
+        Thank you!<br>
+        -Backyardly Customer Service Team
+    </div>
+</body>

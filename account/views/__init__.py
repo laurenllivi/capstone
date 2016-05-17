@@ -16,3 +16,6 @@ from .payment_preferences import *
 from .my_events import *
 from .my_past_events import *
 from .favorites import *
+from .forgot_username import *
+from .answer_security_questions import *
+from .username_email_confirmation import *
