@@ -14,10 +14,18 @@ $(function(){
        var body = $(this).find('.message_body');
        var subject = $(this).find('.message_subject');
        body.text(function(index, currentText){
-           return currentText.substr(0,100)+ "...";
+           if (currentText.length > 100){ 
+               return currentText.substr(0,100) + "...";
+           }else{
+               return currentText;
+           }
        });
        subject.text(function(index, currentText){
-           return currentText.substr(0,40)+"..."
+           if (currentText.length > 40){
+               return currentText.substr(0,40) + "...";
+           }else {
+               return currentText;
+           }
        });
    });
 });

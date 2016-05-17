@@ -32,7 +32,7 @@ sq2.question = "What is/was your favorite pet's name?"
 sq2.save()
 
 sq3 = hmod.Security_Question()
-sq3.question = "What is the first name of your favorite teacher in elementary school?"
+sq3.question = "What is the last name of your favorite teacher in elementary school?"
 sq3.save()
 
 sq4 = hmod.Security_Question()

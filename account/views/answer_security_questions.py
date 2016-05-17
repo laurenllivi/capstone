@@ -19,36 +19,32 @@ def answer_security_questions(request):
     
     todays_date = timezone.now()
     
-    form = Answer_Question_Form(user=user)
+    form = Answer_Question_Form(user=user, key_expiration=key_expiration, todays_date=todays_date)
     form.fields["security_question"].queryset = hmod.User_Security_Question.objects.filter(user=user)
     
     if request.method == 'POST': 
-        form = Answer_Question_Form(request.POST, user=user)
+        form = Answer_Question_Form(request.POST, user=user, key_expiration=key_expiration, todays_date=todays_date)
         form.fields["security_question"].queryset = hmod.User_Security_Question.objects.filter(user=user)
         
         if form.is_valid():
-            if key_expiration <= todays_date:
-                print(str(key_exp))
-                raise forms.ValidationError("Your key has expired.")
-            else:
-                # send the user an email containing the password
-                url = "localhost:8000/account/login"
-                
-                email = user.email
+            # send the user an email containing the password
+            url = "localhost:8000/account/login"
             
-                # send an email with reset link
-                subject, from_email, to = 'Your Backyardly Username', settings.EMAIL_HOST_USER, email
+            email = user.email
+        
+            # send an email with reset link
+            subject, from_email, to = 'Your Backyardly Username', settings.EMAIL_HOST_USER, email
 
-                html_content = render_to_string('account/recoverUsernameTemplate.html', {'user':user, 'url': url})
-                text_content = strip_tags(html_content) # this strips the html, so people will have the text as well.
+            html_content = render_to_string('account/recoverUsernameTemplate.html', {'user':user, 'url': url})
+            text_content = strip_tags(html_content) # this strips the html, so people will have the text as well.
 
-                # create the email, and attach the HTML version as well.
-                msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-                msg.mixed_subtype = 'related'
-                msg.attach_alternative(html_content, "text/html")
-                 
-                msg.send()
-            
+            # create the email, and attach the HTML version as well.
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg.mixed_subtype = 'related'
+            msg.attach_alternative(html_content, "text/html")
+             
+            msg.send()
+        
             return HttpResponseRedirect("/account/username_email_confirmation?type=%s" %('answered'))                   
                 
     context = {
@@ -59,6 +55,8 @@ def answer_security_questions(request):
 class Answer_Question_Form(forms.Form):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
+        self.key_expiration = kwargs.pop('key_expiration')
+        self.todays_date = kwargs.pop('todays_date')
         super(Answer_Question_Form, self).__init__(*args, **kwargs)
     
     
@@ -66,13 +64,17 @@ class Answer_Question_Form(forms.Form):
     security_answer = forms.CharField(required=True, widget=forms.TextInput())
         
     def clean(self):
-        # make sure the security question is answered correctly
-        question = hmod.Security_Question.objects.get(question=self.cleaned_data['security_question'])
-        correct_answer = hmod.User_Security_Question.objects.get(user=self.user,security_question=question).answer
-        answer = self.cleaned_data['security_answer']
+        # if there are no other form errors . . .
+        if len(self.errors) == 0:
+            if self.key_expiration <= self.todays_date:
+                raise forms.ValidationError("Your key has expired. Please request a new recovery link.")
+            # make sure the security question is answered correctly
+            question = hmod.Security_Question.objects.get(question=self.cleaned_data['security_question'])
+            correct_answer = hmod.User_Security_Question.objects.get(user=self.user,security_question=question).answer
+            answer = self.cleaned_data['security_answer']
         
-        if str(answer).lower() == str(correct_answer).lower():
-            pass
-        else:
-            raise forms.ValidationError('Your answer does not match our records. Try again or pick a different question.')
+            if str(answer).lower() == str(correct_answer).lower():
+                pass
+            else:
+                raise forms.ValidationError('Your answer does not match our records. Try again or pick a different question.')
         
