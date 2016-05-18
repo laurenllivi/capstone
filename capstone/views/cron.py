@@ -39,6 +39,16 @@ def run_daily():
     reservations_to_cancel = get_reservations(date_ids)
     cancel_reservations(reservations_to_cancel)
 
+    # TODO:: send email telling user the event was canceled
+
+    #
+    # send email for invitation to review a venue
+    #
+    past_date = -2
+    past_date_ids = get_date_ids(today, past_date)
+    reservations_for_reviews = get_reservations(past_date_ids)
+    send_review_email(reservations_for_reviews)
+
 
 def get_date_ids(today, days_from_today):
     days_from_today = dt.timedelta(days=days_from_today)
@@ -70,12 +80,30 @@ def send_reminder_email(reservations, days_to_event):
                                         {'reservation': r, 'days_to_event': days_to_event})
         text_content = strip_tags(html_content) # this strips the html, so people will have the text as well.
 
-        # create the email, and attach the HTML version as well.
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-        msg.mixed_subtype = 'related'
-        msg.attach_alternative(html_content, "text/html")
+        send_email(subject, text_content, from_email, to, html_content)
 
-        msg.send()
+def send_review_email(reservations):
+
+    #send an email asking for a review
+    for r in reservations:
+        email = r.user.email
+
+        subject, from_email, to = "We'd love to hear your feedback!", settings.EMAIL_HOST_USER, email
+
+        html_content = render_to_string('capstone/review_reminder_template.html',
+                                        {'reservation': r})
+        text_content = strip_tags(html_content) # this strips the html, so people will have the text as well.
+
+        send_email(subject, text_content, from_email, to, html_content)
+
+
+def send_email(subject, text_content, from_email, to, html_content):
+    # create the email, and attach the HTML version as well.
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.mixed_subtype = 'related'
+    msg.attach_alternative(html_content, "text/html")
+
+    msg.send()
 
 
 def cancel_reservations(reservations):

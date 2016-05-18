@@ -4,7 +4,7 @@ from django.shortcuts import *
 from homepage import models as hmod
 from lib import choices
 from django.template import RequestContext
-
+import datetime
 
 def view_venue(request, listing_id):
     '''create new listing'''
@@ -95,7 +95,6 @@ def request_booking_form(request, listing_id):
                     else:
                         #Creat booking request
                         rental_request = hmod.Rental_Request()
-                        rental_request.request_date = form.cleaned_data['event_date']
                         rental_request.start_time = form.cleaned_data['start_time']
                         rental_request.end_time = form.cleaned_data['end_time']
                         rental_request.user_id = request.user.id
@@ -103,6 +102,7 @@ def request_booking_form(request, listing_id):
                         rental_request.listing_date_id = hmod.Listing_Date.objects\
                             .filter(listing_id=listing.id)\
                             .filter(date=rental_request.request_date)[0].id
+                        rental_request.request_date = datetime.datetime.now()
 
                         rental_request.save()
 
