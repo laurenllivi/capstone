@@ -15,7 +15,6 @@ $(document).ready(function(){
     makeMap(Circles, 40.2404048, -111.6465722)
 
     $('#owl-carousel-standard').owlCarousel({
-        loop:true,
         responsiveClass:true,
         dots:false,
         nav: true,
