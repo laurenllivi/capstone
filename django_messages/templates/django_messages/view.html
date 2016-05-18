@@ -6,7 +6,13 @@
     {% ifequal message.recipient.pk user.pk %}
     <a href="{% url 'messages_reply' message.id %}"><i class="fa fa-reply"></i> {% trans "Reply" %}</a>
     {% endifequal %}
-    <a class="delete-object" href="{% url 'messages_delete' message.id %}"><i class="fa fa-trash-o"></i> {% trans "Delete" %}</a>
+    
+    {% if message.recipient_deleted_at == None or message.recipient_deleted_at != None and message.recipient.pk != user.pk %}
+        <a class="delete-object" href="{% url 'messages_delete' message.id %}"><i class="fa fa-trash-o"></i> {% trans "Delete" %}</a>
+    {% endif %}
+    {% if message.recipient_deleted_at != None %}
+        <a href="{% url 'messages_undelete' message.id %}"><i class="fa fa-recycle"></i> {% trans "Undelete" %}</a>
+    {% endif %}
  
 </div><!-- view_message-banner -->
 <hr class="hr-border">

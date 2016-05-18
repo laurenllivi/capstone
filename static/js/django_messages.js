@@ -14,47 +14,63 @@ $(function(){
        var body = $(this).find('.message_body');
        var subject = $(this).find('.message_subject');
        body.text(function(index, currentText){
-           if (currentText.length > 100){ 
-               return currentText.substr(0,100) + "...";
-           }else{
-               return currentText;
-           }
+           return currentText.substr(0,100)+ "...";
        });
        subject.text(function(index, currentText){
-           if (currentText.length > 40){
-               return currentText.substr(0,40) + "...";
-           }else {
-               return currentText;
-           }
+           return currentText.substr(0,40)+"..."
        });
    });
 });
 
-//search function 
-$(function(){
-    
-    //the search filter for the products
-    $("#search-message").keyup(function(){
- 
-            // Retrieve the input field text and reset the count to zero
-            var messageSearchTerms = $(this).val();
- 
-            // Loop through the products
-            $(".message-preview").each(function(){
-                var senderelem = $(this).find('.message_sender');
-                var sentelem = $(this).find('.message_sent_at');
-                var subjectelem = $(this).find('.message_subject');
-                var bodyelem = $(this).find('.message_body');
-                
-                // If the list item does not contain the text phrase fade it out
-                if (senderelem.text().search(new RegExp(messageSearchTerms, "i")) < 0 && sentelem.text().search(new RegExp(messageSearchTerms, "i")) < 0 && subjectelem.text().search(new RegExp(messageSearchTerms, "i")) < 0 && bodyelem.text().search(new RegExp(messageSearchTerms, "i")) < 0){
-                    $(this).fadeOut();
-                } else {
-                    $(this).show();
-                } //else
-        });//thumbnail loop
-    }); //keyup    
-}); 
+//test search function using info here: http://stackoverflow.com/questions/18744533/how-do-i-jquery-ajax-live-search-for-the-models-in-django
+// $(function() {
+//
+//     $('#search-message').keyup(function() {
+//
+//         $.ajax({
+//             type: "GET",
+//             url: "/django_messages/inbox/",
+//             data: {
+//                 'search_text' : $('#search-message').val(),
+//                 'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+//             },
+//             success: searchSuccess,
+//             dataType: 'html'
+//         });
+//     });
+// });
+//
+// function searchSuccess(data, textStatus, jqXHR)
+// {
+//     $('#search-results').html(data)
+// }
+
+
+// //search function
+// $(function(){
+//
+//     //the search filter for the products
+//     $("#search-message").keyup(function(){
+//
+//             // Retrieve the input field text and reset the count to zero
+//             var messageSearchTerms = $(this).val();
+//
+//             // Loop through the products
+//             $(".message-preview").each(function(){
+//                 var senderelem = $(this).find('.message_sender');
+//                 var sentelem = $(this).find('.message_sent_at');
+//                 var subjectelem = $(this).find('.message_subject');
+//                 var bodyelem = $(this).find('.message_body');
+//
+//                 // If the list item does not contain the text phrase fade it out
+//                 if (senderelem.text().search(new RegExp(messageSearchTerms, "i")) < 0 && sentelem.text().search(new RegExp(messageSearchTerms, "i")) < 0 && subjectelem.text().search(new RegExp(messageSearchTerms, "i")) < 0 && bodyelem.text().search(new RegExp(messageSearchTerms, "i")) < 0){
+//                     $(this).fadeOut();
+//                 } else {
+//                     $(this).show();
+//                 } //else
+//         });//thumbnail loop
+//     }); //keyup
+// });
 
 //select the first message in the list by default
 $(document).ready(function(){

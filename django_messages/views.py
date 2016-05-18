@@ -8,6 +8,8 @@ from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from homepage import models as hmod
+import json
+from django.core import serializers
 
 from django_messages.models import Message
 from django_messages.forms import ComposeForm
@@ -28,8 +30,11 @@ def inbox(request, template_name='django_messages/inbox.html'):
         ``template_name``: name of the template to use.
     """
     message_list = Message.objects.inbox_for(request.user)
+    json_serialized_list = serializers.serialize("json", message_list)
+
     return render_to_response(template_name, {
         'message_list': message_list,
+        'json_list': json.dumps(json_serialized_list),
     }, context_instance=RequestContext(request))
 
 @login_required
