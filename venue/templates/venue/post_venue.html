@@ -2,10 +2,12 @@
 {% load staticfiles %}
 
 {% block stylesheets %}
-    <link href="{% static 'css/unslider.css' %}" rel="stylesheet" type="text/css" />
-    <link href="{% static 'css/unslider-dots.css' %}" rel="stylesheet" type="text/css" />
-
     <script src="{% static 'js/jquery.form.js' %}"></script>
+    <script src="{% static 'js/post_venue.js' %}" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <script src="{% static 'js/owl.carousel.min.js' %}" type="text/javascript"></script>
 {% endblock %}
 
 {% block content %}
@@ -115,16 +117,14 @@
         </table>
         
         <h3 class="review-settings-title">Photos ({{ image_count }})<a href="/venue/manage_venue/{{ listing.id }}/?tab=7" class="pull-right edit-venue-settings"><i class="fa fa-pencil-square-o"></i> Edit</a></h3>
-        
-        <div class="photo-slider-div">
-            <div id="post-venue-photo-slider">
-            	<ul>
-            		 {% for image in images %}
-                         <li style="list-style:none;"><img src='{% static "images/venue-images/" %}{{ listing.id }}/{{image.image_name}}'/></li>
-                     {% endfor %}
-            	</ul>
-            </div>
-        </div><!-- photo-slider-div -->
+
+        <div class="owl-carousel">
+            {% for image in images %}
+                <div>
+                    <img src='{% static "images/venue-images/" %}{{ listing.id }}/{{image.image_name}}' alt="" />
+                </div>
+            {% endfor %}
+        </div>
 
         <div id="captcha-container">
             {{ captchaformhtml|safe }}

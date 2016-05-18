@@ -1,3 +1,8 @@
+.owl-carousel div img
+{
+    max-height: 200px;
+}
+
 .owl-nav
 {
     margin-top:10px;

@@ -763,41 +763,6 @@ footer ul.icons li
 	color: lightgrey;
 }
 
-/**************** Slider ********************/
-
-.slider-container
-{
-	margin-top:10px;
-}
-
-.noUi-target
-{
-	width: 77%;
-    position: absolute;
-    left: 10%;
-}
-
-.noUi-handle
-{
-	border-radius: 17px;
-}
-
-.slider
-{
-	display: inline-block;
-	position: absolute;
-}
-
-.left-slider
-{
-	left: 10%;
-}
-
-.right-slider
-{
-	right: 10%;
-}
-
 
 /***************** Forms *****************/
 
@@ -1473,62 +1438,6 @@ hr.hr-border{
 
 .edit-venue-settings:hover{
     color: #ffffff;
-}
-
-.photo-slider-div{
-    position: relative;
-    width: 100%;
-}
-
-.photo-slider-div img{
-    width: 375px;
-    height: 250px;
-   
-}
-
-#post-venue-photo-slider{
-    position: relative;
-    height:250px;
-    width:375px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.photo-slider-div .unslider-arrow.prev{
-    position: relative;
-    display: block;
-    width: 32px;
-    height: 32px;
-    overflow: hidden;
-    background: rgba(0,0,0,.3) no-repeat 50% 50%;
-    background-image: url('/static/css/images/prev-arrow.png');
-    background-size: 7px 11px;
-    border-radius: 32px;
-    text-indent: -999em;
-    opacity: .9;
-    transition: opacity .2s;
-
-    left: 250px;
-    bottom: 150px;
-
-}
-
-.photo-slider-div .unslider-arrow.next{
-    display: block;
-    width: 32px;
-    height: 32px;
-    overflow: hidden;
-    background: rgba(0,0,0,.3) no-repeat 50% 50%;
-    background-image: url('/static/css/images/next-arrow.png');
-    background-size: 7px 11px;
-    border-radius: 32px;
-    text-indent: -999em;
-    opacity: .9;
-    transition: opacity .2s;
-
-    right: 250px;
-    bottom: 150px;
-
 }
 
 .post-venue-features input[type="checkbox"] + label{
