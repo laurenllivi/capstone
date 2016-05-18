@@ -1462,6 +1462,11 @@ hr.hr-border{
     padding: 15px;
 }
 
+.venue-photos
+{
+    margin-top: 20px;
+}
+
 .edit-venue-settings{
     font-size: 18px;
 }

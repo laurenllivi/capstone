@@ -1,12 +1,7 @@
-var imageCount = 0;
 var listingDates = [];
 var pricePerHour = 0;
 var pricePerHourWeekend = 0;
 var depositAmount = 0;
-
-window.addEventListener('resize', function(event){
-  $('#horiz_container_outer').horizontalScroll();
-});
 
 $(document).ready(function(){
 
@@ -19,12 +14,30 @@ $(document).ready(function(){
 
     makeMap(Circles, 40.2404048, -111.6465722)
 
-    //photo scroller
-    imageWidth = 308; //including padding
-    container_width = imageWidth * imageCount;
-    document.getElementById('horiz_container').style.width = container_width + "px";
+    $('#owl-carousel-standard').owlCarousel({
+        loop:true,
+        responsiveClass:true,
+        dots:false,
+        nav: true,
+        responsive:{
+            0:{
+                items:2,
+            },
+            600:{
+                items:3,
+            },
+            1000:{
+                items:4,
+            }
+        }
+    });
 
-    $('#horiz_container_outer').horizontalScroll();
+    $('#owl-carousel-modal').owlCarousel({
+        dots:false,
+        nav: true,
+        items: 1,
+        responsiveClass:false,
+    });
 
     //star ratings
     $('.rating-cancel').remove()
@@ -85,11 +98,6 @@ function makeMap(Circles, centerLat, centerLon)
         },
         show_markers: false,
     }).Load();
-}
-
-function sizePhotoContainter(count)
-{
-    imageCount = count;
 }
 
 function setAvailableDates(listing_dates)
