@@ -5,6 +5,7 @@ from homepage import models as hmod
 from lib import choices
 from django.template import RequestContext
 import datetime
+import pytz
 
 def view_venue(request, listing_id):
     '''create new listing'''
@@ -93,22 +94,27 @@ def request_booking_form(request, listing_id):
                         message = "End time must be later than start time."
 
                     else:
-                        #Creat booking request
+                        #Create booking request
                         rental_request = hmod.Rental_Request()
+                        event_date = form.cleaned_data['event_date']
                         rental_request.start_time = form.cleaned_data['start_time']
                         rental_request.end_time = form.cleaned_data['end_time']
                         rental_request.user_id = request.user.id
                         rental_request.listing = hmod.Listing.objects.get(id=listing_id)
                         rental_request.listing_date_id = hmod.Listing_Date.objects\
                             .filter(listing_id=listing.id)\
-                            .filter(date=rental_request.request_date)[0].id
+                            .filter(date=event_date)[0].id
                         rental_request.request_date = datetime.datetime.now()
+                        print rental_request.request_date
+                        print '>>>>>>>>>>>>>>>>'
+
+                        
 
                         rental_request.save()
 
                         message = 'Request Has Been Sent!'
                 except:
-                    message = 'Invalid Input'
+                    message = 'There was an error saving your request.'
 
         else:
             message = 'Invalid Input'
