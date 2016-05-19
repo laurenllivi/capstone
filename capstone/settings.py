@@ -173,7 +173,7 @@ STRIPE_SECRET_KEY = open('/var/capstone/stripe_secret.txt', 'r').read().strip()
 STRIPE_PUBLISHABLE_KEY = open('/var/capstone/stripe_publishable.txt', 'r').read().strip()
 
 CRONJOBS = [
-    ('1 0 * * *', 'capstone.views.cron.run_daily')
+    ('1 2 * * *', 'capstone.views.cron.run_daily') # Every day at 2:01
 ]
 
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'

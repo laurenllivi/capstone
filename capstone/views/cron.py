@@ -18,17 +18,24 @@ def run_daily():
     date_ids = get_date_ids(today, days_to_event)
 
     # get all reservations that have been approved but not paid that are one week from today
-    reservations = get_reservations(date_ids)
-    send_reminder_email(reservations, days_to_event)
+    reservations = get_reservations(date_ids, False)
+    send_payment_reminder(reservations, days_to_event)
 
     #
     # send a reminder email to pay 3 days before the event
     #
     days_to_event = 3
     date_ids = get_date_ids(today, days_to_event)
-    reservations_soon = get_reservations(date_ids)
+    reservations_soon = get_reservations(date_ids, False)
 
-    send_reminder_email(reservations_soon, days_to_event)
+    send_payment_reminder(reservations_soon, days_to_event)
+
+
+    #
+    # send reminder 3 days before the event (paid)
+    #
+    reservations = get_reservations(date_ids, True)
+    send_event_reminder(reservations, days_to_event)
 
 
     #
@@ -36,7 +43,7 @@ def run_daily():
     #
     days_to_event = 1
     date_ids = get_date_ids(today, days_to_event)
-    reservations_to_cancel = get_reservations(date_ids)
+    reservations_to_cancel = get_reservations(date_ids, False)
     cancel_reservations(reservations_to_cancel)
 
     # TODO:: send email telling user the event was canceled
@@ -61,26 +68,37 @@ def get_date_ids(today, days_from_today):
     return date_list
 
 
-def get_reservations(days_to_event):
+def get_reservations(days_to_event, has_been_paid):
     reservations = hmod.Rental_Request.objects.filter(approved=True,
-                                                      full_amount_paid=False,
+                                                      full_amount_paid=has_been_paid,
                                                       listing_date_id__in=days_to_event).exclude(canceled=True)
     return reservations
 
 
-def send_reminder_email(reservations, days_to_event):
-
+def send_payment_reminder(reservations, days_to_event):
     #send an email for each reservation
     for r in reservations:
         email = r.user.email
 
-        subject, from_email, to = 'Reminder Email', settings.EMAIL_HOST_USER, email
+        subject, from_email, to = 'Your event is almost here!', settings.EMAIL_HOST_USER, email
 
         html_content = render_to_string('capstone/payment_reminder_template.html',
                                         {'reservation': r, 'days_to_event': days_to_event})
-        text_content = strip_tags(html_content) # this strips the html, so people will have the text as well.
 
-        send_email(subject, text_content, from_email, to, html_content)
+        send_email(subject, from_email, to, html_content)
+
+
+def send_event_reminder(reservations, days_to_event):
+    #send an email for each reservation
+    for r in reservations:
+        email = r.user.email
+
+        subject, from_email, to = 'Your event is almost here!', settings.EMAIL_HOST_USER, email
+
+        html_content = render_to_string('capstone/event_reminder_template.html',
+                                        {'reservation': r, 'days_to_event': days_to_event})
+
+        send_email(subject, from_email, to, html_content)
 
 def send_review_email(reservations):
 
@@ -92,12 +110,13 @@ def send_review_email(reservations):
 
         html_content = render_to_string('capstone/review_reminder_template.html',
                                         {'reservation': r})
-        text_content = strip_tags(html_content) # this strips the html, so people will have the text as well.
 
-        send_email(subject, text_content, from_email, to, html_content)
+        send_email(subject, from_email, to, html_content)
 
 
-def send_email(subject, text_content, from_email, to, html_content):
+def send_email(subject, from_email, to, html_content):
+    text_content = strip_tags(html_content) # this strips the html, so people will have the text as well.
+
     # create the email, and attach the HTML version as well.
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.mixed_subtype = 'related'
