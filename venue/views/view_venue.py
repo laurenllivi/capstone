@@ -4,8 +4,10 @@ from django.shortcuts import *
 from homepage import models as hmod
 from lib import choices
 from django.template import RequestContext
-import datetime
+from datetime import datetime
 import pytz
+from pytz import timezone
+from tzwhere import tzwhere
 
 def view_venue(request, listing_id):
     '''create new listing'''
@@ -89,6 +91,7 @@ def request_booking_form(request, listing_id):
             if not request.user.is_authenticated():
                 message = 'You must be logged in to request a reservation.'
             else:
+
                 try:
                     if form.cleaned_data['start_time'] > form.cleaned_data['end_time']:
                         message = "End time must be later than start time."
@@ -104,17 +107,21 @@ def request_booking_form(request, listing_id):
                         rental_request.listing_date_id = hmod.Listing_Date.objects\
                             .filter(listing_id=listing.id)\
                             .filter(date=event_date)[0].id
-                        rental_request.request_date = datetime.datetime.now()
-                        print rental_request.request_date
-                        print '>>>>>>>>>>>>>>>>'
+                        rental_request.request_date = datetime.now()
 
-                        
+                        tz = listing.timezone
+                        event_start = str(event_date) + " " + str(rental_request.start_time)
+                        start_datetime = datetime.strptime(event_start, "%Y-%m-%d %H:%M")
+                        # add venue's timezone to start time
+                        local_dt = timezone(tz).localize(start_datetime, is_dst=None)
+
+                        rental_request.start_datetime = local_dt
 
                         rental_request.save()
 
                         message = 'Request Has Been Sent!'
                 except:
-                    message = 'There was an error saving your request.'
+                    message = 'Invalid Input'
 
         else:
             message = 'Invalid Input'

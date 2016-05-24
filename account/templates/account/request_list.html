@@ -1,4 +1,5 @@
- <div class="my_venue_wrapper venue-request-wrapper">
+{% load tz %}
+<div class="my_venue_wrapper venue-request-wrapper">
     {% for r in request_list %}
 
         <div class="venue-image">
@@ -15,7 +16,9 @@
         </div>
 
         <div class="request-details">
-            <div class="time-of-request">{{r.request_date}}</div>
+            {% localtime on %}
+                <div class="time-of-request">{{r.request_date}}</div>
+            {% endlocaltime %}
             <div>{{r.listing.title}}</div>
             <span>
                 <div class="profile-pic-container mini-profile-pic-container">

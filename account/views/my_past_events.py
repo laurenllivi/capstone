@@ -4,8 +4,10 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from homepage import models as hmod
 from django import forms
-import datetime as dt
+from datetime import datetime
 from datetime import timedelta
+from pytz import timezone
+from dateutil import tz
 from decimal import *
 
 @login_required
@@ -85,13 +87,14 @@ def format_event_requests(request, user):
         except hmod.Review.DoesNotExist:
             pass
 
-    date_threshold = dt.datetime.now() - timedelta(days=1)
+    date_threshold = get_date_threshold(request)
 
     events = hmod.Rental_Request.objects\
         .filter(user=user)\
         .exclude(approved=False)\
         .exclude(canceled=True)\
-        .filter(listing_date__date__lt=date_threshold)
+        .filter(full_amount_paid=True)\
+        .filter(start_datetime__lt=date_threshold)
 
     for e in events:
         event_list.append(e)
@@ -113,3 +116,12 @@ class SubmitReviewForm(forms.Form):
     description = forms.CharField(max_length=500, widget=forms.Textarea(attrs={
         'rows': '5',
     }), required=False)
+
+
+def get_date_threshold(request):
+    #get user's local time and convert to UTC for time comparisons
+    local_tz = tz.tzlocal()
+    date_threshold = datetime.now().replace(tzinfo=local_tz)
+    utc_date = date_threshold.astimezone(timezone('UTC'))
+
+    return utc_date

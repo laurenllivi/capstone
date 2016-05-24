@@ -4,8 +4,8 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from homepage import models as hmod
 from django import forms
-import datetime as dt
-from datetime import timedelta
+from datetime import datetime, date, timedelta
+
 
 @login_required
 def my_events(request):
@@ -60,14 +60,14 @@ def format_event_requests(request, event_requests, user, approved, canceled):
         fees_dict[event_request.id] = rental_fee
 
 
-    date_threshold = dt.datetime.now() + timedelta(days=1)
+    date_threshold = get_date_threshold(request)
 
     if approved and not canceled:
         events = hmod.Rental_Request.objects\
             .filter(user=user)\
             .filter(approved=True)\
             .exclude(canceled=True)\
-            .filter(listing_date__date__gt=date_threshold)
+            .filter(start_datetime__gt=date_threshold)
     elif canceled:
         events = hmod.Rental_Request.objects\
             .filter(user=user).filter(approved=True)\
@@ -84,7 +84,7 @@ def format_event_requests(request, event_requests, user, approved, canceled):
         cancellation_dict[listing.id] = cancellation_policy
 
         event_date = hmod.Listing_Date.objects.filter(id=e.listing_date_id).first()
-        days_to_event = abs((event_date.date - dt.date.today()).days)
+        days_to_event = abs((event_date.date - date.today()).days)
         days_to_event_dict[e.id] = days_to_event
         
     context = {
@@ -122,3 +122,12 @@ def get_cancellation_policies(request):
     }
 
     return render_to_response('partials/_cancellation_policy.html', context, RequestContext(request))
+
+
+def get_date_threshold(request):
+    #get user's local time and convert to UTC for time comparisons
+    local_tz = tz.tzlocal()
+    date_threshold = datetime.now().replace(tzinfo=local_tz)
+    utc_date = date_threshold.astimezone(timezone('UTC'))
+
+    return utc_date

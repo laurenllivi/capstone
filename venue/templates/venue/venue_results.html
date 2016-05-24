@@ -9,7 +9,6 @@
 
 <form id="htmlFindForm" action="{% url 'update_find_form' %}" method="post">
     {% csrf_token %}
-    <script language="javascript" type="text/javascript" src="{% static 'noUiSlider.8.1.0/nouislider.js' %}"></script>
     <script src="{% static 'js/maplace.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/geosearch.js' %}" type="text/javascript"></script>
     <script type="text/javascript">

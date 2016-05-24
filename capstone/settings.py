@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'payment',
     'django_crontab',
     'captcha',
+    'easy_timezones',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -61,6 +62,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'easy_timezones.middleware.EasyTimezoneMiddleware',
 ]
 
 ROOT_URLCONF = 'capstone.urls'
@@ -177,3 +179,6 @@ CRONJOBS = [
 ]
 
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
+
+GEOIP_DATABASE = '/var/capstone/GeoLiteCity.dat'
+GEOIPV6_DATABASE = '/var/capstone/GeoLiteCityv6.dat'

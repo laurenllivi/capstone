@@ -5,9 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from django.utils import timezone
-import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
+from pytz import timezone
+from dateutil import tz
 from homepage import models as hmod
 from capstone import settings
 from django import forms
@@ -23,6 +23,7 @@ def venue_requests(request):
     approved_requests = format_ven_requests(request, listings, user, True, False, False)
     cancelled_requests = format_ven_requests(request, listings, user, True, True, False)
     past_events = format_ven_requests(request, listings, user, True, False, True)
+
 
     context = {
         'pendinghtml': new_requests.content,
@@ -59,7 +60,7 @@ def format_ven_requests(request, listings, user, approved, canceled, past):
                 msg.attach_alternative(html_content, "text/html")
 
                 msg.send()
-                ven_request.approval_email_sent_at = datetime.datetime.now()
+                ven_request.approval_email_sent_at = datetime.now()
                 ven_request.save()
 
         elif 'denyRequest' in request_string:
@@ -92,14 +93,15 @@ def format_ven_requests(request, listings, user, approved, canceled, past):
         except hmod.Listing_Photo.DoesNotExist:
             pass
 
-        date_threshold = datetime.datetime.now() - timedelta(days=1)
+        date_threshold = get_date_threshold(request)
+
         if approved and not canceled and not past:
             # approved future events
             requests = hmod.Rental_Request.objects\
                 .filter(listing_id=listing.id)\
                 .filter(approved=True)\
                 .exclude(canceled=True)\
-                .filter(listing_date__date__gt=date_threshold)
+                .filter(start_datetime__gt=date_threshold)
         elif canceled:
             # canceled requests
             requests = hmod.Rental_Request.objects\
@@ -107,12 +109,11 @@ def format_ven_requests(request, listings, user, approved, canceled, past):
                 .filter(canceled=True)
         elif past:
             # events that have happened
-            date_threshold = datetime.datetime.now() - timedelta(days=1)
             requests = hmod.Rental_Request.objects\
                 .filter(listing_id=listing.id)\
                 .filter(approved=True)\
                 .filter(canceled=False)\
-                .filter(listing_date__date__lt=date_threshold)
+                .filter(start_datetime__lt=date_threshold)
         else:
             # new requests
             requests = hmod.Rental_Request.objects\
@@ -120,14 +121,13 @@ def format_ven_requests(request, listings, user, approved, canceled, past):
                 .exclude(approved=True)\
                 .exclude(approved=False)\
                 .exclude(canceled=True)\
-                .filter(listing_date__date__gt=date_threshold)
+                .filter(start_datetime__gt=date_threshold)
             for listing_request in requests:
                 listing_request.viewed_by_owner = True
                 listing_request.save()
 
         for i in requests:
             request_list.append(i)
-
 
     context = {
         'user': user,
@@ -139,3 +139,12 @@ def format_ven_requests(request, listings, user, approved, canceled, past):
     }
 
     return render_to_response('account/request_list.html', context, RequestContext(request))
+
+
+def get_date_threshold(request):
+    #get user's local time and convert to UTC for time comparisons
+    local_tz = tz.tzlocal()
+    date_threshold = datetime.now().replace(tzinfo=local_tz)
+    utc_date = date_threshold.astimezone(timezone('UTC'))
+
+    return utc_date

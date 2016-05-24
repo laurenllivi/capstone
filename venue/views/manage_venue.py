@@ -14,6 +14,8 @@ from django.contrib.gis.geos import Point
 import geocoder
 from localflavor.us.forms import USZipCodeField
 import uuid
+from pytz import timezone
+from tzwhere import tzwhere
 
 # make sure the user is logged in before accessing this view
 # redirects the user to the previous url after login
@@ -256,6 +258,8 @@ def manage_venue(request, listing_id):
                 )
 
                 listing.geolocation = Point(float(g.lat), float(g.lng))
+                tz = tzwhere.tzwhere()
+                listing.timezone = tz.tzNameAt(listing.geolocation.x, listing.geolocation.y)
                 listing.save()
     
                 # reset the url param to be the id of the venue
