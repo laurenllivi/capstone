@@ -1,6 +1,10 @@
 {% extends 'capstone/base_template.html' %}
 {% load staticfiles %}
 
+{% block subtitle %}
+ - {{user.first_name|capfirst}}'s Profile
+{% endblock %}
+
 {% block content %}
 <section id="main" class="wrapper">
     <div class="container">

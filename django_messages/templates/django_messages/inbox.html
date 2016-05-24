@@ -1,6 +1,10 @@
 {% extends "message_base.html" %} 
 {% load i18n %}
 
+{% block subtitle %}
+ - Inbox
+{% endblock %}
+
 {% block content %}
     <section id="main" class="wrapper"> 
         {% include 'partials/_message_left_menu.html' %}

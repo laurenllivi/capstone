@@ -1,7 +1,9 @@
 {% extends 'capstone/base_template.html' %}
 
-<section id="main" class="wrapper">
-    <div class="container">
+{% block subtitle %}
+ - Recovery Email Sent
+{% endblock %}
+
 
 {% block content %}
 
@@ -29,8 +31,6 @@
 
 {% endblock %}
 
-    </div><!-- container -->
-</section>
 
 {% block footer %}
     {% include "partials/_footer.html" %}
