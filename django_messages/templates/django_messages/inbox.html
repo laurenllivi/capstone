@@ -8,6 +8,7 @@
 {% block content %}
     <section id="main" class="wrapper"> 
         {% include 'partials/_message_left_menu.html' %}
+        
         <div class="messages-rightdiv">    
             <h3>{% trans "Inbox" %}</h3> 
             <div class="messages-ajax-content">
@@ -49,18 +50,20 @@
           //select "inbox" in the dropdown
           document.getElementById("message-select").selectedIndex = 0;
           
-          // testing a search with fuse.js
-          var json_list = {{ json_list|safe }}
-          console.log(json_list) 
-          
-          var options = {
-              keys: ['fields.subject'],
-              
-          } 
-          
-          var f = new Fuse(json_list, options);
-          var result = f.search('t');
-          console.log(result)
+          // ////////////////////////////////////////////////////////////
+ //
+ //          // testing a search with fuse.js
+ //          var data = {{ data|safe }}
+ //
+ //          console.log(data)
+ //
+ //          var options = {
+ //              keys: ['fields.body'],
+ //          }
+ //
+ //          var f = new Fuse(data, options);
+ //          var result = f.search('one more test');
+ //          console.log(result)
         
           
       });    

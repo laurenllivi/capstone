@@ -23,27 +23,28 @@ $(function(){
 });
 
 //test search function using info here: http://stackoverflow.com/questions/18744533/how-do-i-jquery-ajax-live-search-for-the-models-in-django
-// $(function() {
-//
-//     $('#search-message').keyup(function() {
-//
-//         $.ajax({
-//             type: "GET",
-//             url: "/django_messages/inbox/",
-//             data: {
-//                 'search_text' : $('#search-message').val(),
-//                 'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
-//             },
-//             success: searchSuccess,
-//             dataType: 'html'
-//         });
-//     });
-// });
-//
-// function searchSuccess(data, textStatus, jqXHR)
-// {
-//     $('#search-results').html(data)
-// }
+$(function() {
+
+    $('#search-message').keyup(function() {
+
+        $.ajax({
+            type: "GET",
+            url: "/django_messages/search/",
+            data: {
+                'search_text' : $('#search-message').val(),
+                'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+            },
+            success: searchSuccess,
+            dataType: 'html'
+        });
+    });
+});
+
+function searchSuccess(data, textStatus, jqXHR)
+{
+    $('#search-results').html(data)
+    console.log($('#search-results').html(data))
+}
 
 
 // //search function

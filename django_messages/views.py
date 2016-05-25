@@ -28,14 +28,28 @@ def inbox(request, template_name='django_messages/inbox.html'):
     Displays a list of received messages for the current user.
     Optional Arguments:
         ``template_name``: name of the template to use.
-    """
+    """         
     message_list = Message.objects.inbox_for(request.user)
-    json_serialized_list = serializers.serialize("json", message_list)
+    json_serialized_list = serializers.serialize('json', message_list)
 
     return render_to_response(template_name, {
         'message_list': message_list,
-        'json_list': json.dumps(json_serialized_list),
+        'data': json.dumps(json_serialized_list),
     }, context_instance=RequestContext(request))
+    
+def search(request):
+    if request.method == "GET":
+        search_text = request.GET['search_text']
+        if search_text is not None and search_text != u"":
+            search_text = request.GET['search_text']
+            search_results = hmod.Message.objects.inbox_for(request.user).filter(body__contains = search_text)
+        else:
+            search_results = []
+            
+        print(">>>>>>>>>>>>>")
+        print(search_results)
+
+        return render(request, 'django_messages/inbox.html', {'search_results':search_results})
 
 @login_required
 def outbox(request, template_name='django_messages/outbox.html'):
