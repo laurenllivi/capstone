@@ -52,7 +52,7 @@
                                                     </div><!-- wrapper -->
                                                 </div><!-- container -->
                                                 <br>
-                                                <a href="">{{ review.user.first_name }}</a> 
+                                                <a href="/account/public_profile/{{review.user.id}}">{{ review.user.first_name }}</a>
                                             </div>
                                             <strong>Venue:</strong> <a href="/venue/view_venue/{{ review.listing.id }}">{{ review.listing.title }}</a><br>
                                                 <span style="font-size: 14px">{{ review.review_date|date:'F j, Y' }}</span><br>
