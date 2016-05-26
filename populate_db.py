@@ -25,35 +25,53 @@ os.system("python3 manage.py migrate")
 # Security Questions
 sq = hmod.Security_Question()
 sq.question = "What is your mother's maiden name?"
+sq.set_0_or_1 = 0
 sq.save()
 
 sq2 = hmod.Security_Question()
 sq2.question = "What is/was your favorite pet's name?"
+sq2.set_0_or_1 = 0
 sq2.save()
 
 sq3 = hmod.Security_Question()
 sq3.question = "What is the last name of your favorite teacher in elementary school?"
+sq3.set_0_or_1 = 0
 sq3.save()
 
 sq4 = hmod.Security_Question()
 sq4.question = "What is your favorite sports team?"
+sq4.set_0_or_1 = 0
 sq4.save()
 
 sq5 = hmod.Security_Question()
 sq5.question = "What is your favorite movie?"
+sq5.set_0_or_1 = 0
 sq5.save()
 
 sq6 = hmod.Security_Question()
 sq6.question = "What is the name of the company that hired you for your first job?"
+sq6.set_0_or_1 = 1
 sq6.save()
 
 sq7 = hmod.Security_Question()
 sq7.question = "What was the make and model of your first car?"
+sq7.set_0_or_1 = 1
 sq7.save()
 
 sq8 = hmod.Security_Question()
 sq8.question = "What city was your father born in?"
+sq8.set_0_or_1 = 1
 sq8.save()
+
+sq9 = hmod.Security_Question()
+sq9.question = "What is your favorite restaurant?"
+sq9.set_0_or_1 = 1
+sq9.save()
+
+sq10 = hmod.Security_Question()
+sq10.question = "In which city does your closest sibling live?"
+sq10.set_0_or_1 = 1
+sq10.save()
 
 # Profile pics
 ph = hmod.User_Photo()

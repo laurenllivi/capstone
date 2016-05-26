@@ -61,9 +61,9 @@ class New_User_Form(forms.Form):
     password2 = forms.CharField(label="Retype Password", widget=forms.PasswordInput())
     email = forms.EmailField(widget=forms.EmailInput())
     phone = forms.IntegerField(widget=forms.TextInput(), required=False)
-    security_question_1 = forms.ModelChoiceField(label="Security Question 1", queryset=hmod.Security_Question.objects.all(),initial=0)
+    security_question_1 = forms.ModelChoiceField(label="Security Question 1", queryset=hmod.Security_Question.objects.filter(set_0_or_1=0),initial=0)
     security_answer_1 = forms.CharField(label="Answer to Question 1", widget=forms.TextInput())
-    security_question_2 = forms.ModelChoiceField(label="Security Question 2", queryset=hmod.Security_Question.objects.all())
+    security_question_2 = forms.ModelChoiceField(label="Security Question 2", queryset=hmod.Security_Question.objects.filter(set_0_or_1=1),initial=0)
     security_answer_2 = forms.CharField(label="Answer to Question 2",widget=forms.TextInput())
  
     # checks to make sure that the username or email isn't already taken  

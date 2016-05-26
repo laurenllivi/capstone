@@ -64,8 +64,11 @@ class User(AbstractUser):
         return stripe_customer
         
 class Security_Question(models.Model):
-    '''A security question that allows a user to recover his or her username'''
+    '''A security question that allows a user to recover his or her username. 
+    Each user has to have 2 questions - there are two sets as determined by the boolean
+    value of 0 or 1'''
     question = models.CharField(max_length=500)
+    set_0_or_1 = models.BooleanField(default=0)
     
     def __str__(self):
         return self.question
