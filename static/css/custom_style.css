@@ -1,5 +1,16 @@
 
 /*********************** General *******************/
+
+.nav-logo
+{
+    padding: .5em 0 0 .5em;
+}
+
+.nav-logo img
+{
+    height: 2.75em;
+}
+
 input[type="number"]
 {
     max-width:200px;
