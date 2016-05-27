@@ -223,7 +223,7 @@ class Message(models.Model):
     '''A message between two users in the system'''
     time_stamp = models.DateTimeField(blank=True, null=True)
     subject = models.CharField(max_length=255, blank=True, null=True)
-    body = models.CharField(max_length=255, blank=True, null=True)
+    body = models.CharField(max_length=500, blank=True, null=True)
     read = models.NullBooleanField(default=False, blank=True)
     sender = models.ForeignKey(User, related_name='message_sender')
     recipient = models.ForeignKey(User, related_name='message_recipient')
@@ -245,3 +245,7 @@ class Customer_Inquiry(models.Model):
     message = models.CharField(max_length=500)
     timestamp = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey('User')
+
+class FAQ(models.Model):
+    question = models.CharField(max_length=50)
+    answer = models.CharField(max_length=500)

@@ -15,45 +15,18 @@
             <h2>Frequently Asked Questions</h2>
 
             <ul class="cd-accordion-menu">
-                <li class="has-children">
-                    <input type="checkbox" name ="group-1" id="group-1">
-                    <label for="group-1">How does Backyardly work?</label>
-                    <ul>
-                        <li>
-                            Backyardly is a place where anybody can post a venue that others might like
-                            to rent for an event. Find out more about the process on our
-                            <a href="/homepage/how-it-works/">How It Works</a> page.
-                        </li>
-                    </ul>
-                </li>
-                <li class="has-children">
-                    <input type="checkbox" name ="group-2" id="group-2">
-                    <label for="group-2">What kind of space can I list as a venue?</label>
-                    <ul>
-                        <li>
-                            You can list a backyard, pool, barn, home theater, and more!
-                            Anything you think might make a great space for someone's event.
-                        </li>
-                    </ul>
-                </li>
-                <li class="has-children">
-                    <input type="checkbox" name ="group-3" id="group-3">
-                    <label for="group-3">How do I contact a venue owner?</label>
-                    <ul>
-                        <li>Every venue page displays the venue's owner with links to contact them or view their public profile.</li>
-                    </ul>
-                </li>
-                <li class="has-children">
-                    <input type="checkbox" name ="group-4" id="group-4">
-                    <label for="group-4">How do I pay securely for a venue rental?</label>
-                    <ul>
-                        <li>You can view all of your reservation requests on the
-                            <a href="/account/my_events/">My Events</a>
-                            page.
-                            Once your request has been approved, you can pay your deposit and reservation fee through a link to our secure payment system.
-                        </li>
-                    </ul>
-                </li>
+
+                {% for faq in faqs %}
+                    <li class="has-children">
+                        <input type="checkbox" name ="group-{{faq.id}}" id="group-{{faq.id}}">
+                        <label for="group-{{faq.id}}">{{faq.question}}</label>
+                        <ul class="faq-answer">
+                            <li>
+                                {{faq.answer |safe}}
+                            </li>
+                        </ul>
+                    </li>
+                {% endfor %}
 
             </ul> <!-- cd-accordion-menu -->
         </div>

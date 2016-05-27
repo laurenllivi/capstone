@@ -932,3 +932,26 @@ m4.save()
 
 # every time I try to add one of these, a phantom notification shows up! Not sure why!!
 
+
+####################### FAQs ##########################
+
+faq = hmod.FAQ()
+faq.question = "How does Backyardly work?"
+faq.answer = "Backyardly is a place where anybody can post a venue that others might like to rent for an event. Find out more about the process on our <a href='/homepage/how-it-works/'>How It Works</a> page."
+faq.save()
+
+faq2 = hmod.FAQ()
+faq2.question = "What kind of space can I list as a venue?"
+faq2.answer = "You can list a backyard, pool, barn, home theater, and more! Anything you think might make a great space for someone's event."
+faq2.save()
+
+faq3 = hmod.FAQ()
+faq3.question = "How do I contact a venue owner?"
+faq3.answer = "Every venue page displays the venue's owner with links to contact them or view their public profile."
+faq3.save()
+
+faq4 = hmod.FAQ()
+faq4.question = "How do I pay securely for a venue rental?"
+faq4.answer = "You can view all of your reservation requests on the <a href='/account/my_events/'>My Events</a> page. Once your request has been approved, you can pay your deposit and reservation fee through a link to our secure payment system."
+faq4.save()
+

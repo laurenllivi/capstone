@@ -1,12 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from homepage import models as hmod
 
 def faq(request):
-    output = "This is the faq page."
-        
-    # the equivalent of template_vars in DMP
+    FAQs = hmod.FAQ.objects.all()
+
     context = {
-        'output' : output,
+        'faqs': FAQs,
     }
     # return HttpResponse(template.render(context, request))
     # below is the shortcut to use instead of the line above
