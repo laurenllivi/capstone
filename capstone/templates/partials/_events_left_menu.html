@@ -1,7 +1,17 @@
 <div class="profile-left-side-menu">
     <ul id="profile_links">
         <li><a href="/account/my_events/">My Upcoming Events</a></li>
-        <li><a href="/account/my_past_events">Past Events</a></li>
-        <li><a href="/account/favorites">Favorite Venues</a></li>
+        <li><a href="/account/my_past_events/">Past Events</a></li>
+        <li><a href="/account/favorites/">Favorite Venues</a></li>
     </ul>
 </div><!-- profile-left-side-menu -->
+
+<script>
+    $(document).ready(function() {
+        $("[href]").each(function() {
+            if (this.href == window.location.href) {
+                    $(this).addClass("current-link");
+                }
+        });
+    });
+</script>

@@ -1,7 +1,17 @@
 <div class="profile-left-side-menu">
     <ul id="profile_links">
         <li><a href="/venue/manage_venue/0/?status=new">Post a Venue</a></li>
-        <li><a href="/account/my_venues">My Venues</a></li>
-        <li><a href="/account/venue_requests">Venue Requests and Events</a></li>
+        <li><a href="/account/my_venues/">My Venues</a></li>
+        <li><a href="/account/venue_requests/">Venue Requests and Events</a></li>
     </ul>
 </div><!-- profile-left-side-menu -->
+
+<script>
+    $(document).ready(function() {
+        $("[href]").each(function() {
+            if (this.href == window.location.href) {
+                    $(this).addClass("current-link");
+                }
+        });
+    });
+</script>
