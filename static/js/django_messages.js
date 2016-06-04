@@ -41,15 +41,19 @@ $(function() {
             type: "GET",
             datatype: 'json',
             url: "/django_messages/search_messages/" + $('#search-message').val(),
-            //pass the data to the right div on the page
+            beforeSend: function() {
+                $('#loadingDiv').show();
+             },
+            complete: function(){
+                $('#loadingDiv').hide();
+            },
             success: function(data){
                var message_list = data;
                console.log(message_list)
                $('#message-list-preview').html(message_list);
-               
-        
-               
+                
             },
+            
             
             // handle a non-successful response
             error : {
