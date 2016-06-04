@@ -1,5 +1,12 @@
 <!-- This partial template must be used on a template that you have passed the message_list variable to-->
 <!-- inbox, view message, etc. -->
+<!--  THIS IS A COPY OF THE TEMPLATE FOUND AT CAPSTONE/PARTIALS/_MESSAGE_LIST.HTML-->
+<!-- I had to copy it in order to pass this html to the ajax success function that returns the search results-->
+
+
+<script src="/static/js/django_messages.js"></script>
+
+
 <div id="message-list-preview">
     <!-- I need this to be able to access a django variable containing the current url path for the search results -->
     <input type="hidden" id="current_url" name="current_url" value="{{ request.path }}">

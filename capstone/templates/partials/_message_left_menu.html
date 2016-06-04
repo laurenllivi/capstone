@@ -2,15 +2,16 @@
 
 <div class="messages-left-menu-container">
 	<div class="messages-leftdiv">
+        <!-- include the search bar -->
+        <input id="search-message" type="text" placeholder="Search all messages . . ."></input>
+        <br>
         <select id="message-select" onChange="window.location.href=this.value">
           <option id="inbox" value="/django_messages/inbox">Inbox</option>
           <option id="compose" value="/django_messages/compose">Compose</option>
           <option id="outbox" value="/django_messages/outbox">Sent Messages</option>
           <option id="trash" value="/django_messages/trash">Trash</option>
         </select>
-        <br>
-        <!-- include the search bar -->
-        <input id="search-message" type="text" placeholder="Search for a message . . ."></input>
+        
         <hr class="hr-border">
     </div>
     {% include 'partials/_message_list.html' %}

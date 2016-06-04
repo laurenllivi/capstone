@@ -1,4 +1,4 @@
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib import messages
@@ -8,8 +8,10 @@ from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from homepage import models as hmod
+from django_messages import models as dmod
 import json
 from django.core import serializers
+from django.db.models import Q
 
 from django_messages.models import Message
 from django_messages.forms import ComposeForm
@@ -22,6 +24,22 @@ if "notification" in settings.INSTALLED_APPS and getattr(settings, 'DJANGO_MESSA
 else:
     notification = None
 
+@login_required
+def search_messages(request, search_terms=None):
+    '''a search feature for mailboxes - inbox, sent box, trash
+    This one written by Lauren - May 2016'''
+    
+    if request.method == "GET":
+        
+        template_name = 'django_messages/search_results.html'
+      
+        user = hmod.User.objects.get(id=request.user.id)
+        search_results = dmod.Message.objects.filter(recipient=user).filter(Q(subject__icontains=search_terms) | Q(body__icontains=search_terms))
+
+        return render_to_response(template_name, {
+            'message_list': search_results,
+        }, context_instance=RequestContext(request))
+    
 @login_required
 def inbox(request, template_name='django_messages/inbox.html'):
     """
@@ -36,21 +54,7 @@ def inbox(request, template_name='django_messages/inbox.html'):
         'message_list': message_list,
         'data': json.dumps(json_serialized_list),
     }, context_instance=RequestContext(request))
-    
-def search(request):
-    if request.method == "GET":
-        search_text = request.GET['search_text']
-        if search_text is not None and search_text != u"":
-            search_text = request.GET['search_text']
-            search_results = hmod.Message.objects.inbox_for(request.user).filter(body__contains = search_text)
-        else:
-            search_results = []
-            
-        print(">>>>>>>>>>>>>")
-        print(search_results)
-
-        return render(request, 'django_messages/inbox.html', {'search_results':search_results})
-
+      
 @login_required
 def outbox(request, template_name='django_messages/outbox.html'):
     """
