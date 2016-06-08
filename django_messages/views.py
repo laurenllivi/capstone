@@ -29,15 +29,30 @@ def search_messages(request, search_terms=None):
     '''a search feature for mailboxes - inbox, sent box, trash
     This one written by Lauren - May 2016'''
     
-    if request.method == "GET":
-        
-        template_name = 'django_messages/search_results.html'
-      
-        user = hmod.User.objects.get(id=request.user.id)
-        search_results = dmod.Message.objects.filter(recipient=user).filter(Q(subject__icontains=search_terms) | Q(body__icontains=search_terms))
+    template_name = 'capstone/_message_list.html'
+    user = hmod.User.objects.get(id=request.user.id)
+    referer = request.META['HTTP_REFERER']
+    no_results = False
+    
+    if request.method == "GET":        
+        if search_terms == '' or search_terms == None:
+            if "inbox" in referer:
+                search_results = Message.objects.inbox_for(user)
+            if "outbox" in referer:
+                search_results = Message.objects.outbox_for(user)
+            if "trash" in referer:
+                search_results = Message.objects.trash_for(user)
+            if "compose" in referer:
+                search_results = []
+        else:
+            search_results = dmod.Message.objects.filter(recipient=user).filter(Q(subject__icontains=search_terms) | Q(body__icontains=search_terms)| Q(sender__first_name__icontains=search_terms) | Q(sender__last_name__icontains=search_terms))
+    
+            if search_results == []:
+                no_results = True
 
         return render_to_response(template_name, {
             'message_list': search_results,
+            'no_results': no_results,
         }, context_instance=RequestContext(request))
     
 @login_required

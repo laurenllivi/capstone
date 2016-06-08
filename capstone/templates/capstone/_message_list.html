@@ -1,8 +1,12 @@
 <!-- This partial template must be used on a template that you have passed the message_list variable to-->
 <!-- inbox, view message, etc. -->
+
 <div id="message-list-preview">
+    
     <!-- I need this to be able to access a django variable containing the current url path for the search results -->
     <input type="hidden" id="current_url" name="current_url" value="{{ request.path }}">
+    
+    <div id="loadingDiv"><img src="/static/images/loadingSpinner.gif" id="loadingSpinner" /></div>
     
         {% for message in message_list %}
         <!-- the viewMessage() js function is in /static/js/django_messages.js -->
@@ -15,5 +19,9 @@
                 </div><!-- inbox-preview -->
          </a> 
         {% endfor %}
+        
+        {% if no_results %}
+            <p>Your search returned no results.</p>
+        {% endif %}
         
 </div>

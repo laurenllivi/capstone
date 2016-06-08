@@ -1,6 +1,10 @@
 //javascript used in the django_messages app
 
 $(function(){
+    
+    //hide the loading div unless the user searches for something
+    $('#loadingDiv').hide();
+    
     //highlight the message preview that is currently selected
     $('.message-preview').on('click', function(){
         $('.message-preview').removeClass('message-preview-selected');
@@ -41,20 +45,13 @@ $(function() {
             type: "GET",
             datatype: 'json',
             url: "/django_messages/search_messages/" + $('#search-message').val(),
-            beforeSend: function() {
-                $('#loadingDiv').show();
-             },
-            complete: function(){
-                $('#loadingDiv').hide();
-            },
             success: function(data){
                var message_list = data;
-               console.log(message_list)
                $('#message-list-preview').html(message_list);
-                
+               $('#loadingDiv').hide();
+            
             },
-            
-            
+    
             // handle a non-successful response
             error : {
                 
