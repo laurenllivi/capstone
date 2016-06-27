@@ -419,19 +419,37 @@ class NewImageForm(forms.Form):
     image = forms.ImageField(label='Select a file')
     
     def clean_image(self):
-        '''ensure that the image is < 5 MB and is an file type'''
-        content = self.cleaned_data['image']
-        content_type = content.content_type.split('/')[0]
-        if content_type in settings.CONTENT_TYPES:
-            print(">>>>>>>>>>>>")
-            print("yes, this is an image")
-            if str(content._size) > settings.MAX_UPLOAD_SIZE:
-                raise forms.ValidationError('File is too large. Please upload a photo smaller than 5 megabytes.')
+        image = self.cleaned_data.get('image',False)
+        if image:
+            if image._size > settings.MAX_UPLOAD_SIZE:
+                raise forms.ValidationError("Please choose an image that is smaller than 2.5 megabytes.")
+            return image
         else:
-            raise forms.ValidationError('File type is not supported')
-            print(">>>>>>>>>>>>")
-            print("no, not an image")
-        return content
+            raise forms.ValidationError("Couldn't read uploaded image")
+    
+    # def clean(self):
+#         '''ensure that the image is < 5 MB and is an image file type'''
+#         content = self.cleaned_data['image']
+#         if str(content._size) > settings.MAX_UPLOAD_SIZE:
+#             print(">>>>>>>>>>>")
+#             print("This photo is too large")
+#             raise forms.ValidationError({'image_title': ['File is too large. Please upload a photo smaller than 5 megabytes.']})
+#
+#             # old - I think Django's image field validates the file type automatically
+#             # if content_type in settings.CONTENT_TYPES:
+#             #     print(">>>>>>>>>>>>")
+#             #     print("yes, this is an image")
+#             #     if str(content._size) > settings.MAX_UPLOAD_SIZE:
+#             #         print(">>>>>>>>>>>")
+#             #         print("This photo is too large")
+#             #         raise forms.ValidationError({'image_title': ['File is too large. Please upload a photo smaller than 5 megabytes.']})
+#             #
+#             # else:
+#             #     raise forms.ValidationError({'image_title': ['File type is not supported.']})
+#             #     print(">>>>>>>>>>>>")
+#             #     print("no, not an image")
+#
+#         return self.cleaned_data
     
 class CalendarForm(forms.Form):
     saved_dates = forms.CharField(label="Test Saved Dates", required=False, widget=forms.TextInput(attrs={}))

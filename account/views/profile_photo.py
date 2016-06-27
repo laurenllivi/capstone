@@ -7,6 +7,7 @@ from lib import forms as custom_forms
 from capstone.settings import MEDIA_ROOT
 from capstone.settings import STATIC_URL as static_url
 import os.path
+from django.conf import settings
 
 @login_required
 def profile_photo(request):
@@ -53,5 +54,14 @@ def profile_photo__del_img(request):
     
 class New_Profile_Photo_Form(forms.Form):
     image = forms.ImageField(label="Change your profile photo",required=False)
+    
+    def clean_image(self):
+        image = self.cleaned_data.get('image',False)
+        if image:
+            if image._size > settings.MAX_UPLOAD_SIZE:
+                raise forms.ValidationError("Please choose an image that is smaller than 2.5 megabytes.")
+            return image
+        else:
+            raise forms.ValidationError("Couldn't read uploaded image")
     
 
