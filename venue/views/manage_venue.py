@@ -16,6 +16,8 @@ from localflavor.us.forms import USZipCodeField
 import uuid
 from pytz import timezone
 from tzwhere import tzwhere
+from django.conf import settings
+from django.template.defaultfilters import filesizeformat 
 
 # make sure the user is logged in before accessing this view
 # redirects the user to the previous url after login
@@ -416,15 +418,20 @@ class NewImageForm(forms.Form):
     image_title = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
     image = forms.ImageField(label='Select a file')
     
-    # def clean(self):
-    #     cleaned_data = super(NewImageForm, self).clean()
-    #     if cleaned_data.get("image"):
-    #         image_name = cleaned_data.get("image").name
-    #
-    #         if len(image_name) > 50:
-    #             self.add_error('image', 'File name is too long')
-    #             print(self.errors)
-    #             print(">>>>>>>>>>>>>>>>>Added Image Errors>>>>>>>>>>>>>>>>>>>>>>>>")
+    def clean_image(self):
+        '''ensure that the image is < 5 MB and is an file type'''
+        content = self.cleaned_data['image']
+        content_type = content.content_type.split('/')[0]
+        if content_type in settings.CONTENT_TYPES:
+            print(">>>>>>>>>>>>")
+            print("yes, this is an image")
+            if str(content._size) > settings.MAX_UPLOAD_SIZE:
+                raise forms.ValidationError('File is too large. Please upload a photo smaller than 5 megabytes.')
+        else:
+            raise forms.ValidationError('File type is not supported')
+            print(">>>>>>>>>>>>")
+            print("no, not an image")
+        return content
     
 class CalendarForm(forms.Form):
     saved_dates = forms.CharField(label="Test Saved Dates", required=False, widget=forms.TextInput(attrs={}))

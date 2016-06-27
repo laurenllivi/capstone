@@ -1,5 +1,30 @@
 //javascript used in the django_messages app
 
+//select the first message in the list by default
+$(document).ready(function(){
+    var firstSelectedMessage = document.getElementsByClassName('message-preview')[0];
+    $(firstSelectedMessage).addClass('message-preview-selected');
+    message_id= $(firstSelectedMessage).attr('id')
+    if(message_id){
+        viewMessage(message_id)
+    }
+});//ready
+
+// use ajax to update the content on the right
+// according to which message was selected
+function viewMessage(id)
+{
+   $.ajax({
+
+     type: "GET",
+     url: '/django_messages/view/' + id,
+     success: function(data) {
+           // pass the data to the right div on the page
+          $('.messages-ajax-content').html(data);
+     }
+   });
+}
+
 $(function(){
     
     //hide the loading div unless the user searches for something
@@ -45,13 +70,18 @@ $(function() {
             type: "GET",
             datatype: 'json',
             url: "/django_messages/search_messages/" + $('#search-message').val(),
+            beforeSend: function() {
+                $('#loadingDiv').show();
+             },
+            complete: function(){
+            },
             success: function(data){
                var message_list = data;
                $('#message-list-preview').html(message_list);
                $('#loadingDiv').hide();
-            
+                
             },
-    
+            
             // handle a non-successful response
             error : {
                 
@@ -60,6 +90,49 @@ $(function() {
     });
 });
 
+// allow user to use the arrow keys to navigate through message list
+// $(function(){
+//
+//     var messagePreview = $('.message-preview');
+//     var previewSelected;
+//     $(window).keydown(function(e){
+//         if(e.which === 40){
+//             if(previewSelected){
+//                 previewSelected.removeClass('message-preview-selected');
+//                 next = previewSelected.next();
+//                 if(next.length > 0){
+//                     previewSelected = next.addClass('message-preview-selected');
+//                 }else{
+//                     previewSelected = messagePreview.eq(0).addClass('message-preview-selected');
+//                 }
+//             }else{
+//                 previewSelected = messagePreview.eq(0).addClass('message-preview-selected');
+//             }
+//         }else if(e.which === 38){
+//             if(previewSelected){
+//                 previewSelected.removeClass('message-preview-selected');
+//                 next = previewSelected.prev();
+//                 if(next.length > 0){
+//                     previewSelected = next.addClass('message-preview-selected');
+//                 }else{
+//                     previewSelected = messagePreview.last().addClass('message-preview-selected');
+//                 }
+//             }else{
+//                 previewSelected = messagePreview.last().addClass('message-preview-selected');
+//             }
+//         }
+//
+//         //prevent arrow keys from scrolling the page
+//         e.preventDefault();
+//
+//     });
+//
+// });
+
+
+/////////////////////////////// old stuff ///////////////////////////////
+
+// old regex search
 // function searchSuccess(data, textStatus, jqXHR)
 // {
 //     $('#search-results').html(data)
@@ -91,65 +164,4 @@ $(function() {
 //         });//thumbnail loop
 //     }); //keyup
 // });
-
-//select the first message in the list by default
-$(document).ready(function(){
-    var firstSelectedMessage = document.getElementsByClassName('message-preview')[0];
-    $(firstSelectedMessage).addClass('message-preview-selected');
-    message_id= $(firstSelectedMessage).attr('id')
-    if(message_id){
-        viewMessage(message_id)
-    }
-});//ready
-
-// use ajax to update the content on the right
-// according to which message was selected
-function viewMessage(id)
-{
-   $.ajax({
-
-     type: "GET",
-     url: '/django_messages/view/' + id,
-     success: function(data) {
-           // pass the data to the right div on the page
-          $('.messages-ajax-content').html(data);
-     }
-   });
-}
-
-var messagePreview = $('.message-preview');
-var previewSelected;
-//allow keying between the message previews
-$(document).keydown(function(e) {
-    switch(e.which) {
-        case 38: // up
-            if(previewSelected){
-                previewSelected.removeClass('message-preview-selected');
-                next = previewSelected.prev();
-                if(next.length > 0){
-                    previewSelected = next.addClass('message-preview-selected');
-                }else{
-                    previewSelected = messagePreview.last().addClass('message-preview-selected');
-                }
-            }else{
-                previewSelected = messagePreview.last().addClass('message-preview-selected');
-            }
-            break;
-        case 40: // down
-            if(previewSelected){
-                previewSelected.removeClass('message-preview-selected');
-                next = previewSelected.next();
-                if(next.length > 0){
-                    previewSelected = next.addClass('message-preview-selected');
-                }else{
-                    previewSelected = messagePreview.eq(0).addClass('message-preview-selected');
-                }
-            }else{
-                previewSelected = messagePreview.eq(0).addClass('message-preview-selected');
-            }
-            break;
-        default: return; // exit this handler for other keys
-    }
-    e.preventDefault(); // prevent the default action (scroll / move caret)
-});
 

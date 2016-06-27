@@ -31,6 +31,16 @@ ALLOWED_HOSTS = []
 # added to work with the @login_required decorator
 LOGIN_URL = "/account/login"
 
+CONTENT_TYPES = ['image']
+# 2.5MB - 2621440
+# 5MB - 5242880
+# 10MB - 10485760
+# 20MB - 20971520
+# 50MB - 5242880
+# 100MB 104857600
+# 250MB - 214958080
+# 500MB - 429916160
+MAX_UPLOAD_SIZE = "2621440"
 
 # Application definition
 
@@ -54,7 +64,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE_CLASSES = [
-    #'django.middleware.security.SecurityMiddleware', # NEED TO UNCOMMENT BEFORE DEPLOYMENT
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
