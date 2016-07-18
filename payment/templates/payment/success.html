@@ -8,15 +8,66 @@
 {% block content %}
 
 <section id="main" class="wrapper">
-    <div class="container" style="height: 400px">
+    <div class="container">
     
-    <h2 class="main-content-heading">Thank you for your reservation.</h2> 
-        <div class="main-content-container">
-            <h4>Please check your email for confirmation.</h4>
-        </div>
+    <h3>Thank you for your reservation.</h3> 
+        
+            <h4>Please print this page for your records. A confirmation email has also been sent to <strong>{{ user.email }}</strong>.</h4>
+            
+            <input type=button value="Print Reservation" onClick="printDiv(reservationDetailsPrintable);" class="button small"><br><br>
+            
+            <div id="reservationDetailsPrintable">
+            
+            <h3 class="review-settings-title">Reservation Details:</h3>
+            <table class="review-settings-table">
+            <!-- reusing this class from the post venue page -->
+                <tr>
+                    <td class="col-1"><strong>Venue Title:</strong></td>
+                    <td><a href="/venue/view_venue/{{listing.id}}" target="_blank">{{ listing.title }}</a></td>
+                </tr>
+                <tr>
+                    <td class="col-1"><strong>Venue Address:</strong></td>
+                    <td>{{ listing.street }} {{ listing.street2 }}
+                        {{ listing.city}}, {{ listing.state }}
+                        {{ listing.zipcode }}</td>
+                </tr>
+                <tr>
+                    <td class="col-1"><strong>Reservation Date:</strong></td>
+                    <td>{{ listing_date.date }}</td>
+                </tr>
+                <tr>
+                    <td class="col-1"><strong>Reservation Time:</strong></td>
+                    <td>{{ rental_request.start_time }} - {{ rental_request.end_time }}</td>
+                </tr>
+            </table>
+            
+            <h3 class="review-settings-title">Payment and Cancellation Policy Details:</h3>
+            <table class="review-settings-table">
+            <!-- reusing this class from the post venue page -->
+                <tr>
+                    <td class="col-1"><strong>Amount Paid:</strong></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="col-1"><strong>Cancellation Policy:</strong></td>
+                    <td></td>
+                </tr>
+                
+            </table>
       
+    </div><!-- reservationDetailsPrintable -->
     </div><!-- container-->
 </section>
+
+<script>
+function printDiv(reservationDetailsPrintable) {
+    var printContents = document.getElementById("reservationDetailsPrintable").innerHTML;     
+    var originalContents = document.body.innerHTML;       
+    document.body.innerHTML = printContents;      
+    window.print();      
+    document.body.innerHTML = originalContents;
+   }
+</script>
 
 {% endblock %}
 
