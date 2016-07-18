@@ -113,9 +113,12 @@ def request_booking_form(request, listing_id):
                         event_start = str(event_date) + " " + str(rental_request.start_time)
                         start_datetime = datetime.strptime(event_start, "%Y-%m-%d %H:%M")
                         # add venue's timezone to start time
-                        local_dt = timezone(tz).localize(start_datetime, is_dst=None)
+                        #local_dt = timezone(tz).localize(start_datetime, is_dst=None)
+                        print(">>>>>>>>>>>")
+                        print("The line above is the one with the error for me.")
 
-                        rental_request.start_datetime = local_dt
+                        #rental_request.start_datetime = local_dt
+                        rental_request.start_datetime = start_datetime
 
                         rental_request.save()
 

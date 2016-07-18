@@ -16,11 +16,16 @@ import datetime
 from datetime import timedelta
 from django.contrib.gis.geos import Point
 import geocoder
+from pytz import timezone
+from tzwhere import tzwhere
 
 os.system("python3 manage.py makemigrations")
 os.system("python3 manage.py migrate")
 
 ######### Add some test data to the system ############################
+
+# needed for timezone support
+tz = tzwhere.tzwhere()
 
 # Security Questions
 sq = hmod.Security_Question()
@@ -157,6 +162,7 @@ g = geocoder.google(
     l.state
 )
 l.geolocation = Point(float(g.lat), float(g.lng))
+l.timezone = tz.tzNameAt(l.geolocation.x, l.geolocation.y)
 l.currently_listed = True
 l.user = u
 l.save()
@@ -194,6 +200,7 @@ g2 = geocoder.google(
     l2.state
 )
 l2.geolocation = Point(float(g2.lat), float(g2.lng))
+l2.timezone = tz.tzNameAt(l2.geolocation.x, l2.geolocation.y)
 l2.currently_listed = True
 l2.user = u2
 l2.save()
@@ -231,6 +238,7 @@ g3 = geocoder.google(
     l3.state
 )
 l3.geolocation = Point(float(g3.lat), float(g3.lng))
+l3.timezone = tz.tzNameAt(l3.geolocation.x, l3.geolocation.y)
 l3.currently_listed = False
 l3.user = u
 l3.save()
@@ -258,6 +266,7 @@ g4 = geocoder.google(
     l4.state
 )
 l4.geolocation = Point(float(g4.lat), float(g4.lng))
+l4.timezone = tz.tzNameAt(l4.geolocation.x, l4.geolocation.y)
 l4.currently_listed = False
 l4.user = u2
 l4.save()
@@ -285,6 +294,7 @@ g5 = geocoder.google(
     l5.state
 )
 l5.geolocation = Point(float(g5.lat), float(g5.lng))
+l5.timezone = tz.tzNameAt(l5.geolocation.x, l5.geolocation.y)
 l5.currently_listed = True
 l5.user = u2
 l5.save()
@@ -312,6 +322,7 @@ g6 = geocoder.google(
     l6.state
 )
 l6.geolocation = Point(float(g6.lat), float(g6.lng))
+l6.timezone = tz.tzNameAt(l6.geolocation.x, l6.geolocation.y)
 l6.currently_listed = True
 l6.user = u2
 l6.save()
@@ -339,6 +350,7 @@ g7 = geocoder.google(
     l7.state
 )
 l7.geolocation = Point(float(g7.lat), float(g7.lng))
+l7.timezone = tz.tzNameAt(l7.geolocation.x, l7.geolocation.y)
 l7.currently_listed = True
 l7.user = u2
 l7.save()
@@ -366,6 +378,7 @@ g8 = geocoder.google(
     l8.state
 )
 l8.geolocation = Point(float(g8.lat), float(g8.lng))
+l8.timezone = tz.tzNameAt(l8.geolocation.x, l8.geolocation.y)
 l8.currently_listed = True
 l8.user = u2
 l8.save()
@@ -393,6 +406,7 @@ g9 = geocoder.google(
     l9.state
 )
 l9.geolocation = Point(float(g9.lat), float(g9.lng))
+l9.timezone = tz.tzNameAt(l9.geolocation.x, l9.geolocation.y)
 l9.currently_listed = True
 l9.user = u2
 l9.save()
@@ -420,6 +434,7 @@ g10 = geocoder.google(
     l10.state
 )
 l10.geolocation = Point(float(g10.lat), float(g10.lng))
+l10.timezone = tz.tzNameAt(l10.geolocation.x, l10.geolocation.y)
 l10.currently_listed = True
 l10.user = u2
 l10.save()
@@ -435,7 +450,7 @@ l11.description = "Beautiful Backyard"
 l11.sq_footage = 2000
 l11.num_guests = 200
 l11.parking_desc = "Plenty of Parking"
-l11.street = "3302 N 140 W"
+l11.street = "3512 N Cottonwood Ln"
 l11.street2 = ""
 l11.city = "Provo"
 l11.state = "UT"
@@ -447,6 +462,7 @@ g11 = geocoder.google(
     l11.state
 )
 l11.geolocation = Point(float(g11.lat), float(g11.lng))
+l11.timezone = tz.tzNameAt(l11.geolocation.x, l11.geolocation.y)
 l11.currently_listed = True
 l11.user = u2
 l11.save()
@@ -474,6 +490,7 @@ g12 = geocoder.google(
     l12.state
 )
 l12.geolocation = Point(float(g12.lat), float(g12.lng))
+l12.timezone = tz.tzNameAt(l12.geolocation.x, l12.geolocation.y)
 l12.currently_listed = True
 l12.user = u2
 l12.save()
@@ -501,6 +518,7 @@ g13 = geocoder.google(
     l13.state
 )
 l13.geolocation = Point(float(g13.lat), float(g13.lng))
+l13.timezone = tz.tzNameAt(l13.geolocation.x, l13.geolocation.y)
 l13.currently_listed = True
 l13.user = u2
 l13.save()
@@ -528,6 +546,7 @@ g14 = geocoder.google(
     l14.state
 )
 l14.geolocation = Point(float(g14.lat), float(g14.lng))
+l14.timezone = tz.tzNameAt(l14.geolocation.x, l14.geolocation.y)
 l14.currently_listed = True
 l14.user = u2
 l14.save()
@@ -555,6 +574,7 @@ g15 = geocoder.google(
     l15.state
 )
 l15.geolocation = Point(float(g15.lat), float(g15.lng))
+l15.timezone = tz.tzNameAt(l15.geolocation.x, l15.geolocation.y)
 l15.currently_listed = True
 l15.user = u2
 l15.save()

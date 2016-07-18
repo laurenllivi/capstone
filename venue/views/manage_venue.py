@@ -425,7 +425,7 @@ class NewImageForm(forms.Form):
                 raise forms.ValidationError("Please choose an image that is smaller than 2.5 megabytes.")
             return image
         else:
-            raise forms.ValidationError("Couldn't read uploaded image")
+            raise forms.ValidationError("Couldn't read uploaded image.")
     
     # def clean(self):
 #         '''ensure that the image is < 5 MB and is an image file type'''
