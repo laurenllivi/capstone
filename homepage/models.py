@@ -157,7 +157,7 @@ class Add_On(models.Model):
     listing = models.ForeignKey('Listing')
     
 class Listing_Date(models.Model):
-    '''The dates that the venue is avaible or not . . . false = blocked out, true = available???'''
+    '''The dates that the venue is avaible or not'''
     # start_date = models.DateTimeField(blank=True, null=True)
     # end_date = models.DateTimeField(blank=True, null=True)
     # status = models.NullBooleanField(default=False, blank=True, null=True)
@@ -249,3 +249,5 @@ class Customer_Inquiry(models.Model):
 class FAQ(models.Model):
     question = models.CharField(max_length=50)
     answer = models.CharField(max_length=500)
+  
+    

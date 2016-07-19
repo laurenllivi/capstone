@@ -13,15 +13,35 @@
             {% if user.is_authenticated %}
 
             <li>
-                <a href="/account/venue_requests/">
-                    <i class="fa fa-bell"></i>
-                    {%if new_request_count > 0%}
-                        <span class="fa-stack">
-                            <i class="fa fa-certificate fa-stack-1x"></i>
-                            <span class="fa-stack-1x badge-text">{{new_request_count}}</span>
-                        </span>
-                    {% endif %}
-                </a>
+                <div class="dropdown">
+                    
+                  <a href="/account/venue_requests/">
+                      <i class="fa fa-bell"></i>
+                      {%if new_request_count > 0%}
+                          <span class="fa-stack">
+                              <i class="fa fa-certificate fa-stack-1x"></i>
+                              <span class="fa-stack-1x badge-text">{{new_request_count}}</span>
+                          </span>
+                 </a>
+                          
+                          <div class="dropdown-content" style="width:600px;">
+                            {% for request in new_request_list %}
+                                <a href="/account/venue_requests/">
+                                    <span class="col-1 pull-left" style="font-size:12px; color: black; padding-left: 20px;">{{ request.request_date }}</span>
+                                    New event request for {{request.start_datetime }}</a><br>
+                            {% endfor %}
+                            
+                          </div>
+                          
+                      {% else %}
+                          <div class="dropdown-content" style="width: 600px;">
+                            No new notifications<br> 
+                          </div>
+                      {% endif %}
+    
+                  
+                </div>
+                
             </li>
             <li>
                 <a href="/django_messages/inbox/">

@@ -10,7 +10,7 @@
       
       <div class="request-details">
           <div class="time-of-request">{{event.request_date}}</div>
-          <div>{{event.listing.title}}</div>
+          <div><a href="/venue/view_venue/{{ event.listing.id }}" target="_blank">{{event.listing.title}}</a></div>
 
               <div class="mini-profile-pic-container profile-pic-container">
                 <div class="profile-pic-wrapper">

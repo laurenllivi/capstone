@@ -133,6 +133,9 @@ def cc_info(request, rental_request_id):
                  
             msg.send()
             
+            # block out the times that have been reserved
+            
+            
             # redirect to the success page
             return HttpResponseRedirect('/payment/success/%s/' % rental_request.id)
             
